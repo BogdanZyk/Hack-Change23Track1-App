@@ -1,0 +1,136 @@
+schema {
+  query: RootQueryType
+  mutation: RootMutationType
+  subscription: RootSubsribeType
+}
+
+"""
+A directive used by the Apollo iOS client to annotate operations or fragments that should be used exclusively for generating local cache mutations instead of as standard operations.
+"""
+directive @apollo_client_ios_localCacheMutation on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
+
+""""""
+type User {
+  """"""
+  Avatar: String!
+
+  """"""
+  Id: String!
+
+  """"""
+  Login: String!
+}
+
+""""""
+input ServerSDP {
+  """"""
+  Sdp: String
+
+  """"""
+  Type: String
+}
+
+""""""
+type RootMutationType {
+  """"""
+  CreateRoom(Name: String!): Room
+
+  """"""
+  DeleteRoom(RoomId: String!): Room
+
+  """"""
+  InitConnection(RoomId: String!, SDP: ServerSDP!): ClientSDP
+
+  """"""
+  LikeRoom(RoomId: String!): Room
+
+  """"""
+  LoadAudio(RoomId: String!, AudioId: String!): Room
+
+  """"""
+  RoomAction(RoomId: String!, Action: String!, Arg: String!): Room
+
+  """"""
+  SignIn(Login: String!, Password: String!): Token
+
+  """"""
+  SignUp(Login: String!, Password: String!): Token
+}
+
+""""""
+type Audio {
+  """"""
+  Id: String
+
+  """"""
+  Name: String
+}
+
+""""""
+type Token {
+  """"""
+  Token: String!
+}
+
+""""""
+type ClientSDP {
+  """"""
+  Sdp: String!
+
+  """"""
+  Type: String!
+}
+
+""""""
+type RootSubsribeType {
+  """"""
+  RoomUpdates: Room
+}
+
+""""""
+type RootQueryType {
+  """"""
+  CurrentUser: User
+
+  """"""
+  ListAudio: [Audio]
+
+  """"""
+  ListRooms: [Room]
+}
+
+""""""
+type Room {
+  """"""
+  File: PlayFile
+
+  """"""
+  Id: String
+
+  """"""
+  Likes: Int
+
+  """"""
+  Members: [User]
+
+  """"""
+  Name: String
+
+  """"""
+  Owner: User
+}
+
+""""""
+type PlayFile {
+  """"""
+  CurrentSeconds: String
+
+  """"""
+  DurationSeconds: String
+
+  """"""
+  File: Audio
+
+  """"""
+  Pause: Boolean
+}

@@ -23,6 +23,8 @@
 		5A81F40E2B109CEC00D9998F /* SessionDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F40D2B109CEC00D9998F /* SessionDescription.swift */; };
 		5A81F4112B109E7F00D9998F /* WebSocketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4102B109E7F00D9998F /* WebSocketService.swift */; };
 		5A81F4132B109FF900D9998F /* IceCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4122B109FF900D9998F /* IceCandidate.swift */; };
+		5A81F4152B10A2D000D9998F /* apollo-codegen-config.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F4142B10A2D000D9998F /* apollo-codegen-config.json */; };
+		5A81F4172B10A3A700D9998F /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F4162B10A3A700D9998F /* schema.graphqls */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,8 @@
 		5A81F40D2B109CEC00D9998F /* SessionDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDescription.swift; sourceTree = "<group>"; };
 		5A81F4102B109E7F00D9998F /* WebSocketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketService.swift; sourceTree = "<group>"; };
 		5A81F4122B109FF900D9998F /* IceCandidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IceCandidate.swift; sourceTree = "<group>"; };
+		5A81F4142B10A2D000D9998F /* apollo-codegen-config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "apollo-codegen-config.json"; sourceTree = "<group>"; };
+		5A81F4162B10A3A700D9998F /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = schema.graphqls; path = GraphqlAPI/schema.graphqls; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,7 +179,9 @@
 		5A81F4052B1098B200D9998F /* GraphqlAPI */ = {
 			isa = PBXGroup;
 			children = (
+				5A81F4162B10A3A700D9998F /* schema.graphqls */,
 				5A81F4072B1098E400D9998F /* ApolloClient */,
+				5A81F4142B10A2D000D9998F /* apollo-codegen-config.json */,
 			);
 			path = GraphqlAPI;
 			sourceTree = "<group>";
@@ -271,6 +277,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A81F4172B10A3A700D9998F /* schema.graphqls in Resources */,
+				5A81F4152B10A2D000D9998F /* apollo-codegen-config.json in Resources */,
 				5A81F3DD2B1091AB00D9998F /* Preview Assets.xcassets in Resources */,
 				5A81F3DA2B1091AB00D9998F /* Assets.xcassets in Resources */,
 			);
