@@ -26,7 +26,7 @@ final class WebRTCClient: NSObject {
     weak var delegate: WebRTCClientDelegate?
     private let peerConnection: RTCPeerConnection
     private let rtcAudioSession = RTCAudioSession.sharedInstance()
-    private let mediaConstrains = [kRTCMediaConstraintsOfferToReceiveAudio: kRTCMediaConstraintsValueFalse]
+    private let mediaConstrains = [kRTCMediaConstraintsOfferToReceiveAudio: kRTCMediaConstraintsValueTrue]
     private var localDataChannel: RTCDataChannel?
     private var remoteDataChannel: RTCDataChannel?
 
@@ -53,7 +53,7 @@ final class WebRTCClient: NSObject {
         guard let peerConnection = WebRTCClient.factory.peerConnection(with: config, constraints: constraints, delegate: nil) else {
             fatalError("Could not create new RTCPeerConnection")
         }
-        rtcAudioSession.isAudioEnabled = true
+       // rtcAudioSession.isAudioEnabled = true
         self.peerConnection = peerConnection
         super.init()
         self.createDataSenders()
@@ -100,7 +100,7 @@ final class WebRTCClient: NSObject {
         self.rtcAudioSession.lockForConfiguration()
         do {
             try self.rtcAudioSession.setCategory(.playAndRecord)
-            try self.rtcAudioSession.overrideOutputAudioPort(.none)
+            try self.rtcAudioSession.overrideOutputAudioPort(.speaker)
             try self.rtcAudioSession.setActive(true)
             print("configureAudioSession")
         } catch let error {
