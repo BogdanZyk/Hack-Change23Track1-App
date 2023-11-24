@@ -49,9 +49,12 @@ extension AudioRoomView {
             case.chat:
                 Text("chat")
             case .members:
-                Text("members")
+                MembersView(ownerId: viewModel.room.owner?.id,
+                            members: viewModel.members.map({$0.value}))
             case .playlist:
-                Text("playlist")
+                PlaylistView(playedId: viewModel.currentAudio?.id,
+                             audios: viewModel.audios,
+                             onTap: viewModel.setAudio)
             }
         }
     }

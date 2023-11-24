@@ -11,7 +11,7 @@ struct PlayerView: View {
     var isDisabledControls: Bool = false
     @ObservedObject var viewModel: RoomViewModel
     @State private var showPlayerButton: Bool = false
-    private var maxHeight: CGFloat {  getRect().height / 3.5 }
+    private var maxHeight: CGFloat {  getRect().height / 3.2 }
     var body: some View {
         VStack(spacing: 0) {
             ZStack {
@@ -48,7 +48,7 @@ extension PlayerView {
     
     @ViewBuilder
     private var playerControlsButtons: some View {
-        if showPlayerButton  {
+        if showPlayerButton || !viewModel.audioState.isPlay {
             
             HStack(spacing: 20) {
                 forwardBackwardButton(isForward: false)
@@ -120,7 +120,7 @@ extension PlayerView {
     @ViewBuilder
     private var timeSlider: some View {
         if isDisabledControls {
-            ProgressView(value: 50, total: 100)
+            ProgressView(value: viewModel.audioState.time, total: viewModel.audioState.total)
                 .hCenter()
         } else {
             Slider(value: $viewModel.audioState.time, in: 0...viewModel.audioState.total) { change in

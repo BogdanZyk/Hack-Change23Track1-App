@@ -25,8 +25,17 @@ struct AudioRoomView: View {
         }
         .foregroundColor(.primaryFont)
         .background(Color.primaryBg.ignoresSafeArea())
+        .appAlert($viewModel.appAlert)
         .onAppear {
             viewModel.startConnectWebRTC()
+        }
+        .task {
+            await viewModel.fetchAudios()
+        }
+        .overlay {
+            if !viewModel.status.isConnected {
+                loader
+            }
         }
     }
 }
@@ -80,4 +89,15 @@ extension AudioRoomView {
         case chat, playlist, members
     }
     
+    private var loader: some View {
+        VStack {
+            Text("Connecting")
+            ProgressView()
+                .tint(.white)
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 20)
+        .background(Color.primaryGray, in: RoundedRectangle(cornerRadius: 12))
+        .foregroundColor(.white)
+    }
 }

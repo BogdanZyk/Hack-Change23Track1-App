@@ -91,7 +91,9 @@ extension RoomViewModel {
     }
     
     func setAudio(_ audio: FileAttrs) {
-        guard let id = room.id, let audioId = audio.id else { return }
+        guard let id = room.id,
+              let audioId = audio.id,
+              room.userIsOwner(for: currentUser.id) else { return }
         Task {
             do {
                 try await roomDataService.loadAudio(for: id, audioId: audioId)
