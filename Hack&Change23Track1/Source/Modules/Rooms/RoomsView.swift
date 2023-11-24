@@ -85,12 +85,13 @@ extension RoomsView {
     private func makeFullScreen(_ screen: FullScreen) -> some View {
         switch screen {
         case .create:
-            CreateRoomView { _ in
-                
+            CreateRoomView { newRoom in
+                self.screen = .room(newRoom)
+                viewModel.setRoom(newRoom)
             }
         case .join:
-            JoinInRoomView { _ in
-                
+            JoinInRoomView {
+                self.screen = .room($0)
             }
         case .room(let room):
             VStack {

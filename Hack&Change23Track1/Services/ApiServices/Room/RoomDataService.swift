@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Apollo
 
 final class RoomDataService {
     
@@ -13,7 +14,7 @@ final class RoomDataService {
     
     func fetchRooms() async throws -> [RoomAttrs] {
         let query = ListRoomsQuery()
-        let data = try await api.fetch(query: query)
+        let data = try await api.fetch(query: query, cachePolicy: .fetchIgnoringCacheData)
         
         guard let rooms = data?.data?.listRooms?.compactMap({$0?.fragments.roomAttrs}) else {
             throw URLError(.badServerResponse)

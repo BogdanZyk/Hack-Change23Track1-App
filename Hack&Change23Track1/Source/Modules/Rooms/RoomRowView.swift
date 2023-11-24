@@ -17,10 +17,8 @@ struct RoomRowView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(room.name ?? "No name")
                     .font(.large(weight: .medium))
-                if let currentFile = room.file?.file?.name {
-                    Text(currentFile)
-                        .font(.primary())
-                }
+                Text(room.file?.file?.name ?? "No set track")
+                    .font(.primary())
                 HStack(spacing: 16) {
                     Label("\(room.likes ?? 0)", systemImage: "heart")
                         .foregroundColor(Color.pink)

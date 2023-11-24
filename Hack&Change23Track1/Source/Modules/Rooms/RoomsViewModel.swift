@@ -11,12 +11,16 @@ import SwiftUI
 @MainActor
 class RoomsViewModel: ObservableObject {
     
-    @Published var rooms: [RoomAttrs] = []
+    @Published private(set) var rooms: [RoomAttrs] = []
     
     private let roomService = RoomDataService()
     
     func fetchAllRooms() async {
         let rooms = try? await roomService.fetchRooms()
         self.rooms = rooms ?? []
+    }
+    
+    func setRoom(_ room: RoomAttrs) {
+        rooms.append(room)
     }
 }

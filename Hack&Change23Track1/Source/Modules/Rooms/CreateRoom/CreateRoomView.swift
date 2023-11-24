@@ -66,7 +66,7 @@ struct CreateRoomView: View {
                                 }
                         }
                 }else {
-                    PhotosPicker(selection: $photoItem) {
+                    PhotosPicker(selection: $photoItem, matching: .images) {
                         ZStack {
                             Rectangle()
                                 .fill(Color.primaryGray)

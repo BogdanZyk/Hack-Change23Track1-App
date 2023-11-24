@@ -59,9 +59,6 @@ struct LazyNukeImage: View {
                                                            upscale: upscale)])
                 .priority(loadPriority)
                 .pipeline(imagePipeline)
-                .onAppear {
-                    print(url)
-                }
             } else {
                 errorView
             }

@@ -19,6 +19,7 @@ class CreateRoomViewModel: ObservableObject {
     func createRoom() async -> RoomAttrs? {
         showLoader = true
         do {
+            let base = template.createBase64Image()
             let newRoom = try await roomService.createRoom(name: template.name,
                                                            image: template.createBase64Image(),
                                                            isPrivate: template.isPrivateRoom)
