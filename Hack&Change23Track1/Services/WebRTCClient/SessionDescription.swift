@@ -24,19 +24,19 @@ struct SessionDescription: Codable {
             fatalError("Unknown RTCSessionDescription type: \(rtcSessionDescription.type.rawValue)")
         }
     }
-//
-//    init(from attrs: SDPClientAttrs) {
-//        self.sdp = attrs.sdp
-//        self.type = .init(rawValue: attrs.type) ?? .answer
-//    }
-//
+
+    init(from attrs: SDPClientAttrs) {
+        self.sdp = attrs.sdp
+        self.type = .init(rawValue: attrs.type) ?? .answer
+    }
+
     var rtcSessionDescription: RTCSessionDescription {
         return RTCSessionDescription(type: self.type.rtcSdpType, sdp: self.sdp)
     }
     
-//    var serverSDPParams: SchemaAPI.ServerSDP {
-//        .init(type: .init(stringLiteral: type.rawValue), sdp: .init(stringLiteral: sdp))
-//    }
+    var serverSDPParams: SchemaAPI.ServerSDP {
+        .init(type: .init(stringLiteral: type.rawValue), sdp: .init(stringLiteral: sdp))
+    }
 }
 
 extension SessionDescription {
