@@ -18,6 +18,7 @@
 		5A81F4002B1097EB00D9998F /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3FF2B1097EB00D9998F /* Color.swift */; };
 		5A81F4022B10980300D9998F /* DecoderEncoderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4012B10980300D9998F /* DecoderEncoderHelper.swift */; };
 		5A81F4042B10983A00D9998F /* RemoteCommandHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4032B10983A00D9998F /* RemoteCommandHelper.swift */; };
+		5A81F4092B1098FD00D9998F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4082B1098FD00D9998F /* Config.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		5A81F3FF2B1097EB00D9998F /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		5A81F4012B10980300D9998F /* DecoderEncoderHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoderEncoderHelper.swift; sourceTree = "<group>"; };
 		5A81F4032B10983A00D9998F /* RemoteCommandHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCommandHelper.swift; sourceTree = "<group>"; };
+		5A81F4082B1098FD00D9998F /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 		5A81F3D42B1091AA00D9998F /* Hack&Change23Track1 */ = {
 			isa = PBXGroup;
 			children = (
+				5A81F4052B1098B200D9998F /* GraphqlAPI */,
 				5A81F3F22B1096F200D9998F /* App */,
 				5A81F3F82B10975300D9998F /* Utils */,
 				5A81F3F32B10970700D9998F /* Services */,
@@ -88,6 +91,7 @@
 			children = (
 				5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */,
 				5A81F3D72B1091AA00D9998F /* ContentView.swift */,
+				5A81F4082B1098FD00D9998F /* Config.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -156,6 +160,21 @@
 				5A81F3FF2B1097EB00D9998F /* Color.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5A81F4052B1098B200D9998F /* GraphqlAPI */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F4072B1098E400D9998F /* ApolloClient */,
+			);
+			path = GraphqlAPI;
+			sourceTree = "<group>";
+		};
+		5A81F4072B1098E400D9998F /* ApolloClient */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ApolloClient;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,6 +260,7 @@
 				5A81F4022B10980300D9998F /* DecoderEncoderHelper.swift in Sources */,
 				5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */,
 				5A81F3FE2B1097DC00D9998F /* Double.swift in Sources */,
+				5A81F4092B1098FD00D9998F /* Config.swift in Sources */,
 				5A81F4002B1097EB00D9998F /* Color.swift in Sources */,
 				5A81F3FC2B1097BA00D9998F /* View.swift in Sources */,
 			);
