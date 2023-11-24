@@ -22,8 +22,8 @@ final class RoomDataService {
         return rooms
     }
     
-    func createRoom(with name: String) async throws -> RoomAttrs {
-        let mutation = CreateRoomMutation(name: name)
+    func createRoom(name: String, image: String, isPrivate: Bool) async throws -> RoomAttrs {
+        let mutation = CreateRoomMutation(name: name, image: .init(stringLiteral: image), private: .init(booleanLiteral: isPrivate))
         let data = try await api.mutation(mutation: mutation)
         guard let room = data.data?.createRoom?.fragments.roomAttrs else {
             throw URLError(.badServerResponse)

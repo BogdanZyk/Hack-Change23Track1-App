@@ -9,6 +9,11 @@ import SwiftUI
 
 
 extension Color {
+    
+    static let primaryBg = Color("primaryBg")
+    static let primaryPink = Color("primaryPink")
+    static let primaryGray = Color("primaryGray")
+    static let primaryFont = Color("primaryFont")
     static let bgColor = Color(red: 0.13, green: 0.13, blue: 0.13)
     
     static var random: Color {
