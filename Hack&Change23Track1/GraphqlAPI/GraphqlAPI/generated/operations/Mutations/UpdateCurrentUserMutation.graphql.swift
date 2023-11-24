@@ -4,45 +4,51 @@
 @_exported import ApolloAPI
 import Hack&Change23Track1
 
-class CurrentUserQuery: GraphQLQuery {
-  static let operationName: String = "CurrentUser"
+class UpdateCurrentUserMutation: GraphQLMutation {
+  static let operationName: String = "UpdateCurrentUser"
   static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query CurrentUser { CurrentUser { __typename ...UserAttrs } }"#,
+      #"mutation UpdateCurrentUser($avatar: String) { UpdateCurrentUser(Avatar: $avatar) { __typename ...UserAttrs } }"#,
       fragments: [UserAttrs.self]
     ))
 
-  public init() {}
+  public var avatar: GraphQLNullable<String>
+
+  public init(avatar: GraphQLNullable<String>) {
+    self.avatar = avatar
+  }
+
+  public var __variables: Variables? { ["avatar": avatar] }
 
   struct Data: SchemaAPI.SelectionSet {
     let __data: DataDict
     init(_dataDict: DataDict) { __data = _dataDict }
 
-    static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.RootQueryType }
+    static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.RootMutationType }
     static var __selections: [ApolloAPI.Selection] { [
-      .field("CurrentUser", CurrentUser?.self),
+      .field("UpdateCurrentUser", UpdateCurrentUser?.self, arguments: ["Avatar": .variable("avatar")]),
     ] }
 
-    var currentUser: CurrentUser? { __data["CurrentUser"] }
+    var updateCurrentUser: UpdateCurrentUser? { __data["UpdateCurrentUser"] }
 
     init(
-      currentUser: CurrentUser? = nil
+      updateCurrentUser: UpdateCurrentUser? = nil
     ) {
       self.init(_dataDict: DataDict(
         data: [
-          "__typename": SchemaAPI.Objects.RootQueryType.typename,
-          "CurrentUser": currentUser._fieldData,
+          "__typename": SchemaAPI.Objects.RootMutationType.typename,
+          "UpdateCurrentUser": updateCurrentUser._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(CurrentUserQuery.Data.self)
+          ObjectIdentifier(UpdateCurrentUserMutation.Data.self)
         ]
       ))
     }
 
-    /// CurrentUser
+    /// UpdateCurrentUser
     ///
     /// Parent Type: `User`
-    struct CurrentUser: SchemaAPI.SelectionSet {
+    struct UpdateCurrentUser: SchemaAPI.SelectionSet {
       let __data: DataDict
       init(_dataDict: DataDict) { __data = _dataDict }
 
@@ -76,7 +82,7 @@ class CurrentUserQuery: GraphQLQuery {
             "Avatar": avatar,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(CurrentUserQuery.Data.CurrentUser.self),
+            ObjectIdentifier(UpdateCurrentUserMutation.Data.UpdateCurrentUser.self),
             ObjectIdentifier(UserAttrs.self)
           ]
         ))

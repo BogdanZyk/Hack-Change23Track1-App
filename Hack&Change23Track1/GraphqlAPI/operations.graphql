@@ -18,6 +18,12 @@ query CurrentUser {
   }
 }
 
+mutation UpdateCurrentUser($avatar: String) {
+  UpdateCurrentUser(Avatar: $avatar) {
+    ...UserAttrs
+  }
+}
+
 fragment UserAttrs on User {
     Id
     Login

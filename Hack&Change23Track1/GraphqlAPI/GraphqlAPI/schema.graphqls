@@ -10,6 +10,63 @@ A directive used by the Apollo iOS client to annotate operations or fragments th
 directive @apollo_client_ios_localCacheMutation on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
 
 """"""
+type RootQueryType {
+  """"""
+  CurrentUser: User
+
+  """"""
+  GetRoomByKey(Key: String!): Room
+
+  """"""
+  ListAudio: [Audio]
+
+  """"""
+  ListRooms: [Room]
+}
+
+""""""
+type PlayFile {
+  """"""
+  CurrentSeconds: String
+
+  """"""
+  DurationSeconds: String
+
+  """"""
+  File: Audio
+
+  """"""
+  Pause: Boolean
+}
+
+""""""
+type User {
+  """"""
+  Avatar: String!
+
+  """"""
+  Id: String!
+
+  """"""
+  Login: String!
+}
+
+""""""
+type Token {
+  """"""
+  Token: String!
+}
+
+""""""
+type ClientSDP {
+  """"""
+  Sdp: String!
+
+  """"""
+  Type: String!
+}
+
+""""""
 type RootSubsribeType {
   """"""
   RoomUpdates: Room
@@ -94,61 +151,4 @@ input ServerSDP {
 
   """"""
   Sdp: String
-}
-
-""""""
-type RootQueryType {
-  """"""
-  CurrentUser: User
-
-  """"""
-  GetRoomByKey(Key: String!): Room
-
-  """"""
-  ListAudio: [Audio]
-
-  """"""
-  ListRooms: [Room]
-}
-
-""""""
-type PlayFile {
-  """"""
-  CurrentSeconds: String
-
-  """"""
-  DurationSeconds: String
-
-  """"""
-  File: Audio
-
-  """"""
-  Pause: Boolean
-}
-
-""""""
-type User {
-  """"""
-  Avatar: String!
-
-  """"""
-  Id: String!
-
-  """"""
-  Login: String!
-}
-
-""""""
-type Token {
-  """"""
-  Token: String!
-}
-
-""""""
-type ClientSDP {
-  """"""
-  Sdp: String!
-
-  """"""
-  Type: String!
 }

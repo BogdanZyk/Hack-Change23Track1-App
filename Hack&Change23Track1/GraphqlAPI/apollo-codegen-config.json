@@ -19,7 +19,7 @@
           "schemaTypes": {
               "moduleType": {
                   "embeddedInTarget": {
-                      "name": "Hack&Change23Track1&",
+                      "name": "Hack&Change23Track1",
                       "accessModifier": "public"
                   }
               },
