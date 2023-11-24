@@ -56,6 +56,11 @@
 		5A81F4592B10A49C00D9998F /* SchemaMetadata.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F43D2B10A49C00D9998F /* SchemaMetadata.graphql.swift */; };
 		5A81F45E2B10B75F00D9998F /* RoomDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F45D2B10B75F00D9998F /* RoomDataService.swift */; };
 		5A81F4602B10B79500D9998F /* UserDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F45F2B10B79500D9998F /* UserDataService.swift */; };
+		5A81F4632B10B95000D9998F /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4622B10B95000D9998F /* AuthView.swift */; };
+		5A81F4662B10B98500D9998F /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4652B10B98500D9998F /* AuthManager.swift */; };
+		5A81F4682B10B9A900D9998F /* AppAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4672B10B9A900D9998F /* AppAlert.swift */; };
+		5A81F46A2B10BA8100D9998F /* ApolloClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4692B10BA8100D9998F /* ApolloClient.swift */; };
+		5A81F46C2B10BABB00D9998F /* Apollo+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F46B2B10BABB00D9998F /* Apollo+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +112,11 @@
 		5A81F43D2B10A49C00D9998F /* SchemaMetadata.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaMetadata.graphql.swift; sourceTree = "<group>"; };
 		5A81F45D2B10B75F00D9998F /* RoomDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDataService.swift; sourceTree = "<group>"; };
 		5A81F45F2B10B79500D9998F /* UserDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataService.swift; sourceTree = "<group>"; };
+		5A81F4622B10B95000D9998F /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		5A81F4652B10B98500D9998F /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		5A81F4672B10B9A900D9998F /* AppAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAlert.swift; sourceTree = "<group>"; };
+		5A81F4692B10BA8100D9998F /* ApolloClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClient.swift; sourceTree = "<group>"; };
+		5A81F46B2B10BABB00D9998F /* Apollo+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Apollo+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,7 +155,7 @@
 				5A81F3F22B1096F200D9998F /* App */,
 				5A81F3F82B10975300D9998F /* Utils */,
 				5A81F3F32B10970700D9998F /* Services */,
-				5A81F3F42B10971700D9998F /* Modules */,
+				5A81F3F42B10971700D9998F /* Source */,
 				5A81F3D92B1091AB00D9998F /* Assets.xcassets */,
 				5A81F3DB2B1091AB00D9998F /* Preview Content */,
 			);
@@ -180,14 +190,15 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		5A81F3F42B10971700D9998F /* Modules */ = {
+		5A81F3F42B10971700D9998F /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				5A81F3F52B10973000D9998F /* Models */,
-				5A81F3F62B10973300D9998F /* Views */,
+				5A81F4642B10B97200D9998F /* Managers */,
+				5A81F3F62B10973300D9998F /* Modules */,
 				5A81F3F72B10973B00D9998F /* ViewComponents */,
 			);
-			path = Modules;
+			path = Source;
 			sourceTree = "<group>";
 		};
 		5A81F3F52B10973000D9998F /* Models */ = {
@@ -197,16 +208,18 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		5A81F3F62B10973300D9998F /* Views */ = {
+		5A81F3F62B10973300D9998F /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				5A81F4612B10B91D00D9998F /* Auth */,
 			);
-			path = Views;
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		5A81F3F72B10973B00D9998F /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
+				5A81F4672B10B9A900D9998F /* AppAlert.swift */,
 			);
 			path = ViewComponents;
 			sourceTree = "<group>";
@@ -254,6 +267,8 @@
 		5A81F4072B1098E400D9998F /* ApolloClient */ = {
 			isa = PBXGroup;
 			children = (
+				5A81F4692B10BA8100D9998F /* ApolloClient.swift */,
+				5A81F46B2B10BABB00D9998F /* Apollo+Extensions.swift */,
 			);
 			path = ApolloClient;
 			sourceTree = "<group>";
@@ -393,6 +408,22 @@
 			path = Room;
 			sourceTree = "<group>";
 		};
+		5A81F4612B10B91D00D9998F /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F4622B10B95000D9998F /* AuthView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		5A81F4642B10B97200D9998F /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F4652B10B98500D9998F /* AuthManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -494,8 +525,10 @@
 				5A81F4512B10A49C00D9998F /* RootMutationType.graphql.swift in Sources */,
 				5A81F40B2B109A1700D9998F /* WebRTCClient.swift in Sources */,
 				5A81F44A2B10A49C00D9998F /* LikeRoomMutation.graphql.swift in Sources */,
+				5A81F4632B10B95000D9998F /* AuthView.swift in Sources */,
 				5A81F43F2B10A49C00D9998F /* PlayerItemAttrs.graphql.swift in Sources */,
 				5A81F4432B10A49C00D9998F /* LoadAudioMutation.graphql.swift in Sources */,
+				5A81F46A2B10BA8100D9998F /* ApolloClient.swift in Sources */,
 				5A81F4542B10A49C00D9998F /* RootQueryType.graphql.swift in Sources */,
 				5A81F4112B109E7F00D9998F /* WebSocketService.swift in Sources */,
 				5A81F4092B1098FD00D9998F /* Config.swift in Sources */,
@@ -511,9 +544,12 @@
 				5A81F44C2B10A49C00D9998F /* ListAudioQuery.graphql.swift in Sources */,
 				5A81F4132B109FF900D9998F /* IceCandidate.swift in Sources */,
 				5A81F4572B10A49C00D9998F /* SchemaConfiguration.swift in Sources */,
+				5A81F4682B10B9A900D9998F /* AppAlert.swift in Sources */,
 				5A81F45E2B10B75F00D9998F /* RoomDataService.swift in Sources */,
 				5A81F44D2B10A49C00D9998F /* CurrentUserQuery.graphql.swift in Sources */,
 				5A81F4422B10A49C00D9998F /* SDPClientAttrs.graphql.swift in Sources */,
+				5A81F46C2B10BABB00D9998F /* Apollo+Extensions.swift in Sources */,
+				5A81F4662B10B98500D9998F /* AuthManager.swift in Sources */,
 				5A81F4592B10A49C00D9998F /* SchemaMetadata.graphql.swift in Sources */,
 				5A81F4582B10A49C00D9998F /* ServerSDP.graphql.swift in Sources */,
 			);
@@ -652,6 +688,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -681,6 +718,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

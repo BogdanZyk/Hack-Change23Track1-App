@@ -105,3 +105,11 @@ enum RoomAction: String {
 extension RoomAttrs: Identifiable {}
 extension FileAttrs: Identifiable {}
 
+
+extension RoomAttrs {
+    
+    func userIsOwner(for id: String) -> Bool {
+        owner?.id == id
+    }
+    
+}

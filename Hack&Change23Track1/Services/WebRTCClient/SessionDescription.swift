@@ -35,7 +35,7 @@ struct SessionDescription: Codable {
     }
     
     var serverSDPParams: SchemaAPI.ServerSDP {
-        .init(type: .init(stringLiteral: type.rawValue), sdp: .init(stringLiteral: sdp))
+        .init(sdp: .init(stringLiteral: sdp), type: .init(stringLiteral: type.rawValue))
     }
 }
 
