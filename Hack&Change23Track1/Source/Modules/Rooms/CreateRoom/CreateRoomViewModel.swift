@@ -52,10 +52,7 @@ extension CreateRoomViewModel {
         
         
         func createBase64Image() -> String {
-            guard let image,
-                  let imageData: Data = image.jpegData(compressionQuality: 0.9) else { return "" }
-            let imageString = imageData.base64EncodedString()
-            return "data:image/png;base64," + imageString
+            Helpers.convertImageToBase64(image: image, compressionQuality: 0.9) ?? ""
         }
     }
     

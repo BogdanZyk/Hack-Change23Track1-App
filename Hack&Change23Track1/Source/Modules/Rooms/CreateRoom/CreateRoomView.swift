@@ -24,9 +24,7 @@ struct CreateRoomView: View {
         .padding(.horizontal)
         .background(Color.primaryBg)
         .foregroundColor(.primaryFont)
-        .onChange(of: photoItem) {
-            setImage($0)
-        }
+        .onChange(of: photoItem, perform: setImage)
         .appAlert($viewModel.appAlert)
     }
     

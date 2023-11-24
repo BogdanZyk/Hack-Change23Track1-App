@@ -30,13 +30,12 @@ final class AuthManager: ObservableObject {
         isSingIn = false
     }
     
-    func singUp(login: String, pass: String) async {
+    func singUp(login: String, pass: String, image: String) async {
         
         do {
             let token = try await service.singUp(login: login, password: pass)
             saveJWT(token)
         } catch {
-            print(error)
             appAlert = .errors(errors: [error])
         }
     }
@@ -47,7 +46,6 @@ final class AuthManager: ObservableObject {
             let token = try await service.singIn(login: login, password: pass)
             saveJWT(token)
         } catch {
-            print(error)
             appAlert = .errors(errors: [error])
         }
     }

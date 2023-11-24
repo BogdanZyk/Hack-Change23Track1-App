@@ -11,15 +11,23 @@ struct PrimaryTextField: View {
     @Binding var text: String
     var label: String
     var title: String?
+    var isSecure: Bool = false
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             if let title {
                 Text(title)
                     .font(.large())
             }
-            TextField(text: $text) {
-                Text(label)
-                    .foregroundColor(.black.opacity(0.4))
+            Group {
+                if isSecure {
+                    SecureField(text: $text) {
+                        labelView
+                    }
+                } else {
+                    TextField(text: $text) {
+                        labelView
+                    }
+                }
             }
             .font(.primary())
             .padding(.vertical, 14)
@@ -28,6 +36,11 @@ struct PrimaryTextField: View {
         }
         .foregroundColor(.primaryFont)
     }
+    
+   private var labelView: some View {
+        Text(label)
+            .foregroundColor(.secondaryGray)
+    }
 }
 
 struct PrimaryTextField_Previews: PreviewProvider {
@@ -35,6 +48,7 @@ struct PrimaryTextField_Previews: PreviewProvider {
         VStack {
             PrimaryTextField(text: .constant(""), label: "Label")
             PrimaryTextField(text: .constant(""), label: "Label", title: "Title")
+            PrimaryTextField(text: .constant(""), label: "Label", title: "Title", isSecure: true)
         }
         .padding()
     }

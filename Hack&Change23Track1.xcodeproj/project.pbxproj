@@ -75,6 +75,7 @@
 		5A81F4892B10D29200D9998F /* JoinInRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4882B10D29200D9998F /* JoinInRoomView.swift */; };
 		5A81F48B2B10D63600D9998F /* GetRoomByKeyQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F48A2B10D63600D9998F /* GetRoomByKeyQuery.graphql.swift */; };
 		5A81F48D2B10DAC500D9998F /* RoomRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F48C2B10DAC500D9998F /* RoomRowView.swift */; };
+		5A81F48F2B10E44400D9998F /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F48E2B10E44400D9998F /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -145,6 +146,7 @@
 		5A81F4882B10D29200D9998F /* JoinInRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinInRoomView.swift; sourceTree = "<group>"; };
 		5A81F48A2B10D63600D9998F /* GetRoomByKeyQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRoomByKeyQuery.graphql.swift; sourceTree = "<group>"; };
 		5A81F48C2B10DAC500D9998F /* RoomRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRowView.swift; sourceTree = "<group>"; };
+		5A81F48E2B10E44400D9998F /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,6 +274,7 @@
 			children = (
 				5A81F4012B10980300D9998F /* DecoderEncoderHelper.swift */,
 				5A81F4032B10983A00D9998F /* RemoteCommandHelper.swift */,
+				5A81F48E2B10E44400D9998F /* Helpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -644,6 +647,7 @@
 				5A81F44D2B10A49C00D9998F /* CurrentUserQuery.graphql.swift in Sources */,
 				5A81F4422B10A49C00D9998F /* SDPClientAttrs.graphql.swift in Sources */,
 				5A81F46C2B10BABB00D9998F /* Apollo+Extensions.swift in Sources */,
+				5A81F48F2B10E44400D9998F /* Helpers.swift in Sources */,
 				5A81F4662B10B98500D9998F /* AuthManager.swift in Sources */,
 				5A81F4842B10CA0200D9998F /* PrimaryButton.swift in Sources */,
 				5A81F4592B10A49C00D9998F /* SchemaMetadata.graphql.swift in Sources */,
