@@ -76,6 +76,7 @@
 		5A81F48B2B10D63600D9998F /* GetRoomByKeyQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F48A2B10D63600D9998F /* GetRoomByKeyQuery.graphql.swift */; };
 		5A81F48D2B10DAC500D9998F /* RoomRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F48C2B10DAC500D9998F /* RoomRowView.swift */; };
 		5A81F48F2B10E44400D9998F /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F48E2B10E44400D9998F /* Helpers.swift */; };
+		5A81F4912B10EACD00D9998F /* UpdateCurrentUserMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4902B10EACD00D9998F /* UpdateCurrentUserMutation.graphql.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -147,6 +148,7 @@
 		5A81F48A2B10D63600D9998F /* GetRoomByKeyQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRoomByKeyQuery.graphql.swift; sourceTree = "<group>"; };
 		5A81F48C2B10DAC500D9998F /* RoomRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRowView.swift; sourceTree = "<group>"; };
 		5A81F48E2B10E44400D9998F /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		5A81F4902B10EACD00D9998F /* UpdateCurrentUserMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateCurrentUserMutation.graphql.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -364,6 +366,7 @@
 		5A81F4222B10A49C00D9998F /* Mutations */ = {
 			isa = PBXGroup;
 			children = (
+				5A81F4902B10EACD00D9998F /* UpdateCurrentUserMutation.graphql.swift */,
 				5A81F4232B10A49C00D9998F /* LoadAudioMutation.graphql.swift */,
 				5A81F4242B10A49C00D9998F /* RoomActionMutation.graphql.swift */,
 				5A81F4252B10A49C00D9998F /* InitConnectionMutation.graphql.swift */,
@@ -590,6 +593,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A81F4912B10EACD00D9998F /* UpdateCurrentUserMutation.graphql.swift in Sources */,
 				5A81F3D82B1091AA00D9998F /* ContentView.swift in Sources */,
 				5A81F4452B10A49C00D9998F /* InitConnectionMutation.graphql.swift in Sources */,
 				5A81F4562B10A49C00D9998F /* Token.graphql.swift in Sources */,

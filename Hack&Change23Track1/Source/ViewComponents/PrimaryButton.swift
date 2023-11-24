@@ -16,8 +16,6 @@ struct PrimaryButton: View {
         Button {
             action()
         } label: {
-            
- 
             Text(label)
                 .opacity(isLoading ? 0 : 1)
                 .font(.primary(weight: .medium))

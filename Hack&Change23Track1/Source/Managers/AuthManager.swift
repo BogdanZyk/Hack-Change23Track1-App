@@ -35,6 +35,7 @@ final class AuthManager: ObservableObject {
         do {
             let token = try await service.singUp(login: login, password: pass)
             saveJWT(token)
+            try? await updateUserAvatar(image)
         } catch {
             appAlert = .errors(errors: [error])
         }
@@ -48,6 +49,11 @@ final class AuthManager: ObservableObject {
         } catch {
             appAlert = .errors(errors: [error])
         }
+    }
+    
+    func updateUserAvatar(_ image: String?) async throws {
+        guard let image else { return }
+        try await service.updateUserAvatar(avatar: image)
     }
     
     private func saveJWT(_ token: String) {

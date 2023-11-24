@@ -31,6 +31,16 @@ class UserDataService {
         return token
     }
     
+    @discardableResult
+    func updateUserAvatar(avatar: String) async throws -> UserAttrs {
+        let mutation = UpdateCurrentUserMutation(avatar: .init(stringLiteral: avatar))
+        let data = try await api.mutation(mutation: mutation, publishResultToStore: false)
+        guard let user = data.data?.updateCurrentUser?.fragments.userAttrs else {
+            throw URLError(.badServerResponse)
+        }
+        return user
+    }
+    
     func getCurrentUser() async throws -> UserAttrs {
         let query = CurrentUserQuery()
         let data = try await api.fetch(query: query)
