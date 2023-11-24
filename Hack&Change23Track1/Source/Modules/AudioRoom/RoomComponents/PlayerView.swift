@@ -60,7 +60,7 @@ extension PlayerView {
                         .foregroundColor(.primaryFont)
                 }
                 .onTapGesture {
-                   // viewModel.togglePlay()
+                    viewModel.togglePlay()
                 }
                 forwardBackwardButton(isForward: true)
             }
@@ -78,17 +78,17 @@ extension PlayerView {
     
     @ViewBuilder
     private func forwardBackwardButton(isForward: Bool ) -> some View {
-//        let isDisabled = isForward ? viewModel.isDisabledNext : viewModel.isDisabledPreviews
+        let isDisabled = isForward ? viewModel.isDisabledNext : viewModel.isDisabledPreviews
         Image(systemName: isForward ? "forward.fill" : "backward.fill")
-            //.opacity(isDisabled ? 0.5 : 1)
+            .opacity(isDisabled ? 0.5 : 1)
             .onTapGesture {
-//                if isForward {
-//                    viewModel.startNextAudio()
-//                } else {
-//                    viewModel.startPreviewsAudio()
-//                }
+                if isForward {
+                    viewModel.startNextAudio()
+                } else {
+                    viewModel.startPreviewsAudio()
+                }
             }
-            //.disabled(isDisabled)
+            .disabled(isDisabled)
     }
     
     
@@ -126,7 +126,7 @@ extension PlayerView {
             Slider(value: $viewModel.audioState.time, in: 0...viewModel.audioState.total) { change in
                 viewModel.audioState.isScrubbingTime = change
                 if !change {
-                    //viewModel.moveAudioTime()
+                    viewModel.moveAudioTime()
                 }
             }
         }
@@ -143,7 +143,7 @@ extension PlayerView {
             Text("\(viewModel.roomCountLikes)")
         }
         .onTapGesture {
-            //viewModel.likeRoom()
+            viewModel.likeRoom()
         }
     }
 }
