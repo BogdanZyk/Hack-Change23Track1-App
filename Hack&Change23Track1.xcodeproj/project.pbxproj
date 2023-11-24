@@ -26,6 +26,34 @@
 		5A81F4152B10A2D000D9998F /* apollo-codegen-config.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F4142B10A2D000D9998F /* apollo-codegen-config.json */; };
 		5A81F4172B10A3A700D9998F /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F4162B10A3A700D9998F /* schema.graphqls */; };
 		5A81F4192B10A43800D9998F /* operations.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F4182B10A43800D9998F /* operations.graphql */; };
+		5A81F43E2B10A49C00D9998F /* RoomAttrs.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F41D2B10A49C00D9998F /* RoomAttrs.graphql.swift */; };
+		5A81F43F2B10A49C00D9998F /* PlayerItemAttrs.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F41E2B10A49C00D9998F /* PlayerItemAttrs.graphql.swift */; };
+		5A81F4402B10A49C00D9998F /* FileAttrs.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F41F2B10A49C00D9998F /* FileAttrs.graphql.swift */; };
+		5A81F4412B10A49C00D9998F /* UserAttrs.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4202B10A49C00D9998F /* UserAttrs.graphql.swift */; };
+		5A81F4422B10A49C00D9998F /* SDPClientAttrs.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4212B10A49C00D9998F /* SDPClientAttrs.graphql.swift */; };
+		5A81F4432B10A49C00D9998F /* LoadAudioMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4232B10A49C00D9998F /* LoadAudioMutation.graphql.swift */; };
+		5A81F4442B10A49C00D9998F /* RoomActionMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4242B10A49C00D9998F /* RoomActionMutation.graphql.swift */; };
+		5A81F4452B10A49C00D9998F /* InitConnectionMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4252B10A49C00D9998F /* InitConnectionMutation.graphql.swift */; };
+		5A81F4462B10A49C00D9998F /* SignInMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4262B10A49C00D9998F /* SignInMutation.graphql.swift */; };
+		5A81F4472B10A49C00D9998F /* SignUpMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4272B10A49C00D9998F /* SignUpMutation.graphql.swift */; };
+		5A81F4482B10A49C00D9998F /* DeleteRoomMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4282B10A49C00D9998F /* DeleteRoomMutation.graphql.swift */; };
+		5A81F4492B10A49C00D9998F /* CreateRoomMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4292B10A49C00D9998F /* CreateRoomMutation.graphql.swift */; };
+		5A81F44A2B10A49C00D9998F /* LikeRoomMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F42A2B10A49C00D9998F /* LikeRoomMutation.graphql.swift */; };
+		5A81F44B2B10A49C00D9998F /* ListRoomsQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F42C2B10A49C00D9998F /* ListRoomsQuery.graphql.swift */; };
+		5A81F44C2B10A49C00D9998F /* ListAudioQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F42D2B10A49C00D9998F /* ListAudioQuery.graphql.swift */; };
+		5A81F44D2B10A49C00D9998F /* CurrentUserQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F42E2B10A49C00D9998F /* CurrentUserQuery.graphql.swift */; };
+		5A81F44E2B10A49C00D9998F /* SchemaAPI.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4302B10A49C00D9998F /* SchemaAPI.graphql.swift */; };
+		5A81F44F2B10A49C00D9998F /* PlayFile.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4322B10A49C00D9998F /* PlayFile.graphql.swift */; };
+		5A81F4502B10A49C00D9998F /* User.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4332B10A49C00D9998F /* User.graphql.swift */; };
+		5A81F4512B10A49C00D9998F /* RootMutationType.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4342B10A49C00D9998F /* RootMutationType.graphql.swift */; };
+		5A81F4522B10A49C00D9998F /* ClientSDP.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4352B10A49C00D9998F /* ClientSDP.graphql.swift */; };
+		5A81F4532B10A49C00D9998F /* Audio.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4362B10A49C00D9998F /* Audio.graphql.swift */; };
+		5A81F4542B10A49C00D9998F /* RootQueryType.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4372B10A49C00D9998F /* RootQueryType.graphql.swift */; };
+		5A81F4552B10A49C00D9998F /* Room.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4382B10A49C00D9998F /* Room.graphql.swift */; };
+		5A81F4562B10A49C00D9998F /* Token.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4392B10A49C00D9998F /* Token.graphql.swift */; };
+		5A81F4572B10A49C00D9998F /* SchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F43A2B10A49C00D9998F /* SchemaConfiguration.swift */; };
+		5A81F4582B10A49C00D9998F /* ServerSDP.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F43C2B10A49C00D9998F /* ServerSDP.graphql.swift */; };
+		5A81F4592B10A49C00D9998F /* SchemaMetadata.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F43D2B10A49C00D9998F /* SchemaMetadata.graphql.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +75,34 @@
 		5A81F4142B10A2D000D9998F /* apollo-codegen-config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "apollo-codegen-config.json"; sourceTree = "<group>"; };
 		5A81F4162B10A3A700D9998F /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = schema.graphqls; path = GraphqlAPI/schema.graphqls; sourceTree = "<group>"; };
 		5A81F4182B10A43800D9998F /* operations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = operations.graphql; sourceTree = "<group>"; };
+		5A81F41D2B10A49C00D9998F /* RoomAttrs.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomAttrs.graphql.swift; sourceTree = "<group>"; };
+		5A81F41E2B10A49C00D9998F /* PlayerItemAttrs.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerItemAttrs.graphql.swift; sourceTree = "<group>"; };
+		5A81F41F2B10A49C00D9998F /* FileAttrs.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileAttrs.graphql.swift; sourceTree = "<group>"; };
+		5A81F4202B10A49C00D9998F /* UserAttrs.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAttrs.graphql.swift; sourceTree = "<group>"; };
+		5A81F4212B10A49C00D9998F /* SDPClientAttrs.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDPClientAttrs.graphql.swift; sourceTree = "<group>"; };
+		5A81F4232B10A49C00D9998F /* LoadAudioMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadAudioMutation.graphql.swift; sourceTree = "<group>"; };
+		5A81F4242B10A49C00D9998F /* RoomActionMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomActionMutation.graphql.swift; sourceTree = "<group>"; };
+		5A81F4252B10A49C00D9998F /* InitConnectionMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitConnectionMutation.graphql.swift; sourceTree = "<group>"; };
+		5A81F4262B10A49C00D9998F /* SignInMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInMutation.graphql.swift; sourceTree = "<group>"; };
+		5A81F4272B10A49C00D9998F /* SignUpMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpMutation.graphql.swift; sourceTree = "<group>"; };
+		5A81F4282B10A49C00D9998F /* DeleteRoomMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteRoomMutation.graphql.swift; sourceTree = "<group>"; };
+		5A81F4292B10A49C00D9998F /* CreateRoomMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateRoomMutation.graphql.swift; sourceTree = "<group>"; };
+		5A81F42A2B10A49C00D9998F /* LikeRoomMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeRoomMutation.graphql.swift; sourceTree = "<group>"; };
+		5A81F42C2B10A49C00D9998F /* ListRoomsQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRoomsQuery.graphql.swift; sourceTree = "<group>"; };
+		5A81F42D2B10A49C00D9998F /* ListAudioQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListAudioQuery.graphql.swift; sourceTree = "<group>"; };
+		5A81F42E2B10A49C00D9998F /* CurrentUserQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserQuery.graphql.swift; sourceTree = "<group>"; };
+		5A81F4302B10A49C00D9998F /* SchemaAPI.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaAPI.graphql.swift; sourceTree = "<group>"; };
+		5A81F4322B10A49C00D9998F /* PlayFile.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayFile.graphql.swift; sourceTree = "<group>"; };
+		5A81F4332B10A49C00D9998F /* User.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.graphql.swift; sourceTree = "<group>"; };
+		5A81F4342B10A49C00D9998F /* RootMutationType.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootMutationType.graphql.swift; sourceTree = "<group>"; };
+		5A81F4352B10A49C00D9998F /* ClientSDP.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientSDP.graphql.swift; sourceTree = "<group>"; };
+		5A81F4362B10A49C00D9998F /* Audio.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.graphql.swift; sourceTree = "<group>"; };
+		5A81F4372B10A49C00D9998F /* RootQueryType.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootQueryType.graphql.swift; sourceTree = "<group>"; };
+		5A81F4382B10A49C00D9998F /* Room.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Room.graphql.swift; sourceTree = "<group>"; };
+		5A81F4392B10A49C00D9998F /* Token.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.graphql.swift; sourceTree = "<group>"; };
+		5A81F43A2B10A49C00D9998F /* SchemaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaConfiguration.swift; sourceTree = "<group>"; };
+		5A81F43C2B10A49C00D9998F /* ServerSDP.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerSDP.graphql.swift; sourceTree = "<group>"; };
+		5A81F43D2B10A49C00D9998F /* SchemaMetadata.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaMetadata.graphql.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +237,7 @@
 		5A81F4052B1098B200D9998F /* GraphqlAPI */ = {
 			isa = PBXGroup;
 			children = (
+				5A81F41A2B10A49C00D9998F /* generated */,
 				5A81F4072B1098E400D9998F /* ApolloClient */,
 				5A81F4162B10A3A700D9998F /* schema.graphqls */,
 				5A81F4182B10A43800D9998F /* operations.graphql */,
@@ -212,6 +269,98 @@
 				5A81F4102B109E7F00D9998F /* WebSocketService.swift */,
 			);
 			path = WebSocketService;
+			sourceTree = "<group>";
+		};
+		5A81F41A2B10A49C00D9998F /* generated */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F41B2B10A49C00D9998F /* operations */,
+				5A81F42F2B10A49C00D9998F /* schema */,
+			);
+			name = generated;
+			path = GraphqlAPI/generated;
+			sourceTree = "<group>";
+		};
+		5A81F41B2B10A49C00D9998F /* operations */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F41C2B10A49C00D9998F /* Fragments */,
+				5A81F4222B10A49C00D9998F /* Mutations */,
+				5A81F42B2B10A49C00D9998F /* Queries */,
+			);
+			path = operations;
+			sourceTree = "<group>";
+		};
+		5A81F41C2B10A49C00D9998F /* Fragments */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F41D2B10A49C00D9998F /* RoomAttrs.graphql.swift */,
+				5A81F41E2B10A49C00D9998F /* PlayerItemAttrs.graphql.swift */,
+				5A81F41F2B10A49C00D9998F /* FileAttrs.graphql.swift */,
+				5A81F4202B10A49C00D9998F /* UserAttrs.graphql.swift */,
+				5A81F4212B10A49C00D9998F /* SDPClientAttrs.graphql.swift */,
+			);
+			path = Fragments;
+			sourceTree = "<group>";
+		};
+		5A81F4222B10A49C00D9998F /* Mutations */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F4232B10A49C00D9998F /* LoadAudioMutation.graphql.swift */,
+				5A81F4242B10A49C00D9998F /* RoomActionMutation.graphql.swift */,
+				5A81F4252B10A49C00D9998F /* InitConnectionMutation.graphql.swift */,
+				5A81F4262B10A49C00D9998F /* SignInMutation.graphql.swift */,
+				5A81F4272B10A49C00D9998F /* SignUpMutation.graphql.swift */,
+				5A81F4282B10A49C00D9998F /* DeleteRoomMutation.graphql.swift */,
+				5A81F4292B10A49C00D9998F /* CreateRoomMutation.graphql.swift */,
+				5A81F42A2B10A49C00D9998F /* LikeRoomMutation.graphql.swift */,
+			);
+			path = Mutations;
+			sourceTree = "<group>";
+		};
+		5A81F42B2B10A49C00D9998F /* Queries */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F42C2B10A49C00D9998F /* ListRoomsQuery.graphql.swift */,
+				5A81F42D2B10A49C00D9998F /* ListAudioQuery.graphql.swift */,
+				5A81F42E2B10A49C00D9998F /* CurrentUserQuery.graphql.swift */,
+			);
+			path = Queries;
+			sourceTree = "<group>";
+		};
+		5A81F42F2B10A49C00D9998F /* schema */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F4302B10A49C00D9998F /* SchemaAPI.graphql.swift */,
+				5A81F4312B10A49C00D9998F /* Objects */,
+				5A81F43A2B10A49C00D9998F /* SchemaConfiguration.swift */,
+				5A81F43B2B10A49C00D9998F /* InputObjects */,
+				5A81F43D2B10A49C00D9998F /* SchemaMetadata.graphql.swift */,
+			);
+			path = schema;
+			sourceTree = "<group>";
+		};
+		5A81F4312B10A49C00D9998F /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F4322B10A49C00D9998F /* PlayFile.graphql.swift */,
+				5A81F4332B10A49C00D9998F /* User.graphql.swift */,
+				5A81F4342B10A49C00D9998F /* RootMutationType.graphql.swift */,
+				5A81F4352B10A49C00D9998F /* ClientSDP.graphql.swift */,
+				5A81F4362B10A49C00D9998F /* Audio.graphql.swift */,
+				5A81F4372B10A49C00D9998F /* RootQueryType.graphql.swift */,
+				5A81F4382B10A49C00D9998F /* Room.graphql.swift */,
+				5A81F4392B10A49C00D9998F /* Token.graphql.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		5A81F43B2B10A49C00D9998F /* InputObjects */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F43C2B10A49C00D9998F /* ServerSDP.graphql.swift */,
+			);
+			path = InputObjects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,17 +445,45 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A81F3D82B1091AA00D9998F /* ContentView.swift in Sources */,
+				5A81F4452B10A49C00D9998F /* InitConnectionMutation.graphql.swift in Sources */,
+				5A81F4562B10A49C00D9998F /* Token.graphql.swift in Sources */,
 				5A81F4042B10983A00D9998F /* RemoteCommandHelper.swift in Sources */,
+				5A81F4532B10A49C00D9998F /* Audio.graphql.swift in Sources */,
+				5A81F4522B10A49C00D9998F /* ClientSDP.graphql.swift in Sources */,
+				5A81F4462B10A49C00D9998F /* SignInMutation.graphql.swift in Sources */,
+				5A81F4502B10A49C00D9998F /* User.graphql.swift in Sources */,
 				5A81F4022B10980300D9998F /* DecoderEncoderHelper.swift in Sources */,
+				5A81F4442B10A49C00D9998F /* RoomActionMutation.graphql.swift in Sources */,
 				5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */,
 				5A81F3FE2B1097DC00D9998F /* Double.swift in Sources */,
+				5A81F4552B10A49C00D9998F /* Room.graphql.swift in Sources */,
+				5A81F44F2B10A49C00D9998F /* PlayFile.graphql.swift in Sources */,
+				5A81F44B2B10A49C00D9998F /* ListRoomsQuery.graphql.swift in Sources */,
+				5A81F44E2B10A49C00D9998F /* SchemaAPI.graphql.swift in Sources */,
 				5A81F40E2B109CEC00D9998F /* SessionDescription.swift in Sources */,
+				5A81F4512B10A49C00D9998F /* RootMutationType.graphql.swift in Sources */,
 				5A81F40B2B109A1700D9998F /* WebRTCClient.swift in Sources */,
+				5A81F44A2B10A49C00D9998F /* LikeRoomMutation.graphql.swift in Sources */,
+				5A81F43F2B10A49C00D9998F /* PlayerItemAttrs.graphql.swift in Sources */,
+				5A81F4432B10A49C00D9998F /* LoadAudioMutation.graphql.swift in Sources */,
+				5A81F4542B10A49C00D9998F /* RootQueryType.graphql.swift in Sources */,
 				5A81F4112B109E7F00D9998F /* WebSocketService.swift in Sources */,
 				5A81F4092B1098FD00D9998F /* Config.swift in Sources */,
 				5A81F4002B1097EB00D9998F /* Color.swift in Sources */,
+				5A81F43E2B10A49C00D9998F /* RoomAttrs.graphql.swift in Sources */,
+				5A81F4412B10A49C00D9998F /* UserAttrs.graphql.swift in Sources */,
+				5A81F4482B10A49C00D9998F /* DeleteRoomMutation.graphql.swift in Sources */,
+				5A81F4402B10A49C00D9998F /* FileAttrs.graphql.swift in Sources */,
 				5A81F3FC2B1097BA00D9998F /* View.swift in Sources */,
+				5A81F4492B10A49C00D9998F /* CreateRoomMutation.graphql.swift in Sources */,
+				5A81F4472B10A49C00D9998F /* SignUpMutation.graphql.swift in Sources */,
+				5A81F44C2B10A49C00D9998F /* ListAudioQuery.graphql.swift in Sources */,
 				5A81F4132B109FF900D9998F /* IceCandidate.swift in Sources */,
+				5A81F4572B10A49C00D9998F /* SchemaConfiguration.swift in Sources */,
+				5A81F44D2B10A49C00D9998F /* CurrentUserQuery.graphql.swift in Sources */,
+				5A81F4422B10A49C00D9998F /* SDPClientAttrs.graphql.swift in Sources */,
+				5A81F4592B10A49C00D9998F /* SchemaMetadata.graphql.swift in Sources */,
+				5A81F4582B10A49C00D9998F /* ServerSDP.graphql.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
