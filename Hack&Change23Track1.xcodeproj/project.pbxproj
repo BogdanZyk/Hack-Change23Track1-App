@@ -21,6 +21,8 @@
 		5A81F4092B1098FD00D9998F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4082B1098FD00D9998F /* Config.swift */; };
 		5A81F40B2B109A1700D9998F /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F40A2B109A1700D9998F /* WebRTCClient.swift */; };
 		5A81F40E2B109CEC00D9998F /* SessionDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F40D2B109CEC00D9998F /* SessionDescription.swift */; };
+		5A81F4112B109E7F00D9998F /* WebSocketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4102B109E7F00D9998F /* WebSocketService.swift */; };
+		5A81F4132B109FF900D9998F /* IceCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4122B109FF900D9998F /* IceCandidate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		5A81F4082B1098FD00D9998F /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		5A81F40A2B109A1700D9998F /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
 		5A81F40D2B109CEC00D9998F /* SessionDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDescription.swift; sourceTree = "<group>"; };
+		5A81F4102B109E7F00D9998F /* WebSocketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketService.swift; sourceTree = "<group>"; };
+		5A81F4122B109FF900D9998F /* IceCandidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IceCandidate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,7 @@
 		5A81F3F32B10970700D9998F /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				5A81F40F2B109E5F00D9998F /* WebSocketService */,
 				5A81F40C2B109C9100D9998F /* WebRTCClient */,
 			);
 			path = Services;
@@ -187,8 +192,17 @@
 			children = (
 				5A81F40A2B109A1700D9998F /* WebRTCClient.swift */,
 				5A81F40D2B109CEC00D9998F /* SessionDescription.swift */,
+				5A81F4122B109FF900D9998F /* IceCandidate.swift */,
 			);
 			path = WebRTCClient;
+			sourceTree = "<group>";
+		};
+		5A81F40F2B109E5F00D9998F /* WebSocketService */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F4102B109E7F00D9998F /* WebSocketService.swift */,
+			);
+			path = WebSocketService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,9 +290,11 @@
 				5A81F3FE2B1097DC00D9998F /* Double.swift in Sources */,
 				5A81F40E2B109CEC00D9998F /* SessionDescription.swift in Sources */,
 				5A81F40B2B109A1700D9998F /* WebRTCClient.swift in Sources */,
+				5A81F4112B109E7F00D9998F /* WebSocketService.swift in Sources */,
 				5A81F4092B1098FD00D9998F /* Config.swift in Sources */,
 				5A81F4002B1097EB00D9998F /* Color.swift in Sources */,
 				5A81F3FC2B1097BA00D9998F /* View.swift in Sources */,
+				5A81F4132B109FF900D9998F /* IceCandidate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
