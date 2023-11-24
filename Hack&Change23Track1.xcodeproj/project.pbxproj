@@ -25,6 +25,7 @@
 		5A81F4132B109FF900D9998F /* IceCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4122B109FF900D9998F /* IceCandidate.swift */; };
 		5A81F4152B10A2D000D9998F /* apollo-codegen-config.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F4142B10A2D000D9998F /* apollo-codegen-config.json */; };
 		5A81F4172B10A3A700D9998F /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F4162B10A3A700D9998F /* schema.graphqls */; };
+		5A81F4192B10A43800D9998F /* operations.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F4182B10A43800D9998F /* operations.graphql */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		5A81F4122B109FF900D9998F /* IceCandidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IceCandidate.swift; sourceTree = "<group>"; };
 		5A81F4142B10A2D000D9998F /* apollo-codegen-config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "apollo-codegen-config.json"; sourceTree = "<group>"; };
 		5A81F4162B10A3A700D9998F /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = schema.graphqls; path = GraphqlAPI/schema.graphqls; sourceTree = "<group>"; };
+		5A81F4182B10A43800D9998F /* operations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = operations.graphql; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,8 +181,9 @@
 		5A81F4052B1098B200D9998F /* GraphqlAPI */ = {
 			isa = PBXGroup;
 			children = (
-				5A81F4162B10A3A700D9998F /* schema.graphqls */,
 				5A81F4072B1098E400D9998F /* ApolloClient */,
+				5A81F4162B10A3A700D9998F /* schema.graphqls */,
+				5A81F4182B10A43800D9998F /* operations.graphql */,
 				5A81F4142B10A2D000D9998F /* apollo-codegen-config.json */,
 			);
 			path = GraphqlAPI;
@@ -277,6 +280,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A81F4192B10A43800D9998F /* operations.graphql in Resources */,
 				5A81F4172B10A3A700D9998F /* schema.graphqls in Resources */,
 				5A81F4152B10A2D000D9998F /* apollo-codegen-config.json in Resources */,
 				5A81F3DD2B1091AB00D9998F /* Preview Assets.xcassets in Resources */,

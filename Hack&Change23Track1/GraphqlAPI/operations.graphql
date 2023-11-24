@@ -1,0 +1,108 @@
+
+
+mutation SignIn($login: String!, $password: String!) {
+  SignIn(Login: $login, Password: $password) {
+    Token
+  }
+}
+
+mutation SignUp($login: String!, $password: String!) {
+  SignUp(Login: $login, Password: $password) {
+    Token
+  }
+}
+
+query CurrentUser {
+  CurrentUser {
+    ...UserAttrs
+  }
+}
+
+fragment UserAttrs on User {
+    Id
+    Login
+    Avatar
+}
+
+
+query ListAudio {
+  ListAudio {
+    ...FileAttrs
+  }
+}
+
+query ListRooms {
+  ListRooms {
+    ...RoomAttrs
+  }
+}
+
+mutation CreateRoom($name: String!) {
+  CreateRoom(Name: $name) {
+    ...RoomAttrs
+  }
+}
+
+fragment RoomAttrs on Room {
+    File {
+      ...PlayerItemAttrs
+    }
+    Id
+    Likes
+    Name
+    Members {
+      ...UserAttrs
+    }
+    Owner {
+      Id
+    }
+}
+
+fragment PlayerItemAttrs on PlayFile {
+  CurrentSeconds
+  DurationSeconds
+  File {
+    ...FileAttrs
+  }
+  Pause
+}
+
+fragment FileAttrs on Audio {
+  Id
+  Name
+}
+
+mutation LoadAudio($roomId: String!, $audioId: String!) {
+  LoadAudio(RoomId: $roomId, AudioId: $audioId) {
+    ...RoomAttrs
+  }
+}
+
+mutation DeleteRoom($roomId: String!) {
+  DeleteRoom(RoomId: $roomId) {
+    Id
+  }
+}
+
+mutation LikeRoom($roomId: String!) {
+  LikeRoom(RoomId: $roomId) {
+    Likes
+  }
+}
+
+mutation RoomAction($roomId: String!, $action: String!, $arg: String!) {
+  RoomAction(RoomId: $roomId, Action: $action, Arg: $arg) {
+    ...RoomAttrs
+  }
+}
+
+mutation InitConnection($sdp: ServerSDP!, $roomId: String!) {
+  InitConnection(SDP: $sdp, RoomId: $roomId) {
+    ...SDPClientAttrs
+  }
+}
+
+fragment SDPClientAttrs on ClientSDP {
+    Sdp
+    Type
+}
