@@ -13,6 +13,11 @@
 		5A81F3DD2B1091AB00D9998F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F3DC2B1091AB00D9998F /* Preview Assets.xcassets */; };
 		5A81F3EE2B1096C200D9998F /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = 5A81F3ED2B1096C200D9998F /* WebRTC */; };
 		5A81F3F12B1096E800D9998F /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 5A81F3F02B1096E800D9998F /* Apollo */; };
+		5A81F3FC2B1097BA00D9998F /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3FB2B1097BA00D9998F /* View.swift */; };
+		5A81F3FE2B1097DC00D9998F /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3FD2B1097DC00D9998F /* Double.swift */; };
+		5A81F4002B1097EB00D9998F /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3FF2B1097EB00D9998F /* Color.swift */; };
+		5A81F4022B10980300D9998F /* DecoderEncoderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4012B10980300D9998F /* DecoderEncoderHelper.swift */; };
+		5A81F4042B10983A00D9998F /* RemoteCommandHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4032B10983A00D9998F /* RemoteCommandHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +26,11 @@
 		5A81F3D72B1091AA00D9998F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5A81F3D92B1091AB00D9998F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A81F3DC2B1091AB00D9998F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5A81F3FB2B1097BA00D9998F /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		5A81F3FD2B1097DC00D9998F /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		5A81F3FF2B1097EB00D9998F /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		5A81F4012B10980300D9998F /* DecoderEncoderHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoderEncoderHelper.swift; sourceTree = "<group>"; };
+		5A81F4032B10983A00D9998F /* RemoteCommandHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCommandHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,8 +133,29 @@
 		5A81F3F82B10975300D9998F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				5A81F3FA2B1097A100D9998F /* Extensions */,
+				5A81F3F92B10979900D9998F /* Helpers */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		5A81F3F92B10979900D9998F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F4012B10980300D9998F /* DecoderEncoderHelper.swift */,
+				5A81F4032B10983A00D9998F /* RemoteCommandHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		5A81F3FA2B1097A100D9998F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F3FB2B1097BA00D9998F /* View.swift */,
+				5A81F3FD2B1097DC00D9998F /* Double.swift */,
+				5A81F3FF2B1097EB00D9998F /* Color.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,7 +237,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A81F3D82B1091AA00D9998F /* ContentView.swift in Sources */,
+				5A81F4042B10983A00D9998F /* RemoteCommandHelper.swift in Sources */,
+				5A81F4022B10980300D9998F /* DecoderEncoderHelper.swift in Sources */,
 				5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */,
+				5A81F3FE2B1097DC00D9998F /* Double.swift in Sources */,
+				5A81F4002B1097EB00D9998F /* Color.swift in Sources */,
+				5A81F3FC2B1097BA00D9998F /* View.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
