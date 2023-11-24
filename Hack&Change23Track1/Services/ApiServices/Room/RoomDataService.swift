@@ -31,6 +31,15 @@ final class RoomDataService {
         return room
     }
     
+    func findRoom(_ code: String) async throws -> RoomAttrs {
+        let query = GetRoomByKeyQuery(key: code)
+        let data = try await api.fetch(query: query, cachePolicy: .fetchIgnoringCacheCompletely)
+        guard let room = data?.data?.getRoomByKey?.fragments.roomAttrs else {
+            throw URLError(.badServerResponse)
+        }
+        return room
+    }
+    
     @discardableResult
     func removeRoom(for id: String) async throws -> String {
         let mutation = DeleteRoomMutation(roomId: id)
@@ -112,4 +121,5 @@ extension RoomAttrs {
         owner?.id == id
     }
     
+    static let mock = RoomAttrs(file: .init(currentSeconds: "120", durationSeconds: "360", file: .init(id: "", name: "Music name"), pause: false), id: "123", likes: 68, private: false, image: "", key: "code", name: "Room name", members: [.init(id: "1", login: "test", avatar: "")])
 }

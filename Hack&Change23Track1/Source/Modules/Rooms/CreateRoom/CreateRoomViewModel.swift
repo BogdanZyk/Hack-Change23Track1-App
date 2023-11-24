@@ -33,17 +33,12 @@ class CreateRoomViewModel: ObservableObject {
     
     func findRoom(_ code: String) async -> RoomAttrs? {
         showLoader = true
-        do {
-            let newRoom = try await roomService.createRoom(name: template.name,
-                                                           image: template.createBase64Image(),
-                                                           isPrivate: template.isPrivateRoom)
+        guard let room = try? await roomService.findRoom(code) else {
             showLoader = false
-            return newRoom
-        } catch {
-            appAlert = .errors(errors: [error])
-            showLoader = false
+            appAlert = .basic(title: "Room not found", message: "Check the room code")
             return nil
         }
+        return room
     }
 }
 

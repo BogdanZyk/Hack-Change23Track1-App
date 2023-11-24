@@ -27,6 +27,7 @@ struct CreateRoomView: View {
         .onChange(of: photoItem) {
             setImage($0)
         }
+        .appAlert($viewModel.appAlert)
     }
     
     private var navBarView: some View {

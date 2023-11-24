@@ -73,6 +73,8 @@
 		5A81F4842B10CA0200D9998F /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4832B10CA0200D9998F /* PrimaryButton.swift */; };
 		5A81F4862B10D03100D9998F /* CreateRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4852B10D03100D9998F /* CreateRoomViewModel.swift */; };
 		5A81F4892B10D29200D9998F /* JoinInRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4882B10D29200D9998F /* JoinInRoomView.swift */; };
+		5A81F48B2B10D63600D9998F /* GetRoomByKeyQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F48A2B10D63600D9998F /* GetRoomByKeyQuery.graphql.swift */; };
+		5A81F48D2B10DAC500D9998F /* RoomRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F48C2B10DAC500D9998F /* RoomRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -141,6 +143,8 @@
 		5A81F4832B10CA0200D9998F /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		5A81F4852B10D03100D9998F /* CreateRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewModel.swift; sourceTree = "<group>"; };
 		5A81F4882B10D29200D9998F /* JoinInRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinInRoomView.swift; sourceTree = "<group>"; };
+		5A81F48A2B10D63600D9998F /* GetRoomByKeyQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRoomByKeyQuery.graphql.swift; sourceTree = "<group>"; };
+		5A81F48C2B10DAC500D9998F /* RoomRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,6 +376,7 @@
 		5A81F42B2B10A49C00D9998F /* Queries */ = {
 			isa = PBXGroup;
 			children = (
+				5A81F48A2B10D63600D9998F /* GetRoomByKeyQuery.graphql.swift */,
 				5A81F42C2B10A49C00D9998F /* ListRoomsQuery.graphql.swift */,
 				5A81F42D2B10A49C00D9998F /* ListAudioQuery.graphql.swift */,
 				5A81F42E2B10A49C00D9998F /* CurrentUserQuery.graphql.swift */,
@@ -486,6 +491,7 @@
 				5A81F4872B10D26D00D9998F /* CreateRoom */,
 				5A81F4792B10BD1500D9998F /* RoomsView.swift */,
 				5A81F47B2B10C07D00D9998F /* RoomsViewModel.swift */,
+				5A81F48C2B10DAC500D9998F /* RoomRowView.swift */,
 			);
 			path = Rooms;
 			sourceTree = "<group>";
@@ -603,6 +609,7 @@
 				5A81F44B2B10A49C00D9998F /* ListRoomsQuery.graphql.swift in Sources */,
 				5A81F44E2B10A49C00D9998F /* SchemaAPI.graphql.swift in Sources */,
 				5A81F47C2B10C07D00D9998F /* RoomsViewModel.swift in Sources */,
+				5A81F48B2B10D63600D9998F /* GetRoomByKeyQuery.graphql.swift in Sources */,
 				5A81F40E2B109CEC00D9998F /* SessionDescription.swift in Sources */,
 				5A81F4512B10A49C00D9998F /* RootMutationType.graphql.swift in Sources */,
 				5A81F47E2B10C0BB00D9998F /* CreateRoomView.swift in Sources */,
@@ -625,6 +632,7 @@
 				5A81F3FC2B1097BA00D9998F /* View.swift in Sources */,
 				5A81F4492B10A49C00D9998F /* CreateRoomMutation.graphql.swift in Sources */,
 				5A81F4472B10A49C00D9998F /* SignUpMutation.graphql.swift in Sources */,
+				5A81F48D2B10DAC500D9998F /* RoomRowView.swift in Sources */,
 				5A81F44C2B10A49C00D9998F /* ListAudioQuery.graphql.swift in Sources */,
 				5A81F4132B109FF900D9998F /* IceCandidate.swift in Sources */,
 				5A81F4892B10D29200D9998F /* JoinInRoomView.swift in Sources */,
