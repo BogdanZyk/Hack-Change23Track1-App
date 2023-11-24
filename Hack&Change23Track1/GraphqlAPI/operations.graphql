@@ -37,8 +37,14 @@ query ListRooms {
   }
 }
 
-mutation CreateRoom($name: String!) {
-  CreateRoom(Name: $name) {
+query GetRoomByKey($key: String!) {
+  GetRoomByKey(Key: $key) {
+    ...RoomAttrs
+  }
+}
+
+mutation CreateRoom($name: String!, $image: String, $private: Boolean) {
+  CreateRoom(Name: $name, Image: $image, Private: $private) {
     ...RoomAttrs
   }
 }
@@ -49,6 +55,9 @@ fragment RoomAttrs on Room {
     }
     Id
     Likes
+    Private
+    Image
+    Key
     Name
     Members {
       ...UserAttrs

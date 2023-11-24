@@ -71,6 +71,9 @@ class LoadAudioMutation: GraphQLMutation {
       var file: File? { __data["File"] }
       var id: String? { __data["Id"] }
       var likes: Int? { __data["Likes"] }
+      var `private`: Bool? { __data["Private"] }
+      var image: String? { __data["Image"] }
+      var key: String? { __data["Key"] }
       var name: String? { __data["Name"] }
       var members: [Member?]? { __data["Members"] }
       var owner: RoomAttrs.Owner? { __data["Owner"] }
@@ -86,6 +89,9 @@ class LoadAudioMutation: GraphQLMutation {
         file: File? = nil,
         id: String? = nil,
         likes: Int? = nil,
+        `private`: Bool? = nil,
+        image: String? = nil,
+        key: String? = nil,
         name: String? = nil,
         members: [Member?]? = nil,
         owner: RoomAttrs.Owner? = nil
@@ -96,6 +102,9 @@ class LoadAudioMutation: GraphQLMutation {
             "File": file._fieldData,
             "Id": id,
             "Likes": likes,
+            "Private": `private`,
+            "Image": image,
+            "Key": key,
             "Name": name,
             "Members": members._fieldData,
             "Owner": owner._fieldData,

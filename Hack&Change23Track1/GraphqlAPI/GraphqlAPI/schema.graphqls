@@ -10,30 +10,54 @@ A directive used by the Apollo iOS client to annotate operations or fragments th
 directive @apollo_client_ios_localCacheMutation on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
 
 """"""
-type User {
+type RootSubsribeType {
   """"""
-  Avatar: String!
-
-  """"""
-  Id: String!
-
-  """"""
-  Login: String!
+  RoomUpdates: Room
 }
 
 """"""
-input ServerSDP {
+type Room {
   """"""
-  Sdp: String
+  File: PlayFile
 
   """"""
-  Type: String
+  Id: String
+
+  """"""
+  Image: String
+
+  """"""
+  Key: String
+
+  """"""
+  Likes: Int
+
+  """"""
+  Members: [User]
+
+  """"""
+  Name: String
+
+  """"""
+  Owner: User
+
+  """"""
+  Private: Boolean
+}
+
+""""""
+type Audio {
+  """"""
+  Id: String
+
+  """"""
+  Name: String
 }
 
 """"""
 type RootMutationType {
   """"""
-  CreateRoom(Name: String!): Room
+  CreateRoom(Name: String!, Image: String, Private: Boolean): Room
 
   """"""
   DeleteRoom(RoomId: String!): Room
@@ -55,36 +79,21 @@ type RootMutationType {
 
   """"""
   SignUp(Login: String!, Password: String!): Token
+
+  """"""
+  UpdateCurrentUser(Avatar: String): User
+
+  """"""
+  UpdateRoom(RoomId: String!, Name: String, Image: String, Private: Boolean): Room
 }
 
 """"""
-type Audio {
+input ServerSDP {
   """"""
-  Id: String
+  Type: String
 
   """"""
-  Name: String
-}
-
-""""""
-type Token {
-  """"""
-  Token: String!
-}
-
-""""""
-type ClientSDP {
-  """"""
-  Sdp: String!
-
-  """"""
-  Type: String!
-}
-
-""""""
-type RootSubsribeType {
-  """"""
-  RoomUpdates: Room
+  Sdp: String
 }
 
 """"""
@@ -93,31 +102,13 @@ type RootQueryType {
   CurrentUser: User
 
   """"""
+  GetRoomByKey(Key: String!): Room
+
+  """"""
   ListAudio: [Audio]
 
   """"""
   ListRooms: [Room]
-}
-
-""""""
-type Room {
-  """"""
-  File: PlayFile
-
-  """"""
-  Id: String
-
-  """"""
-  Likes: Int
-
-  """"""
-  Members: [User]
-
-  """"""
-  Name: String
-
-  """"""
-  Owner: User
 }
 
 """"""
@@ -133,4 +124,31 @@ type PlayFile {
 
   """"""
   Pause: Boolean
+}
+
+""""""
+type User {
+  """"""
+  Avatar: String!
+
+  """"""
+  Id: String!
+
+  """"""
+  Login: String!
+}
+
+""""""
+type Token {
+  """"""
+  Token: String!
+}
+
+""""""
+type ClientSDP {
+  """"""
+  Sdp: String!
+
+  """"""
+  Type: String!
 }

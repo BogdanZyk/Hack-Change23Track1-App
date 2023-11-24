@@ -5,7 +5,7 @@
 
 struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
   static var fragmentDefinition: StaticString {
-    #"fragment RoomAttrs on Room { __typename File { __typename ...PlayerItemAttrs } Id Likes Name Members { __typename ...UserAttrs } Owner { __typename Id } }"#
+    #"fragment RoomAttrs on Room { __typename File { __typename ...PlayerItemAttrs } Id Likes Private Image Key Name Members { __typename ...UserAttrs } Owner { __typename Id } }"#
   }
 
   let __data: DataDict
@@ -17,6 +17,9 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
     .field("File", File?.self),
     .field("Id", String?.self),
     .field("Likes", Int?.self),
+    .field("Private", Bool?.self),
+    .field("Image", String?.self),
+    .field("Key", String?.self),
     .field("Name", String?.self),
     .field("Members", [Member?]?.self),
     .field("Owner", Owner?.self),
@@ -25,6 +28,9 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
   var file: File? { __data["File"] }
   var id: String? { __data["Id"] }
   var likes: Int? { __data["Likes"] }
+  var `private`: Bool? { __data["Private"] }
+  var image: String? { __data["Image"] }
+  var key: String? { __data["Key"] }
   var name: String? { __data["Name"] }
   var members: [Member?]? { __data["Members"] }
   var owner: Owner? { __data["Owner"] }
@@ -33,6 +39,9 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
     file: File? = nil,
     id: String? = nil,
     likes: Int? = nil,
+    `private`: Bool? = nil,
+    image: String? = nil,
+    key: String? = nil,
     name: String? = nil,
     members: [Member?]? = nil,
     owner: Owner? = nil
@@ -43,6 +52,9 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
         "File": file._fieldData,
         "Id": id,
         "Likes": likes,
+        "Private": `private`,
+        "Image": image,
+        "Key": key,
         "Name": name,
         "Members": members._fieldData,
         "Owner": owner._fieldData,

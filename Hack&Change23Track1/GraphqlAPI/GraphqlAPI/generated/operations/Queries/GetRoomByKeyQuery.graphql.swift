@@ -2,68 +2,53 @@
 // This file was automatically generated and should not be edited.
 
 @_exported import ApolloAPI
+import Hack&Change23Track1&
 
-class CreateRoomMutation: GraphQLMutation {
-  static let operationName: String = "CreateRoom"
+class GetRoomByKeyQuery: GraphQLQuery {
+  static let operationName: String = "GetRoomByKey"
   static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation CreateRoom($name: String!, $image: String, $private: Boolean) { CreateRoom(Name: $name, Image: $image, Private: $private) { __typename ...RoomAttrs } }"#,
+      #"query GetRoomByKey($key: String!) { GetRoomByKey(Key: $key) { __typename ...RoomAttrs } }"#,
       fragments: [RoomAttrs.self, PlayerItemAttrs.self, FileAttrs.self, UserAttrs.self]
     ))
 
-  public var name: String
-  public var image: GraphQLNullable<String>
-  public var `private`: GraphQLNullable<Bool>
+  public var key: String
 
-  public init(
-    name: String,
-    image: GraphQLNullable<String>,
-    `private`: GraphQLNullable<Bool>
-  ) {
-    self.name = name
-    self.image = image
-    self.`private` = `private`
+  public init(key: String) {
+    self.key = key
   }
 
-  public var __variables: Variables? { [
-    "name": name,
-    "image": image,
-    "private": `private`
-  ] }
+  public var __variables: Variables? { ["key": key] }
 
   struct Data: SchemaAPI.SelectionSet {
     let __data: DataDict
     init(_dataDict: DataDict) { __data = _dataDict }
 
-    static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.RootMutationType }
+    static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.RootQueryType }
     static var __selections: [ApolloAPI.Selection] { [
-      .field("CreateRoom", CreateRoom?.self, arguments: [
-        "Name": .variable("name"),
-        "Image": .variable("image"),
-        "Private": .variable("private")
-      ]),
+      .field("GetRoomByKey", GetRoomByKey?.self, arguments: ["Key": .variable("key")]),
     ] }
 
-    var createRoom: CreateRoom? { __data["CreateRoom"] }
+    var getRoomByKey: GetRoomByKey? { __data["GetRoomByKey"] }
 
     init(
-      createRoom: CreateRoom? = nil
+      getRoomByKey: GetRoomByKey? = nil
     ) {
       self.init(_dataDict: DataDict(
         data: [
-          "__typename": SchemaAPI.Objects.RootMutationType.typename,
-          "CreateRoom": createRoom._fieldData,
+          "__typename": SchemaAPI.Objects.RootQueryType.typename,
+          "GetRoomByKey": getRoomByKey._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(CreateRoomMutation.Data.self)
+          ObjectIdentifier(GetRoomByKeyQuery.Data.self)
         ]
       ))
     }
 
-    /// CreateRoom
+    /// GetRoomByKey
     ///
     /// Parent Type: `Room`
-    struct CreateRoom: SchemaAPI.SelectionSet {
+    struct GetRoomByKey: SchemaAPI.SelectionSet {
       let __data: DataDict
       init(_dataDict: DataDict) { __data = _dataDict }
 
@@ -115,13 +100,13 @@ class CreateRoomMutation: GraphQLMutation {
             "Owner": owner._fieldData,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(CreateRoomMutation.Data.CreateRoom.self),
+            ObjectIdentifier(GetRoomByKeyQuery.Data.GetRoomByKey.self),
             ObjectIdentifier(RoomAttrs.self)
           ]
         ))
       }
 
-      /// CreateRoom.File
+      /// GetRoomByKey.File
       ///
       /// Parent Type: `PlayFile`
       struct File: SchemaAPI.SelectionSet {
@@ -157,14 +142,14 @@ class CreateRoomMutation: GraphQLMutation {
               "Pause": pause,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(CreateRoomMutation.Data.CreateRoom.File.self),
+              ObjectIdentifier(GetRoomByKeyQuery.Data.GetRoomByKey.File.self),
               ObjectIdentifier(PlayerItemAttrs.self),
               ObjectIdentifier(RoomAttrs.File.self)
             ]
           ))
         }
 
-        /// CreateRoom.File.File
+        /// GetRoomByKey.File.File
         ///
         /// Parent Type: `Audio`
         struct File: SchemaAPI.SelectionSet {
@@ -194,7 +179,7 @@ class CreateRoomMutation: GraphQLMutation {
                 "Name": name,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(CreateRoomMutation.Data.CreateRoom.File.File.self),
+                ObjectIdentifier(GetRoomByKeyQuery.Data.GetRoomByKey.File.File.self),
                 ObjectIdentifier(FileAttrs.self),
                 ObjectIdentifier(PlayerItemAttrs.File.self)
               ]
@@ -203,7 +188,7 @@ class CreateRoomMutation: GraphQLMutation {
         }
       }
 
-      /// CreateRoom.Member
+      /// GetRoomByKey.Member
       ///
       /// Parent Type: `User`
       struct Member: SchemaAPI.SelectionSet {
@@ -236,7 +221,7 @@ class CreateRoomMutation: GraphQLMutation {
               "Avatar": avatar,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(CreateRoomMutation.Data.CreateRoom.Member.self),
+              ObjectIdentifier(GetRoomByKeyQuery.Data.GetRoomByKey.Member.self),
               ObjectIdentifier(UserAttrs.self),
               ObjectIdentifier(RoomAttrs.Member.self)
             ]

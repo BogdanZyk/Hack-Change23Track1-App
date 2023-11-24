@@ -66,6 +66,13 @@
 		5A81F4742B10BC9E00D9998F /* RootContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4732B10BC9E00D9998F /* RootContainerView.swift */; };
 		5A81F4782B10BD0800D9998F /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4772B10BD0800D9998F /* ProfileView.swift */; };
 		5A81F47A2B10BD1500D9998F /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4792B10BD1500D9998F /* RoomsView.swift */; };
+		5A81F47C2B10C07D00D9998F /* RoomsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F47B2B10C07D00D9998F /* RoomsViewModel.swift */; };
+		5A81F47E2B10C0BB00D9998F /* CreateRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F47D2B10C0BB00D9998F /* CreateRoomView.swift */; };
+		5A81F4802B10C36600D9998F /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F47F2B10C36600D9998F /* Font.swift */; };
+		5A81F4822B10C47300D9998F /* PrimaryTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4812B10C47300D9998F /* PrimaryTextField.swift */; };
+		5A81F4842B10CA0200D9998F /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4832B10CA0200D9998F /* PrimaryButton.swift */; };
+		5A81F4862B10D03100D9998F /* CreateRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4852B10D03100D9998F /* CreateRoomViewModel.swift */; };
+		5A81F4892B10D29200D9998F /* JoinInRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4882B10D29200D9998F /* JoinInRoomView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -127,6 +134,13 @@
 		5A81F4732B10BC9E00D9998F /* RootContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootContainerView.swift; sourceTree = "<group>"; };
 		5A81F4772B10BD0800D9998F /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		5A81F4792B10BD1500D9998F /* RoomsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsView.swift; sourceTree = "<group>"; };
+		5A81F47B2B10C07D00D9998F /* RoomsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsViewModel.swift; sourceTree = "<group>"; };
+		5A81F47D2B10C0BB00D9998F /* CreateRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomView.swift; sourceTree = "<group>"; };
+		5A81F47F2B10C36600D9998F /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		5A81F4812B10C47300D9998F /* PrimaryTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryTextField.swift; sourceTree = "<group>"; };
+		5A81F4832B10CA0200D9998F /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		5A81F4852B10D03100D9998F /* CreateRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewModel.swift; sourceTree = "<group>"; };
+		5A81F4882B10D29200D9998F /* JoinInRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinInRoomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +248,8 @@
 			isa = PBXGroup;
 			children = (
 				5A81F4672B10B9A900D9998F /* AppAlert.swift */,
+				5A81F4812B10C47300D9998F /* PrimaryTextField.swift */,
+				5A81F4832B10CA0200D9998F /* PrimaryButton.swift */,
 			);
 			path = ViewComponents;
 			sourceTree = "<group>";
@@ -262,6 +278,7 @@
 				5A81F3FB2B1097BA00D9998F /* View.swift */,
 				5A81F3FD2B1097DC00D9998F /* Double.swift */,
 				5A81F3FF2B1097EB00D9998F /* Color.swift */,
+				5A81F47F2B10C36600D9998F /* Font.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -466,9 +483,21 @@
 		5A81F4762B10BCF300D9998F /* Rooms */ = {
 			isa = PBXGroup;
 			children = (
+				5A81F4872B10D26D00D9998F /* CreateRoom */,
 				5A81F4792B10BD1500D9998F /* RoomsView.swift */,
+				5A81F47B2B10C07D00D9998F /* RoomsViewModel.swift */,
 			);
 			path = Rooms;
+			sourceTree = "<group>";
+		};
+		5A81F4872B10D26D00D9998F /* CreateRoom */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F4852B10D03100D9998F /* CreateRoomViewModel.swift */,
+				5A81F47D2B10C0BB00D9998F /* CreateRoomView.swift */,
+				5A81F4882B10D29200D9998F /* JoinInRoomView.swift */,
+			);
+			path = CreateRoom;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -557,6 +586,7 @@
 				5A81F4562B10A49C00D9998F /* Token.graphql.swift in Sources */,
 				5A81F4042B10983A00D9998F /* RemoteCommandHelper.swift in Sources */,
 				5A81F4532B10A49C00D9998F /* Audio.graphql.swift in Sources */,
+				5A81F4862B10D03100D9998F /* CreateRoomViewModel.swift in Sources */,
 				5A81F4522B10A49C00D9998F /* ClientSDP.graphql.swift in Sources */,
 				5A81F46E2B10BB9D00D9998F /* UserManager.swift in Sources */,
 				5A81F4462B10A49C00D9998F /* SignInMutation.graphql.swift in Sources */,
@@ -564,14 +594,18 @@
 				5A81F4022B10980300D9998F /* DecoderEncoderHelper.swift in Sources */,
 				5A81F4442B10A49C00D9998F /* RoomActionMutation.graphql.swift in Sources */,
 				5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */,
+				5A81F4802B10C36600D9998F /* Font.swift in Sources */,
 				5A81F4742B10BC9E00D9998F /* RootContainerView.swift in Sources */,
+				5A81F4822B10C47300D9998F /* PrimaryTextField.swift in Sources */,
 				5A81F3FE2B1097DC00D9998F /* Double.swift in Sources */,
 				5A81F4552B10A49C00D9998F /* Room.graphql.swift in Sources */,
 				5A81F44F2B10A49C00D9998F /* PlayFile.graphql.swift in Sources */,
 				5A81F44B2B10A49C00D9998F /* ListRoomsQuery.graphql.swift in Sources */,
 				5A81F44E2B10A49C00D9998F /* SchemaAPI.graphql.swift in Sources */,
+				5A81F47C2B10C07D00D9998F /* RoomsViewModel.swift in Sources */,
 				5A81F40E2B109CEC00D9998F /* SessionDescription.swift in Sources */,
 				5A81F4512B10A49C00D9998F /* RootMutationType.graphql.swift in Sources */,
+				5A81F47E2B10C0BB00D9998F /* CreateRoomView.swift in Sources */,
 				5A81F40B2B109A1700D9998F /* WebRTCClient.swift in Sources */,
 				5A81F44A2B10A49C00D9998F /* LikeRoomMutation.graphql.swift in Sources */,
 				5A81F4632B10B95000D9998F /* AuthView.swift in Sources */,
@@ -593,6 +627,7 @@
 				5A81F4472B10A49C00D9998F /* SignUpMutation.graphql.swift in Sources */,
 				5A81F44C2B10A49C00D9998F /* ListAudioQuery.graphql.swift in Sources */,
 				5A81F4132B109FF900D9998F /* IceCandidate.swift in Sources */,
+				5A81F4892B10D29200D9998F /* JoinInRoomView.swift in Sources */,
 				5A81F4572B10A49C00D9998F /* SchemaConfiguration.swift in Sources */,
 				5A81F4712B10BBC800D9998F /* RoomMember.swift in Sources */,
 				5A81F4682B10B9A900D9998F /* AppAlert.swift in Sources */,
@@ -602,6 +637,7 @@
 				5A81F4422B10A49C00D9998F /* SDPClientAttrs.graphql.swift in Sources */,
 				5A81F46C2B10BABB00D9998F /* Apollo+Extensions.swift in Sources */,
 				5A81F4662B10B98500D9998F /* AuthManager.swift in Sources */,
+				5A81F4842B10CA0200D9998F /* PrimaryButton.swift in Sources */,
 				5A81F4592B10A49C00D9998F /* SchemaMetadata.graphql.swift in Sources */,
 				5A81F4582B10A49C00D9998F /* ServerSDP.graphql.swift in Sources */,
 			);

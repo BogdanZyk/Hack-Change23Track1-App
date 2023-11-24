@@ -12,23 +12,23 @@ public extension SchemaAPI {
     }
 
     public init(
-      sdp: GraphQLNullable<String> = nil,
-      type: GraphQLNullable<String> = nil
+      type: GraphQLNullable<String> = nil,
+      sdp: GraphQLNullable<String> = nil
     ) {
       __data = InputDict([
-        "Sdp": sdp,
-        "Type": type
+        "Type": type,
+        "Sdp": sdp
       ])
-    }
-
-    public var sdp: GraphQLNullable<String> {
-      get { __data["Sdp"] }
-      set { __data["Sdp"] = newValue }
     }
 
     public var type: GraphQLNullable<String> {
       get { __data["Type"] }
       set { __data["Type"] = newValue }
+    }
+
+    public var sdp: GraphQLNullable<String> {
+      get { __data["Sdp"] }
+      set { __data["Sdp"] = newValue }
     }
   }
 
