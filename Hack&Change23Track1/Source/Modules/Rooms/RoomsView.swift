@@ -22,12 +22,15 @@ struct RoomsView: View {
                     }
                 }
             }
+            .refreshable {
+                fetchRooms()
+            }
         }
         .padding(.horizontal)
         .background(Color.primaryBg)
         .foregroundColor(.primaryFont)
         .task {
-           await viewModel.fetchAllRooms()
+            fetchRooms()
         }
         .fullScreenCover(item: $screen) {
             makeFullScreen($0)
@@ -109,6 +112,12 @@ extension RoomsView {
             case .room:
                 return 2
             }
+        }
+    }
+    
+    private func fetchRooms() {
+        Task {
+            await viewModel.fetchAllRooms()
         }
     }
 }

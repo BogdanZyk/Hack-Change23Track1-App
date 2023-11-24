@@ -11,10 +11,9 @@ struct RoomRowView: View {
     let room: RoomAttrs
     var body: some View {
         HStack(alignment: .top, spacing: 16) {
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.primaryGray)
+            LazyNukeImage(strUrl: room.image)
                 .frame(width: 96, height: 96)
-            
+                .cornerRadius(12)
             VStack(alignment: .leading, spacing: 2) {
                 Text(room.name ?? "No name")
                     .font(.large(weight: .medium))

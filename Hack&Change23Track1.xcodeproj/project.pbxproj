@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A58E7802B11217100D0723C /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 5A58E77F2B11217100D0723C /* Apollo */; };
+		5A58E7832B11218400D0723C /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = 5A58E7822B11218400D0723C /* WebRTC */; };
+		5A58E7862B1121A200D0723C /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5A58E7852B1121A200D0723C /* NukeUI */; };
+		5A58E7882B1121ED00D0723C /* LazyNukeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7872B1121ED00D0723C /* LazyNukeImage.swift */; };
 		5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */; };
 		5A81F3D82B1091AA00D9998F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D72B1091AA00D9998F /* ContentView.swift */; };
 		5A81F3DA2B1091AB00D9998F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F3D92B1091AB00D9998F /* Assets.xcassets */; };
 		5A81F3DD2B1091AB00D9998F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F3DC2B1091AB00D9998F /* Preview Assets.xcassets */; };
-		5A81F3EE2B1096C200D9998F /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = 5A81F3ED2B1096C200D9998F /* WebRTC */; };
-		5A81F3F12B1096E800D9998F /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 5A81F3F02B1096E800D9998F /* Apollo */; };
 		5A81F3FC2B1097BA00D9998F /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3FB2B1097BA00D9998F /* View.swift */; };
 		5A81F3FE2B1097DC00D9998F /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3FD2B1097DC00D9998F /* Double.swift */; };
 		5A81F4002B1097EB00D9998F /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3FF2B1097EB00D9998F /* Color.swift */; };
@@ -80,6 +82,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A58E7872B1121ED00D0723C /* LazyNukeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyNukeImage.swift; sourceTree = "<group>"; };
 		5A81F3D22B1091AA00D9998F /* Hack&Change23Track1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hack&Change23Track1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hack_Change23Track1App.swift; sourceTree = "<group>"; };
 		5A81F3D72B1091AA00D9998F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -156,8 +159,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A81F3EE2B1096C200D9998F /* WebRTC in Frameworks */,
-				5A81F3F12B1096E800D9998F /* Apollo in Frameworks */,
+				5A58E7862B1121A200D0723C /* NukeUI in Frameworks */,
+				5A58E7802B11217100D0723C /* Apollo in Frameworks */,
+				5A58E7832B11218400D0723C /* WebRTC in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +262,7 @@
 				5A81F4672B10B9A900D9998F /* AppAlert.swift */,
 				5A81F4812B10C47300D9998F /* PrimaryTextField.swift */,
 				5A81F4832B10CA0200D9998F /* PrimaryButton.swift */,
+				5A58E7872B1121ED00D0723C /* LazyNukeImage.swift */,
 			);
 			path = ViewComponents;
 			sourceTree = "<group>";
@@ -529,8 +534,9 @@
 			);
 			name = "Hack&Change23Track1";
 			packageProductDependencies = (
-				5A81F3ED2B1096C200D9998F /* WebRTC */,
-				5A81F3F02B1096E800D9998F /* Apollo */,
+				5A58E77F2B11217100D0723C /* Apollo */,
+				5A58E7822B11218400D0723C /* WebRTC */,
+				5A58E7852B1121A200D0723C /* NukeUI */,
 			);
 			productName = "Hack&Change23Track1";
 			productReference = 5A81F3D22B1091AA00D9998F /* Hack&Change23Track1.app */;
@@ -561,8 +567,9 @@
 			);
 			mainGroup = 5A81F3C92B1091AA00D9998F;
 			packageReferences = (
-				5A81F3EC2B1096C200D9998F /* XCRemoteSwiftPackageReference "WebRTC" */,
-				5A81F3EF2B1096E800D9998F /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				5A58E77E2B11217100D0723C /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				5A58E7812B11218400D0723C /* XCRemoteSwiftPackageReference "WebRTC" */,
+				5A58E7842B1121A200D0723C /* XCRemoteSwiftPackageReference "NukeUI" */,
 			);
 			productRefGroup = 5A81F3D32B1091AA00D9998F /* Products */;
 			projectDirPath = "";
@@ -597,6 +604,7 @@
 				5A81F3D82B1091AA00D9998F /* ContentView.swift in Sources */,
 				5A81F4452B10A49C00D9998F /* InitConnectionMutation.graphql.swift in Sources */,
 				5A81F4562B10A49C00D9998F /* Token.graphql.swift in Sources */,
+				5A58E7882B1121ED00D0723C /* LazyNukeImage.swift in Sources */,
 				5A81F4042B10983A00D9998F /* RemoteCommandHelper.swift in Sources */,
 				5A81F4532B10A49C00D9998F /* Audio.graphql.swift in Sources */,
 				5A81F4862B10D03100D9998F /* CreateRoomViewModel.swift in Sources */,
@@ -860,15 +868,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5A81F3EC2B1096C200D9998F /* XCRemoteSwiftPackageReference "WebRTC" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/stasel/WebRTC";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 119.0.0;
-			};
-		};
-		5A81F3EF2B1096E800D9998F /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+		5A58E77E2B11217100D0723C /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
 			requirement = {
@@ -876,18 +876,39 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		5A58E7812B11218400D0723C /* XCRemoteSwiftPackageReference "WebRTC" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stasel/WebRTC";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 119.0.0;
+			};
+		};
+		5A58E7842B1121A200D0723C /* XCRemoteSwiftPackageReference "NukeUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/NukeUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5A81F3ED2B1096C200D9998F /* WebRTC */ = {
+		5A58E77F2B11217100D0723C /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5A81F3EC2B1096C200D9998F /* XCRemoteSwiftPackageReference "WebRTC" */;
+			package = 5A58E77E2B11217100D0723C /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
+		};
+		5A58E7822B11218400D0723C /* WebRTC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A58E7812B11218400D0723C /* XCRemoteSwiftPackageReference "WebRTC" */;
 			productName = WebRTC;
 		};
-		5A81F3F02B1096E800D9998F /* Apollo */ = {
+		5A58E7852B1121A200D0723C /* NukeUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5A81F3EF2B1096E800D9998F /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = Apollo;
+			package = 5A58E7842B1121A200D0723C /* XCRemoteSwiftPackageReference "NukeUI" */;
+			productName = NukeUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
