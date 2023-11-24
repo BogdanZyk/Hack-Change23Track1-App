@@ -13,14 +13,15 @@ struct RootContainerView: View {
         TabView {
             RoomsView()
                 .tabItem {
-                    Label("Rooms", systemImage: "list.dash")
+                    Label("Rooms", image: "rootIcon")
                 }
             ProfileView()
                 .tabItem {
-                    Label("Profile", systemImage: "person")
+                    Label("Profile", image: "persone")
                 }
         }
         .environmentObject(userManager)
+        .accentColor(Color.primaryPink)
     }
 }
 

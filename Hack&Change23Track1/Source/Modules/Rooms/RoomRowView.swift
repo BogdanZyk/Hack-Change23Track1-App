@@ -31,6 +31,9 @@ struct RoomRowView: View {
             .padding(.top, 4)
         }
         .hLeading()
+        .padding(.vertical, 10)
+        .background(Color.primaryBg)
+        .containerShape(Rectangle())
     }
 }
 

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RoomsView: View {
+    @EnvironmentObject var userManager: UserManager
     @StateObject private var viewModel = RoomsViewModel()
     @State private var screen: FullScreen?
     @State private var showConfirmDialog: Bool = false
@@ -16,9 +17,8 @@ struct RoomsView: View {
             headerSection
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(alignment: .leading, spacing: 0) {
-                    ForEach(viewModel.rooms) { room in
-                        RoomRowView(room: room)
-                            .padding(.vertical, 10)
+                    ForEach(viewModel.rooms) {
+                        roomRow($0)
                     }
                 }
             }
@@ -44,6 +44,7 @@ struct RoomsView: View {
 struct RoomsView_Previews: PreviewProvider {
     static var previews: some View {
         RoomsView()
+            .environmentObject(UserManager())
     }
 }
 
@@ -69,9 +70,15 @@ extension RoomsView {
         .padding(.bottom)
     }
     
+    private func roomRow(_ room: RoomAttrs) -> some View {
+        RoomRowView(room: room)
+            .onTapGesture {
+                screen = .room(room)
+            }
+    }
+    
     private var confirmAction: some View {
         Group {
-            
             Button("Create room") {
                 screen = .create
             }
@@ -94,9 +101,7 @@ extension RoomsView {
                 self.screen = .room($0)
             }
         case .room(let room):
-            VStack {
-                Text(room.name ?? "")
-            }
+            AudioRoomView(room: room, currentUser: userManager.getRoomMember())
         }
     }
     
@@ -105,7 +110,6 @@ extension RoomsView {
         
         var id: Int {
             switch self {
-                
             case .create:
                 return 0
             case .join:
