@@ -63,6 +63,9 @@
 		5A81F46C2B10BABB00D9998F /* Apollo+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F46B2B10BABB00D9998F /* Apollo+Extensions.swift */; };
 		5A81F46E2B10BB9D00D9998F /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F46D2B10BB9D00D9998F /* UserManager.swift */; };
 		5A81F4712B10BBC800D9998F /* RoomMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4702B10BBC800D9998F /* RoomMember.swift */; };
+		5A81F4742B10BC9E00D9998F /* RootContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4732B10BC9E00D9998F /* RootContainerView.swift */; };
+		5A81F4782B10BD0800D9998F /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4772B10BD0800D9998F /* ProfileView.swift */; };
+		5A81F47A2B10BD1500D9998F /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4792B10BD1500D9998F /* RoomsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -121,6 +124,9 @@
 		5A81F46B2B10BABB00D9998F /* Apollo+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Apollo+Extensions.swift"; sourceTree = "<group>"; };
 		5A81F46D2B10BB9D00D9998F /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		5A81F4702B10BBC800D9998F /* RoomMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomMember.swift; sourceTree = "<group>"; };
+		5A81F4732B10BC9E00D9998F /* RootContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootContainerView.swift; sourceTree = "<group>"; };
+		5A81F4772B10BD0800D9998F /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		5A81F4792B10BD1500D9998F /* RoomsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +223,9 @@
 			isa = PBXGroup;
 			children = (
 				5A81F4612B10B91D00D9998F /* Auth */,
+				5A81F4722B10BC8100D9998F /* RootContainer */,
+				5A81F4762B10BCF300D9998F /* Rooms */,
+				5A81F4752B10BCEB00D9998F /* Profile */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -438,6 +447,30 @@
 			path = Room;
 			sourceTree = "<group>";
 		};
+		5A81F4722B10BC8100D9998F /* RootContainer */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F4732B10BC9E00D9998F /* RootContainerView.swift */,
+			);
+			path = RootContainer;
+			sourceTree = "<group>";
+		};
+		5A81F4752B10BCEB00D9998F /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F4772B10BD0800D9998F /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		5A81F4762B10BCF300D9998F /* Rooms */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F4792B10BD1500D9998F /* RoomsView.swift */,
+			);
+			path = Rooms;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -531,6 +564,7 @@
 				5A81F4022B10980300D9998F /* DecoderEncoderHelper.swift in Sources */,
 				5A81F4442B10A49C00D9998F /* RoomActionMutation.graphql.swift in Sources */,
 				5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */,
+				5A81F4742B10BC9E00D9998F /* RootContainerView.swift in Sources */,
 				5A81F3FE2B1097DC00D9998F /* Double.swift in Sources */,
 				5A81F4552B10A49C00D9998F /* Room.graphql.swift in Sources */,
 				5A81F44F2B10A49C00D9998F /* PlayFile.graphql.swift in Sources */,
@@ -547,6 +581,7 @@
 				5A81F4542B10A49C00D9998F /* RootQueryType.graphql.swift in Sources */,
 				5A81F4112B109E7F00D9998F /* WebSocketService.swift in Sources */,
 				5A81F4092B1098FD00D9998F /* Config.swift in Sources */,
+				5A81F47A2B10BD1500D9998F /* RoomsView.swift in Sources */,
 				5A81F4002B1097EB00D9998F /* Color.swift in Sources */,
 				5A81F43E2B10A49C00D9998F /* RoomAttrs.graphql.swift in Sources */,
 				5A81F4412B10A49C00D9998F /* UserAttrs.graphql.swift in Sources */,
@@ -561,6 +596,7 @@
 				5A81F4572B10A49C00D9998F /* SchemaConfiguration.swift in Sources */,
 				5A81F4712B10BBC800D9998F /* RoomMember.swift in Sources */,
 				5A81F4682B10B9A900D9998F /* AppAlert.swift in Sources */,
+				5A81F4782B10BD0800D9998F /* ProfileView.swift in Sources */,
 				5A81F45E2B10B75F00D9998F /* RoomDataService.swift in Sources */,
 				5A81F44D2B10A49C00D9998F /* CurrentUserQuery.graphql.swift in Sources */,
 				5A81F4422B10A49C00D9998F /* SDPClientAttrs.graphql.swift in Sources */,

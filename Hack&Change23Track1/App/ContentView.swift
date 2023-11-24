@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var authManager = AuthManager()
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        if authManager.isSingIn {
+            RootContainerView()
+                .environmentObject(authManager)
+        } else {
+            AuthView(authManager: authManager)
         }
-        .padding()
     }
 }
 
