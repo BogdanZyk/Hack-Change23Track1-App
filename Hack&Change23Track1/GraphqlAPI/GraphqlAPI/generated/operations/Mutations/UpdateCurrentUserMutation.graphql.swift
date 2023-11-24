@@ -2,7 +2,7 @@
 // This file was automatically generated and should not be edited.
 
 @_exported import ApolloAPI
-import Hack&Change23Track1
+import HackChange23Track1
 
 class UpdateCurrentUserMutation: GraphQLMutation {
   static let operationName: String = "UpdateCurrentUser"
