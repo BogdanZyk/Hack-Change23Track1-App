@@ -20,8 +20,7 @@ struct AudioRoomView: View {
     var body: some View {
         VStack(spacing: 0) {
             topBarView
-            Rectangle()
-                .frame(height: 200)
+            playerView
             tabViewSection
         }
         .foregroundColor(.primaryFont)
@@ -65,6 +64,10 @@ extension AudioRoomView {
             .padding(.bottom, 10)
     }
     
+    private var playerView: some View {
+        PlayerView(isDisabledControls: !viewModel.isOwner,
+                   viewModel: viewModel)
+    }
     
     private var tabViewSection: some View {
         RoomTabView(tab: $tab, viewModel: viewModel)

@@ -12,7 +12,7 @@ import Combine
 @MainActor
 final class RoomViewModel: ObservableObject {
     
-    //@Published var audioState = AudioUIState()
+    @Published var audioState = AudioUIState()
     @Published var appAlert: AppAlert?
     @Published private(set) var room: RoomAttrs
     @Published private(set) var roomCountLikes: Int = 0
@@ -27,15 +27,14 @@ final class RoomViewModel: ObservableObject {
     let currentUser: RoomMember
     private let roomDataService = RoomDataService()
     private let webRTCClient: WebRTCClient
-    // private let stream = WebSocketStream(url: "\(Config.socketURL)/api/websocket/candidate")
-   // private let webSocketClient: WebSocketService
+    private let webSocketClient: WebSocketService
     
     init(room: RoomAttrs,
          currentUser: RoomMember,
          client: WebRTCClient = .init(iceServers: Config.defaultIceServers)) {
         
-//        let token = UserDefaults.standard.string(forKey: "JWT")!
-//        webSocketClient = .init(webSocket: WebSocketClient(url: "\(Config.socketURL)/api/websocket/candidate", token: token))
+        let token = UserDefaults.standard.string(forKey: "JWT")!
+        webSocketClient = .init(url: "\(Config.socketURL)/api/websocket/candidate", token: token)
         
         self.room = room
         self.roomCountLikes = room.likes ?? 0
@@ -44,5 +43,9 @@ final class RoomViewModel: ObservableObject {
         //self.webRTCClient.delegate = self
         //self.setMembers()
         //connectWebSocket()
+    }
+    
+    var isOwner: Bool {
+        room.userIsOwner(for: currentUser.id)
     }
 }
