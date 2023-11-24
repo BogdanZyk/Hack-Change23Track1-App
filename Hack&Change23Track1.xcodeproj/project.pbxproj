@@ -61,6 +61,8 @@
 		5A81F4682B10B9A900D9998F /* AppAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4672B10B9A900D9998F /* AppAlert.swift */; };
 		5A81F46A2B10BA8100D9998F /* ApolloClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4692B10BA8100D9998F /* ApolloClient.swift */; };
 		5A81F46C2B10BABB00D9998F /* Apollo+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F46B2B10BABB00D9998F /* Apollo+Extensions.swift */; };
+		5A81F46E2B10BB9D00D9998F /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F46D2B10BB9D00D9998F /* UserManager.swift */; };
+		5A81F4712B10BBC800D9998F /* RoomMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4702B10BBC800D9998F /* RoomMember.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +119,8 @@
 		5A81F4672B10B9A900D9998F /* AppAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAlert.swift; sourceTree = "<group>"; };
 		5A81F4692B10BA8100D9998F /* ApolloClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClient.swift; sourceTree = "<group>"; };
 		5A81F46B2B10BABB00D9998F /* Apollo+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Apollo+Extensions.swift"; sourceTree = "<group>"; };
+		5A81F46D2B10BB9D00D9998F /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		5A81F4702B10BBC800D9998F /* RoomMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomMember.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +208,7 @@
 		5A81F3F52B10973000D9998F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5A81F46F2B10BBBD00D9998F /* Room */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -420,8 +425,17 @@
 			isa = PBXGroup;
 			children = (
 				5A81F4652B10B98500D9998F /* AuthManager.swift */,
+				5A81F46D2B10BB9D00D9998F /* UserManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		5A81F46F2B10BBBD00D9998F /* Room */ = {
+			isa = PBXGroup;
+			children = (
+				5A81F4702B10BBC800D9998F /* RoomMember.swift */,
+			);
+			path = Room;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -511,6 +525,7 @@
 				5A81F4042B10983A00D9998F /* RemoteCommandHelper.swift in Sources */,
 				5A81F4532B10A49C00D9998F /* Audio.graphql.swift in Sources */,
 				5A81F4522B10A49C00D9998F /* ClientSDP.graphql.swift in Sources */,
+				5A81F46E2B10BB9D00D9998F /* UserManager.swift in Sources */,
 				5A81F4462B10A49C00D9998F /* SignInMutation.graphql.swift in Sources */,
 				5A81F4502B10A49C00D9998F /* User.graphql.swift in Sources */,
 				5A81F4022B10980300D9998F /* DecoderEncoderHelper.swift in Sources */,
@@ -544,6 +559,7 @@
 				5A81F44C2B10A49C00D9998F /* ListAudioQuery.graphql.swift in Sources */,
 				5A81F4132B109FF900D9998F /* IceCandidate.swift in Sources */,
 				5A81F4572B10A49C00D9998F /* SchemaConfiguration.swift in Sources */,
+				5A81F4712B10BBC800D9998F /* RoomMember.swift in Sources */,
 				5A81F4682B10B9A900D9998F /* AppAlert.swift in Sources */,
 				5A81F45E2B10B75F00D9998F /* RoomDataService.swift in Sources */,
 				5A81F44D2B10A49C00D9998F /* CurrentUserQuery.graphql.swift in Sources */,
