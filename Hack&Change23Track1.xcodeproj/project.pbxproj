@@ -19,6 +19,7 @@
 		5A58E7972B113AEE00D0723C /* RoomPlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7962B113AEE00D0723C /* RoomPlayerState.swift */; };
 		5A58E7992B114C3F00D0723C /* ParticlesModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7982B114C3F00D0723C /* ParticlesModifier.swift */; };
 		5A58E79B2B114C5800D0723C /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E79A2B114C5800D0723C /* Task.swift */; };
+		5A58E79E2B114E2A00D0723C /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E79D2B114E2A00D0723C /* Message.swift */; };
 		5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */; };
 		5A81F3D82B1091AA00D9998F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D72B1091AA00D9998F /* ContentView.swift */; };
 		5A81F3DA2B1091AB00D9998F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F3D92B1091AB00D9998F /* Assets.xcassets */; };
@@ -99,6 +100,7 @@
 		5A58E7962B113AEE00D0723C /* RoomPlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomPlayerState.swift; sourceTree = "<group>"; };
 		5A58E7982B114C3F00D0723C /* ParticlesModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticlesModifier.swift; sourceTree = "<group>"; };
 		5A58E79A2B114C5800D0723C /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		5A58E79D2B114E2A00D0723C /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		5A81F3D22B1091AA00D9998F /* Hack&Change23Track1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hack&Change23Track1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hack_Change23Track1App.swift; sourceTree = "<group>"; };
 		5A81F3D72B1091AA00D9998F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -211,6 +213,14 @@
 			path = RoomChat;
 			sourceTree = "<group>";
 		};
+		5A58E79C2B114E2300D0723C /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				5A58E79D2B114E2A00D0723C /* Message.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		5A81F3C92B1091AA00D9998F = {
 			isa = PBXGroup;
 			children = (
@@ -283,6 +293,7 @@
 		5A81F3F52B10973000D9998F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5A58E79C2B114E2300D0723C /* Chat */,
 				5A81F46F2B10BBBD00D9998F /* Room */,
 			);
 			path = Models;
@@ -670,6 +681,7 @@
 				5A81F4822B10C47300D9998F /* PrimaryTextField.swift in Sources */,
 				5A81F3FE2B1097DC00D9998F /* Double.swift in Sources */,
 				5A81F4552B10A49C00D9998F /* Room.graphql.swift in Sources */,
+				5A58E79E2B114E2A00D0723C /* Message.swift in Sources */,
 				5A81F44F2B10A49C00D9998F /* PlayFile.graphql.swift in Sources */,
 				5A81F44B2B10A49C00D9998F /* ListRoomsQuery.graphql.swift in Sources */,
 				5A58E7902B1135B200D0723C /* RoomTabView.swift in Sources */,

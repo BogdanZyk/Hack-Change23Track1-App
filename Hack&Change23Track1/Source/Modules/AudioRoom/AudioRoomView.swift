@@ -25,6 +25,9 @@ struct AudioRoomView: View {
         }
         .foregroundColor(.primaryFont)
         .background(Color.primaryBg.ignoresSafeArea())
+        .onAppear {
+            viewModel.startConnectWebRTC()
+        }
     }
 }
 
@@ -44,7 +47,7 @@ extension AudioRoomView {
             .overlay {
                 HStack {
                     Button {
-                       // viewModel.disconnect()
+                        viewModel.disconnectAll()
                         dismiss()
                     } label: {
                         Image(systemName: "xmark")
