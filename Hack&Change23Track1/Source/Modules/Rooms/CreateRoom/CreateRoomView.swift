@@ -17,6 +17,7 @@ struct CreateRoomView: View {
         VStack(alignment: .leading, spacing: 24) {
             navBarView
             titleSection
+            privateToggle
             photoPickerSection
             Spacer()
             submitButton
@@ -91,6 +92,14 @@ struct CreateRoomView: View {
             }
         }
         .padding(.bottom)
+    }
+    
+    private var privateToggle: some View {
+        Toggle(isOn: $viewModel.template.isPrivateRoom) {
+            Text("Private room")
+                .font(.large())
+        }
+        .tint(Color.primaryPink)
     }
     
     private func setImage(_ item: PhotosPickerItem?) {
