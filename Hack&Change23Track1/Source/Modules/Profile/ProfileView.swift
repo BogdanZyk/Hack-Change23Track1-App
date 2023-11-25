@@ -35,6 +35,7 @@ struct ProfileView: View {
             
             Spacer()
         }
+        .allFrame()
         .padding()
         .background(Color.primaryBg)
         .foregroundColor(.primaryFont)

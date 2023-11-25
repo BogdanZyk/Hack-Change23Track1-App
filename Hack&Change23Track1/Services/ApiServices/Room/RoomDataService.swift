@@ -116,6 +116,13 @@ final class RoomDataService {
         return data.data?.roomAction?.fragments.roomAttrs != nil
     }
     
+    func fetchStickers() async -> [String] {
+        let query = AllStickersQuery()
+        let data = try? await api.fetch(query: query)
+        guard let stickers = data?.data?.allStickers?.compactMap({$0?.stickers?.compactMap({$0})})
+            .flatMap({$0}) else { return []}
+        return stickers
+    }
 }
 
 enum RoomAction: String {

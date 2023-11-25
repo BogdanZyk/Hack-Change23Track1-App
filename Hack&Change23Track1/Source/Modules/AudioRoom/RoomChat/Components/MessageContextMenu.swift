@@ -38,12 +38,18 @@ extension MessageContextMenuView{
                                        userName: message.from.login,
                                        size: .init(width: 40, height: 40),
                                        withStroke: false)
+                        
                         VStack(alignment: .leading, spacing: 2) {
                             Text(message.from.login)
                                 .font(.body.bold())
-                            Text(message.content)
-                                .font(.body.weight(.light))
-                                .lineLimit(2)
+                            if message.type == .message {
+                                Text(message.content)
+                                    .font(.body.weight(.light))
+                                    .lineLimit(2)
+                            } else if message.type == .sticker {
+                                LazyNukeImage(fullPath: message.sticker)
+                                    .frame(width: 70, height: 70)
+                            }
                         }
                     }
                     .padding(10)

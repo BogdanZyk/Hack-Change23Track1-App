@@ -156,14 +156,23 @@ extension RoomChatView {
 
 extension RoomChatView {
     
-    private func createAndSendMessage(_ content: String) {
+    private func createAndSendMessage(_ content: Message.MessageContent) {
         message = ""
-        isFocused = false
-        let message = Message(id: UUID().uuidString,
+        var message = Message(id: UUID().uuidString,
                               from: roomVM.currentUser,
                               type: .message,
-                              text: content,
+                              text: "",
                               replyMessage: chatVM.replyMessage)
+        
+        switch content {
+        case .text(let text):
+            message.type = .message
+            message.text = text
+        case .sticker(let sticker):
+            message.type = .sticker
+            message.sticker = sticker
+        }
+        
         chatVM.resetReply()
         roomVM.sendMessageToDataChannel(message)
     }

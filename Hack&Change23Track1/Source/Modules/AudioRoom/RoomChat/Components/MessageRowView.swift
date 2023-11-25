@@ -23,7 +23,7 @@ extension RoomChatView {
             .foregroundColor(.primaryFont)
             .onTapGesture { }
             .onLongPressGesture {
-                if message.type == .message {
+                if message.type == .message || message.type == .sticker {
                     onLongPressGesture()
                 }
             }
@@ -61,6 +61,17 @@ extension RoomChatView {
                         .cornerRadius(5)
                         .roundedCorner(16, corners: corners)
                     }
+                case .sticker:
+                    HStack(alignment: .bottom) {
+                        avatarView
+                        VStack(alignment: .leading, spacing: 4) {
+                            replyMessage
+                            LazyNukeImage(fullPath: message.sticker)
+                                .frame(width: 90, height: 90)
+                            reactionSection
+                        }
+                    }
+                    .containerShape(Rectangle())
                 }
             }
         }

@@ -15,9 +15,14 @@ struct Message: Identifiable, Codable {
     var text: String?
     var replyMessage: ReplyMessage?
     var reactions: [MessageReaction] = []
+    var sticker: String?
     
     enum MessageType: String, Codable {
-        case joined, leaving, message, hidden
+        case joined, leaving, message, sticker, hidden
+    }
+    
+    enum MessageContent {
+        case text(String), sticker(String)
     }
     
     var content: String {
@@ -31,6 +36,8 @@ struct Message: Identifiable, Codable {
             return text ?? ""
         case .hidden:
             return "Hidden message"
+        case .sticker:
+            return ""
         }
     }
     
