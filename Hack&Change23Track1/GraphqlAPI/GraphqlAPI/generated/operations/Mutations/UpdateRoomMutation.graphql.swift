@@ -2,30 +2,42 @@
 // This file was automatically generated and should not be edited.
 
 @_exported import ApolloAPI
+import Hack&Change23Track1
 
-
-class LoadAudioMutation: GraphQLMutation {
-  static let operationName: String = "LoadAudio"
+class UpdateRoomMutation: GraphQLMutation {
+  static let operationName: String = "UpdateRoom"
   static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation LoadAudio($roomId: String!, $audioId: String!) { LoadAudio(RoomId: $roomId, AudioId: $audioId) { __typename ...RoomAttrs } }"#,
+      #"mutation UpdateRoom($roomId: String!, $image: String, $private: Boolean, $type: RoomType, $name: String) { UpdateRoom( RoomId: $roomId Image: $image Private: $private Type: $type Name: $name ) { __typename ...RoomAttrs } }"#,
       fragments: [RoomAttrs.self, PlayerItemAttrs.self, FileAttrs.self, UserAttrs.self]
     ))
 
   public var roomId: String
-  public var audioId: String
+  public var image: GraphQLNullable<String>
+  public var `private`: GraphQLNullable<Bool>
+  public var type: GraphQLNullable<GraphQLEnum<SchemaAPI.RoomType>>
+  public var name: GraphQLNullable<String>
 
   public init(
     roomId: String,
-    audioId: String
+    image: GraphQLNullable<String>,
+    `private`: GraphQLNullable<Bool>,
+    type: GraphQLNullable<GraphQLEnum<SchemaAPI.RoomType>>,
+    name: GraphQLNullable<String>
   ) {
     self.roomId = roomId
-    self.audioId = audioId
+    self.image = image
+    self.`private` = `private`
+    self.type = type
+    self.name = name
   }
 
   public var __variables: Variables? { [
     "roomId": roomId,
-    "audioId": audioId
+    "image": image,
+    "private": `private`,
+    "type": type,
+    "name": name
   ] }
 
   struct Data: SchemaAPI.SelectionSet {
@@ -34,32 +46,35 @@ class LoadAudioMutation: GraphQLMutation {
 
     static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.RootMutationType }
     static var __selections: [ApolloAPI.Selection] { [
-      .field("LoadAudio", LoadAudio?.self, arguments: [
+      .field("UpdateRoom", UpdateRoom?.self, arguments: [
         "RoomId": .variable("roomId"),
-        "AudioId": .variable("audioId")
+        "Image": .variable("image"),
+        "Private": .variable("private"),
+        "Type": .variable("type"),
+        "Name": .variable("name")
       ]),
     ] }
 
-    var loadAudio: LoadAudio? { __data["LoadAudio"] }
+    var updateRoom: UpdateRoom? { __data["UpdateRoom"] }
 
     init(
-      loadAudio: LoadAudio? = nil
+      updateRoom: UpdateRoom? = nil
     ) {
       self.init(_dataDict: DataDict(
         data: [
           "__typename": SchemaAPI.Objects.RootMutationType.typename,
-          "LoadAudio": loadAudio._fieldData,
+          "UpdateRoom": updateRoom._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(LoadAudioMutation.Data.self)
+          ObjectIdentifier(UpdateRoomMutation.Data.self)
         ]
       ))
     }
 
-    /// LoadAudio
+    /// UpdateRoom
     ///
     /// Parent Type: `Room`
-    struct LoadAudio: SchemaAPI.SelectionSet {
+    struct UpdateRoom: SchemaAPI.SelectionSet {
       let __data: DataDict
       init(_dataDict: DataDict) { __data = _dataDict }
 
@@ -111,13 +126,13 @@ class LoadAudioMutation: GraphQLMutation {
             "Owner": owner._fieldData,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(LoadAudioMutation.Data.LoadAudio.self),
+            ObjectIdentifier(UpdateRoomMutation.Data.UpdateRoom.self),
             ObjectIdentifier(RoomAttrs.self)
           ]
         ))
       }
 
-      /// LoadAudio.File
+      /// UpdateRoom.File
       ///
       /// Parent Type: `PlayFile`
       struct File: SchemaAPI.SelectionSet {
@@ -153,14 +168,14 @@ class LoadAudioMutation: GraphQLMutation {
               "Pause": pause,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(LoadAudioMutation.Data.LoadAudio.File.self),
+              ObjectIdentifier(UpdateRoomMutation.Data.UpdateRoom.File.self),
               ObjectIdentifier(PlayerItemAttrs.self),
               ObjectIdentifier(RoomAttrs.File.self)
             ]
           ))
         }
 
-        /// LoadAudio.File.File
+        /// UpdateRoom.File.File
         ///
         /// Parent Type: `Audio`
         struct File: SchemaAPI.SelectionSet {
@@ -190,7 +205,7 @@ class LoadAudioMutation: GraphQLMutation {
                 "Name": name,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(LoadAudioMutation.Data.LoadAudio.File.File.self),
+                ObjectIdentifier(UpdateRoomMutation.Data.UpdateRoom.File.File.self),
                 ObjectIdentifier(FileAttrs.self),
                 ObjectIdentifier(PlayerItemAttrs.File.self)
               ]
@@ -199,7 +214,7 @@ class LoadAudioMutation: GraphQLMutation {
         }
       }
 
-      /// LoadAudio.Member
+      /// UpdateRoom.Member
       ///
       /// Parent Type: `User`
       struct Member: SchemaAPI.SelectionSet {
@@ -235,7 +250,7 @@ class LoadAudioMutation: GraphQLMutation {
               "Email": email,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(LoadAudioMutation.Data.LoadAudio.Member.self),
+              ObjectIdentifier(UpdateRoomMutation.Data.UpdateRoom.Member.self),
               ObjectIdentifier(UserAttrs.self),
               ObjectIdentifier(RoomAttrs.Member.self)
             ]

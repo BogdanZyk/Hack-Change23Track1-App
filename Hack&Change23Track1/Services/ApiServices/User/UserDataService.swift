@@ -11,23 +11,23 @@ class UserDataService {
     
     private let api = Network.shared.client
     
-    func singIn(login: String, password: String) async throws -> String {
-        let mutation = SignInMutation(login: login, password: password)
+    func singIn(email: String, password: String) async throws -> String {
+        let mutation = SignInMutation(email: email, password: password)
         let data = try await api.mutation(mutation: mutation, publishResultToStore: false)
         guard let token = data.data?.signIn?.token else {
             throw URLError(.badServerResponse)
         }
-        print("singIn with", login)
+        print("singIn with", email)
         return token
     }
     
-    func singUp(login: String, password: String) async throws -> String {
-        let mutation = SignUpMutation(login: login, password: password)
+    func singUp(email: String, password: String, login: String) async throws -> String {
+        let mutation = SignUpMutation(login: login, password: password, email: email)
         let data = try await api.mutation(mutation: mutation, publishResultToStore: false)
         guard let token = data.data?.signUp?.token else {
             throw URLError(.badServerResponse)
         }
-        print("singUp with", login)
+        print("singUp with", email)
         return token
     }
     

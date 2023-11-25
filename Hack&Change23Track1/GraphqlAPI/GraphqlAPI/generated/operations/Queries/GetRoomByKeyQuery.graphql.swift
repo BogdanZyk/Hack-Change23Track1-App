@@ -200,6 +200,7 @@ class GetRoomByKeyQuery: GraphQLQuery {
         var id: String { __data["Id"] }
         var login: String { __data["Login"] }
         var avatar: String { __data["Avatar"] }
+        var email: String { __data["Email"] }
 
         struct Fragments: FragmentContainer {
           let __data: DataDict
@@ -211,7 +212,8 @@ class GetRoomByKeyQuery: GraphQLQuery {
         init(
           id: String,
           login: String,
-          avatar: String
+          avatar: String,
+          email: String
         ) {
           self.init(_dataDict: DataDict(
             data: [
@@ -219,6 +221,7 @@ class GetRoomByKeyQuery: GraphQLQuery {
               "Id": id,
               "Login": login,
               "Avatar": avatar,
+              "Email": email,
             ],
             fulfilledFragments: [
               ObjectIdentifier(GetRoomByKeyQuery.Data.GetRoomByKey.Member.self),

@@ -30,10 +30,11 @@ final class AuthManager: ObservableObject {
         isSingIn = false
     }
     
-    func singUp(login: String, pass: String, image: String) async {
+    func singUp(email: String, pass: String, image: String, login: String) async {
         
         do {
-            let token = try await service.singUp(login: login, password: pass)
+            let token = try await service.singUp(email: email.noSpaceStr.lowercased(),
+                                                 password: pass.noSpaceStr, login: login)
             saveJWT(token)
             try? await updateUserAvatar(image)
         } catch {
@@ -41,10 +42,11 @@ final class AuthManager: ObservableObject {
         }
     }
     
-    func signIn(login: String, pass: String) async {
+    func signIn(email: String, pass: String) async {
         
         do {
-            let token = try await service.singIn(login: login, password: pass)
+            let token = try await service.singIn(email: email.noSpaceStr.lowercased(),
+                                                 password: pass)
             saveJWT(token)
         } catch {
             appAlert = .errors(errors: [error])

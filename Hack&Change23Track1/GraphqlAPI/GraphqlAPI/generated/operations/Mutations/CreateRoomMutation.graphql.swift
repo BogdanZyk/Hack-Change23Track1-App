@@ -8,26 +8,30 @@ class CreateRoomMutation: GraphQLMutation {
   static let operationName: String = "CreateRoom"
   static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation CreateRoom($name: String!, $image: String, $private: Boolean) { CreateRoom(Name: $name, Image: $image, Private: $private) { __typename ...RoomAttrs } }"#,
+      #"mutation CreateRoom($name: String!, $type: RoomType, $image: String, $private: Boolean) { CreateRoom(Name: $name, Type: $type, Image: $image, Private: $private) { __typename ...RoomAttrs } }"#,
       fragments: [RoomAttrs.self, PlayerItemAttrs.self, FileAttrs.self, UserAttrs.self]
     ))
 
   public var name: String
+  public var type: GraphQLNullable<GraphQLEnum<SchemaAPI.RoomType>>
   public var image: GraphQLNullable<String>
   public var `private`: GraphQLNullable<Bool>
 
   public init(
     name: String,
+    type: GraphQLNullable<GraphQLEnum<SchemaAPI.RoomType>>,
     image: GraphQLNullable<String>,
     `private`: GraphQLNullable<Bool>
   ) {
     self.name = name
+    self.type = type
     self.image = image
     self.`private` = `private`
   }
 
   public var __variables: Variables? { [
     "name": name,
+    "type": type,
     "image": image,
     "private": `private`
   ] }
@@ -40,6 +44,7 @@ class CreateRoomMutation: GraphQLMutation {
     static var __selections: [ApolloAPI.Selection] { [
       .field("CreateRoom", CreateRoom?.self, arguments: [
         "Name": .variable("name"),
+        "Type": .variable("type"),
         "Image": .variable("image"),
         "Private": .variable("private")
       ]),
@@ -216,6 +221,7 @@ class CreateRoomMutation: GraphQLMutation {
         var id: String { __data["Id"] }
         var login: String { __data["Login"] }
         var avatar: String { __data["Avatar"] }
+        var email: String { __data["Email"] }
 
         struct Fragments: FragmentContainer {
           let __data: DataDict
@@ -227,7 +233,8 @@ class CreateRoomMutation: GraphQLMutation {
         init(
           id: String,
           login: String,
-          avatar: String
+          avatar: String,
+          email: String
         ) {
           self.init(_dataDict: DataDict(
             data: [
@@ -235,6 +242,7 @@ class CreateRoomMutation: GraphQLMutation {
               "Id": id,
               "Login": login,
               "Avatar": avatar,
+              "Email": email,
             ],
             fulfilledFragments: [
               ObjectIdentifier(CreateRoomMutation.Data.CreateRoom.Member.self),

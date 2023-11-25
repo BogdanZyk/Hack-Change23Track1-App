@@ -8,22 +8,22 @@ class SignInMutation: GraphQLMutation {
   static let operationName: String = "SignIn"
   static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation SignIn($login: String!, $password: String!) { SignIn(Login: $login, Password: $password) { __typename Token } }"#
+      #"mutation SignIn($email: String!, $password: String!) { SignIn(Email: $email, Password: $password) { __typename Token } }"#
     ))
 
-  public var login: String
+  public var email: String
   public var password: String
 
   public init(
-    login: String,
+    email: String,
     password: String
   ) {
-    self.login = login
+    self.email = email
     self.password = password
   }
 
   public var __variables: Variables? { [
-    "login": login,
+    "email": email,
     "password": password
   ] }
 
@@ -34,7 +34,7 @@ class SignInMutation: GraphQLMutation {
     static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.RootMutationType }
     static var __selections: [ApolloAPI.Selection] { [
       .field("SignIn", SignIn?.self, arguments: [
-        "Login": .variable("login"),
+        "Email": .variable("email"),
         "Password": .variable("password")
       ]),
     ] }

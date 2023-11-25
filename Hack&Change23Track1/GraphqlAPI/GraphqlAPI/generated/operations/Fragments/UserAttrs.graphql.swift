@@ -6,7 +6,7 @@
 
 struct UserAttrs: SchemaAPI.SelectionSet, Fragment {
   static var fragmentDefinition: StaticString {
-    #"fragment UserAttrs on User { __typename Id Login Avatar }"#
+    #"fragment UserAttrs on User { __typename Id Login Avatar Email }"#
   }
 
   let __data: DataDict
@@ -18,16 +18,19 @@ struct UserAttrs: SchemaAPI.SelectionSet, Fragment {
     .field("Id", String.self),
     .field("Login", String.self),
     .field("Avatar", String.self),
+    .field("Email", String.self),
   ] }
 
   var id: String { __data["Id"] }
   var login: String { __data["Login"] }
   var avatar: String { __data["Avatar"] }
+  var email: String { __data["Email"] }
 
   init(
     id: String,
     login: String,
-    avatar: String
+    avatar: String,
+    email: String
   ) {
     self.init(_dataDict: DataDict(
       data: [
@@ -35,6 +38,7 @@ struct UserAttrs: SchemaAPI.SelectionSet, Fragment {
         "Id": id,
         "Login": login,
         "Avatar": avatar,
+        "Email": email,
       ],
       fulfilledFragments: [
         ObjectIdentifier(UserAttrs.self)

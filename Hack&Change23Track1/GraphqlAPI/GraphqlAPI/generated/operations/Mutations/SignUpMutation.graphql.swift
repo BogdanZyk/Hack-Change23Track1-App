@@ -8,23 +8,27 @@ class SignUpMutation: GraphQLMutation {
   static let operationName: String = "SignUp"
   static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation SignUp($login: String!, $password: String!) { SignUp(Login: $login, Password: $password) { __typename Token } }"#
+      #"mutation SignUp($login: String!, $password: String!, $email: String!) { SignUp(Login: $login, Password: $password, Email: $email) { __typename Token } }"#
     ))
 
   public var login: String
   public var password: String
+  public var email: String
 
   public init(
     login: String,
-    password: String
+    password: String,
+    email: String
   ) {
     self.login = login
     self.password = password
+    self.email = email
   }
 
   public var __variables: Variables? { [
     "login": login,
-    "password": password
+    "password": password,
+    "email": email
   ] }
 
   struct Data: SchemaAPI.SelectionSet {
@@ -35,7 +39,8 @@ class SignUpMutation: GraphQLMutation {
     static var __selections: [ApolloAPI.Selection] { [
       .field("SignUp", SignUp?.self, arguments: [
         "Login": .variable("login"),
-        "Password": .variable("password")
+        "Password": .variable("password"),
+        "Email": .variable("email")
       ]),
     ] }
 

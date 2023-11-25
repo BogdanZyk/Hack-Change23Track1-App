@@ -167,6 +167,7 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
     var id: String { __data["Id"] }
     var login: String { __data["Login"] }
     var avatar: String { __data["Avatar"] }
+    var email: String { __data["Email"] }
 
     struct Fragments: FragmentContainer {
       let __data: DataDict
@@ -178,7 +179,8 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
     init(
       id: String,
       login: String,
-      avatar: String
+      avatar: String,
+      email: String
     ) {
       self.init(_dataDict: DataDict(
         data: [
@@ -186,6 +188,7 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
           "Id": id,
           "Login": login,
           "Avatar": avatar,
+          "Email": email,
         ],
         fulfilledFragments: [
           ObjectIdentifier(RoomAttrs.Member.self),

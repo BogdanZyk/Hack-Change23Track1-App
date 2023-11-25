@@ -25,6 +25,15 @@ type RootQueryType {
 }
 
 """"""
+type ClientSDP {
+  """"""
+  Sdp: String!
+
+  """"""
+  Type: String!
+}
+
+""""""
 type PlayFile {
   """"""
   CurrentSeconds: String
@@ -40,36 +49,54 @@ type PlayFile {
 }
 
 """"""
-type User {
+type RootMutationType {
   """"""
-  Avatar: String!
+  CreateRoom(Type: RoomType, Name: String!, Image: String, Private: Boolean): Room
 
   """"""
-  Id: String!
+  DeleteRoom(RoomId: String!): Room
 
   """"""
-  Login: String!
+  InitConnection(RoomId: String!, SDP: ServerSDP!): ClientSDP
+
+  """"""
+  LikeRoom(RoomId: String!): Room
+
+  """"""
+  LoadAudio(RoomId: String!, AudioId: String!): Room
+
+  """"""
+  RoomAction(RoomId: String!, Action: String!, Arg: String!): Room
+
+  """"""
+  SignIn(Email: String!, Password: String!): Token
+
+  """"""
+  SignUp(Login: String!, Password: String!, Email: String!): Token
+
+  """"""
+  UpdateCurrentUser(Avatar: String, Login: String): User
+
+  """"""
+  UpdateRoom(Image: String, Private: Boolean, Type: RoomType, RoomId: String!, Name: String): Room
+}
+
+""""""
+enum RoomType {
+  """"""
+  NO_TYPE
+
+  """"""
+  SINGLE
+
+  """"""
+  PLAYLIST
 }
 
 """"""
 type Token {
   """"""
   Token: String!
-}
-
-""""""
-type ClientSDP {
-  """"""
-  Sdp: String!
-
-  """"""
-  Type: String!
-}
-
-""""""
-type RootSubsribeType {
-  """"""
-  RoomUpdates: Room
 }
 
 """"""
@@ -100,6 +127,24 @@ type Room {
 
   """"""
   Private: Boolean
+
+  """"""
+  Type: String
+}
+
+""""""
+type User {
+  """"""
+  Avatar: String!
+
+  """"""
+  Email: String!
+
+  """"""
+  Id: String!
+
+  """"""
+  Login: String!
 }
 
 """"""
@@ -112,43 +157,16 @@ type Audio {
 }
 
 """"""
-type RootMutationType {
-  """"""
-  CreateRoom(Name: String!, Image: String, Private: Boolean): Room
-
-  """"""
-  DeleteRoom(RoomId: String!): Room
-
-  """"""
-  InitConnection(RoomId: String!, SDP: ServerSDP!): ClientSDP
-
-  """"""
-  LikeRoom(RoomId: String!): Room
-
-  """"""
-  LoadAudio(RoomId: String!, AudioId: String!): Room
-
-  """"""
-  RoomAction(RoomId: String!, Action: String!, Arg: String!): Room
-
-  """"""
-  SignIn(Login: String!, Password: String!): Token
-
-  """"""
-  SignUp(Login: String!, Password: String!): Token
-
-  """"""
-  UpdateCurrentUser(Avatar: String): User
-
-  """"""
-  UpdateRoom(RoomId: String!, Name: String, Image: String, Private: Boolean): Room
-}
-
-""""""
 input ServerSDP {
   """"""
   Type: String
 
   """"""
   Sdp: String
+}
+
+""""""
+type RootSubsribeType {
+  """"""
+  RoomUpdates: Room
 }

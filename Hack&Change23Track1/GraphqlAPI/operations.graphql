@@ -1,13 +1,13 @@
 
 
-mutation SignIn($login: String!, $password: String!) {
-  SignIn(Login: $login, Password: $password) {
+mutation SignIn($email: String!, $password: String!) {
+  SignIn(Email: $email, Password: $password) {
     Token
   }
 }
 
-mutation SignUp($login: String!, $password: String!) {
-  SignUp(Login: $login, Password: $password) {
+mutation SignUp($login: String!, $password: String!, $email: String!) {
+  SignUp(Login: $login, Password: $password, Email: $email) {
     Token
   }
 }
@@ -28,8 +28,8 @@ fragment UserAttrs on User {
     Id
     Login
     Avatar
+    Email
 }
-
 
 query ListAudio {
   ListAudio {
@@ -49,9 +49,21 @@ query GetRoomByKey($key: String!) {
   }
 }
 
-mutation CreateRoom($name: String!, $image: String, $private: Boolean) {
-  CreateRoom(Name: $name, Image: $image, Private: $private) {
+mutation CreateRoom($name: String!, $type: RoomType, $image: String, $private: Boolean) {
+  CreateRoom(Name: $name, Type: $type, Image: $image, Private: $private) {
     ...RoomAttrs
+  }
+}
+
+mutation UpdateRoom($roomId: String!, $image: String, $private: Boolean, $type: RoomType, $name: String) {
+  UpdateRoom(RoomId: $roomId, Image: $image, Private: $private, Type: $type, Name: $name) {
+     ...RoomAttrs
+  }
+}
+
+mutation DeleteRoom($roomId: String!) {
+  DeleteRoom(RoomId: $roomId) {
+    Id
   }
 }
 
@@ -90,12 +102,6 @@ fragment FileAttrs on Audio {
 mutation LoadAudio($roomId: String!, $audioId: String!) {
   LoadAudio(RoomId: $roomId, AudioId: $audioId) {
     ...RoomAttrs
-  }
-}
-
-mutation DeleteRoom($roomId: String!) {
-  DeleteRoom(RoomId: $roomId) {
-    Id
   }
 }
 

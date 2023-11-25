@@ -216,6 +216,7 @@ class RoomActionMutation: GraphQLMutation {
         var id: String { __data["Id"] }
         var login: String { __data["Login"] }
         var avatar: String { __data["Avatar"] }
+        var email: String { __data["Email"] }
 
         struct Fragments: FragmentContainer {
           let __data: DataDict
@@ -227,7 +228,8 @@ class RoomActionMutation: GraphQLMutation {
         init(
           id: String,
           login: String,
-          avatar: String
+          avatar: String,
+          email: String
         ) {
           self.init(_dataDict: DataDict(
             data: [
@@ -235,6 +237,7 @@ class RoomActionMutation: GraphQLMutation {
               "Id": id,
               "Login": login,
               "Avatar": avatar,
+              "Email": email,
             ],
             fulfilledFragments: [
               ObjectIdentifier(RoomActionMutation.Data.RoomAction.Member.self),
