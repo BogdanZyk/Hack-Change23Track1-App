@@ -14,6 +14,7 @@ struct RoomSettingsView: View {
     @State private var template: RoomTemplate
     @State private var photoItem: PhotosPickerItem?
     @State private var isPresentedAlert: Bool = false
+    @State private var isPresentedShare: Bool = false
     init(viewModel: RoomViewModel) {
         self._viewModel = ObservedObject(initialValue: viewModel)
         self._template = State(initialValue: .init(room: viewModel.room))
@@ -41,6 +42,10 @@ struct RoomSettingsView: View {
             alertButton
         } message: {
             Text("Do you really want to delete the room?")
+        }
+        .sheet(isPresented: $isPresentedShare) {
+            ShareSheet(code: viewModel.room.key ?? "")
+                .presentationDetents([.medium])
         }
     }
 }
@@ -79,6 +84,9 @@ extension RoomSettingsView {
                 .font(.primary(weight: .bold))
                 .padding()
                 .background(Color.primaryGray, in: RoundedRectangle(cornerRadius: 12))
+                .onTapGesture {
+                    isPresentedShare.toggle()
+                }
         }
         .hCenter()
     }
@@ -86,9 +94,7 @@ extension RoomSettingsView {
     private var roomName: some View {
         PrimaryTextField(text: $template.name, label: "Room name", title: "Name")
     }
-    
-    
-    
+
     private var privateToggle: some View {
         Toggle(isOn: $template.isPrivateRoom) {
             Text("Make the room private")

@@ -41,6 +41,7 @@
 		5A58E7CC2B12826800D0723C /* AllStickersQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7CB2B12826800D0723C /* AllStickersQuery.graphql.swift */; };
 		5A58E7CE2B12832300D0723C /* RoomTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7CD2B12832300D0723C /* RoomTemplate.swift */; };
 		5A58E7D02B1283C500D0723C /* StickerPack.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7CF2B1283C500D0723C /* StickerPack.graphql.swift */; };
+		5A58E7D22B1287AB00D0723C /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7D12B1287AB00D0723C /* ShareSheet.swift */; };
 		5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */; };
 		5A81F3D82B1091AA00D9998F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D72B1091AA00D9998F /* ContentView.swift */; };
 		5A81F3DA2B1091AB00D9998F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F3D92B1091AB00D9998F /* Assets.xcassets */; };
@@ -143,6 +144,7 @@
 		5A58E7CB2B12826800D0723C /* AllStickersQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllStickersQuery.graphql.swift; sourceTree = "<group>"; };
 		5A58E7CD2B12832300D0723C /* RoomTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTemplate.swift; sourceTree = "<group>"; };
 		5A58E7CF2B1283C500D0723C /* StickerPack.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerPack.graphql.swift; sourceTree = "<group>"; };
+		5A58E7D12B1287AB00D0723C /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		5A81F3D22B1091AA00D9998F /* Hack&Change23Track1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hack&Change23Track1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hack_Change23Track1App.swift; sourceTree = "<group>"; };
 		5A81F3D72B1091AA00D9998F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 				5A58E7982B114C3F00D0723C /* ParticlesModifier.swift */,
 				5A58E7A32B115A9300D0723C /* UserAvatarView.swift */,
 				5A58E7A72B115F1E00D0723C /* SoundWaveView.swift */,
+				5A58E7D12B1287AB00D0723C /* ShareSheet.swift */,
 			);
 			path = ViewComponents;
 			sourceTree = "<group>";
@@ -822,6 +825,7 @@
 				5A81F48D2B10DAC500D9998F /* RoomRowView.swift in Sources */,
 				5A81F44C2B10A49C00D9998F /* ListAudioQuery.graphql.swift in Sources */,
 				5A81F4132B109FF900D9998F /* IceCandidate.swift in Sources */,
+				5A58E7D22B1287AB00D0723C /* ShareSheet.swift in Sources */,
 				5A81F4892B10D29200D9998F /* JoinInRoomView.swift in Sources */,
 				5A58E7B32B117CB300D0723C /* MessageContextMenu.swift in Sources */,
 				5A81F4572B10A49C00D9998F /* SchemaConfiguration.swift in Sources */,

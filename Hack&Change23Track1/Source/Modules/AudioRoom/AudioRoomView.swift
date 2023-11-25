@@ -151,7 +151,7 @@ extension AudioRoomView {
         case .settings:
             RoomSettingsView(viewModel: viewModel)
         case .share:
-            Text(viewModel.room.key ?? "")
+            ShareSheet(code: viewModel.room.key ?? "")
                 .presentationDetents([.medium])
         }
     }
