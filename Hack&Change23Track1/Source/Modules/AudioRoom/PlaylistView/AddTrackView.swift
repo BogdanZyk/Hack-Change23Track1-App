@@ -13,9 +13,11 @@ struct AddTrackView: View {
     var body: some View {
         VStack(spacing: 0) {
             topBarView
+            PrimaryTextField(text: $viewModel.searchQuery, label: "Search")
+                .padding()
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(alignment: .leading, spacing: 0) {
-                    ForEach(viewModel.audios){
+                    ForEach(viewModel.searchResult){
                         rowView($0)
                     }
                 }

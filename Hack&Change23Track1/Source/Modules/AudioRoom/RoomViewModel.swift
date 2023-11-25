@@ -65,6 +65,15 @@ extension RoomViewModel {
         }
     }
     
+    func sendPlaylistToDataChannel(_ playlist: Playlist) {
+        do {
+            let data = try JSONHelper.encoder.encode(playlist)
+            webRTCClient.sendData(data)
+        } catch {
+            appAlert = .errors(errors: [error])
+        }
+    }
+    
     func startConnectWebRTC() async {
         
         do {

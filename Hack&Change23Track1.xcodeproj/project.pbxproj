@@ -35,6 +35,7 @@
 		5A58E7BC2B11F54A00D0723C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7BB2B11F54A00D0723C /* String.swift */; };
 		5A58E7BF2B120C2B00D0723C /* AddTrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7BE2B120C2B00D0723C /* AddTrackView.swift */; };
 		5A58E7C12B120C3F00D0723C /* AddTrackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7C02B120C3F00D0723C /* AddTrackViewModel.swift */; };
+		5A58E7C42B1215BA00D0723C /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7C32B1215BA00D0723C /* Playlist.swift */; };
 		5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */; };
 		5A81F3D82B1091AA00D9998F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D72B1091AA00D9998F /* ContentView.swift */; };
 		5A81F3DA2B1091AB00D9998F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F3D92B1091AB00D9998F /* Assets.xcassets */; };
@@ -130,6 +131,7 @@
 		5A58E7BB2B11F54A00D0723C /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		5A58E7BE2B120C2B00D0723C /* AddTrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrackView.swift; sourceTree = "<group>"; };
 		5A58E7C02B120C3F00D0723C /* AddTrackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrackViewModel.swift; sourceTree = "<group>"; };
+		5A58E7C32B1215BA00D0723C /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		5A81F3D22B1091AA00D9998F /* Hack&Change23Track1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hack&Change23Track1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hack_Change23Track1App.swift; sourceTree = "<group>"; };
 		5A81F3D72B1091AA00D9998F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -283,6 +285,14 @@
 			path = PlaylistView;
 			sourceTree = "<group>";
 		};
+		5A58E7C22B12156600D0723C /* Playlist */ = {
+			isa = PBXGroup;
+			children = (
+				5A58E7C32B1215BA00D0723C /* Playlist.swift */,
+			);
+			path = Playlist;
+			sourceTree = "<group>";
+		};
 		5A81F3C92B1091AA00D9998F = {
 			isa = PBXGroup;
 			children = (
@@ -354,6 +364,7 @@
 		5A81F3F52B10973000D9998F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5A58E7C22B12156600D0723C /* Playlist */,
 				5A58E79C2B114E2300D0723C /* Chat */,
 				5A81F46F2B10BBBD00D9998F /* Room */,
 			);
@@ -736,6 +747,7 @@
 				5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */,
 				5A58E79B2B114C5800D0723C /* Task.swift in Sources */,
 				5A81F4802B10C36600D9998F /* Font.swift in Sources */,
+				5A58E7C42B1215BA00D0723C /* Playlist.swift in Sources */,
 				5A81F4742B10BC9E00D9998F /* RootContainerView.swift in Sources */,
 				5A81F4822B10C47300D9998F /* PrimaryTextField.swift in Sources */,
 				5A58E7A82B115F1E00D0723C /* SoundWaveView.swift in Sources */,
