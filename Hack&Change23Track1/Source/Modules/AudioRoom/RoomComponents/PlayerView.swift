@@ -12,7 +12,7 @@ struct PlayerView: View {
     var isDisabledControls: Bool = false
     @ObservedObject var viewModel: RoomViewModel
     @State private var showPlayerButton: Bool = false
-    private var maxHeight: CGFloat {  getRect().height / 3.8 }
+    private var maxHeight: CGFloat {  getRect().height / 3.2 }
     var body: some View {
         Group {
             if showFullVersion {
@@ -74,7 +74,7 @@ extension PlayerView {
                     .foregroundColor(.secondaryGray)
             }
             .font(.medium(weight: .medium))
-            .lineLimit(1)
+            .lineLimit(2)
             Spacer()
             HStack(spacing: 18) {
                 if viewModel.isOwner {
@@ -166,7 +166,7 @@ extension PlayerView {
             }
             HStack(spacing: 16) {
                 Text(viewModel.currentAudio?.file.name ?? "No select audio")
-                    .lineLimit(1)
+                    .lineLimit(2)
                 Spacer()
                 Label("\(viewModel.members.count)", systemImage: "headphones")
                 likeButton

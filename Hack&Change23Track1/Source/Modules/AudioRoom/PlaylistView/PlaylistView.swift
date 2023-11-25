@@ -37,6 +37,7 @@ extension AudioRoomView {
         @ViewBuilder
         private func rowView(_ audio: AudioItem) -> some View {
             let isPlay = audio.id == playedId
+            let isLoading = audio.status == .download
             HStack {
                 LazyNukeImage(fullPath: audio.file.coverFullPath)
                     .frame(width: 52, height: 52)
@@ -48,7 +49,7 @@ extension AudioRoomView {
                     SoundWaveView(color: .primaryPink)
                         .frame(width: 28, height: 28)
                 }
-                if audio.status == .download {
+                if isLoading {
                     ProgressView()
                 }
             }
@@ -57,6 +58,8 @@ extension AudioRoomView {
             .padding(.vertical, 20)
             .background(isPlay ? Color.primaryGray.opacity(0.5) : Color.primaryBg)
             .contentShape(Rectangle())
+            .opacity(isLoading ? 0.6 : 1)
+            .disabled(isLoading)
             .onTapGesture {
                 onTap(audio)
             }

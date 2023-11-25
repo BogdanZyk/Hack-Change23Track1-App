@@ -132,6 +132,7 @@
 		5A58E7BE2B120C2B00D0723C /* AddTrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrackView.swift; sourceTree = "<group>"; };
 		5A58E7C02B120C3F00D0723C /* AddTrackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrackViewModel.swift; sourceTree = "<group>"; };
 		5A58E7C32B1215BA00D0723C /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
+		5A58E7C52B126EC600D0723C /* Hack-Change23Track1-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Hack-Change23Track1-Info.plist"; sourceTree = SOURCE_ROOT; };
 		5A81F3D22B1091AA00D9998F /* Hack&Change23Track1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hack&Change23Track1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hack_Change23Track1App.swift; sourceTree = "<group>"; };
 		5A81F3D72B1091AA00D9998F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -312,6 +313,7 @@
 		5A81F3D42B1091AA00D9998F /* Hack&Change23Track1 */ = {
 			isa = PBXGroup;
 			children = (
+				5A58E7C52B126EC600D0723C /* Hack-Change23Track1-Info.plist */,
 				5A81F4052B1098B200D9998F /* GraphqlAPI */,
 				5A81F3F22B1096F200D9998F /* App */,
 				5A81F3F82B10975300D9998F /* Utils */,
@@ -947,6 +949,7 @@
 				DEVELOPMENT_TEAM = 92PU6D6MCQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Hack-Change23Track1-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -977,6 +980,7 @@
 				DEVELOPMENT_TEAM = 92PU6D6MCQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Hack-Change23Track1-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
