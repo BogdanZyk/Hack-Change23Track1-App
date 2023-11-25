@@ -12,9 +12,9 @@ struct RoomMember: Codable, Identifiable {
     let login: String
     var avatar: String?
     
-    static let mock = RoomMember(id: "1", login: "Mike")
+    static let mock = RoomMember(id: "1", login: "Mike", avatar: nil)
     
-    init(id: String, login: String, avatar: String? = nil) {
+    init(id: String, login: String, avatar: String?) {
         self.id = id
         self.login = login
         self.avatar = avatar
@@ -23,6 +23,6 @@ struct RoomMember: Codable, Identifiable {
     init(user: UserAttrs) {
         self.login = user.login
         self.id = user.id
-        self.avatar = nil
+        self.avatar = user.avatar
     }
 }

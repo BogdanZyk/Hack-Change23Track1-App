@@ -14,11 +14,10 @@ struct UserAvatarView: View {
     var withStroke: Bool = false
     var body: some View {
         ZStack {
-            if let image, image.isEmpty {
+            if let image, !image.isEmpty {
                 LazyNukeImage(path: image)
             } else {
-                Circle()
-                    .fill(Color.primaryGray)
+                Color.primaryGray
                  Text(String(userName.first ?? "A"))
                      .font(size.width > 30 ? .title3 : .subheadline)
                      .bold()
@@ -26,6 +25,7 @@ struct UserAvatarView: View {
             }
         }
         .frame(width: size.width, height: size.height)
+        .clipShape(Circle())
         .overlay {
             if withStroke {
                 Circle()

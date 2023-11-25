@@ -68,7 +68,10 @@ extension RoomChatView {
         @ViewBuilder
         private var avatarView: some View {
             if !userIsSender {
-                UserAvatarView(userName: message.from.login, size: .init(width: 40, height: 40), withStroke: userIsSender)
+                UserAvatarView(image: message.from.avatar,
+                               userName: message.from.login,
+                               size: .init(width: 40, height: 40),
+                               withStroke: userIsSender)
             }
         }
         

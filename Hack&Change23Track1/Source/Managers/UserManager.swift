@@ -19,7 +19,7 @@ final class UserManager: ObservableObject {
     
     func getRoomMember() -> RoomMember {
         guard let user else {
-            return .init(id: UUID().uuidString, login: "Anonim")
+            return .init(id: UUID().uuidString, login: "Anonim", avatar: nil)
         }
         
         return .init(user: user)

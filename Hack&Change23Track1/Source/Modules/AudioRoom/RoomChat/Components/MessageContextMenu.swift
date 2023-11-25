@@ -34,7 +34,10 @@ extension MessageContextMenuView{
             if let message = message {
                 VStack(alignment: .leading) {
                     HStack(alignment: .top, spacing: 10) {
-                        UserAvatarView(userName: message.from.login, size: .init(width: 40, height: 40), withStroke: false)
+                        UserAvatarView(image: message.from.avatar,
+                                       userName: message.from.login,
+                                       size: .init(width: 40, height: 40),
+                                       withStroke: false)
                         VStack(alignment: .leading, spacing: 2) {
                             Text(message.from.login)
                                 .font(.body.bold())

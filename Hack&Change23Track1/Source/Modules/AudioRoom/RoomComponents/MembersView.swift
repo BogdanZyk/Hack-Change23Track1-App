@@ -16,6 +16,7 @@ extension AudioRoomView {
                 LazyVStack(alignment: .leading, spacing: 10) {
                     ForEach(members) {
                         rowView($0)
+                            
                     }
                 }
             }
@@ -26,7 +27,10 @@ extension AudioRoomView {
         
         private func rowView(_ member: RoomMember) -> some View {
             HStack {
-                UserAvatarView(image: member.avatar, userName: member.login, size: .init(width: 40, height: 40), withStroke: false)
+                UserAvatarView(image: member.avatar,
+                               userName: member.login,
+                               size: .init(width: 40, height: 40),
+                               withStroke: false)
                 Text(member.login)
                     .font(.primary(weight: .semibold))
                 Spacer()
