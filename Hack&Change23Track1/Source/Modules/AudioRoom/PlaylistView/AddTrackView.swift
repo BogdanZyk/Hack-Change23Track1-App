@@ -62,9 +62,9 @@ extension AddTrackView {
     private func rowView(_ audio: FileAttrs) -> some View {
         let isSelected = viewModel.selectedAudios.contains(where: {$0.id == audio.id})
         HStack(spacing: 15) {
-            RoundedRectangle(cornerRadius: 8)
-                .fill(Color.secondary)
+            LazyNukeImage(fullPath: audio.coverFullPath)
                 .frame(width: 54, height: 54)
+                .cornerRadius(8)
             Text(audio.name ?? "no name")
             Spacer()
             Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")

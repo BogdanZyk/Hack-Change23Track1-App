@@ -3,10 +3,9 @@
 
 @_exported import ApolloAPI
 
-
 struct FileAttrs: SchemaAPI.SelectionSet, Fragment {
   static var fragmentDefinition: StaticString {
-    #"fragment FileAttrs on Audio { __typename Id Name }"#
+    #"fragment FileAttrs on Audio { __typename Id Name Cover }"#
   }
 
   let __data: DataDict
@@ -17,20 +16,24 @@ struct FileAttrs: SchemaAPI.SelectionSet, Fragment {
     .field("__typename", String.self),
     .field("Id", String?.self),
     .field("Name", String?.self),
+    .field("Cover", String?.self),
   ] }
 
   var id: String? { __data["Id"] }
   var name: String? { __data["Name"] }
+  var cover: String? { __data["Cover"] }
 
   init(
     id: String? = nil,
-    name: String? = nil
+    name: String? = nil,
+    cover: String? = nil
   ) {
     self.init(_dataDict: DataDict(
       data: [
         "__typename": SchemaAPI.Objects.Audio.typename,
         "Id": id,
         "Name": name,
+        "Cover": cover,
       ],
       fulfilledFragments: [
         ObjectIdentifier(FileAttrs.self)

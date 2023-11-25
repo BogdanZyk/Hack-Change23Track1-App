@@ -3,7 +3,6 @@
 
 @_exported import ApolloAPI
 
-
 class GetRoomByKeyQuery: GraphQLQuery {
   static let operationName: String = "GetRoomByKey"
   static let operationDocument: ApolloAPI.OperationDocument = .init(
@@ -59,6 +58,7 @@ class GetRoomByKeyQuery: GraphQLQuery {
       ] }
 
       var file: File? { __data["File"] }
+      var playlist: [Playlist?]? { __data["Playlist"] }
       var id: String? { __data["Id"] }
       var likes: Int? { __data["Likes"] }
       var `private`: Bool? { __data["Private"] }
@@ -77,6 +77,7 @@ class GetRoomByKeyQuery: GraphQLQuery {
 
       init(
         file: File? = nil,
+        playlist: [Playlist?]? = nil,
         id: String? = nil,
         likes: Int? = nil,
         `private`: Bool? = nil,
@@ -90,6 +91,7 @@ class GetRoomByKeyQuery: GraphQLQuery {
           data: [
             "__typename": SchemaAPI.Objects.Room.typename,
             "File": file._fieldData,
+            "Playlist": playlist._fieldData,
             "Id": id,
             "Likes": likes,
             "Private": `private`,
@@ -160,6 +162,7 @@ class GetRoomByKeyQuery: GraphQLQuery {
 
           var id: String? { __data["Id"] }
           var name: String? { __data["Name"] }
+          var cover: String? { __data["Cover"] }
 
           struct Fragments: FragmentContainer {
             let __data: DataDict
@@ -170,13 +173,15 @@ class GetRoomByKeyQuery: GraphQLQuery {
 
           init(
             id: String? = nil,
-            name: String? = nil
+            name: String? = nil,
+            cover: String? = nil
           ) {
             self.init(_dataDict: DataDict(
               data: [
                 "__typename": SchemaAPI.Objects.Audio.typename,
                 "Id": id,
                 "Name": name,
+                "Cover": cover,
               ],
               fulfilledFragments: [
                 ObjectIdentifier(GetRoomByKeyQuery.Data.GetRoomByKey.File.File.self),
@@ -185,6 +190,47 @@ class GetRoomByKeyQuery: GraphQLQuery {
               ]
             ))
           }
+        }
+      }
+
+      /// GetRoomByKey.Playlist
+      ///
+      /// Parent Type: `Audio`
+      struct Playlist: SchemaAPI.SelectionSet {
+        let __data: DataDict
+        init(_dataDict: DataDict) { __data = _dataDict }
+
+        static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Audio }
+
+        var id: String? { __data["Id"] }
+        var name: String? { __data["Name"] }
+        var cover: String? { __data["Cover"] }
+
+        struct Fragments: FragmentContainer {
+          let __data: DataDict
+          init(_dataDict: DataDict) { __data = _dataDict }
+
+          var fileAttrs: FileAttrs { _toFragment() }
+        }
+
+        init(
+          id: String? = nil,
+          name: String? = nil,
+          cover: String? = nil
+        ) {
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": SchemaAPI.Objects.Audio.typename,
+              "Id": id,
+              "Name": name,
+              "Cover": cover,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(GetRoomByKeyQuery.Data.GetRoomByKey.Playlist.self),
+              ObjectIdentifier(FileAttrs.self),
+              ObjectIdentifier(RoomAttrs.Playlist.self)
+            ]
+          ))
         }
       }
 

@@ -3,7 +3,6 @@
 
 @_exported import ApolloAPI
 
-
 class InitConnectionMutation: GraphQLMutation {
   static let operationName: String = "InitConnection"
   static let operationDocument: ApolloAPI.OperationDocument = .init(

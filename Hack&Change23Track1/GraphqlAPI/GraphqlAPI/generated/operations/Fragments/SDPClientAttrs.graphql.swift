@@ -3,7 +3,6 @@
 
 @_exported import ApolloAPI
 
-
 struct SDPClientAttrs: SchemaAPI.SelectionSet, Fragment {
   static var fragmentDefinition: StaticString {
     #"fragment SDPClientAttrs on ClientSDP { __typename Sdp Type }"#

@@ -3,10 +3,9 @@
 
 @_exported import ApolloAPI
 
-
 struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
   static var fragmentDefinition: StaticString {
-    #"fragment RoomAttrs on Room { __typename File { __typename ...PlayerItemAttrs } Id Likes Private Image Key Name Members { __typename ...UserAttrs } Owner { __typename Id } }"#
+    #"fragment RoomAttrs on Room { __typename File { __typename ...PlayerItemAttrs } Playlist { __typename ...FileAttrs } Id Likes Private Image Key Name Members { __typename ...UserAttrs } Owner { __typename Id } }"#
   }
 
   let __data: DataDict
@@ -16,6 +15,7 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
   static var __selections: [ApolloAPI.Selection] { [
     .field("__typename", String.self),
     .field("File", File?.self),
+    .field("Playlist", [Playlist?]?.self),
     .field("Id", String?.self),
     .field("Likes", Int?.self),
     .field("Private", Bool?.self),
@@ -27,6 +27,7 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
   ] }
 
   var file: File? { __data["File"] }
+  var playlist: [Playlist?]? { __data["Playlist"] }
   var id: String? { __data["Id"] }
   var likes: Int? { __data["Likes"] }
   var `private`: Bool? { __data["Private"] }
@@ -38,6 +39,7 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
 
   init(
     file: File? = nil,
+    playlist: [Playlist?]? = nil,
     id: String? = nil,
     likes: Int? = nil,
     `private`: Bool? = nil,
@@ -51,6 +53,7 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
       data: [
         "__typename": SchemaAPI.Objects.Room.typename,
         "File": file._fieldData,
+        "Playlist": playlist._fieldData,
         "Id": id,
         "Likes": likes,
         "Private": `private`,
@@ -123,6 +126,7 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
 
       var id: String? { __data["Id"] }
       var name: String? { __data["Name"] }
+      var cover: String? { __data["Cover"] }
 
       struct Fragments: FragmentContainer {
         let __data: DataDict
@@ -133,13 +137,15 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
 
       init(
         id: String? = nil,
-        name: String? = nil
+        name: String? = nil,
+        cover: String? = nil
       ) {
         self.init(_dataDict: DataDict(
           data: [
             "__typename": SchemaAPI.Objects.Audio.typename,
             "Id": id,
             "Name": name,
+            "Cover": cover,
           ],
           fulfilledFragments: [
             ObjectIdentifier(RoomAttrs.File.File.self),
@@ -148,6 +154,50 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
           ]
         ))
       }
+    }
+  }
+
+  /// Playlist
+  ///
+  /// Parent Type: `Audio`
+  struct Playlist: SchemaAPI.SelectionSet {
+    let __data: DataDict
+    init(_dataDict: DataDict) { __data = _dataDict }
+
+    static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Audio }
+    static var __selections: [ApolloAPI.Selection] { [
+      .field("__typename", String.self),
+      .fragment(FileAttrs.self),
+    ] }
+
+    var id: String? { __data["Id"] }
+    var name: String? { __data["Name"] }
+    var cover: String? { __data["Cover"] }
+
+    struct Fragments: FragmentContainer {
+      let __data: DataDict
+      init(_dataDict: DataDict) { __data = _dataDict }
+
+      var fileAttrs: FileAttrs { _toFragment() }
+    }
+
+    init(
+      id: String? = nil,
+      name: String? = nil,
+      cover: String? = nil
+    ) {
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": SchemaAPI.Objects.Audio.typename,
+          "Id": id,
+          "Name": name,
+          "Cover": cover,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(RoomAttrs.Playlist.self),
+          ObjectIdentifier(FileAttrs.self)
+        ]
+      ))
     }
   }
 

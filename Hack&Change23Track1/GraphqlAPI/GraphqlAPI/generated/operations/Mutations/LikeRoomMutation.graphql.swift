@@ -3,7 +3,6 @@
 
 @_exported import ApolloAPI
 
-
 class LikeRoomMutation: GraphQLMutation {
   static let operationName: String = "LikeRoom"
   static let operationDocument: ApolloAPI.OperationDocument = .init(

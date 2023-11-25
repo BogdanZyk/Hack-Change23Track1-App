@@ -3,7 +3,6 @@
 
 @_exported import ApolloAPI
 
-
 struct UserAttrs: SchemaAPI.SelectionSet, Fragment {
   static var fragmentDefinition: StaticString {
     #"fragment UserAttrs on User { __typename Id Login Avatar Email }"#

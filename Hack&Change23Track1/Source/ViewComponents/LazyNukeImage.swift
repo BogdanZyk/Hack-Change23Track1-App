@@ -19,7 +19,7 @@ struct LazyNukeImage: View {
     var crop: Bool
     private let imagePipeline = ImagePipeline(configuration: .withDataCache)
     
-    init(path: String?,
+    init(path: String? = nil,
          fullPath: String? = nil,
          resizeSize: CGSize = .init(width: 200, height: 200),
          contentMode: ImageProcessors.Resize.ContentMode = .aspectFill,
@@ -50,7 +50,8 @@ struct LazyNukeImage: View {
                         Color.primaryGray
                             .scaledToFill()
                     } else if state.error != nil {
-                        errorView
+                        Color.primaryGray
+                            .scaledToFill()
                     }
                 }
                 .processors([ImageProcessors.Resize.resize(size: resizeSize,

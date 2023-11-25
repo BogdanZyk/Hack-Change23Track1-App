@@ -3,7 +3,6 @@
 
 @_exported import ApolloAPI
 
-
 class SignInMutation: GraphQLMutation {
   static let operationName: String = "SignIn"
   static let operationDocument: ApolloAPI.OperationDocument = .init(

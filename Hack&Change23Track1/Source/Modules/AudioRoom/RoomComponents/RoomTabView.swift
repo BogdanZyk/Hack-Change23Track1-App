@@ -42,6 +42,11 @@ extension AudioRoomView {
                              playedId: viewModel.currentAudio?.id,
                              audios: viewModel.audios,
                              onTap: viewModel.setAudio)
+                .onAppear {
+                    if !viewModel.isOwner {
+                        viewModel.refreshRoom()
+                    }
+                }
             }
         }
     }

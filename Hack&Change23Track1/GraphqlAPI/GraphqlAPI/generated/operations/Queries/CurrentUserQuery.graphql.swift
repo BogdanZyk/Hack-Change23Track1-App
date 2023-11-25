@@ -3,7 +3,6 @@
 
 @_exported import ApolloAPI
 
-
 class CurrentUserQuery: GraphQLQuery {
   static let operationName: String = "CurrentUser"
   static let operationDocument: ApolloAPI.OperationDocument = .init(

@@ -3,7 +3,6 @@
 
 @_exported import ApolloAPI
 
-
 class DeleteRoomMutation: GraphQLMutation {
   static let operationName: String = "DeleteRoom"
   static let operationDocument: ApolloAPI.OperationDocument = .init(

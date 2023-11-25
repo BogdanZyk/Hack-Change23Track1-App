@@ -17,8 +17,8 @@ final class RoomViewModel: ObservableObject {
     @Published private(set) var room: RoomAttrs
     @Published private(set) var roomCountLikes: Int = 0
     @Published private(set) var members: [String: RoomMember] = [:]
-    @Published private(set) var audios = [FileAttrs]()
-    @Published private(set) var currentAudio: FileAttrs?
+    @Published private(set) var audios = [AudioItem]()
+    @Published private(set) var currentAudio: AudioItem?
     @Published private(set) var status: WebRTCStatus = .new
     @Published private(set) var isMute: Bool = false
     
@@ -38,10 +38,7 @@ final class RoomViewModel: ObservableObject {
         self.webRTCClient = webRTCClient
         self.webRTCClient.delegate = self
         self.setMembers()
-    }
-    
-    var isOwner: Bool {
-        room.userIsOwner(for: currentUser.id)
+        self.setTracks()
     }
     
     func disconnectAll() {
@@ -51,9 +48,7 @@ final class RoomViewModel: ObservableObject {
     
 }
 
-
 // MARK: - WebRTC logic
-
 extension RoomViewModel {
     
     func sendMessageToDataChannel(_ message: Message) {
@@ -65,7 +60,7 @@ extension RoomViewModel {
         }
     }
     
-    func sendPlaylistToDataChannel(_ playlist: Playlist) {
+    private func sendPlaylistToDataChannel(_ playlist: Playlist) {
         do {
             let data = try JSONHelper.encoder.encode(playlist)
             webRTCClient.sendData(data)
@@ -93,19 +88,13 @@ extension RoomViewModel {
 
 // MARK: - Audio actions
 extension RoomViewModel {
-    
-    func fetchAudios() async {
-        let audios = try? await roomDataService.fetchAudios()
-        self.audios = audios ?? []
-    }
-    
-    func setAudio(_ audio: FileAttrs) {
+        
+    func setAudio(_ audio: AudioItem) {
         guard let id = room.id,
-              let audioId = audio.id,
               room.userIsOwner(for: currentUser.id) else { return }
         Task {
             do {
-                try await roomDataService.loadAudio(for: id, audioId: audioId)
+                try await roomDataService.loadAudio(for: id, audioId: audio.id)
                 try await setAudioAction(.play)
             } catch {
                 appAlert = .errors(errors: [error])
@@ -119,6 +108,21 @@ extension RoomViewModel {
                 try await setAudioAction(.pause)
             } else {
                 try await setAudioAction(.play)
+            }
+        }
+    }
+    
+    func setPlaylist(_ audios: [AudioItem]) {
+        self.audios = audios
+        sendPlaylistToDataChannel(.init(files: audios.compactMap({$0.id})))
+    }
+    
+    func updatePlaylist(_ status: PlaylistStatus) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {return}
+            status.statuses.forEach { item in
+                guard let index = self.audios.firstIndex(where: {$0.id == item.id}) else {return}
+                self.audios[index].setStatus(item.status)
             }
         }
     }
@@ -166,10 +170,23 @@ extension RoomViewModel {
 
 extension RoomViewModel {
     
+    var isOwner: Bool {
+        room.userIsOwner(for: currentUser.id)
+    }
+    
     func likeRoom() {
         guard let id = room.id else { return }
         Task {
             try? await roomDataService.likeRoom(for: id)
+        }
+    }
+    
+    func refreshRoom() {
+        guard let code = room.key else { return }
+        Task {
+            let room = try await roomDataService.findRoom(code)
+            self.room = room
+            self.setTracks()
         }
     }
     
@@ -179,6 +196,11 @@ extension RoomViewModel {
             guard let id = $0?.id, let user = $0?.fragments.userAttrs else { return }
             self.members[id] = RoomMember(user: user)
         }
+    }
+    
+    private func setTracks() {
+        guard let files = room.playlist?.compactMap({$0?.fragments.fileAttrs}) else { return }
+        audios = files.compactMap({.init(file: $0, status: .ok)})
     }
 }
 
@@ -197,6 +219,8 @@ extension RoomViewModel: WebRTCClientDelegate {
             self.onChangeAudio(audioState)
         } else if let message = try? JSONHelper.decoder.decode(Message.self, from: data) {
             self.onReceivedMessage(message)
+        } else if let playListState = try? JSONHelper.decoder.decode(PlaylistStatus.self, from: data) {
+            self.updatePlaylist(playListState)
         }
     }
     
@@ -227,7 +251,7 @@ extension RoomViewModel: WebRTCClientDelegate {
                 audioState = .init(from: state)
                 guard let currentAudio = audios.first(where: {$0.id == state.fileId}) else { return }
                 self.currentAudio = currentAudio
-                RemoteCommandHelper.shared.setupNowPlaying(RemoteCommandHelper.MediaItem(title: currentAudio.name ?? "No name", album: "Album", image: UIImage(systemName: "person")))
+//                RemoteCommandHelper.shared.setupNowPlaying(RemoteCommandHelper.MediaItem(title: currentAudio.name ?? "No name", album: "Album", image: UIImage(systemName: "person")))
                 
             } else {
                 if !audioState.isPlay && state.status == .pause { return }

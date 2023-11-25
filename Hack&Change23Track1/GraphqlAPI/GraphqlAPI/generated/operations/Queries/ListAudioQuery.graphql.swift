@@ -3,7 +3,6 @@
 
 @_exported import ApolloAPI
 
-
 class ListAudioQuery: GraphQLQuery {
   static let operationName: String = "ListAudio"
   static let operationDocument: ApolloAPI.OperationDocument = .init(
@@ -54,6 +53,7 @@ class ListAudioQuery: GraphQLQuery {
 
       var id: String? { __data["Id"] }
       var name: String? { __data["Name"] }
+      var cover: String? { __data["Cover"] }
 
       struct Fragments: FragmentContainer {
         let __data: DataDict
@@ -64,13 +64,15 @@ class ListAudioQuery: GraphQLQuery {
 
       init(
         id: String? = nil,
-        name: String? = nil
+        name: String? = nil,
+        cover: String? = nil
       ) {
         self.init(_dataDict: DataDict(
           data: [
             "__typename": SchemaAPI.Objects.Audio.typename,
             "Id": id,
             "Name": name,
+            "Cover": cover,
           ],
           fulfilledFragments: [
             ObjectIdentifier(ListAudioQuery.Data.ListAudio.self),

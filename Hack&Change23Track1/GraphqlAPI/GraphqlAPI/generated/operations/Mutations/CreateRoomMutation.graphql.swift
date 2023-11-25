@@ -3,7 +3,6 @@
 
 @_exported import ApolloAPI
 
-
 class CreateRoomMutation: GraphQLMutation {
   static let operationName: String = "CreateRoom"
   static let operationDocument: ApolloAPI.OperationDocument = .init(
@@ -80,6 +79,7 @@ class CreateRoomMutation: GraphQLMutation {
       ] }
 
       var file: File? { __data["File"] }
+      var playlist: [Playlist?]? { __data["Playlist"] }
       var id: String? { __data["Id"] }
       var likes: Int? { __data["Likes"] }
       var `private`: Bool? { __data["Private"] }
@@ -98,6 +98,7 @@ class CreateRoomMutation: GraphQLMutation {
 
       init(
         file: File? = nil,
+        playlist: [Playlist?]? = nil,
         id: String? = nil,
         likes: Int? = nil,
         `private`: Bool? = nil,
@@ -111,6 +112,7 @@ class CreateRoomMutation: GraphQLMutation {
           data: [
             "__typename": SchemaAPI.Objects.Room.typename,
             "File": file._fieldData,
+            "Playlist": playlist._fieldData,
             "Id": id,
             "Likes": likes,
             "Private": `private`,
@@ -181,6 +183,7 @@ class CreateRoomMutation: GraphQLMutation {
 
           var id: String? { __data["Id"] }
           var name: String? { __data["Name"] }
+          var cover: String? { __data["Cover"] }
 
           struct Fragments: FragmentContainer {
             let __data: DataDict
@@ -191,13 +194,15 @@ class CreateRoomMutation: GraphQLMutation {
 
           init(
             id: String? = nil,
-            name: String? = nil
+            name: String? = nil,
+            cover: String? = nil
           ) {
             self.init(_dataDict: DataDict(
               data: [
                 "__typename": SchemaAPI.Objects.Audio.typename,
                 "Id": id,
                 "Name": name,
+                "Cover": cover,
               ],
               fulfilledFragments: [
                 ObjectIdentifier(CreateRoomMutation.Data.CreateRoom.File.File.self),
@@ -206,6 +211,47 @@ class CreateRoomMutation: GraphQLMutation {
               ]
             ))
           }
+        }
+      }
+
+      /// CreateRoom.Playlist
+      ///
+      /// Parent Type: `Audio`
+      struct Playlist: SchemaAPI.SelectionSet {
+        let __data: DataDict
+        init(_dataDict: DataDict) { __data = _dataDict }
+
+        static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Audio }
+
+        var id: String? { __data["Id"] }
+        var name: String? { __data["Name"] }
+        var cover: String? { __data["Cover"] }
+
+        struct Fragments: FragmentContainer {
+          let __data: DataDict
+          init(_dataDict: DataDict) { __data = _dataDict }
+
+          var fileAttrs: FileAttrs { _toFragment() }
+        }
+
+        init(
+          id: String? = nil,
+          name: String? = nil,
+          cover: String? = nil
+        ) {
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": SchemaAPI.Objects.Audio.typename,
+              "Id": id,
+              "Name": name,
+              "Cover": cover,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(CreateRoomMutation.Data.CreateRoom.Playlist.self),
+              ObjectIdentifier(FileAttrs.self),
+              ObjectIdentifier(RoomAttrs.Playlist.self)
+            ]
+          ))
         }
       }
 

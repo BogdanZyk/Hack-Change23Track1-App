@@ -71,6 +71,9 @@ fragment RoomAttrs on Room {
     File {
       ...PlayerItemAttrs
     }
+    Playlist {
+      ...FileAttrs
+    }
     Id
     Likes
     Private

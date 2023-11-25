@@ -1,85 +1,12 @@
 schema {
   query: RootQueryType
   mutation: RootMutationType
-  subscription: RootSubsribeType
 }
 
 """
 A directive used by the Apollo iOS client to annotate operations or fragments that should be used exclusively for generating local cache mutations instead of as standard operations.
 """
 directive @apollo_client_ios_localCacheMutation on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
-
-""""""
-type RootQueryType {
-  """"""
-  CurrentUser: User
-
-  """"""
-  GetRoomByKey(Key: String!): Room
-
-  """"""
-  ListAudio: [Audio]
-
-  """"""
-  ListRooms: [Room]
-}
-
-""""""
-type ClientSDP {
-  """"""
-  Sdp: String!
-
-  """"""
-  Type: String!
-}
-
-""""""
-type PlayFile {
-  """"""
-  CurrentSeconds: String
-
-  """"""
-  DurationSeconds: String
-
-  """"""
-  File: Audio
-
-  """"""
-  Pause: Boolean
-}
-
-""""""
-type RootMutationType {
-  """"""
-  CreateRoom(Type: RoomType, Name: String!, Image: String, Private: Boolean): Room
-
-  """"""
-  DeleteRoom(RoomId: String!): Room
-
-  """"""
-  InitConnection(RoomId: String!, SDP: ServerSDP!): ClientSDP
-
-  """"""
-  LikeRoom(RoomId: String!): Room
-
-  """"""
-  LoadAudio(RoomId: String!, AudioId: String!): Room
-
-  """"""
-  RoomAction(RoomId: String!, Action: String!, Arg: String!): Room
-
-  """"""
-  SignIn(Email: String!, Password: String!): Token
-
-  """"""
-  SignUp(Login: String!, Password: String!, Email: String!): Token
-
-  """"""
-  UpdateCurrentUser(Avatar: String, Login: String): User
-
-  """"""
-  UpdateRoom(Image: String, Private: Boolean, Type: RoomType, RoomId: String!, Name: String): Room
-}
 
 """"""
 enum RoomType {
@@ -94,9 +21,39 @@ enum RoomType {
 }
 
 """"""
+type Audio {
+  """"""
+  Cover: String
+
+  """"""
+  Id: String
+
+  """"""
+  Name: String
+}
+
+""""""
 type Token {
   """"""
   Token: String!
+}
+
+""""""
+input ServerSDP {
+  """"""
+  Type: String
+
+  """"""
+  Sdp: String
+}
+
+""""""
+type ClientSDP {
+  """"""
+  Sdp: String!
+
+  """"""
+  Type: String!
 }
 
 """"""
@@ -126,6 +83,9 @@ type Room {
   Owner: User
 
   """"""
+  Playlist: [Audio]
+
+  """"""
   Private: Boolean
 
   """"""
@@ -148,25 +108,67 @@ type User {
 }
 
 """"""
-type Audio {
+type PlayFile {
   """"""
-  Id: String
+  CurrentSeconds: String
 
   """"""
-  Name: String
+  DurationSeconds: String
+
+  """"""
+  File: Audio
+
+  """"""
+  Pause: Boolean
 }
 
 """"""
-input ServerSDP {
+type RootMutationType {
   """"""
-  Type: String
+  CreateRoom(Name: String!, Image: String, Private: Boolean, Type: RoomType): Room
 
   """"""
-  Sdp: String
+  DeleteRoom(RoomId: String!): Room
+
+  """"""
+  InitConnection(RoomId: String!, SDP: ServerSDP!): ClientSDP
+
+  """"""
+  LikeRoom(RoomId: String!): Room
+
+  """"""
+  LoadAudio(RoomId: String!, AudioId: String!): Room
+
+  """"""
+  RoomAction(RoomId: String!, Action: String!, Arg: String!): Room
+
+  """"""
+  SignIn(Email: String!, Password: String!): Token
+
+  """"""
+  SignUp(Email: String!, Login: String!, Password: String!): Token
+
+  """"""
+  UpdateCurrentUser(Login: String, Avatar: String): User
+
+  """"""
+  UpdateRoom(Private: Boolean, Type: RoomType, RoomId: String!, Name: String, Image: String): Room
 }
 
 """"""
-type RootSubsribeType {
+type RootQueryType {
   """"""
-  RoomUpdates: Room
+  CurrentUser: User
+
+  """"""
+  GetRoomByKey(Key: String!): Room
+
+  """"""
+  ListAudio: [Audio]
+
+  """"""
+  ListRooms: [Room]
+
+  """"""
+  SearchAudio(Query: String!): [Audio]
 }

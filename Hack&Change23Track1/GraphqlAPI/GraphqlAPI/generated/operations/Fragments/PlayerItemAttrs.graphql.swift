@@ -3,7 +3,6 @@
 
 @_exported import ApolloAPI
 
-
 struct PlayerItemAttrs: SchemaAPI.SelectionSet, Fragment {
   static var fragmentDefinition: StaticString {
     #"fragment PlayerItemAttrs on PlayFile { __typename CurrentSeconds DurationSeconds File { __typename ...FileAttrs } Pause }"#
@@ -61,6 +60,7 @@ struct PlayerItemAttrs: SchemaAPI.SelectionSet, Fragment {
 
     var id: String? { __data["Id"] }
     var name: String? { __data["Name"] }
+    var cover: String? { __data["Cover"] }
 
     struct Fragments: FragmentContainer {
       let __data: DataDict
@@ -71,13 +71,15 @@ struct PlayerItemAttrs: SchemaAPI.SelectionSet, Fragment {
 
     init(
       id: String? = nil,
-      name: String? = nil
+      name: String? = nil,
+      cover: String? = nil
     ) {
       self.init(_dataDict: DataDict(
         data: [
           "__typename": SchemaAPI.Objects.Audio.typename,
           "Id": id,
           "Name": name,
+          "Cover": cover,
         ],
         fulfilledFragments: [
           ObjectIdentifier(PlayerItemAttrs.File.self),

@@ -38,6 +38,9 @@ extension AudioRoomView {
         private func rowView(_ audio: AudioItem) -> some View {
             let isPlay = audio.id == playedId
             HStack {
+                LazyNukeImage(fullPath: audio.file.coverFullPath)
+                    .frame(width: 52, height: 52)
+                    .cornerRadius(8)
                 Text(audio.file.name ?? "no name")
                     .font(.headline.weight(.semibold))
                 Spacer()
@@ -82,9 +85,8 @@ extension AudioRoomView {
                     showTracksLib.toggle()
                 } label: {
                     Label("Add tracks", systemImage: "plus")
-                        .padding(.vertical)
+                        .padding()
                 }
-                .padding(.vertical)
                 .foregroundColor(.primaryPink)
             }
         }

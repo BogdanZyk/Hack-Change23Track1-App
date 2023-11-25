@@ -41,6 +41,8 @@ extension PlayerView {
         VStack(spacing: 0) {
             ZStack {
                 // image
+                //                LazyNukeImage(fullPath: viewModel.currentAudio?.file.coverFullPath, contentMode: .aspectFill, upscale: true,  crop: true)
+                //
                 Color.gray.opacity(0.0001)
                     .onTapGesture {
                         withAnimation(.easeIn(duration: 0.3)){
@@ -61,9 +63,9 @@ extension PlayerView {
     
     private var shortVersion: some View {
         HStack(spacing: 12) {
-            RoundedRectangle(cornerRadius: 4)
-                .fill(Color.secondary)
+            LazyNukeImage(fullPath: viewModel.currentAudio?.file.coverFullPath)
                 .frame(width: 40, height: 40)
+                .cornerRadius(4)
             VStack(alignment: .leading, spacing: 2) {
                 Text(viewModel.room.name ?? "No name")
                 Text(viewModel.currentAudio?.file.name ?? "no set audio")

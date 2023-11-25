@@ -124,3 +124,11 @@ extension RoomAttrs {
     
     static let mock = RoomAttrs(file: .init(currentSeconds: "120", durationSeconds: "360", file: .init(id: "", name: "Music name"), pause: false), id: "123", likes: 68, private: false, image: "", key: "code", name: "Room name", members: [.init(id: "1", login: "test", avatar: "", email: "email@test.com")])
 }
+
+extension FileAttrs {
+    
+    var coverFullPath: String {
+        "http://45.12.237.146" + (cover ?? "")
+    }
+    
+}
