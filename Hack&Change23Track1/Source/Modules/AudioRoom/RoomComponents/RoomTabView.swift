@@ -22,7 +22,8 @@ extension AudioRoomView {
                     .toolbar(.hidden, for: .tabBar)
             }
             .sheet(isPresented: $showAddTracksView) {
-                AddTrackView(onSubmit: { viewModel.setPlaylist($0) })
+                AddTrackView(selectedAudios: viewModel.audios,
+                             onSubmit: { viewModel.addPlaylist($0) })
             }
         }
                 

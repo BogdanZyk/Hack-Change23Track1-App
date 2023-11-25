@@ -112,7 +112,7 @@ extension RoomViewModel {
         }
     }
     
-    func setPlaylist(_ audios: [AudioItem]) {
+    func addPlaylist(_ audios: [AudioItem]) {
         self.audios = audios
         sendPlaylistToDataChannel(.init(files: audios.compactMap({$0.id})))
     }

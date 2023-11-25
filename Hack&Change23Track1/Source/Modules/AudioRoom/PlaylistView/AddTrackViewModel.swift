@@ -23,7 +23,8 @@ class AddTrackViewModel: ObservableObject {
     private var cancellable = Set<AnyCancellable>()
     private let roomDataService = RoomDataService()
     
-    init() {
+    init(selectedAudios: [FileAttrs]) {
+        self.selectedAudios = selectedAudios
         listenToSearch()
     }
     

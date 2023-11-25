@@ -9,8 +9,14 @@ import SwiftUI
 
 struct AddTrackView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject private var viewModel = AddTrackViewModel()
-    let onSubmit: ([AudioItem]) -> Void
+    @StateObject private var viewModel: AddTrackViewModel
+    private let onSubmit: ([AudioItem]) -> Void
+    
+    init(selectedAudios: [AudioItem], onSubmit: @escaping ([AudioItem]) -> Void) {
+        let files = selectedAudios.map { $0.file }
+        self._viewModel = StateObject(wrappedValue: AddTrackViewModel(selectedAudios: files))
+        self.onSubmit = onSubmit
+    }
     var body: some View {
         VStack(spacing: 0) {
             topBarView
@@ -38,7 +44,7 @@ struct AddTrackView: View {
 
 struct AddTrackView_Previews: PreviewProvider {
     static var previews: some View {
-        AddTrackView(onSubmit: {_ in })
+        AddTrackView(selectedAudios: [], onSubmit: {_ in })
     }
 }
 
