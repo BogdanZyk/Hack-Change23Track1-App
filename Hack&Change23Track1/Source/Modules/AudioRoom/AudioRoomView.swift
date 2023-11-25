@@ -12,6 +12,7 @@ struct AudioRoomView: View {
     @StateObject private var chatVM = RoomChatViewModel()
     @StateObject private var viewModel: RoomViewModel
     @State private var tab: RoomTab = .chat
+    @FocusState private var isFocused: Bool
     init(room: RoomAttrs, currentUser: RoomMember) {
         self._viewModel = StateObject(
             wrappedValue: RoomViewModel(room: room, currentUser: currentUser)
@@ -20,8 +21,15 @@ struct AudioRoomView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            topBarView
-            playerView
+            VStack(spacing: 0) {
+                topBarView
+                playerView
+                tabButtons
+            }
+            .overlay {
+                contextOverlay
+            }
+            
             tabViewSection
         }
         .foregroundColor(.primaryFont)
@@ -37,6 +45,7 @@ struct AudioRoomView: View {
             if !viewModel.status.isConnected {
                 loader
             }
+            //contextOverlay
         }
     }
 }
@@ -83,8 +92,19 @@ extension AudioRoomView {
     }
     
     private var tabViewSection: some View {
-        RoomTabView(tab: $tab, viewModel: viewModel, chatVM: chatVM)
+        RoomTabView(tab: $tab,
+                    viewModel: viewModel,
+                    chatVM: chatVM,
+                    isFocused: _isFocused)
     }
+    
+    @ViewBuilder
+    private var tabButtons: some View {
+        if !isFocused {
+            TabButtons(tab: $tab)
+        }
+    }
+    
     
     enum RoomTab: String, CaseIterable {
         case chat, playlist, members
@@ -100,5 +120,16 @@ extension AudioRoomView {
         .padding(.vertical, 20)
         .background(Color.primaryGray, in: RoundedRectangle(cornerRadius: 12))
         .foregroundColor(.white)
+    }
+    
+    @ViewBuilder
+    private var contextOverlay: some View {
+        if chatVM.selectedMessage != nil {
+            Color.black.opacity(0.2)
+                .ignoresSafeArea()
+                .onTapGesture {
+                    chatVM.selectMessage(nil)
+                }
+        }
     }
 }

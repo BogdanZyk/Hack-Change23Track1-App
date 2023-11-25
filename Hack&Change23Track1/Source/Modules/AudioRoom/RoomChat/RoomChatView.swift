@@ -32,9 +32,9 @@ struct RoomChatView: View {
             bottomBarSection
         }
         .background(Color.primaryBg)
-//        .overlayPreferenceValue(BoundsPreferece.self) {
-//            contextMenu($0)
-//        }
+        .overlayPreferenceValue(BoundsPreferece.self) {
+            contextMenu($0)
+        }
         .simultaneousGesture(
         TapGesture()
             .onEnded{ _ in
@@ -97,9 +97,9 @@ extension RoomChatView {
             isFocused = false
             chatVM.selectMessage(message)
         })
-//        .anchorPreference(key: BoundsPreferece.self, value: .bounds, transform: { anchor in
-//            return [message.id : anchor]
-//        })
+        .anchorPreference(key: BoundsPreferece.self, value: .bounds, transform: { anchor in
+            return [message.id : anchor]
+        })
         .flippedUpsideDown()
         .onAppear {
             hiddenOrUnhiddenDownButton(message.id, isHidden: true)
@@ -118,14 +118,14 @@ extension RoomChatView {
     private func contextMenu(_ values: [String: Anchor<CGRect>]) -> some View {
         if let selectedMessage = chatVM.selectedMessage, let preferense = values.first(where: {$0.key == selectedMessage.id}) {
             ZStack {
-                Color.black.opacity(0.3)
+                Color.black.opacity(0.2)
                     .ignoresSafeArea()
                     .onTapGesture {
                         chatVM.selectMessage(nil)
                     }
-//                MessageContextMenuView(message: selectedMessage,
-//                                       preferense: preferense,
-//                                       onAction: hadleMessageContextAction)
+                MessageContextMenuView(message: selectedMessage,
+                                       preferense: preferense,
+                                       onAction: hadleMessageContextAction)
             }
             .transition(.opacity)
         }
@@ -168,22 +168,22 @@ extension RoomChatView {
         roomVM.sendMessageToDataChannel(message)
     }
     
-//    private func hadleMessageContextAction(_ action: MessageContextAction) {
-//        switch action {
-//        case .reaction(let oldMessage, let reaction):
-//            var newMessage = oldMessage
-//            newMessage.addedReaction(from: roomVM.currentUser, reaction: reaction)
-//            roomVM.sendMessageToDataChannel(message)
-//        case .copy:
-//            viewModel.copyMessage()
-//        case .reply:
-//            viewModel.setReplayMessage()
-//        case .report:
-//            guard var selectedMessage = viewModel.selectedMessage else {return}
-//            selectedMessage.type = .hidden
-//            roomVM.sendMessageToDataChannel(message)
-//        }
-//        viewModel.selectMessage(nil)
-//    }
+    private func hadleMessageContextAction(_ action: MessageContextAction) {
+        switch action {
+        case .reaction(let oldMessage, let reaction):
+            var newMessage = oldMessage
+            newMessage.addedReaction(from: roomVM.currentUser, reaction: reaction)
+            roomVM.sendMessageToDataChannel(newMessage)
+        case .copy:
+            chatVM.copyMessage()
+        case .reply:
+            chatVM.setReplayMessage()
+        case .report:
+            guard var selectedMessage = chatVM.selectedMessage else {return}
+            selectedMessage.type = .hidden
+            roomVM.sendMessageToDataChannel(selectedMessage)
+        }
+        chatVM.selectMessage(nil)
+    }
     
 }
