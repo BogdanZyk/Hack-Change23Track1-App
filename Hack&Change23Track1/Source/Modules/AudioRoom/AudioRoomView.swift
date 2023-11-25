@@ -22,7 +22,9 @@ struct AudioRoomView: View {
     var body: some View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {
-                topBarView
+                if !isFocused {
+                    topBarView
+                }
                 playerView
                 tabButtons
             }
@@ -90,7 +92,8 @@ extension AudioRoomView {
     }
     
     private var playerView: some View {
-        PlayerView(isDisabledControls: !viewModel.isOwner,
+        PlayerView(showFullVersion: !isFocused,
+                   isDisabledControls: !viewModel.isOwner,
                    viewModel: viewModel)
     }
     
@@ -103,9 +106,7 @@ extension AudioRoomView {
     
     @ViewBuilder
     private var tabButtons: some View {
-        if !isFocused {
-            TabButtons(tab: $tab)
-        }
+        TabButtons(tab: $tab)
     }
     
     

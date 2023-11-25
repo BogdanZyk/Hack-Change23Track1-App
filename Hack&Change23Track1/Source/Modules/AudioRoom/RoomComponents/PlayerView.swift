@@ -8,11 +8,36 @@
 import SwiftUI
 
 struct PlayerView: View {
+    var showFullVersion: Bool = false
     var isDisabledControls: Bool = false
     @ObservedObject var viewModel: RoomViewModel
     @State private var showPlayerButton: Bool = false
     private var maxHeight: CGFloat {  getRect().height / 3.8 }
     var body: some View {
+        Group {
+            if showFullVersion {
+                fullVersion
+            } else {
+                shortVersion
+            }
+        }
+    }
+}
+
+struct PlayerView_Previews: PreviewProvider {
+    static var previews: some View {
+        ZStack {
+            PlayerView(viewModel: .init(room: .mock, currentUser: .mock))
+        }
+        .allFrame()
+        .background(Color.primaryBg)
+    }
+}
+
+extension PlayerView {
+    
+    
+    private var fullVersion: some View {
         VStack(spacing: 0) {
             ZStack {
                 // image
@@ -31,20 +56,50 @@ struct PlayerView: View {
         .allFrame()
         .frame(height: maxHeight)
         .foregroundColor(.primaryFont)
+    
     }
-}
-
-struct PlayerView_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            PlayerView(viewModel: .init(room: .mock, currentUser: .mock))
+    
+    private var shortVersion: some View {
+        HStack(spacing: 12) {
+            RoundedRectangle(cornerRadius: 4)
+                .fill(Color.secondary)
+                .frame(width: 40, height: 40)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(viewModel.room.name ?? "No name")
+                Text(viewModel.currentAudio?.name ?? "no set audio")
+                    .foregroundColor(.secondaryGray)
+            }
+            .font(.medium(weight: .medium))
+            .lineLimit(1)
+            Spacer()
+            HStack(spacing: 18) {
+                if viewModel.isOwner {
+                    Image(systemName: viewModel.audioState.isPlay ? "pause.fill" : "play.fill")
+                        .foregroundColor(.primaryFont)
+                        .onTapGesture {
+                            viewModel.togglePlay()
+                        }
+                    forwardBackwardButton(isForward: true)
+               
+                } else {
+                    Image(systemName: "suit.heart.fill")
+                        .font(.primary())
+                        .onTapGesture {
+                            viewModel.likeRoom()
+                        }
+                    Button {
+                        ShareUtils.shareRoom(for: viewModel.room.name)
+                    } label: {
+                        Image(systemName: "arrowshape.turn.up.forward.fill")
+                            .font(.primary())
+                    }
+                }
+            }
+            .font(.title3)
+            .foregroundColor(.primaryFont)
         }
-        .allFrame()
-        .background(Color.primaryBg)
+        .padding()
     }
-}
-
-extension PlayerView {
     
     @ViewBuilder
     private var playerControlsButtons: some View {
