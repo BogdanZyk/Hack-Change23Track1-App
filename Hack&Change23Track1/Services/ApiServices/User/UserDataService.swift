@@ -43,7 +43,7 @@ class UserDataService {
     
     func getCurrentUser() async throws -> UserAttrs {
         let query = CurrentUserQuery()
-        let data = try await api.fetch(query: query)
+        let data = try await api.fetch(query: query, cachePolicy: .fetchIgnoringCacheCompletely)
         
         guard let user = data?.data?.currentUser?.fragments.userAttrs else {
             throw URLError(.badServerResponse)

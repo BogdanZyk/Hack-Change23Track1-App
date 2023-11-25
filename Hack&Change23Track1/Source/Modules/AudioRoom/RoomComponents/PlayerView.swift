@@ -65,7 +65,7 @@ extension PlayerView {
         HStack(spacing: 12) {
             if let coverFullPath = viewModel.currentAudio?.file.coverFullPath {
                 LazyNukeImage(fullPath: coverFullPath)
-                    .frame(width: 40, height: 40)
+                    .frame(width: 60, height: 60)
                     .cornerRadius(4)
             }
             VStack(alignment: .leading, spacing: 2) {
@@ -166,6 +166,7 @@ extension PlayerView {
             }
             HStack(spacing: 16) {
                 Text(viewModel.currentAudio?.file.name ?? "No select audio")
+                    .fixedSize(horizontal: false, vertical: true)
                     .lineLimit(2)
                 Spacer()
                 Label("\(viewModel.members.count)", systemImage: "headphones")
@@ -193,10 +194,11 @@ extension PlayerView {
     
     private var likeButton: some View {
         HStack(spacing: 6) {
-            Image(systemName: "suit.heart")
+            Image(systemName: "suit.heart.fill")
                 .overlay(alignment: .bottom) {
                     Image(systemName: "suit.heart.fill")
                         .font(.title3)
+                        .foregroundColor(.primaryPink)
                         .modifier(ParticlesModifier(index: viewModel.roomCountLikes))
                 }
             Text("\(viewModel.roomCountLikes)")

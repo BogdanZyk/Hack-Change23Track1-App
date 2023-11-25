@@ -44,6 +44,7 @@ extension AudioRoomView {
                     .cornerRadius(8)
                 Text(audio.file.name ?? "no name")
                     .font(.headline.weight(.semibold))
+                    .padding(.trailing)
                 Spacer()
                 if isPlay {
                     SoundWaveView(color: .primaryPink)
