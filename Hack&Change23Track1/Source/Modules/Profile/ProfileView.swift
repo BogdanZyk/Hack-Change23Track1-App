@@ -11,15 +11,33 @@ struct ProfileView: View {
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var authManager: AuthManager
     var body: some View {
-        VStack {
-            LazyNukeImage(path: userManager.user?.avatar)
-                .frame(width: 80, height: 80)
-                .clipShape(Circle())
-            Text(userManager.user?.login ?? "no login user")
-            Button("SignOut") {
-               try? authManager.signOut()
+        VStack(spacing: 24) {
+            Text("Profile")
+                .font(.large(weight: .bold))
+            if let user = userManager.user {
+                LazyNukeImage(path: user.avatar)
+                    .frame(width: 136, height: 136)
+                    .clipShape(Circle())
+                Group {
+                    PrimaryTextField(text: .constant(user.login), label: "Name", title: "Name")
+                    PrimaryTextField(text: .constant(user.email), label: "", title: "Email")
+                }
+                .disabled(true)
+            } else {
+                Text("Anonim user")
             }
+           
+            Button("SignOut") {
+                try? authManager.signOut()
+            }
+            .foregroundColor(.red)
+            .padding()
+            
+            Spacer()
         }
+        .padding()
+        .background(Color.primaryBg)
+        .foregroundColor(.primaryFont)
     }
 }
 
