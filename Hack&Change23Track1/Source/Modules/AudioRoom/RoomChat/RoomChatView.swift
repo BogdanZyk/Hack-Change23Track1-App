@@ -91,25 +91,22 @@ extension RoomChatView {
     }
     
     private func makeMessageRow(_ message: Message) -> some View {
-        Text(message.content)
-            .flippedUpsideDown()
-//        MessageRowView(message: message,
-//                       userIsSender: message.from.id == roomVM.currentUser.id,
-//                       isShortMessage: false,
-//                       onLongPressGesture: {
-//            isFocused = false
-//            viewModel.selectMessage(message)
+        MessageRowView(message: message,
+                       userIsSender: message.from.id == roomVM.currentUser.id,
+                       onLongPressGesture: {
+            isFocused = false
+            chatVM.selectMessage(message)
+        })
+//        .anchorPreference(key: BoundsPreferece.self, value: .bounds, transform: { anchor in
+//            return [message.id : anchor]
 //        })
-////        .anchorPreference(key: BoundsPreferece.self, value: .bounds, transform: { anchor in
-////            return [message.id : anchor]
-////        })
-//        .flippedUpsideDown()
-//        .onAppear {
-//            hiddenOrUnhiddenDownButton(message.id, isHidden: true)
-//        }
-//        .onDisappear{
-//            hiddenOrUnhiddenDownButton(message.id, isHidden: false)
-//        }
+        .flippedUpsideDown()
+        .onAppear {
+            hiddenOrUnhiddenDownButton(message.id, isHidden: true)
+        }
+        .onDisappear{
+            hiddenOrUnhiddenDownButton(message.id, isHidden: false)
+        }
     }
 }
 

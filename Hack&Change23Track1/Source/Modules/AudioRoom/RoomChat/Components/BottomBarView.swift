@@ -33,6 +33,13 @@ struct BottomBarView: View {
                         Text("Message")
                             .foregroundColor(.secondaryGray)
                     }
+                    .submitLabel(.send)
+                    .submitScope(text.isEmpty)
+                    .onSubmit {
+                        if !text.isEmpty {
+                            onSend(text)
+                        }
+                    }
                     if !text.isEmpty {
                         Button {
                             withAnimation(.easeIn(duration: 0.2)) {

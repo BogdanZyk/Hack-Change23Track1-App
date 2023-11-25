@@ -27,6 +27,7 @@
 		5A58E7AA2B116B0800D0723C /* RoomChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7A92B116B0800D0723C /* RoomChatView.swift */; };
 		5A58E7AC2B116B3B00D0723C /* RoomChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7AB2B116B3B00D0723C /* RoomChatViewModel.swift */; };
 		5A58E7AF2B116C2500D0723C /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7AE2B116C2500D0723C /* BottomBarView.swift */; };
+		5A58E7B12B1174D200D0723C /* MessageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7B02B1174D200D0723C /* MessageRowView.swift */; };
 		5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */; };
 		5A81F3D82B1091AA00D9998F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D72B1091AA00D9998F /* ContentView.swift */; };
 		5A81F3DA2B1091AB00D9998F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F3D92B1091AB00D9998F /* Assets.xcassets */; };
@@ -114,6 +115,7 @@
 		5A58E7A92B116B0800D0723C /* RoomChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChatView.swift; sourceTree = "<group>"; };
 		5A58E7AB2B116B3B00D0723C /* RoomChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChatViewModel.swift; sourceTree = "<group>"; };
 		5A58E7AE2B116C2500D0723C /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
+		5A58E7B02B1174D200D0723C /* MessageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRowView.swift; sourceTree = "<group>"; };
 		5A81F3D22B1091AA00D9998F /* Hack&Change23Track1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hack&Change23Track1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hack_Change23Track1App.swift; sourceTree = "<group>"; };
 		5A81F3D72B1091AA00D9998F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				5A58E7AE2B116C2500D0723C /* BottomBarView.swift */,
+				5A58E7B02B1174D200D0723C /* MessageRowView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -748,6 +751,7 @@
 				5A81F44D2B10A49C00D9998F /* CurrentUserQuery.graphql.swift in Sources */,
 				5A58E7A62B115D8100D0723C /* PlaylistView.swift in Sources */,
 				5A81F4422B10A49C00D9998F /* SDPClientAttrs.graphql.swift in Sources */,
+				5A58E7B12B1174D200D0723C /* MessageRowView.swift in Sources */,
 				5A81F46C2B10BABB00D9998F /* Apollo+Extensions.swift in Sources */,
 				5A81F48F2B10E44400D9998F /* Helpers.swift in Sources */,
 				5A81F4662B10B98500D9998F /* AuthManager.swift in Sources */,

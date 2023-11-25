@@ -33,7 +33,7 @@ extension AudioRoomView {
                 ForEach(AudioRoomView.RoomTab.allCases, id: \.self) {item in
                     Text(item.rawValue.capitalized)
                         .hCenter()
-                        .padding(.vertical)
+                        .padding(.vertical, 10)
                         .overlay(alignment: .bottom) {
                             if tab == item {
                                 Rectangle()
