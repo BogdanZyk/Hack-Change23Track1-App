@@ -75,6 +75,7 @@ extension AudioRoomView {
                     .font(.large())
                     .foregroundColor(.primaryPink)
                 }
+                .padding(.top, 50)
             }
         }
         

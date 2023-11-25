@@ -63,12 +63,14 @@ extension PlayerView {
     
     private var shortVersion: some View {
         HStack(spacing: 12) {
-            LazyNukeImage(fullPath: viewModel.currentAudio?.file.coverFullPath)
-                .frame(width: 40, height: 40)
-                .cornerRadius(4)
+            if let coverFullPath = viewModel.currentAudio?.file.coverFullPath {
+                LazyNukeImage(fullPath: coverFullPath)
+                    .frame(width: 40, height: 40)
+                    .cornerRadius(4)
+            }
             VStack(alignment: .leading, spacing: 2) {
                 Text(viewModel.room.name ?? "No name")
-                Text(viewModel.currentAudio?.file.name ?? "no set audio")
+                Text(viewModel.currentAudio?.file.name ?? "No set audio")
                     .foregroundColor(.secondaryGray)
             }
             .font(.medium(weight: .medium))

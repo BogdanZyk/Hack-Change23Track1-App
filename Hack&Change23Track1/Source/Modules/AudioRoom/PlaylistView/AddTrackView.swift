@@ -45,7 +45,7 @@ struct AddTrackView_Previews: PreviewProvider {
 extension AddTrackView {
     private var topBarView: some View {
         Text("Add tracks")
-            .font(.primary())
+            .font(.primary(weight: .semibold))
             .hCenter()
             .overlay(alignment: .leading) {
                 Button {
@@ -55,7 +55,7 @@ extension AddTrackView {
                 }
             }
             .padding(.horizontal)
-            .padding(.top, 8)
+            .padding(.top, 24)
     }
     
     @ViewBuilder
