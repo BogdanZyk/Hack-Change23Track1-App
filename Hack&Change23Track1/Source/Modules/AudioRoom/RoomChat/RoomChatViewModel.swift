@@ -30,7 +30,8 @@ class RoomChatViewModel: ObservableObject {
     }
     
     func copyMessage() {
-        print("copy")
+        guard let text = selectedMessage?.text else {return}
+        UIPasteboard.general.string = text
     }
     
     func setReplayMessage() {

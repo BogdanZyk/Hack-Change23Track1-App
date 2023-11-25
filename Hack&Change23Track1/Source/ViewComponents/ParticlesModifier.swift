@@ -7,6 +7,72 @@
 
 import SwiftUI
 
+
+struct ReactionButtonView: View {
+    var index: Int = 0
+    @State var particles = [Particle]()
+    let duration = 1.0
+    let action: () -> Void
+    var body: some View {
+        VStack {
+            
+            Button {
+                action()
+            } label: {
+                Image(systemName: "suit.heart")
+                    .font(.title2)
+                    .foregroundColor(.primaryFont)
+            }
+            .overlay(alignment: .top) {
+                ZStack {
+                    ForEach(particles) { particle in
+                        Image(systemName: "suit.heart.fill")
+                            .foregroundColor(.red)
+                            .offset(x: particle.offset.x, y: particle.offset.y)
+                            .opacity(particle.opacity)
+                            .scaleEffect(particle.scale)
+                    }
+                }
+            }
+            .onChange(of: index) { newValue in
+                    particles.append(.init())
+                withAnimation(.easeInOut(duration: duration)) {
+                    particles[particles.count - 1].move()
+                }
+                
+                Task {
+                    try? await Task.sleep(seconds: duration)
+                    withAnimation {
+                        particles.removeLast()
+                    }
+                }
+            }
+        }
+    }
+    
+    struct Particle: Identifiable {
+        var id: UUID = .init()
+        var offset: CGPoint = .zero
+        var opacity: CGFloat = 1
+        var scale: CGFloat = 1
+        
+        mutating func move() {
+            offset = .init(x: Double.random(in: -30 ... 30),
+                           y: Double.random(in: -100 ... -80))
+            opacity = Double.random(in: 0.3 ... 1)
+            scale = Double.random(in: 1.5 ... 1.8)
+        }
+    }
+}
+
+
+struct ReactionButtonView_Previews: PreviewProvider {
+    static var previews: some View {
+        ReactionButtonView(action: {})
+    }
+}
+
+
 fileprivate struct FireworkParticlesGeometryEffect : GeometryEffect {
     var time : Double
     var speed = Double.random(in: 10 ... 40)

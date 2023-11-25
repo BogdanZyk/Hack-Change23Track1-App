@@ -29,23 +29,19 @@ struct AudioRoomView: View {
             .overlay {
                 contextOverlay
             }
-            
             tabViewSection
         }
         .foregroundColor(.primaryFont)
         .background(Color.primaryBg.ignoresSafeArea())
         .appAlert($viewModel.appAlert)
-        .onAppear {
-            viewModel.startConnectWebRTC()
-        }
         .task {
+            await viewModel.startConnectWebRTC()
             await viewModel.fetchAudios()
         }
         .overlay {
             if !viewModel.status.isConnected {
                 loader
             }
-            //contextOverlay
         }
     }
 }
@@ -73,11 +69,18 @@ extension AudioRoomView {
                     }
                     
                     Spacer()
-                    
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "gearshape.fill")
+                    if viewModel.isOwner {
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "gearshape.fill")
+                        }
+                    } else {
+                        Button {
+                            ShareUtils.shareRoom(for: viewModel.room.name)
+                        } label: {
+                            Image(systemName: "arrowshape.turn.up.forward.fill")
+                        }
                     }
                 }
                 .font(.title2)

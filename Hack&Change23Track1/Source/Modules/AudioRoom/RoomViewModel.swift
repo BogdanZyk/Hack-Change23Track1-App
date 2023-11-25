@@ -65,16 +65,16 @@ extension RoomViewModel {
         }
     }
     
-     func startConnectWebRTC() {
-        Task {
-            do {
-                let sdpOffer = try await webRTCClient.offer()
-                let sdpAnswer = try await initConnectionWithServer(.init(from: sdpOffer))
-                try await webRTCClient.set(remoteSdp: sdpAnswer)
-            } catch {
-                appAlert = .errors(errors: [error])
-            }
+    func startConnectWebRTC() async {
+        
+        do {
+            let sdpOffer = try await webRTCClient.offer()
+            let sdpAnswer = try await initConnectionWithServer(.init(from: sdpOffer))
+            try await webRTCClient.set(remoteSdp: sdpAnswer)
+        } catch {
+            appAlert = .errors(errors: [error])
         }
+        
     }
     
     private func initConnectionWithServer(_ offer: SessionDescription) async throws -> RTCSessionDescription {
