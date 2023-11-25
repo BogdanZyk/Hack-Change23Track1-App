@@ -12,7 +12,6 @@ import Nuke
 struct LazyNukeImage: View {
     
     private var url: URL?
-    var strUrl: String?
     var resizeSize: CGSize
     var contentMode: ImageProcessors.Resize.ContentMode
     var loadPriority: ImageRequest.Priority = .normal
@@ -20,18 +19,20 @@ struct LazyNukeImage: View {
     var crop: Bool
     private let imagePipeline = ImagePipeline(configuration: .withDataCache)
     
-    init(strUrl: String?,
+    init(path: String?,
+         fullPath: String? = nil,
          resizeSize: CGSize = .init(width: 200, height: 200),
          contentMode: ImageProcessors.Resize.ContentMode = .aspectFill,
          loadPriority: ImageRequest.Priority = .normal,
          upscale: Bool = false,
          crop: Bool = true) {
-        self.strUrl = strUrl
         self.resizeSize = resizeSize
         self.contentMode = contentMode
         self.loadPriority = loadPriority
-        if let strUrl = strUrl {
-            self.url = URL(string: Config.baseURL + strUrl)
+        if let path {
+            self.url = URL(string: Config.baseURL + path)
+        } else if let fullPath {
+            self.url = URL(string: fullPath)
         }
         self.crop = crop
         self.upscale = upscale

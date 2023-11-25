@@ -10,6 +10,7 @@ import SwiftUI
 struct AddTrackView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = AddTrackViewModel()
+    let onSubmit: ([AudioItem]) -> Void
     var body: some View {
         VStack(spacing: 0) {
             topBarView
@@ -29,12 +30,15 @@ struct AddTrackView: View {
         .safeAreaInset(edge: .bottom, spacing: 0) {
             addButton
         }
+        .task {
+            await viewModel.fetchAudios()
+        }
     }
 }
 
 struct AddTrackView_Previews: PreviewProvider {
     static var previews: some View {
-        AddTrackView()
+        AddTrackView(onSubmit: {_ in })
     }
 }
 
@@ -56,7 +60,7 @@ extension AddTrackView {
     
     @ViewBuilder
     private func rowView(_ audio: FileAttrs) -> some View {
-        let isSelected = viewModel.selectedId.contains(audio.id ?? "")
+        let isSelected = viewModel.selectedAudios.contains(where: {$0.id == audio.id})
         HStack(spacing: 15) {
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color.secondary)
@@ -70,16 +74,17 @@ extension AddTrackView {
         .padding(.vertical, 10)
         .contentShape(Rectangle())
         .onTapGesture {
-            viewModel.addOrRemove(for: audio.id ?? "1")
+            viewModel.addOrRemove(for: audio)
         }
     }
     
     @ViewBuilder
     private var addButton: some View {
-        let countTrack = viewModel.selectedId.count
+        let countTrack = viewModel.selectedAudios.count
         if countTrack > 0 {
             PrimaryButton(label: "Added \(countTrack) tracks", isLoading: false) {
                 dismiss()
+                onSubmit(viewModel.selectedAudios.compactMap({.init(file: $0)}))
             }
             .padding()
         }

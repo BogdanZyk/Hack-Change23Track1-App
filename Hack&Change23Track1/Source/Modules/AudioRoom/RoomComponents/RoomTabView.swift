@@ -15,10 +15,14 @@ extension AudioRoomView {
         @ObservedObject var viewModel: RoomViewModel
         @ObservedObject var chatVM: RoomChatViewModel
         @FocusState var isFocused: Bool
+        @State private var showAddTracksView: Bool = false
         var body: some View {
             TabView(selection: $tab) {
                 makeView
                     .toolbar(.hidden, for: .tabBar)
+            }
+            .sheet(isPresented: $showAddTracksView) {
+                AddTrackView(onSubmit: { viewModel.setPlaylist($0) })
             }
         }
                 
@@ -33,7 +37,9 @@ extension AudioRoomView {
                 MembersView(ownerId: viewModel.room.owner?.id,
                             members: viewModel.members.map({$0.value}))
             case .playlist:
-                PlaylistView(playedId: viewModel.currentAudio?.id,
+                PlaylistView(showTracksLib: $showAddTracksView,
+                             isOwner: viewModel.isOwner,
+                             playedId: viewModel.currentAudio?.id,
                              audios: viewModel.audios,
                              onTap: viewModel.setAudio)
             }

@@ -17,11 +17,11 @@ class AddTrackViewModel: ObservableObject {
         .init(id: "3", name: "Name3\nAuthor name")
     ]
     @Published private(set) var searchResult = [FileAttrs]()
+    @Published private(set) var selectedAudios: [FileAttrs] = []
     
-    @Published private(set) var selectedId: [String] = []
     @Published var searchQuery: String = ""
     private var cancellable = Set<AnyCancellable>()
-    
+    private let roomDataService = RoomDataService()
     
     init() {
         listenToSearch()
@@ -42,11 +42,17 @@ class AddTrackViewModel: ObservableObject {
              .store(in: &cancellable)
      }
   
-    func addOrRemove(for id: String) {
-        if selectedId.contains(id) {
-            selectedId.removeAll(where: {$0 == id})
+    @MainActor
+    func fetchAudios() async {
+        let audios = try? await roomDataService.fetchAudios()
+        self.audios = audios ?? []
+    }
+    
+    func addOrRemove(for audio: FileAttrs) {
+        if selectedAudios.contains(where: {$0.id == audio.id}) {
+            selectedAudios.removeAll(where: {$0.id == audio.id})
         } else {
-            selectedId.append(id)
+            selectedAudios.append(audio)
         }
     }
 }

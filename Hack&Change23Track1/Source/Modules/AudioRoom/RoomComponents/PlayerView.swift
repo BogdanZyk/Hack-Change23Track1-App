@@ -66,7 +66,7 @@ extension PlayerView {
                 .frame(width: 40, height: 40)
             VStack(alignment: .leading, spacing: 2) {
                 Text(viewModel.room.name ?? "No name")
-                Text(viewModel.currentAudio?.name ?? "no set audio")
+                Text(viewModel.currentAudio?.file.name ?? "no set audio")
                     .foregroundColor(.secondaryGray)
             }
             .font(.medium(weight: .medium))
@@ -161,7 +161,7 @@ extension PlayerView {
                     .tint(.white)
             }
             HStack(spacing: 16) {
-                Text(viewModel.currentAudio?.name ?? "No select audio")
+                Text(viewModel.currentAudio?.file.name ?? "No select audio")
                     .lineLimit(1)
                 Spacer()
                 Label("\(viewModel.members.count)", systemImage: "headphones")

@@ -97,6 +97,7 @@ fragment PlayerItemAttrs on PlayFile {
 fragment FileAttrs on Audio {
   Id
   Name
+  Cover
 }
 
 mutation LoadAudio($roomId: String!, $audioId: String!) {

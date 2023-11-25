@@ -18,9 +18,24 @@ struct PlaylistStatus: Codable {
     struct AudioStatus: Codable {
         let id: String
         let status: State
-        
-        enum State: String, Codable {
-            case wait, error, ok, download
-        }
+
+    }
+    
+    enum State: String, Codable {
+        case wait, error, ok, download
+    }
+}
+
+struct AudioItem: Identifiable {
+    
+    var id: String {
+        file.id ?? UUID().uuidString
+    }
+    
+    let file: FileAttrs
+    var status: PlaylistStatus.State = .download
+    
+    mutating func setStatus(_ status: PlaylistStatus.State) {
+        self.status = status
     }
 }

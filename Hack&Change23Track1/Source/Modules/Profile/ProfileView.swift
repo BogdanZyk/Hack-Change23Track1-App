@@ -12,7 +12,7 @@ struct ProfileView: View {
     @EnvironmentObject var authManager: AuthManager
     var body: some View {
         VStack {
-            LazyNukeImage(strUrl: userManager.user?.avatar)
+            LazyNukeImage(path: userManager.user?.avatar)
                 .frame(width: 80, height: 80)
                 .clipShape(Circle())
             Text(userManager.user?.login ?? "no login user")

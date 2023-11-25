@@ -11,7 +11,7 @@ struct RoomRowView: View {
     let room: RoomAttrs
     var body: some View {
         HStack(alignment: .top, spacing: 16) {
-            LazyNukeImage(strUrl: room.image)
+            LazyNukeImage(path: room.image)
                 .frame(width: 96, height: 96)
                 .cornerRadius(12)
             VStack(alignment: .leading, spacing: 2) {

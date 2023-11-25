@@ -38,7 +38,6 @@ struct AudioRoomView: View {
         .appAlert($viewModel.appAlert)
         .task {
             await viewModel.startConnectWebRTC()
-            await viewModel.fetchAudios()
         }
         .overlay {
             if !viewModel.status.isConnected {

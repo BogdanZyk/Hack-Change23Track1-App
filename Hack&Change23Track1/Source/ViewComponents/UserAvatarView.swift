@@ -15,7 +15,7 @@ struct UserAvatarView: View {
     var body: some View {
         ZStack {
             if let image, image.isEmpty {
-                LazyNukeImage(strUrl: image)
+                LazyNukeImage(path: image)
             } else {
                 Circle()
                     .fill(Color.primaryGray)
