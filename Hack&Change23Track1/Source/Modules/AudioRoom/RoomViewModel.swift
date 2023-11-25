@@ -190,6 +190,19 @@ extension RoomViewModel {
         }
     }
     
+    func updateRoom(_ template: RoomTemplate) {
+        guard let id = room.id else {return}
+        Task {
+            do {
+                let image = template.createBase64Image()
+                try await roomDataService.updateRoom(for: id, name: template.name, image: image, isPrivate: template.isPrivateRoom)
+                refreshRoom()
+            } catch {
+                self.appAlert = .errors(errors: [error])
+            }
+        }
+    }
+    
     private func setMembers() {
         guard let members = room.members else { return }
         members.forEach {

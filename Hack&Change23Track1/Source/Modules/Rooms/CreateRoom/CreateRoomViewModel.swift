@@ -43,18 +43,3 @@ class CreateRoomViewModel: ObservableObject {
     }
 }
 
-
-extension CreateRoomViewModel {
-    
-    struct RoomTemplate {
-        var name: String = ""
-        var isPrivateRoom: Bool = false
-        var image: UIImage?
-        
-        
-        func createBase64Image() -> String {
-            Helpers.convertImageToBase64(image: image, compressionQuality: 0.9) ?? ""
-        }
-    }
-    
-}

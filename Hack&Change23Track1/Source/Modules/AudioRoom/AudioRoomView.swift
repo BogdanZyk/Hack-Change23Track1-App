@@ -12,6 +12,7 @@ struct AudioRoomView: View {
     @StateObject private var chatVM = RoomChatViewModel()
     @StateObject private var viewModel: RoomViewModel
     @State private var tab: RoomTab = .chat
+    @State private var sheetItem: SheetItem?
     @FocusState private var isFocused: Bool
     init(room: RoomAttrs, currentUser: RoomMember) {
         self._viewModel = StateObject(
@@ -44,6 +45,9 @@ struct AudioRoomView: View {
                 loader
             }
         }
+        .sheet(item: $sheetItem) {
+            makeSheet($0)
+        }
     }
 }
 
@@ -72,13 +76,13 @@ extension AudioRoomView {
                     Spacer()
                     if viewModel.isOwner {
                         Button {
-                            
+                            sheetItem = .settings
                         } label: {
                             Image(systemName: "gearshape.fill")
                         }
                     } else {
                         Button {
-                            ShareUtils.shareRoom(for: viewModel.room.name)
+                            sheetItem = .share
                         } label: {
                             Image(systemName: "arrowshape.turn.up.forward.fill")
                         }
@@ -108,6 +112,11 @@ extension AudioRoomView {
         TabButtons(tab: $tab)
     }
     
+    enum SheetItem: String, Identifiable {
+        case settings, share
+        
+        var id: String { self.rawValue }
+    }
     
     enum RoomTab: String, CaseIterable {
         case chat, playlist, members
@@ -122,7 +131,7 @@ extension AudioRoomView {
         .padding(.horizontal)
         .padding(.vertical, 20)
         .background(Color.primaryGray, in: RoundedRectangle(cornerRadius: 12))
-        .foregroundColor(.white)
+        .foregroundColor(.primaryFont)
     }
     
     @ViewBuilder
@@ -133,6 +142,17 @@ extension AudioRoomView {
                 .onTapGesture {
                     chatVM.selectMessage(nil)
                 }
+        }
+    }
+    
+    @ViewBuilder
+    private func makeSheet(_ sheet: SheetItem) -> some View {
+        switch sheet {
+        case .settings:
+            RoomSettingsView(viewModel: viewModel)
+        case .share:
+            Text(viewModel.room.key ?? "")
+                .presentationDetents([.medium])
         }
     }
 }

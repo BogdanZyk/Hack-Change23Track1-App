@@ -131,3 +131,10 @@ fragment SDPClientAttrs on ClientSDP {
     Sdp
     Type
 }
+
+query AllStickers {
+  AllStickers {
+    Stickers
+  }
+}
+

@@ -36,7 +36,11 @@
 		5A58E7BF2B120C2B00D0723C /* AddTrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7BE2B120C2B00D0723C /* AddTrackView.swift */; };
 		5A58E7C12B120C3F00D0723C /* AddTrackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7C02B120C3F00D0723C /* AddTrackViewModel.swift */; };
 		5A58E7C42B1215BA00D0723C /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7C32B1215BA00D0723C /* Playlist.swift */; };
-		5A58E7C82B12724700D0723C /* RoomSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7C72B12724700D0723C /* RoomSettings.swift */; };
+		5A58E7C82B12724700D0723C /* RoomSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7C72B12724700D0723C /* RoomSettingsView.swift */; };
+		5A58E7CA2B12824E00D0723C /* UpdateRoomMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7C92B12824E00D0723C /* UpdateRoomMutation.graphql.swift */; };
+		5A58E7CC2B12826800D0723C /* AllStickersQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7CB2B12826800D0723C /* AllStickersQuery.graphql.swift */; };
+		5A58E7CE2B12832300D0723C /* RoomTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7CD2B12832300D0723C /* RoomTemplate.swift */; };
+		5A58E7D02B1283C500D0723C /* StickerPack.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7CF2B1283C500D0723C /* StickerPack.graphql.swift */; };
 		5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */; };
 		5A81F3D82B1091AA00D9998F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D72B1091AA00D9998F /* ContentView.swift */; };
 		5A81F3DA2B1091AB00D9998F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F3D92B1091AB00D9998F /* Assets.xcassets */; };
@@ -134,7 +138,11 @@
 		5A58E7C02B120C3F00D0723C /* AddTrackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrackViewModel.swift; sourceTree = "<group>"; };
 		5A58E7C32B1215BA00D0723C /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		5A58E7C52B126EC600D0723C /* Hack-Change23Track1-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Hack-Change23Track1-Info.plist"; sourceTree = SOURCE_ROOT; };
-		5A58E7C72B12724700D0723C /* RoomSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomSettings.swift; sourceTree = "<group>"; };
+		5A58E7C72B12724700D0723C /* RoomSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomSettingsView.swift; sourceTree = "<group>"; };
+		5A58E7C92B12824E00D0723C /* UpdateRoomMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRoomMutation.graphql.swift; sourceTree = "<group>"; };
+		5A58E7CB2B12826800D0723C /* AllStickersQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllStickersQuery.graphql.swift; sourceTree = "<group>"; };
+		5A58E7CD2B12832300D0723C /* RoomTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTemplate.swift; sourceTree = "<group>"; };
+		5A58E7CF2B1283C500D0723C /* StickerPack.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerPack.graphql.swift; sourceTree = "<group>"; };
 		5A81F3D22B1091AA00D9998F /* Hack&Change23Track1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hack&Change23Track1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hack_Change23Track1App.swift; sourceTree = "<group>"; };
 		5A81F3D72B1091AA00D9998F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -300,7 +308,7 @@
 		5A58E7C62B12722F00D0723C /* RoomSettings */ = {
 			isa = PBXGroup;
 			children = (
-				5A58E7C72B12724700D0723C /* RoomSettings.swift */,
+				5A58E7C72B12724700D0723C /* RoomSettingsView.swift */,
 			);
 			path = RoomSettings;
 			sourceTree = "<group>";
@@ -510,6 +518,7 @@
 		5A81F4222B10A49C00D9998F /* Mutations */ = {
 			isa = PBXGroup;
 			children = (
+				5A58E7C92B12824E00D0723C /* UpdateRoomMutation.graphql.swift */,
 				5A81F4902B10EACD00D9998F /* UpdateCurrentUserMutation.graphql.swift */,
 				5A81F4232B10A49C00D9998F /* LoadAudioMutation.graphql.swift */,
 				5A81F4242B10A49C00D9998F /* RoomActionMutation.graphql.swift */,
@@ -526,6 +535,7 @@
 		5A81F42B2B10A49C00D9998F /* Queries */ = {
 			isa = PBXGroup;
 			children = (
+				5A58E7CB2B12826800D0723C /* AllStickersQuery.graphql.swift */,
 				5A81F48A2B10D63600D9998F /* GetRoomByKeyQuery.graphql.swift */,
 				5A81F42C2B10A49C00D9998F /* ListRoomsQuery.graphql.swift */,
 				5A81F42D2B10A49C00D9998F /* ListAudioQuery.graphql.swift */,
@@ -550,6 +560,7 @@
 		5A81F4312B10A49C00D9998F /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				5A58E7CF2B1283C500D0723C /* StickerPack.graphql.swift */,
 				5A81F4322B10A49C00D9998F /* PlayFile.graphql.swift */,
 				5A81F4332B10A49C00D9998F /* User.graphql.swift */,
 				5A81F4342B10A49C00D9998F /* RootMutationType.graphql.swift */,
@@ -617,6 +628,7 @@
 			children = (
 				5A81F4702B10BBC800D9998F /* RoomMember.swift */,
 				5A58E7962B113AEE00D0723C /* RoomPlayerState.swift */,
+				5A58E7CD2B12832300D0723C /* RoomTemplate.swift */,
 			);
 			path = Room;
 			sourceTree = "<group>";
@@ -763,11 +775,13 @@
 				5A58E7C42B1215BA00D0723C /* Playlist.swift in Sources */,
 				5A81F4742B10BC9E00D9998F /* RootContainerView.swift in Sources */,
 				5A81F4822B10C47300D9998F /* PrimaryTextField.swift in Sources */,
+				5A58E7CE2B12832300D0723C /* RoomTemplate.swift in Sources */,
 				5A58E7A82B115F1E00D0723C /* SoundWaveView.swift in Sources */,
 				5A81F3FE2B1097DC00D9998F /* Double.swift in Sources */,
 				5A81F4552B10A49C00D9998F /* Room.graphql.swift in Sources */,
 				5A58E7AA2B116B0800D0723C /* RoomChatView.swift in Sources */,
 				5A58E7A42B115A9300D0723C /* UserAvatarView.swift in Sources */,
+				5A58E7CC2B12826800D0723C /* AllStickersQuery.graphql.swift in Sources */,
 				5A58E79E2B114E2A00D0723C /* Message.swift in Sources */,
 				5A81F44F2B10A49C00D9998F /* PlayFile.graphql.swift in Sources */,
 				5A81F44B2B10A49C00D9998F /* ListRoomsQuery.graphql.swift in Sources */,
@@ -782,7 +796,7 @@
 				5A81F4512B10A49C00D9998F /* RootMutationType.graphql.swift in Sources */,
 				5A58E7C12B120C3F00D0723C /* AddTrackViewModel.swift in Sources */,
 				5A81F47E2B10C0BB00D9998F /* CreateRoomView.swift in Sources */,
-				5A58E7C82B12724700D0723C /* RoomSettings.swift in Sources */,
+				5A58E7C82B12724700D0723C /* RoomSettingsView.swift in Sources */,
 				5A81F40B2B109A1700D9998F /* WebRTCClient.swift in Sources */,
 				5A81F44A2B10A49C00D9998F /* LikeRoomMutation.graphql.swift in Sources */,
 				5A58E78D2B11327200D0723C /* RoomViewModel.swift in Sources */,
@@ -821,6 +835,8 @@
 				5A58E7BA2B11F45200D0723C /* RoomType.graphql.swift in Sources */,
 				5A58E7B12B1174D200D0723C /* MessageRowView.swift in Sources */,
 				5A81F46C2B10BABB00D9998F /* Apollo+Extensions.swift in Sources */,
+				5A58E7CA2B12824E00D0723C /* UpdateRoomMutation.graphql.swift in Sources */,
+				5A58E7D02B1283C500D0723C /* StickerPack.graphql.swift in Sources */,
 				5A81F48F2B10E44400D9998F /* Helpers.swift in Sources */,
 				5A81F4662B10B98500D9998F /* AuthManager.swift in Sources */,
 				5A81F4842B10CA0200D9998F /* PrimaryButton.swift in Sources */,

@@ -42,6 +42,16 @@ final class RoomDataService {
     }
     
     @discardableResult
+    func updateRoom(for id: String, name: String, image: String, isPrivate: Bool) async throws -> RoomAttrs {
+        let mutation = UpdateRoomMutation(roomId: id, image: .init(stringLiteral: image), private: .some(isPrivate), type: .some(.case(.playlist)), name: .init(stringLiteral: name))
+        let data = try await api.mutation(mutation: mutation)
+        guard let room = data.data?.updateRoom?.fragments.roomAttrs else {
+            throw URLError(.badServerResponse)
+        }
+        return room
+    }
+    
+    @discardableResult
     func removeRoom(for id: String) async throws -> String {
         let mutation = DeleteRoomMutation(roomId: id)
         let data = try await api.mutation(mutation: mutation)
@@ -122,7 +132,7 @@ extension RoomAttrs {
         owner?.id == id
     }
     
-    static let mock = RoomAttrs(file: .init(currentSeconds: "120", durationSeconds: "360", file: .init(id: "", name: "Music name"), pause: false), id: "123", likes: 68, private: false, image: "", key: "code", name: "Room name", members: [.init(id: "1", login: "test", avatar: "", email: "email@test.com")])
+    static let mock = RoomAttrs(file: .init(currentSeconds: "120", durationSeconds: "360", file: .init(id: "", name: "Music name"), pause: false), id: "123", likes: 68, private: false, image: "", key: "00000", name: "Room name", members: [.init(id: "1", login: "test", avatar: "", email: "email@test.com")])
 }
 
 extension FileAttrs {
