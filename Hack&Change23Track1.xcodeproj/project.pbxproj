@@ -24,6 +24,9 @@
 		5A58E7A42B115A9300D0723C /* UserAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7A32B115A9300D0723C /* UserAvatarView.swift */; };
 		5A58E7A62B115D8100D0723C /* PlaylistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7A52B115D8100D0723C /* PlaylistView.swift */; };
 		5A58E7A82B115F1E00D0723C /* SoundWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7A72B115F1E00D0723C /* SoundWaveView.swift */; };
+		5A58E7AA2B116B0800D0723C /* RoomChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7A92B116B0800D0723C /* RoomChatView.swift */; };
+		5A58E7AC2B116B3B00D0723C /* RoomChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7AB2B116B3B00D0723C /* RoomChatViewModel.swift */; };
+		5A58E7AF2B116C2500D0723C /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7AE2B116C2500D0723C /* BottomBarView.swift */; };
 		5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */; };
 		5A81F3D82B1091AA00D9998F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D72B1091AA00D9998F /* ContentView.swift */; };
 		5A81F3DA2B1091AB00D9998F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F3D92B1091AB00D9998F /* Assets.xcassets */; };
@@ -108,6 +111,9 @@
 		5A58E7A32B115A9300D0723C /* UserAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAvatarView.swift; sourceTree = "<group>"; };
 		5A58E7A52B115D8100D0723C /* PlaylistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistView.swift; sourceTree = "<group>"; };
 		5A58E7A72B115F1E00D0723C /* SoundWaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundWaveView.swift; sourceTree = "<group>"; };
+		5A58E7A92B116B0800D0723C /* RoomChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChatView.swift; sourceTree = "<group>"; };
+		5A58E7AB2B116B3B00D0723C /* RoomChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChatViewModel.swift; sourceTree = "<group>"; };
+		5A58E7AE2B116C2500D0723C /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
 		5A81F3D22B1091AA00D9998F /* Hack&Change23Track1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hack&Change23Track1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hack_Change23Track1App.swift; sourceTree = "<group>"; };
 		5A81F3D72B1091AA00D9998F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -217,6 +223,9 @@
 		5A58E7932B1137F900D0723C /* RoomChat */ = {
 			isa = PBXGroup;
 			children = (
+				5A58E7AD2B116C0D00D0723C /* Components */,
+				5A58E7A92B116B0800D0723C /* RoomChatView.swift */,
+				5A58E7AB2B116B3B00D0723C /* RoomChatViewModel.swift */,
 			);
 			path = RoomChat;
 			sourceTree = "<group>";
@@ -227,6 +236,14 @@
 				5A58E79D2B114E2A00D0723C /* Message.swift */,
 			);
 			path = Chat;
+			sourceTree = "<group>";
+		};
+		5A58E7AD2B116C0D00D0723C /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				5A58E7AE2B116C2500D0723C /* BottomBarView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		5A81F3C92B1091AA00D9998F = {
@@ -672,6 +689,7 @@
 				5A81F46E2B10BB9D00D9998F /* UserManager.swift in Sources */,
 				5A81F4462B10A49C00D9998F /* SignInMutation.graphql.swift in Sources */,
 				5A81F4502B10A49C00D9998F /* User.graphql.swift in Sources */,
+				5A58E7AF2B116C2500D0723C /* BottomBarView.swift in Sources */,
 				5A81F4022B10980300D9998F /* DecoderEncoderHelper.swift in Sources */,
 				5A58E78B2B1131BF00D0723C /* AudioRoomView.swift in Sources */,
 				5A81F4442B10A49C00D9998F /* RoomActionMutation.graphql.swift in Sources */,
@@ -683,6 +701,7 @@
 				5A58E7A82B115F1E00D0723C /* SoundWaveView.swift in Sources */,
 				5A81F3FE2B1097DC00D9998F /* Double.swift in Sources */,
 				5A81F4552B10A49C00D9998F /* Room.graphql.swift in Sources */,
+				5A58E7AA2B116B0800D0723C /* RoomChatView.swift in Sources */,
 				5A58E7A42B115A9300D0723C /* UserAvatarView.swift in Sources */,
 				5A58E79E2B114E2A00D0723C /* Message.swift in Sources */,
 				5A81F44F2B10A49C00D9998F /* PlayFile.graphql.swift in Sources */,
@@ -702,6 +721,7 @@
 				5A81F43F2B10A49C00D9998F /* PlayerItemAttrs.graphql.swift in Sources */,
 				5A81F4432B10A49C00D9998F /* LoadAudioMutation.graphql.swift in Sources */,
 				5A81F46A2B10BA8100D9998F /* ApolloClient.swift in Sources */,
+				5A58E7AC2B116B3B00D0723C /* RoomChatViewModel.swift in Sources */,
 				5A81F4542B10A49C00D9998F /* RootQueryType.graphql.swift in Sources */,
 				5A81F4092B1098FD00D9998F /* Config.swift in Sources */,
 				5A81F47A2B10BD1500D9998F /* RoomsView.swift in Sources */,

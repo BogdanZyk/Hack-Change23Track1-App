@@ -11,7 +11,7 @@ struct PlayerView: View {
     var isDisabledControls: Bool = false
     @ObservedObject var viewModel: RoomViewModel
     @State private var showPlayerButton: Bool = false
-    private var maxHeight: CGFloat {  getRect().height / 3.2 }
+    private var maxHeight: CGFloat {  getRect().height / 3.8 }
     var body: some View {
         VStack(spacing: 0) {
             ZStack {

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AudioRoomView: View {
     @Environment(\.dismiss) private var dismiss
+    @StateObject private var chatVM = RoomChatViewModel()
     @StateObject private var viewModel: RoomViewModel
     @State private var tab: RoomTab = .chat
     init(room: RoomAttrs, currentUser: RoomMember) {
@@ -82,7 +83,7 @@ extension AudioRoomView {
     }
     
     private var tabViewSection: some View {
-        RoomTabView(tab: $tab, viewModel: viewModel)
+        RoomTabView(tab: $tab, viewModel: viewModel, chatVM: chatVM)
     }
     
     enum RoomTab: String, CaseIterable {
