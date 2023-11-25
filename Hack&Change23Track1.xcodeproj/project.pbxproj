@@ -33,6 +33,8 @@
 		5A58E7B72B11F04D00D0723C /* ShareUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7B62B11F04D00D0723C /* ShareUtils.swift */; };
 		5A58E7BA2B11F45200D0723C /* RoomType.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7B92B11F45200D0723C /* RoomType.graphql.swift */; };
 		5A58E7BC2B11F54A00D0723C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7BB2B11F54A00D0723C /* String.swift */; };
+		5A58E7BF2B120C2B00D0723C /* AddTrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7BE2B120C2B00D0723C /* AddTrackView.swift */; };
+		5A58E7C12B120C3F00D0723C /* AddTrackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7C02B120C3F00D0723C /* AddTrackViewModel.swift */; };
 		5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */; };
 		5A81F3D82B1091AA00D9998F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D72B1091AA00D9998F /* ContentView.swift */; };
 		5A81F3DA2B1091AB00D9998F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F3D92B1091AB00D9998F /* Assets.xcassets */; };
@@ -126,6 +128,8 @@
 		5A58E7B62B11F04D00D0723C /* ShareUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareUtils.swift; sourceTree = "<group>"; };
 		5A58E7B92B11F45200D0723C /* RoomType.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomType.graphql.swift; sourceTree = "<group>"; };
 		5A58E7BB2B11F54A00D0723C /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		5A58E7BE2B120C2B00D0723C /* AddTrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrackView.swift; sourceTree = "<group>"; };
+		5A58E7C02B120C3F00D0723C /* AddTrackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrackViewModel.swift; sourceTree = "<group>"; };
 		5A81F3D22B1091AA00D9998F /* Hack&Change23Track1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hack&Change23Track1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hack_Change23Track1App.swift; sourceTree = "<group>"; };
 		5A81F3D72B1091AA00D9998F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -213,6 +217,7 @@
 		5A58E7892B1131A100D0723C /* AudioRoom */ = {
 			isa = PBXGroup;
 			children = (
+				5A58E7BD2B120B7400D0723C /* PlaylistView */,
 				5A58E7932B1137F900D0723C /* RoomChat */,
 				5A58E78E2B1135A600D0723C /* RoomComponents */,
 				5A58E78A2B1131BF00D0723C /* AudioRoomView.swift */,
@@ -227,7 +232,6 @@
 				5A58E78F2B1135B200D0723C /* RoomTabView.swift */,
 				5A58E7942B1139D000D0723C /* PlayerView.swift */,
 				5A58E7A12B115A0B00D0723C /* MembersView.swift */,
-				5A58E7A52B115D8100D0723C /* PlaylistView.swift */,
 			);
 			path = RoomComponents;
 			sourceTree = "<group>";
@@ -267,6 +271,16 @@
 				5A58E7B92B11F45200D0723C /* RoomType.graphql.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		5A58E7BD2B120B7400D0723C /* PlaylistView */ = {
+			isa = PBXGroup;
+			children = (
+				5A58E7A52B115D8100D0723C /* PlaylistView.swift */,
+				5A58E7BE2B120C2B00D0723C /* AddTrackView.swift */,
+				5A58E7C02B120C3F00D0723C /* AddTrackViewModel.swift */,
+			);
+			path = PlaylistView;
 			sourceTree = "<group>";
 		};
 		5A81F3C92B1091AA00D9998F = {
@@ -737,9 +751,11 @@
 				5A81F47C2B10C07D00D9998F /* RoomsViewModel.swift in Sources */,
 				5A81F48B2B10D63600D9998F /* GetRoomByKeyQuery.graphql.swift in Sources */,
 				5A81F40E2B109CEC00D9998F /* SessionDescription.swift in Sources */,
+				5A58E7BF2B120C2B00D0723C /* AddTrackView.swift in Sources */,
 				5A58E7922B11373400D0723C /* UIApplication.swift in Sources */,
 				5A58E7B72B11F04D00D0723C /* ShareUtils.swift in Sources */,
 				5A81F4512B10A49C00D9998F /* RootMutationType.graphql.swift in Sources */,
+				5A58E7C12B120C3F00D0723C /* AddTrackViewModel.swift in Sources */,
 				5A81F47E2B10C0BB00D9998F /* CreateRoomView.swift in Sources */,
 				5A81F40B2B109A1700D9998F /* WebRTCClient.swift in Sources */,
 				5A81F44A2B10A49C00D9998F /* LikeRoomMutation.graphql.swift in Sources */,

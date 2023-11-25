@@ -20,12 +20,12 @@ struct RoomRowView: View {
                 Text(room.file?.file?.name ?? "No set track")
                     .font(.primary())
                 HStack(spacing: 16) {
-                    Label("\(room.likes ?? 0)", systemImage: "heart")
+                    Label("\(room.likes ?? 0)", systemImage: "heart.fill")
                         .foregroundColor(Color.pink)
                     Label("\(room.members?.count ?? 0)", systemImage: "headphones")
                         .foregroundColor(Color.purple)
                 }
-                .padding(.top, 14)
+                .padding(.top, 16)
             }
             .lineLimit(1)
             .padding(.top, 4)
