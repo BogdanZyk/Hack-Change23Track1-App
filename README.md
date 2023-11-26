@@ -59,12 +59,12 @@
 
 ## Screenshots 📷
   <div align="center">
- <img src="screens/1.jpeg" height="350" alt="Screenshot"/>
-  <img src="screens/2.jpeg" height="350" alt="Screenshot"/>
-    <img src="screens/3.jpeg" height="350" alt="Screenshot"/>
-    <img src="screens/4.jpeg" height="350" alt="Screenshot"/>
-    <img src="screens/5.jpeg" height="350" alt="Screenshot"/>
-     <img src="screens/6.png" height="350" alt="Screenshot"/>
+ <img src="screens/1.jpeg" height="450" alt="Screenshot"/>
+  <img src="screens/2.jpeg" height="450" alt="Screenshot"/>
+    <img src="screens/3.jpeg" height="450" alt="Screenshot"/>
+    <img src="screens/4.jpeg" height="450" alt="Screenshot"/>
+    <img src="screens/5.jpeg" height="450" alt="Screenshot"/>
+     <img src="screens/6.png" height="450" alt="Screenshot"/>
   </div>
 
 
