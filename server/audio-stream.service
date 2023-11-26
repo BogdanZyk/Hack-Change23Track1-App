@@ -1,0 +1,12 @@
+[Unit]
+  Description=audio-stream
+ 
+[Service]
+  ExecStart=/usr/bin/bash -c "cd /root/app/; ./audio-stream"
+  Type=idle
+  KillMode=process
+ 
+  SyslogIdentifier=audio-stream
+  SyslogFacility=daemon
+ 
+  Restart=on-failure

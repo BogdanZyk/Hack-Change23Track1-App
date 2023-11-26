@@ -1,0 +1,8 @@
+textarea {
+    width: 500px;
+    min-height: 75px;
+}
+
+#remoteVideos, video{
+    max-width: 700px;
+}

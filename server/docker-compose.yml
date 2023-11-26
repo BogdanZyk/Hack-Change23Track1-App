@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  audio-stream-service:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - '8000:8000'
+      - '8444:8444' 
+      - '8443:8443' 
+      - '1935:1935' 
+      - '30000-33000:30000-33000' 
+    volumes:
+      - ./public/:/app/public
+      - ./static/:/app/static
+      - ./content/:/app/content
+      - ./migrations/:/app/migrations
+      - ./data.db/:/app/data.db
+    
