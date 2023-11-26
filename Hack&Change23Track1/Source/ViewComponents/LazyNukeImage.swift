@@ -17,6 +17,7 @@ struct LazyNukeImage: View {
     var loadPriority: ImageRequest.Priority = .normal
     var upscale: Bool
     var crop: Bool
+    var loadColor: Color
     private let imagePipeline = ImagePipeline(configuration: .withDataCache)
     
     init(path: String? = nil,
@@ -25,7 +26,8 @@ struct LazyNukeImage: View {
          contentMode: ImageProcessors.Resize.ContentMode = .aspectFill,
          loadPriority: ImageRequest.Priority = .normal,
          upscale: Bool = false,
-         crop: Bool = true) {
+         crop: Bool = true,
+         loadColor: Color = .primaryGray) {
         self.resizeSize = resizeSize
         self.contentMode = contentMode
         self.loadPriority = loadPriority
@@ -36,6 +38,7 @@ struct LazyNukeImage: View {
         }
         self.crop = crop
         self.upscale = upscale
+        self.loadColor = loadColor
        
     }
     var body: some View {
@@ -46,12 +49,8 @@ struct LazyNukeImage: View {
                         image
                             .aspectRatio(contentMode: contentMode == .aspectFill ? .fill : .fit)
                     }
-                    else  if state.isLoading {
-                        Color.primaryGray
-                            .scaledToFill()
-                    } else if state.error != nil {
-                        Color.primaryGray
-                            .scaledToFill()
+                    else if state.isLoading || state.error != nil {
+                        loadColor
                     }
                 }
                 .processors([ImageProcessors.Resize.resize(size: resizeSize,

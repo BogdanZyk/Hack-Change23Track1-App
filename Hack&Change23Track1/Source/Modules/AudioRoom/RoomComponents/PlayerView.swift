@@ -12,7 +12,7 @@ struct PlayerView: View {
     var isDisabledControls: Bool = false
     @ObservedObject var viewModel: RoomViewModel
     @State private var showPlayerButton: Bool = false
-    private var maxHeight: CGFloat {  getRect().height / 3.2 }
+    private var maxHeight: CGFloat {  getRect().height / 3 }
     var body: some View {
         Group {
             if showFullVersion {
@@ -27,7 +27,7 @@ struct PlayerView: View {
 struct PlayerView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            PlayerView(viewModel: .init(room: .mock, currentUser: .mock))
+            PlayerView(showFullVersion: true, viewModel: .init(room: .mock, currentUser: .mock))
         }
         .allFrame()
         .background(Color.primaryBg)
@@ -36,29 +36,31 @@ struct PlayerView_Previews: PreviewProvider {
 
 extension PlayerView {
     
-    
     private var fullVersion: some View {
-        VStack(spacing: 0) {
-            ZStack {
-                // image
-                //                LazyNukeImage(fullPath: viewModel.currentAudio?.file.coverFullPath, contentMode: .aspectFill, upscale: true,  crop: true)
-                //
-                Color.gray.opacity(0.0001)
-                    .onTapGesture {
-                        withAnimation(.easeIn(duration: 0.3)){
-                            showPlayerButton.toggle()
-                        }
-                    }
-                if !isDisabledControls {
-                    playerControlsButtons
-                }
+        
+        ZStack {
+            if let image = viewModel.currentAudio?.file.coverFullPath, !image.isEmpty {
+                LazyNukeImage(fullPath: image,
+                              contentMode: .aspectFit,
+                              loadColor: .primaryBg)
+                    .frame(maxHeight: maxHeight)
             }
+            LinearGradient(colors: [Color.primaryBg, Color.primaryBg.opacity(0.5), .clear], startPoint: .bottom, endPoint: .top)
+                .onTapGesture {
+                    withAnimation(.easeIn(duration: 0.3)){
+                        showPlayerButton.toggle()
+                    }
+                }
             timelineSectionAndInfo
+                .vBottom()
+            if !isDisabledControls {
+                playerControlsButtons
+                    .padding(.bottom, maxHeight / 3.5)
+            }
         }
         .allFrame()
         .frame(height: maxHeight)
         .foregroundColor(.primaryFont)
-    
     }
     
     private var shortVersion: some View {
@@ -177,24 +179,27 @@ extension PlayerView {
         .padding()
     }
     
-    @ViewBuilder
     private var timeSlider: some View {
-        if isDisabledControls {
-            ProgressView(value: viewModel.audioState.time, total: viewModel.audioState.total)
-                .hCenter()
-        } else {
-            Slider(value: $viewModel.audioState.time, in: 0...viewModel.audioState.total) { change in
-                viewModel.audioState.isScrubbingTime = change
-                if !change {
-                    viewModel.moveAudioTime()
+        Group{
+            if isDisabledControls {
+                ProgressView(value: viewModel.audioState.time, total: viewModel.audioState.total)
+                    .hCenter()
+            } else {
+                Slider(value: $viewModel.audioState.time, in: 0...viewModel.audioState.total) { change in
+                    viewModel.audioState.isScrubbingTime = change
+                    if !change {
+                        viewModel.moveAudioTime()
+                    }
                 }
             }
         }
+        .tint(Color.primaryPink)
     }
     
     private var likeButton: some View {
         HStack(spacing: 6) {
             Image(systemName: "suit.heart.fill")
+                .foregroundColor(.primaryPink)
                 .overlay(alignment: .bottom) {
                     Image(systemName: "suit.heart.fill")
                         .font(.title3)
@@ -208,8 +213,3 @@ extension PlayerView {
         }
     }
 }
-
-
-
-
-

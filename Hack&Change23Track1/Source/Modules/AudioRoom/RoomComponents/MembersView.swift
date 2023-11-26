@@ -19,6 +19,7 @@ extension AudioRoomView {
                             
                     }
                 }
+                .padding(.top)
             }
             .padding()
             .foregroundColor(.primaryFont)
@@ -26,10 +27,10 @@ extension AudioRoomView {
         }
         
         private func rowView(_ member: RoomMember) -> some View {
-            HStack {
+            HStack(spacing: 15) {
                 UserAvatarView(image: member.avatar,
                                userName: member.login,
-                               size: .init(width: 40, height: 40),
+                               size: .init(width: 45, height: 45),
                                withStroke: false)
                 Text(member.login)
                     .font(.primary(weight: .semibold))

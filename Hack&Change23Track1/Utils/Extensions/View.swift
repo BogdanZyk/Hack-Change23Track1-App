@@ -55,6 +55,10 @@ extension View {
             .rotationEffect(.init(radians: .pi))
             .scaleEffect(x: -1, y: 1, anchor: .center)
     }
+    
+    func withoutAnimation() -> some View {
+        self.animation(nil, value: UUID())
+    }
 }
 
 fileprivate struct RoundedCorner: Shape {
