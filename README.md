@@ -52,7 +52,7 @@
 - go build -o audio-stream && ./audio-stream
 
 
-## Схема проекта
+## Схема клиент серверной архитектуры
  <div align="center">
  <img src="screens/schema.jpeg" height="450" alt="Screenshot"/>
  </div>
