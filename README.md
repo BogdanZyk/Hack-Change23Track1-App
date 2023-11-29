@@ -1,58 +1,52 @@
 # Soundwave
 
-Приложение для группового
-онлайн-прослушивания аудиоконтента
+An application for group
+online listening to audio content
 
-### Команда - Brightlab 👨‍💻
-- Зыков Богдан
-- Таций Евгений
-- Ерошенкова Анжелика
-- Боярская Екатерина
+### Mobile application written for iOS with MVVM architecture in Swift language 
 
-### Мобильное приложение написано для iOS с архитектурой MVVM на языке Swift 
+#### Frameworks and libraries used:
 
-#### Используемые фреймворки и библиотеки:
+Client side:
+- SwiftUI - interface layout
+- Combine - asynchrony and reactivity
+- Apollo GraphQL - API query processing
+- NukeUI - image caching 
+- WebRTC - data feeds and audio streaming
 
-Клиент часть:
-- SwiftUI - верстка интерфейса
-- Combine - асинхронность и реактивность
-- Apollo GraphQL - обработка запросов API
-- NukeUI - кеширование изображений 
-- WebRTC - каналы данных и аудиопоток
-
-Серверная часть:
+Server side:
 - Go
 - SQlite
 - Apollo GraphQL
 - WebRTC
 
-## Функционал:
-- Регистрация пользователя (почта/пароль)
-- Список комнат
-- Создание публичных и приватных комнат
-- Подключение к комнате по коду
-- Управление комнатой администратором
-- Составление плейлиста комнаты
-- Синхронизация аудио между всеми участниками максимальные задержки не более 0.2c
-- Действия с аудио перемотка, переключение 
-- Чат между участниками
-- Aнимированные лайки комнаты
-- Реакции на сообщения
-- Стикеры в сообщении
-- Светлая темная тема
+## Functionality:
+- User registration (mail/password)
+- Room list
+- Create public and private rooms
+- Connecting to a room by code
+- Room management by administrator
+- Room playlist creation
+- Synchronization of audio between all participants maximum delays not more than 0.2c
+- Actions with audio rewind, switching 
+- Chat between participants
+- Animated room likes
+- Reactions to messages
+- Stickers in message
+- Light dark theme
 
   ## 📹 Video
 [![Preview](http://img.youtube.com/vi/_jVpYgHdr4Q/0.jpg)](https://www.youtube.com/watch?v=_jVpYgHdr4Q)
 
 
-## Запуск сервера
+## Start server
 - go v.1.21.1
 - brew install golang
 - сd server
 - go build -o audio-stream && ./audio-stream
 
 
-## Схема клиент серверной архитектуры
+## Schematic of client server architecture
  <div align="center">
  <img src="screens/schema.jpeg" height="450" alt="Screenshot"/>
  </div>
