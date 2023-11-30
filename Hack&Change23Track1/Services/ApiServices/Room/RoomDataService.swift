@@ -87,9 +87,9 @@ final class RoomDataService {
     func initConnection(for roomId: String, offer: SessionDescription) async throws -> SessionDescription {
         let mutation = InitConnectionMutation(sdp: offer.serverSDPParams, roomId: roomId)
         let data = try await api.mutation(mutation: mutation, publishResultToStore: false)
-        
+       
         guard let sDPClientAttrs = data.data?.initConnection?.fragments.sDPClientAttrs else {
-            throw URLError(.badServerResponse)
+            throw AppError.custom(errorDescription: "Empty sDPClientAttrs")
         }
         
         return .init(from: sDPClientAttrs)

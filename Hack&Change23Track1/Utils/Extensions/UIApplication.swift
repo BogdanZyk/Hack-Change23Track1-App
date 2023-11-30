@@ -14,6 +14,13 @@ extension UIApplication {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
+  static func navigationTopViewController() -> UIViewController? {
+        self
+            .shared
+            .connectedScenes
+            .compactMap { ($0 as? UIWindowScene)?.keyWindow }
+            .first?.rootViewController
+    }
 }
 
 extension UIViewController {
@@ -26,3 +33,5 @@ extension UIViewController {
             .first?.rootViewController?.present(self, animated: animated, completion: completion)
     }
 }
+
+

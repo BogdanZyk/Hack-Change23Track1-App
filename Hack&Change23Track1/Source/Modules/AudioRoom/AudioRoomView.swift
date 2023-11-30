@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct AudioRoomView: View {
+    @Namespace private var namespace
     @Environment(\.dismiss) private var dismiss
     @StateObject private var chatVM = RoomChatViewModel()
     @StateObject private var viewModel: RoomViewModel
     @State private var tab: RoomTab = .chat
     @State private var sheetItem: SheetItem?
     @FocusState private var isFocused: Bool
+    @State private var showFullScreen: Bool = false
     init(room: RoomAttrs, currentUser: RoomMember) {
         self._viewModel = StateObject(
             wrappedValue: RoomViewModel(room: room, currentUser: currentUser)
@@ -23,11 +25,12 @@ struct AudioRoomView: View {
     var body: some View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {
-                if !isFocused {
-                    topBarView
-                }
                 playerView
                 tabButtons
+            }
+            .ignoresSafeArea(.container, edges: .top)
+            .overlay(alignment: .top) {
+                topBarView
             }
             .overlay {
                 contextOverlay
@@ -38,7 +41,7 @@ struct AudioRoomView: View {
         .background(Color.primaryBg.ignoresSafeArea())
         .appAlert($viewModel.appAlert)
         .task {
-            await viewModel.startConnectWebRTC()
+            await viewModel.connectRoom()
         }
         .overlay {
             if !viewModel.status.isConnected {
@@ -47,6 +50,11 @@ struct AudioRoomView: View {
         }
         .sheet(item: $sheetItem) {
             makeSheet($0)
+        }
+        .overlay {
+            if showFullScreen {
+                FullScreenPlayer(namespace: namespace, close: $showFullScreen, videoTrack: viewModel.remoteVideoTrack)
+            }
         }
     }
 }
@@ -74,6 +82,12 @@ extension AudioRoomView {
                     }
                     
                     Spacer()
+                    Button {
+                        viewModel.muteToggle()
+                    } label: {
+                        Image(systemName: viewModel.isMute ? "speaker.fill" : "speaker.slash.fill")
+                            .font(.small())
+                    }
                     if viewModel.isOwner {
                         Button {
                             sheetItem = .settings
@@ -95,7 +109,10 @@ extension AudioRoomView {
     }
     
     private var playerView: some View {
-        PlayerView(showFullVersion: !isFocused,
+        PlayerView(
+            namespace: namespace,
+            showFullScreen: $showFullScreen,
+            showFullVersion: !isFocused,
                    isDisabledControls: !viewModel.isOwner,
                    viewModel: viewModel)
     }
@@ -126,7 +143,7 @@ extension AudioRoomView {
         VStack {
             Text("Connecting")
             ProgressView()
-                .tint(.white)
+                .tint(Color.primaryFont)
         }
         .padding(.horizontal)
         .padding(.vertical, 20)

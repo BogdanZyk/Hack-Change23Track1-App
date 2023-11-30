@@ -8,26 +8,24 @@
 import SwiftUI
 
 struct PlayerView: View {
+    let namespace: Namespace.ID
+    @Binding var showFullScreen: Bool
     var showFullVersion: Bool = false
     var isDisabledControls: Bool = false
     @ObservedObject var viewModel: RoomViewModel
     @State private var showPlayerButton: Bool = false
-    private var maxHeight: CGFloat {  getRect().height / 3 }
+    private var maxHeight: CGFloat {  getRect().height / 2.5 }
     var body: some View {
-        Group {
-            if showFullVersion {
-                fullVersion
-            } else {
-                shortVersion
-            }
-        }
+        fullVersion
     }
 }
 
 struct PlayerView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            PlayerView(showFullVersion: true, viewModel: .init(room: .mock, currentUser: .mock))
+            PlayerView(namespace: Namespace().wrappedValue,
+                       showFullScreen: .constant(false),
+                       showFullVersion: true, viewModel: .init(room: .mock, currentUser: .mock))
         }
         .allFrame()
         .background(Color.primaryBg)
@@ -39,23 +37,26 @@ extension PlayerView {
     private var fullVersion: some View {
         
         ZStack {
-            if let image = viewModel.currentAudio?.file.coverFullPath, !image.isEmpty {
-                LazyNukeImage(fullPath: image,
-                              contentMode: .aspectFit,
-                              loadColor: .primaryBg)
-                    .frame(maxHeight: maxHeight)
-            }
-            LinearGradient(colors: [Color.primaryBg, Color.primaryBg.opacity(0.5), .clear], startPoint: .bottom, endPoint: .top)
-                .onTapGesture {
-                    withAnimation(.easeIn(duration: 0.3)){
-                        showPlayerButton.toggle()
+//            if let image = viewModel.currentAudio?.file.coverFullPath, !image.isEmpty {
+            if let remoteVideoTrack = viewModel.remoteVideoTrack {
+                VideoView(videoTrack: remoteVideoTrack)
+                    .matchedGeometryEffect(id: "videoLayer", in: namespace)
+                    .onTapGesture {
+                        withAnimation(.easeIn(duration: 0.3)){
+                            showPlayerButton.toggle()
+                        }
                     }
-                }
+                    //.frame(maxHeight: maxHeight)
+            }
+                
+            //}
+//            LinearGradient(colors: [Color.primaryBg, Color.primaryBg.opacity(0.5), .clear], startPoint: .bottom, endPoint: .top)
+                
             timelineSectionAndInfo
                 .vBottom()
             if !isDisabledControls {
                 playerControlsButtons
-                    .padding(.bottom, maxHeight / 3.5)
+                   // .padding(.bottom, maxHeight / 3.5)
             }
         }
         .allFrame()
@@ -161,6 +162,15 @@ extension PlayerView {
                     Text(viewModel.audioState.time.minuteSeconds)
                     Spacer()
                     Text(viewModel.audioState.total.minuteSeconds)
+                    Button {
+                        withAnimation {
+                            showFullScreen.toggle()
+                        }
+                      
+                    } label: {
+                        Image(systemName: "viewfinder")
+                            .padding()
+                    }
                 }
                 .font(.small(weight: .light))
                 timeSlider

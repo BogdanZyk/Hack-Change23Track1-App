@@ -109,6 +109,10 @@
 		5A81F48D2B10DAC500D9998F /* RoomRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F48C2B10DAC500D9998F /* RoomRowView.swift */; };
 		5A81F48F2B10E44400D9998F /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F48E2B10E44400D9998F /* Helpers.swift */; };
 		5A81F4912B10EACD00D9998F /* UpdateCurrentUserMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4902B10EACD00D9998F /* UpdateCurrentUserMutation.graphql.swift */; };
+		5A8C32712B17647900E1BCDA /* WebrtcClient2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8C32702B17647900E1BCDA /* WebrtcClient2.swift */; };
+		5A8C32732B176B1600E1BCDA /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8C32722B176B1600E1BCDA /* AppError.swift */; };
+		5A8C32762B176E2700E1BCDA /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8C32752B176E2700E1BCDA /* VideoView.swift */; };
+		5ADD4B392B18B0D300B0C05B /* FullSreenPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD4B382B18B0D300B0C05B /* FullSreenPlayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -213,6 +217,10 @@
 		5A81F48C2B10DAC500D9998F /* RoomRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRowView.swift; sourceTree = "<group>"; };
 		5A81F48E2B10E44400D9998F /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		5A81F4902B10EACD00D9998F /* UpdateCurrentUserMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateCurrentUserMutation.graphql.swift; sourceTree = "<group>"; };
+		5A8C32702B17647900E1BCDA /* WebrtcClient2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebrtcClient2.swift; sourceTree = "<group>"; };
+		5A8C32722B176B1600E1BCDA /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
+		5A8C32752B176E2700E1BCDA /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		5ADD4B382B18B0D300B0C05B /* FullSreenPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSreenPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +240,7 @@
 		5A58E7892B1131A100D0723C /* AudioRoom */ = {
 			isa = PBXGroup;
 			children = (
+				5A8C32742B176E1D00E1BCDA /* VideoView */,
 				5A58E7C62B12722F00D0723C /* RoomSettings */,
 				5A58E7BD2B120B7400D0723C /* PlaylistView */,
 				5A58E7932B1137F900D0723C /* RoomChat */,
@@ -248,6 +257,7 @@
 				5A58E78F2B1135B200D0723C /* RoomTabView.swift */,
 				5A58E7942B1139D000D0723C /* PlayerView.swift */,
 				5A58E7A12B115A0B00D0723C /* MembersView.swift */,
+				5ADD4B382B18B0D300B0C05B /* FullSreenPlayer.swift */,
 			);
 			path = RoomComponents;
 			sourceTree = "<group>";
@@ -426,6 +436,7 @@
 			children = (
 				5A81F3FA2B1097A100D9998F /* Extensions */,
 				5A81F3F92B10979900D9998F /* Helpers */,
+				5A8C32722B176B1600E1BCDA /* AppError.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -479,6 +490,7 @@
 		5A81F40C2B109C9100D9998F /* WebRTCClient */ = {
 			isa = PBXGroup;
 			children = (
+				5A8C32702B17647900E1BCDA /* WebrtcClient2.swift */,
 				5A81F40A2B109A1700D9998F /* WebRTCClient.swift */,
 				5A81F40D2B109CEC00D9998F /* SessionDescription.swift */,
 				5A81F4122B109FF900D9998F /* IceCandidate.swift */,
@@ -673,6 +685,14 @@
 			path = CreateRoom;
 			sourceTree = "<group>";
 		};
+		5A8C32742B176E1D00E1BCDA /* VideoView */ = {
+			isa = PBXGroup;
+			children = (
+				5A8C32752B176E2700E1BCDA /* VideoView.swift */,
+			);
+			path = VideoView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -776,6 +796,7 @@
 				5A58E79B2B114C5800D0723C /* Task.swift in Sources */,
 				5A81F4802B10C36600D9998F /* Font.swift in Sources */,
 				5A58E7C42B1215BA00D0723C /* Playlist.swift in Sources */,
+				5A8C32732B176B1600E1BCDA /* AppError.swift in Sources */,
 				5A81F4742B10BC9E00D9998F /* RootContainerView.swift in Sources */,
 				5A81F4822B10C47300D9998F /* PrimaryTextField.swift in Sources */,
 				5A58E7CE2B12832300D0723C /* RoomTemplate.swift in Sources */,
@@ -792,14 +813,17 @@
 				5A81F44E2B10A49C00D9998F /* SchemaAPI.graphql.swift in Sources */,
 				5A81F47C2B10C07D00D9998F /* RoomsViewModel.swift in Sources */,
 				5A81F48B2B10D63600D9998F /* GetRoomByKeyQuery.graphql.swift in Sources */,
+				5ADD4B392B18B0D300B0C05B /* FullSreenPlayer.swift in Sources */,
 				5A81F40E2B109CEC00D9998F /* SessionDescription.swift in Sources */,
 				5A58E7BF2B120C2B00D0723C /* AddTrackView.swift in Sources */,
+				5A8C32712B17647900E1BCDA /* WebrtcClient2.swift in Sources */,
 				5A58E7922B11373400D0723C /* UIApplication.swift in Sources */,
 				5A58E7B72B11F04D00D0723C /* ShareUtils.swift in Sources */,
 				5A81F4512B10A49C00D9998F /* RootMutationType.graphql.swift in Sources */,
 				5A58E7C12B120C3F00D0723C /* AddTrackViewModel.swift in Sources */,
 				5A81F47E2B10C0BB00D9998F /* CreateRoomView.swift in Sources */,
 				5A58E7C82B12724700D0723C /* RoomSettingsView.swift in Sources */,
+				5A8C32762B176E2700E1BCDA /* VideoView.swift in Sources */,
 				5A81F40B2B109A1700D9998F /* WebRTCClient.swift in Sources */,
 				5A81F44A2B10A49C00D9998F /* LikeRoomMutation.graphql.swift in Sources */,
 				5A58E78D2B11327200D0723C /* RoomViewModel.swift in Sources */,
@@ -985,8 +1009,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1016,8 +1040,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
