@@ -28,14 +28,33 @@ struct PlaylistStatus: Codable {
 
 struct VideoItem: Identifiable {
     
-    var id: String {
-        file.id ?? UUID().uuidString
-    }
-    
+    let id: String
+    var url: URL?
     let file: SourceAttrs
     var status: PlaylistStatus.State = .download
     
     mutating func setStatus(_ status: PlaylistStatus.State) {
         self.status = status
+    }
+    
+    mutating func setUrl(_ patch: String?) {
+        guard let patch, let url = URL(string: patch) else {return}
+        self.url = url
+     }
+    
+    init(url: URL? = nil, file: SourceAttrs, status: PlaylistStatus.State) {
+        self.id = file.id ?? UUID().uuidString
+        self.url = url
+        self.file = file
+        self.status = status
+    }
+    
+    init(_ media: MediaInfoAttrs) {
+        self.id = media.source?.id ?? UUID().uuidString
+        if let path = media.url, let url = URL(string: path) {
+            self.url = url
+        }
+        self.status = .ok
+        self.file = media.source?.fragments.sourceAttrs ?? .init()
     }
 }

@@ -25,7 +25,7 @@ struct PlayerView2: View {
         }
         .foregroundColor(.white)
         .onAppear {
-            if let path = viewModel.room.mediaInfo?.url, let url = URL(string: path) {
+            if let url = viewModel.currentVideo?.url {
                 print(url.absoluteString)
                 player = .init(url: url)
             }

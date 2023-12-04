@@ -83,6 +83,9 @@ fragment RoomAttrs on Room {
     Owner {
       Id
     }
+    Playlist {
+    ...SourceAttrs
+    }
 }
 
 

@@ -90,7 +90,7 @@ extension AddTrackView {
         if countTrack > 0 {
             PrimaryButton(label: "Added \(countTrack) tracks", isLoading: false) {
                 dismiss()
-                onSubmit(viewModel.selectedVideo.compactMap({.init(file: $0)}))
+                onSubmit(viewModel.selectedVideo.compactMap({.init(file: $0, status: .wait)}))
             }
             .padding()
         }

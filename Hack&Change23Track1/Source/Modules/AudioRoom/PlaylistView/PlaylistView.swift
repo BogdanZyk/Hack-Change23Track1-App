@@ -104,6 +104,6 @@ struct PlaylistView_Previews: PreviewProvider {
         AudioRoomView.PlaylistView(showTracksLib: .constant(false),
                                    isOwner: false,
                                    playedId: "1",
-                                   videos: [.init(file: .init(name: "test"))], onTap: {_ in })
+                                   videos: [.init(file: .init(name: "test"), status: .ok)], onTap: {_ in })
     }
 }

@@ -5,7 +5,7 @@
 
 struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
   static var fragmentDefinition: StaticString {
-    #"fragment RoomAttrs on Room { __typename MediaInfo { __typename ...MediaInfoAttrs } Id Likes Private Image Key Name Members { __typename ...UserAttrs } Owner { __typename Id } }"#
+    #"fragment RoomAttrs on Room { __typename MediaInfo { __typename ...MediaInfoAttrs } Id Likes Private Image Key Name Members { __typename ...UserAttrs } Owner { __typename Id } Playlist { __typename ...SourceAttrs } }"#
   }
 
   let __data: DataDict
@@ -23,6 +23,7 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
     .field("Name", String?.self),
     .field("Members", [Member?]?.self),
     .field("Owner", Owner?.self),
+    .field("Playlist", [Playlist?]?.self),
   ] }
 
   var mediaInfo: MediaInfo? { __data["MediaInfo"] }
@@ -34,6 +35,7 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
   var name: String? { __data["Name"] }
   var members: [Member?]? { __data["Members"] }
   var owner: Owner? { __data["Owner"] }
+  var playlist: [Playlist?]? { __data["Playlist"] }
 
   init(
     mediaInfo: MediaInfo? = nil,
@@ -44,7 +46,8 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
     key: String? = nil,
     name: String? = nil,
     members: [Member?]? = nil,
-    owner: Owner? = nil
+    owner: Owner? = nil,
+    playlist: [Playlist?]? = nil
   ) {
     self.init(_dataDict: DataDict(
       data: [
@@ -58,6 +61,7 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
         "Name": name,
         "Members": members._fieldData,
         "Owner": owner._fieldData,
+        "Playlist": playlist._fieldData,
       ],
       fulfilledFragments: [
         ObjectIdentifier(RoomAttrs.self)
@@ -225,6 +229,50 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
         ],
         fulfilledFragments: [
           ObjectIdentifier(RoomAttrs.Owner.self)
+        ]
+      ))
+    }
+  }
+
+  /// Playlist
+  ///
+  /// Parent Type: `Source`
+  struct Playlist: SchemaAPI.SelectionSet {
+    let __data: DataDict
+    init(_dataDict: DataDict) { __data = _dataDict }
+
+    static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Source }
+    static var __selections: [ApolloAPI.Selection] { [
+      .field("__typename", String.self),
+      .fragment(SourceAttrs.self),
+    ] }
+
+    var name: String? { __data["Name"] }
+    var id: String? { __data["Id"] }
+    var cover: String? { __data["Cover"] }
+
+    struct Fragments: FragmentContainer {
+      let __data: DataDict
+      init(_dataDict: DataDict) { __data = _dataDict }
+
+      var sourceAttrs: SourceAttrs { _toFragment() }
+    }
+
+    init(
+      name: String? = nil,
+      id: String? = nil,
+      cover: String? = nil
+    ) {
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": SchemaAPI.Objects.Source.typename,
+          "Name": name,
+          "Id": id,
+          "Cover": cover,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(RoomAttrs.Playlist.self),
+          ObjectIdentifier(SourceAttrs.self)
         ]
       ))
     }
