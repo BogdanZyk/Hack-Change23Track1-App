@@ -112,6 +112,12 @@
 		5AAE6ABB2B1DF4AC0055303F /* MediaInfoAttrs.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6AB92B1DF4AC0055303F /* MediaInfoAttrs.graphql.swift */; };
 		5AAE6ABD2B1DF4C50055303F /* LoadMediaMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6ABC2B1DF4C50055303F /* LoadMediaMutation.graphql.swift */; };
 		5AAE6ABF2B1DF7290055303F /* ListSourcesQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6ABE2B1DF7290055303F /* ListSourcesQuery.graphql.swift */; };
+		5AAE6AC22B1E10130055303F /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6AC12B1E10130055303F /* PlayerManager.swift */; };
+		5AAE6AC52B1E10BF0055303F /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6AC42B1E10BF0055303F /* CancelBag.swift */; };
+		5AAE6AC72B1E11000055303F /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6AC62B1E11000055303F /* VideoPlayer.swift */; };
+		5AAE6AC92B1E11200055303F /* Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6AC82B1E11200055303F /* Orientation.swift */; };
+		5AAE6ACB2B1E11810055303F /* VideoPlayerRepresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6ACA2B1E11810055303F /* VideoPlayerRepresenter.swift */; };
+		5AAE6ACD2B1E2AE20055303F /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6ACC2B1E2AE20055303F /* NotificationCenter.swift */; };
 		5ADD4B392B18B0D300B0C05B /* FullSreenPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD4B382B18B0D300B0C05B /* FullSreenPlayer.swift */; };
 		5ADD4B3B2B18DC3700B0C05B /* PlayerView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD4B3A2B18DC3700B0C05B /* PlayerView2.swift */; };
 /* End PBXBuildFile section */
@@ -221,6 +227,13 @@
 		5AAE6AB92B1DF4AC0055303F /* MediaInfoAttrs.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaInfoAttrs.graphql.swift; sourceTree = "<group>"; };
 		5AAE6ABC2B1DF4C50055303F /* LoadMediaMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMediaMutation.graphql.swift; sourceTree = "<group>"; };
 		5AAE6ABE2B1DF7290055303F /* ListSourcesQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListSourcesQuery.graphql.swift; sourceTree = "<group>"; };
+		5AAE6AC12B1E10130055303F /* PlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
+		5AAE6AC32B1E10470055303F /* video_simple.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_simple.mp4; sourceTree = "<group>"; };
+		5AAE6AC42B1E10BF0055303F /* CancelBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBag.swift; sourceTree = "<group>"; };
+		5AAE6AC62B1E11000055303F /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
+		5AAE6AC82B1E11200055303F /* Orientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Orientation.swift; sourceTree = "<group>"; };
+		5AAE6ACA2B1E11810055303F /* VideoPlayerRepresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerRepresenter.swift; sourceTree = "<group>"; };
+		5AAE6ACC2B1E2AE20055303F /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		5ADD4B382B18B0D300B0C05B /* FullSreenPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSreenPlayer.swift; sourceTree = "<group>"; };
 		5ADD4B3A2B18DC3700B0C05B /* PlayerView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -242,6 +255,7 @@
 		5A58E7892B1131A100D0723C /* AudioRoom */ = {
 			isa = PBXGroup;
 			children = (
+				5AAE6AC02B1E0FF80055303F /* VideoPlayer */,
 				5A8C32742B176E1D00E1BCDA /* VideoView */,
 				5A58E7C62B12722F00D0723C /* RoomSettings */,
 				5A58E7BD2B120B7400D0723C /* PlaylistView */,
@@ -347,6 +361,7 @@
 		5A81F3D42B1091AA00D9998F /* Hack&Change23Track1 */ = {
 			isa = PBXGroup;
 			children = (
+				5AAE6AC32B1E10470055303F /* video_simple.mp4 */,
 				5A58E7C52B126EC600D0723C /* Hack-Change23Track1-Info.plist */,
 				5A81F4052B1098B200D9998F /* GraphqlAPI */,
 				5A81F3F22B1096F200D9998F /* App */,
@@ -451,6 +466,8 @@
 				5A81F4032B10983A00D9998F /* RemoteCommandHelper.swift */,
 				5A81F48E2B10E44400D9998F /* Helpers.swift */,
 				5A58E7B62B11F04D00D0723C /* ShareUtils.swift */,
+				5AAE6AC42B1E10BF0055303F /* CancelBag.swift */,
+				5AAE6AC82B1E11200055303F /* Orientation.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -465,6 +482,7 @@
 				5A58E7912B11373400D0723C /* UIApplication.swift */,
 				5A58E79A2B114C5800D0723C /* Task.swift */,
 				5A58E7BB2B11F54A00D0723C /* String.swift */,
+				5AAE6ACC2B1E2AE20055303F /* NotificationCenter.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -696,6 +714,16 @@
 			path = VideoView;
 			sourceTree = "<group>";
 		};
+		5AAE6AC02B1E0FF80055303F /* VideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				5AAE6AC12B1E10130055303F /* PlayerManager.swift */,
+				5AAE6AC62B1E11000055303F /* VideoPlayer.swift */,
+				5AAE6ACA2B1E11810055303F /* VideoPlayerRepresenter.swift */,
+			);
+			path = VideoPlayer;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -789,6 +817,7 @@
 				5A81F4522B10A49C00D9998F /* ClientSDP.graphql.swift in Sources */,
 				5A81F46E2B10BB9D00D9998F /* UserManager.swift in Sources */,
 				5A81F4462B10A49C00D9998F /* SignInMutation.graphql.swift in Sources */,
+				5AAE6AC22B1E10130055303F /* PlayerManager.swift in Sources */,
 				5ADD4B3B2B18DC3700B0C05B /* PlayerView2.swift in Sources */,
 				5A81F4502B10A49C00D9998F /* User.graphql.swift in Sources */,
 				5A58E7AF2B116C2500D0723C /* BottomBarView.swift in Sources */,
@@ -799,6 +828,7 @@
 				5A58E79B2B114C5800D0723C /* Task.swift in Sources */,
 				5A81F4802B10C36600D9998F /* Font.swift in Sources */,
 				5A58E7C42B1215BA00D0723C /* Playlist.swift in Sources */,
+				5AAE6AC72B1E11000055303F /* VideoPlayer.swift in Sources */,
 				5A8C32732B176B1600E1BCDA /* AppError.swift in Sources */,
 				5AAE6ABA2B1DF4AC0055303F /* SourceAttrs.graphql.swift in Sources */,
 				5A81F4742B10BC9E00D9998F /* RootContainerView.swift in Sources */,
@@ -812,6 +842,7 @@
 				5A58E7CC2B12826800D0723C /* AllStickersQuery.graphql.swift in Sources */,
 				5A58E79E2B114E2A00D0723C /* Message.swift in Sources */,
 				5AAE6AB62B1DF4970055303F /* Source.graphql.swift in Sources */,
+				5AAE6AC52B1E10BF0055303F /* CancelBag.swift in Sources */,
 				5A81F44B2B10A49C00D9998F /* ListRoomsQuery.graphql.swift in Sources */,
 				5A58E7902B1135B200D0723C /* RoomTabView.swift in Sources */,
 				5A81F44E2B10A49C00D9998F /* SchemaAPI.graphql.swift in Sources */,
@@ -842,6 +873,7 @@
 				5A58E7952B1139D000D0723C /* PlayerView.swift in Sources */,
 				5A81F4002B1097EB00D9998F /* Color.swift in Sources */,
 				5A81F43E2B10A49C00D9998F /* RoomAttrs.graphql.swift in Sources */,
+				5AAE6ACB2B1E11810055303F /* VideoPlayerRepresenter.swift in Sources */,
 				5A81F4412B10A49C00D9998F /* UserAttrs.graphql.swift in Sources */,
 				5A81F4482B10A49C00D9998F /* DeleteRoomMutation.graphql.swift in Sources */,
 				5A81F4602B10B79500D9998F /* UserDataService.swift in Sources */,
@@ -854,6 +886,7 @@
 				5A58E7D22B1287AB00D0723C /* ShareSheet.swift in Sources */,
 				5A81F4892B10D29200D9998F /* JoinInRoomView.swift in Sources */,
 				5A58E7B32B117CB300D0723C /* MessageContextMenu.swift in Sources */,
+				5AAE6AC92B1E11200055303F /* Orientation.swift in Sources */,
 				5A81F4572B10A49C00D9998F /* SchemaConfiguration.swift in Sources */,
 				5A81F4712B10BBC800D9998F /* RoomMember.swift in Sources */,
 				5A81F4682B10B9A900D9998F /* AppAlert.swift in Sources */,
@@ -875,6 +908,7 @@
 				5A58E7A22B115A0B00D0723C /* MembersView.swift in Sources */,
 				5A58E7972B113AEE00D0723C /* RoomPlayerState.swift in Sources */,
 				5A81F4592B10A49C00D9998F /* SchemaMetadata.graphql.swift in Sources */,
+				5AAE6ACD2B1E2AE20055303F /* NotificationCenter.swift in Sources */,
 				5A58E7BC2B11F54A00D0723C /* String.swift in Sources */,
 				5A58E7B52B117CD000D0723C /* EmojiReactionView.swift in Sources */,
 				5A81F4582B10A49C00D9998F /* ServerSDP.graphql.swift in Sources */,

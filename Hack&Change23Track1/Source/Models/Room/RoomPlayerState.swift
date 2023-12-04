@@ -10,41 +10,26 @@ import Foundation
 struct RoomPlayerState: Codable {
     
     let fileId: String
+    let url: String
     let status: AudioStatus
-    let current: Double
-    let duration: Double
-    let likes: Int
+    let currentSeconds: Double
     
     enum AudioStatus: String, Codable {
-        case play, pause, move
+        case play, pause, move, changeSource
     }
     
+    var getPlayerEvent: PlayerEvent {
+        switch status {
+        case .play:
+            return .play(currentSeconds)
+        case .pause:
+            return .pause(currentSeconds)
+        case .move:
+            return .seek(currentSeconds)
+        case .changeSource:
+            guard let url = URL(string: url) else { return .pause(currentSeconds) }
+            return .set(.init(id: fileId, url: url))
+        }
+    }
 }
 
-struct AudioUIState {
-    let id: String
-    let total: Double
-    var isPlay: Bool
-    var time: Double
-    var isScrubbingTime: Bool
-    
-    init(id: String = "",
-         isPlay: Bool = false,
-         time: Double = 0,
-         total: Double = 0,
-         isScrubbingTime: Bool = false) {
-        self.id = id
-        self.isPlay = isPlay
-        self.time = time
-        self.total = total
-        self.isScrubbingTime = isScrubbingTime
-    }
-    
-    init(from dataState: RoomPlayerState) {
-        self.id = dataState.fileId
-        self.isPlay = dataState.status == .play
-        self.time = dataState.current
-        self.total = dataState.duration
-        self.isScrubbingTime = false
-    }
-}

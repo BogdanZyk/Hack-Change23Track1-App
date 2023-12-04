@@ -42,6 +42,11 @@ struct VideoItem: Identifiable {
         self.url = url
      }
     
+    func getPlayerItem() -> PlayerItem? {
+        guard let url else { return nil }
+          return .init(id: id, url: url, cower: file.cover, name: file.name)
+    }
+    
     init(url: URL? = nil, file: SourceAttrs, status: PlaylistStatus.State) {
         self.id = file.id ?? UUID().uuidString
         self.url = url

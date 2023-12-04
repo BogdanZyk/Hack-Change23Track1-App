@@ -11,12 +11,9 @@ import Combine
 
 @MainActor
 final class RoomViewModel: ObservableObject {
-
-    @Published private(set) var remoteVideoTrack: RTCVideoTrack?
     
-    @Published var refreshRemoteVideoTrack: Bool = false
-    @Published var audioState = AudioUIState()
     @Published var appAlert: AppAlert?
+    @Published private(set) var playerEvent: PlayerEvent = .play(0)
     @Published private(set) var room: RoomAttrs
     @Published private(set) var roomCountLikes: Int = 0
     @Published private(set) var members: [String: RoomMember] = [:]
@@ -48,9 +45,6 @@ final class RoomViewModel: ObservableObject {
     private func prepareWebRTCClient(){
         webRTCClient = WebRTCClient()
         self.webRTCClient?.delegate = self
-        remoteVideoTrack = webRTCClient?.remoteVideoTrack
-        refreshRemoteVideoTrack = true
-
     }
 
     func disconnectAll() {
@@ -117,15 +111,33 @@ extension RoomViewModel {
         }
     }
 
-//    func togglePlay() {
-//        Task {
-//            if audioState.isPlay {
-//                try await setAudioAction(.pause)
-//            } else {
-//                try await setAudioAction(.play)
-//            }
-//        }
-//    }
+    func handlePlayerEvents(_ event: PlayerEvent) {
+        
+        Task {
+            do {
+                switch event {
+                case .play(let double):
+                    try await setAudioAction(.play, arg: "\(double)")
+                case .pause(let double):
+                    try await setAudioAction(.pause, arg: "\(double)")
+                case .seek(let double):
+                    try await setAudioAction(.move, arg: "\(double)")
+                case .backward:
+                    setPreviewsVideo()
+                    print("backward")
+                case .forward:
+                    print("forward")
+                    setNextvideo()
+                case .end:
+                    print("end")
+                case .set:
+                    break
+                }
+            } catch {
+                appAlert = .errors(errors: [error])
+            }
+        }
+    }
 
     func addPlaylist(_ videos: [VideoItem]) {
         self.playList = videos
@@ -142,13 +154,13 @@ extension RoomViewModel {
         }
     }
 
-    func startNextAudio() {
+    func setNextvideo() {
         guard let index = playList.firstIndex(where: {$0.id == currentVideo?.id}),
         currentVideo?.id != playList.last?.id else { return }
         setVideo(playList[index + 1])
     }
 
-    func startPreviewsAudio() {
+    func setPreviewsVideo() {
         guard let index = playList.firstIndex(where: {$0.id == currentVideo?.id}),
         currentVideo?.id != playList.first?.id else { return }
         setVideo(playList[index - 1])
@@ -160,12 +172,6 @@ extension RoomViewModel {
 
     var isDisabledPreviews: Bool {
         playList.first?.id == currentVideo?.id
-    }
-
-    func moveAudioTime() {
-        Task {
-            try await setAudioAction(.move, arg: "\(audioState.time)")
-        }
     }
 
     private func setAudioAction(_ action: RoomAction, arg: String = "") async throws {
@@ -232,16 +238,10 @@ extension RoomViewModel {
 
 extension RoomViewModel: WebRTCClientDelegate {
     
-    func webRTCClient(_ client: WebRTCClient, didStartReceivingOnTrack track: RTCVideoTrack) {
-        DispatchQueue.main.async {
-            self.remoteVideoTrack = track
-        }
-    }
+    func webRTCClient(_ client: WebRTCClient, didStartReceivingOnTrack track: RTCVideoTrack) {}
     
 
-    func webRTCClient(_ client: WebRTCClient, didAdd stream: RTCMediaStream) {
-        
-    }
+    func webRTCClient(_ client: WebRTCClient, didAdd stream: RTCMediaStream) {}
     
 
     func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState) {

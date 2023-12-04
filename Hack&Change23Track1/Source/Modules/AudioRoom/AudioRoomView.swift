@@ -13,29 +13,34 @@ struct AudioRoomView: View {
     @StateObject private var chatVM = RoomChatViewModel()
     @StateObject private var viewModel: RoomViewModel
     @State private var tab: RoomTab = .chat
+    @State private var isLandscape: Bool = false
     @State private var sheetItem: SheetItem?
     @FocusState private var isFocused: Bool
-    @State private var showFullScreen: Bool = false
+    
     init(room: RoomAttrs, currentUser: RoomMember) {
         self._viewModel = StateObject(
             wrappedValue: RoomViewModel(room: room, currentUser: currentUser)
         )
     }
-    
-    @State private var orientation: UIInterfaceOrientationMask = .portrait
-    
+
     var body: some View {
-        VStack(spacing: 0) {
+        GeometryReader { proxy in
             VStack(spacing: 0) {
-                topBarView
-                playerView
-                tabButtons
+                VStack(spacing: 0) {
+                    playerView(proxy)
+                        .overlay(alignment: .top) {
+                            topBarView
+                                .padding(.top, 44)
+                        }
+                    tabButtons
+                }
+                .overlay {
+                    contextOverlay
+                }
+                tabViewSection
             }
-            .overlay {
-                contextOverlay
-            }
-            tabViewSection
         }
+        .ignoresSafeArea()
         .foregroundColor(.primaryFont)
         .background(Color.primaryBg.ignoresSafeArea())
         .appAlert($viewModel.appAlert)
@@ -50,12 +55,7 @@ struct AudioRoomView: View {
         .sheet(item: $sheetItem) {
             makeSheet($0)
         }
-        .overlay {
-            if showFullScreen {
-                FullScreenPlayer(namespace: namespace, close: $showFullScreen, viewModel: viewModel)
-            }
-        }
-        //.forceRotation(orientation: .portrait)
+        .forceRotation(orientation: [.portrait, .landscape])
     }
 }
 
@@ -82,12 +82,6 @@ extension AudioRoomView {
                     }
                     
                     Spacer()
-                    Button {
-                        viewModel.muteToggle()
-                    } label: {
-                        Image(systemName: viewModel.isMute ? "speaker.fill" : "speaker.slash.fill")
-                            .font(.small())
-                    }
                     if viewModel.isOwner {
                         Button {
                             sheetItem = .settings
@@ -108,13 +102,14 @@ extension AudioRoomView {
             .padding(.bottom, 10)
     }
     
-    private var playerView: some View {
-        PlayerView2(
-            namespace: namespace,
-            showFullScreen: $showFullScreen,
-                   isDisabledControls: !viewModel.isOwner,
-                   viewModel: viewModel)
-        .frame(maxHeight: getRect().height / 3.5)
+    private func playerView(_ proxy: GeometryProxy) -> some View {
+        VideoPlayer(item: viewModel.currentVideo?.getPlayerItem(),
+                    size: proxy.size,
+                    isLandscape: $isLandscape,
+                    setEvent: viewModel.playerEvent,
+                    disabled: .init(),
+                    onEvent: { viewModel.handlePlayerEvents($0) })
+        .padding(.top, proxy.safeAreaInsets.top)
     }
     
     private var tabViewSection: some View {

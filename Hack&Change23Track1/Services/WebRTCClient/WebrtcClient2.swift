@@ -318,9 +318,9 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
 
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceConnectionState) {
         delegate?.webRTCClient(self, didChangeConnectionState: newState)
-        if newState == .connected {
-            configureAudioSession()
-        }
+//        if newState == .connected {
+//            configureAudioSession()
+//        }
     }
 
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceGatheringState) {
