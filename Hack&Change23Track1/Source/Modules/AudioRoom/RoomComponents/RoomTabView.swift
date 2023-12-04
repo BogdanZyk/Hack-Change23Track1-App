@@ -22,7 +22,7 @@ extension AudioRoomView {
                     .toolbar(.hidden, for: .tabBar)
             }
             .sheet(isPresented: $showAddTracksView) {
-                AddTrackView(selectedAudios: viewModel.audios,
+                AddTrackView(selectedAudios: viewModel.videos,
                              onSubmit: { viewModel.addPlaylist($0) })
             }
         }
@@ -40,9 +40,9 @@ extension AudioRoomView {
             case .playlist:
                 PlaylistView(showTracksLib: $showAddTracksView,
                              isOwner: viewModel.isOwner,
-                             playedId: viewModel.currentAudio?.id,
-                             audios: viewModel.audios,
-                             onTap: viewModel.setAudio)
+                             playedId: viewModel.currentVideo?.id,
+                             videos: viewModel.videos,
+                             onTap: viewModel.setVideo)
                 .onAppear {
                     if !viewModel.isOwner {
                         viewModel.refreshRoom()

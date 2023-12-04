@@ -26,13 +26,13 @@ struct PlaylistStatus: Codable {
     }
 }
 
-struct AudioItem: Identifiable {
+struct VideoItem: Identifiable {
     
     var id: String {
         file.id ?? UUID().uuidString
     }
     
-    let file: FileAttrs
+    let file: SourceAttrs
     var status: PlaylistStatus.State = .download
     
     mutating func setStatus(_ status: PlaylistStatus.State) {

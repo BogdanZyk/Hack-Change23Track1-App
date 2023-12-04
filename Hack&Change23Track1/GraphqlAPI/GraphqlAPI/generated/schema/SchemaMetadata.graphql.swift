@@ -35,9 +35,9 @@ public extension SchemaAPI {
       case "Token": return SchemaAPI.Objects.Token
       case "RootQueryType": return SchemaAPI.Objects.RootQueryType
       case "User": return SchemaAPI.Objects.User
-      case "Audio": return SchemaAPI.Objects.Audio
+      case "Source": return SchemaAPI.Objects.Source
       case "Room": return SchemaAPI.Objects.Room
-      case "PlayFile": return SchemaAPI.Objects.PlayFile
+      case "MediaInfo": return SchemaAPI.Objects.MediaInfo
       case "ClientSDP": return SchemaAPI.Objects.ClientSDP
       case "StickerPack": return SchemaAPI.Objects.StickerPack
       default: return nil

@@ -73,11 +73,11 @@ final class RoomDataService {
         return likes
     }
     
-    func fetchAudios() async throws -> [FileAttrs] {
-        let query = ListAudioQuery()
+    func fetchAudios() async throws -> [SourceAttrs] {
+        let query = ListSourcesQuery()
         let data = try await api.fetch(query: query)
         
-        guard let fileAttrs = data?.data?.listAudio?.compactMap({$0?.fragments.fileAttrs}) else {
+        guard let fileAttrs = data?.data?.listSources?.compactMap({$0?.fragments.sourceAttrs}) else {
             throw URLError(.badServerResponse)
         }
         
@@ -96,13 +96,13 @@ final class RoomDataService {
     }
     
     @discardableResult
-    func loadAudio(for roomId: String, audioId: String) async throws -> RoomAttrs {
+    func loadVideo(for roomId: String, sourceId: String) async throws -> RoomAttrs {
         
-        let mutation = LoadAudioMutation(roomId: roomId, audioId: audioId)
+        let mutation = LoadMediaMutation(sourceId: sourceId, roomId: roomId)
         
         let data = try await api.mutation(mutation: mutation)
         
-        guard let room = data.data?.loadAudio?.fragments.roomAttrs else {
+        guard let room = data.data?.loadMedia?.fragments.roomAttrs else {
             throw URLError(.badServerResponse)
         }
         
@@ -130,7 +130,13 @@ enum RoomAction: String {
 }
 
 extension RoomAttrs: Identifiable {}
-extension FileAttrs: Identifiable {}
+extension SourceAttrs: Identifiable {
+    
+    var coverFullPath: String {
+        "http://45.12.237.146" + (cover ?? "")
+    }
+    
+}
 
 
 extension RoomAttrs {
@@ -139,13 +145,5 @@ extension RoomAttrs {
         owner?.id == id
     }
     
-    static let mock = RoomAttrs(file: .init(currentSeconds: "120", durationSeconds: "360", file: .init(id: "", name: "Music name"), pause: false), id: "123", likes: 68, private: false, image: "", key: "00000", name: "Room name", members: [.init(id: "1", login: "test", avatar: "", email: "email@test.com")])
-}
-
-extension FileAttrs {
-    
-    var coverFullPath: String {
-        "http://45.12.237.146" + (cover ?? "")
-    }
-    
+    static let mock = RoomAttrs(mediaInfo: .init(currentSeconds: "0", pause: false, source: nil, url: ""), id: "123", likes: 68, private: false, image: "", key: "00000", name: "Room name", members: [.init(id: "1", login: "test", avatar: "", email: "email@test.com")])
 }

@@ -10,9 +10,9 @@ import SwiftUI
 struct AddTrackView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: AddTrackViewModel
-    private let onSubmit: ([AudioItem]) -> Void
+    private let onSubmit: ([VideoItem]) -> Void
     
-    init(selectedAudios: [AudioItem], onSubmit: @escaping ([AudioItem]) -> Void) {
+    init(selectedAudios: [VideoItem], onSubmit: @escaping ([VideoItem]) -> Void) {
         let files = selectedAudios.map { $0.file }
         self._viewModel = StateObject(wrappedValue: AddTrackViewModel(selectedAudios: files))
         self.onSubmit = onSubmit
@@ -65,13 +65,13 @@ extension AddTrackView {
     }
     
     @ViewBuilder
-    private func rowView(_ audio: FileAttrs) -> some View {
-        let isSelected = viewModel.selectedAudios.contains(where: {$0.id == audio.id})
+    private func rowView(_ video: SourceAttrs) -> some View {
+        let isSelected = viewModel.selectedVideo.contains(where: {$0.id == video.id})
         HStack(spacing: 15) {
-            LazyNukeImage(fullPath: audio.coverFullPath)
+            LazyNukeImage(fullPath: video.coverFullPath)
                 .frame(width: 54, height: 54)
                 .cornerRadius(8)
-            Text(audio.name ?? "no name")
+            Text(video.name ?? "no name")
             Spacer()
             Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
                 .font(.title2)
@@ -80,17 +80,17 @@ extension AddTrackView {
         .padding(.vertical, 10)
         .contentShape(Rectangle())
         .onTapGesture {
-            viewModel.addOrRemove(for: audio)
+            viewModel.addOrRemove(for: video)
         }
     }
     
     @ViewBuilder
     private var addButton: some View {
-        let countTrack = viewModel.selectedAudios.count
+        let countTrack = viewModel.selectedVideo.count
         if countTrack > 0 {
             PrimaryButton(label: "Added \(countTrack) tracks", isLoading: false) {
                 dismiss()
-                onSubmit(viewModel.selectedAudios.compactMap({.init(file: $0)}))
+                onSubmit(viewModel.selectedVideo.compactMap({.init(file: $0)}))
             }
             .padding()
         }

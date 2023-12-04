@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct PlayerView: View {
+    @State var player: AVPlayer?
     let namespace: Namespace.ID
     @Binding var showFullScreen: Bool
     var showFullVersion: Bool = false
@@ -17,6 +19,7 @@ struct PlayerView: View {
     private var maxHeight: CGFloat {  getRect().height / 2.5 }
     var body: some View {
         fullVersion
+           
     }
 }
 
@@ -38,9 +41,11 @@ extension PlayerView {
         
         ZStack {
 //            if let image = viewModel.currentAudio?.file.coverFullPath, !image.isEmpty {
-            if let remoteVideoTrack = viewModel.remoteVideoTrack {
-                VideoView(videoTrack: remoteVideoTrack)
-                    .matchedGeometryEffect(id: "videoLayer", in: namespace)
+            Color.black
+            if let player {
+                VideoPlayer(player: player)
+               // VideoView(videoTrack: remoteVideoTrack)
+//                    .matchedGeometryEffect(id: "videoLayer", in: namespace)
                     .onTapGesture {
                         withAnimation(.easeIn(duration: 0.3)){
                             showPlayerButton.toggle()
@@ -66,14 +71,14 @@ extension PlayerView {
     
     private var shortVersion: some View {
         HStack(spacing: 12) {
-            if let coverFullPath = viewModel.currentAudio?.file.coverFullPath {
+            if let coverFullPath = viewModel.currentVideo?.file.coverFullPath {
                 LazyNukeImage(fullPath: coverFullPath)
                     .frame(width: 60, height: 60)
                     .cornerRadius(4)
             }
             VStack(alignment: .leading, spacing: 2) {
                 Text(viewModel.room.name ?? "No name")
-                Text(viewModel.currentAudio?.file.name ?? "No set audio")
+                Text(viewModel.currentVideo?.file.name ?? "No set video")
                     .foregroundColor(.secondaryGray)
             }
             .font(.medium(weight: .medium))
@@ -177,7 +182,7 @@ extension PlayerView {
                     .tint(.white)
             }
             HStack(spacing: 16) {
-                Text(viewModel.currentAudio?.file.name ?? "No select audio")
+                Text(viewModel.currentVideo?.file.name ?? "No select video")
                     .fixedSize(horizontal: false, vertical: true)
                     .lineLimit(2)
                 Spacer()

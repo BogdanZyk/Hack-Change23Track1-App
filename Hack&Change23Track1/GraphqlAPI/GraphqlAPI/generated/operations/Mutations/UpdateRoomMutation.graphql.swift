@@ -8,7 +8,7 @@ class UpdateRoomMutation: GraphQLMutation {
   static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"mutation UpdateRoom($roomId: String!, $image: String, $private: Boolean, $type: RoomType, $name: String) { UpdateRoom( RoomId: $roomId Image: $image Private: $private Type: $type Name: $name ) { __typename ...RoomAttrs } }"#,
-      fragments: [RoomAttrs.self, PlayerItemAttrs.self, FileAttrs.self, UserAttrs.self]
+      fragments: [RoomAttrs.self, MediaInfoAttrs.self, SourceAttrs.self, UserAttrs.self]
     ))
 
   public var roomId: String
@@ -83,8 +83,7 @@ class UpdateRoomMutation: GraphQLMutation {
         .fragment(RoomAttrs.self),
       ] }
 
-      var file: File? { __data["File"] }
-      var playlist: [Playlist?]? { __data["Playlist"] }
+      var mediaInfo: MediaInfo? { __data["MediaInfo"] }
       var id: String? { __data["Id"] }
       var likes: Int? { __data["Likes"] }
       var `private`: Bool? { __data["Private"] }
@@ -102,8 +101,7 @@ class UpdateRoomMutation: GraphQLMutation {
       }
 
       init(
-        file: File? = nil,
-        playlist: [Playlist?]? = nil,
+        mediaInfo: MediaInfo? = nil,
         id: String? = nil,
         likes: Int? = nil,
         `private`: Bool? = nil,
@@ -116,8 +114,7 @@ class UpdateRoomMutation: GraphQLMutation {
         self.init(_dataDict: DataDict(
           data: [
             "__typename": SchemaAPI.Objects.Room.typename,
-            "File": file._fieldData,
-            "Playlist": playlist._fieldData,
+            "MediaInfo": mediaInfo._fieldData,
             "Id": id,
             "Likes": likes,
             "Private": `private`,
@@ -134,129 +131,88 @@ class UpdateRoomMutation: GraphQLMutation {
         ))
       }
 
-      /// UpdateRoom.File
+      /// UpdateRoom.MediaInfo
       ///
-      /// Parent Type: `PlayFile`
-      struct File: SchemaAPI.SelectionSet {
+      /// Parent Type: `MediaInfo`
+      struct MediaInfo: SchemaAPI.SelectionSet {
         let __data: DataDict
         init(_dataDict: DataDict) { __data = _dataDict }
 
-        static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.PlayFile }
+        static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.MediaInfo }
 
         var currentSeconds: String? { __data["CurrentSeconds"] }
-        var durationSeconds: String? { __data["DurationSeconds"] }
-        var file: File? { __data["File"] }
         var pause: Bool? { __data["Pause"] }
+        var source: Source? { __data["Source"] }
+        var url: String? { __data["Url"] }
 
         struct Fragments: FragmentContainer {
           let __data: DataDict
           init(_dataDict: DataDict) { __data = _dataDict }
 
-          var playerItemAttrs: PlayerItemAttrs { _toFragment() }
+          var mediaInfoAttrs: MediaInfoAttrs { _toFragment() }
         }
 
         init(
           currentSeconds: String? = nil,
-          durationSeconds: String? = nil,
-          file: File? = nil,
-          pause: Bool? = nil
+          pause: Bool? = nil,
+          source: Source? = nil,
+          url: String? = nil
         ) {
           self.init(_dataDict: DataDict(
             data: [
-              "__typename": SchemaAPI.Objects.PlayFile.typename,
+              "__typename": SchemaAPI.Objects.MediaInfo.typename,
               "CurrentSeconds": currentSeconds,
-              "DurationSeconds": durationSeconds,
-              "File": file._fieldData,
               "Pause": pause,
+              "Source": source._fieldData,
+              "Url": url,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(UpdateRoomMutation.Data.UpdateRoom.File.self),
-              ObjectIdentifier(PlayerItemAttrs.self),
-              ObjectIdentifier(RoomAttrs.File.self)
+              ObjectIdentifier(UpdateRoomMutation.Data.UpdateRoom.MediaInfo.self),
+              ObjectIdentifier(MediaInfoAttrs.self),
+              ObjectIdentifier(RoomAttrs.MediaInfo.self)
             ]
           ))
         }
 
-        /// UpdateRoom.File.File
+        /// UpdateRoom.MediaInfo.Source
         ///
-        /// Parent Type: `Audio`
-        struct File: SchemaAPI.SelectionSet {
+        /// Parent Type: `Source`
+        struct Source: SchemaAPI.SelectionSet {
           let __data: DataDict
           init(_dataDict: DataDict) { __data = _dataDict }
 
-          static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Audio }
+          static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Source }
 
-          var id: String? { __data["Id"] }
           var name: String? { __data["Name"] }
+          var id: String? { __data["Id"] }
           var cover: String? { __data["Cover"] }
 
           struct Fragments: FragmentContainer {
             let __data: DataDict
             init(_dataDict: DataDict) { __data = _dataDict }
 
-            var fileAttrs: FileAttrs { _toFragment() }
+            var sourceAttrs: SourceAttrs { _toFragment() }
           }
 
           init(
-            id: String? = nil,
             name: String? = nil,
+            id: String? = nil,
             cover: String? = nil
           ) {
             self.init(_dataDict: DataDict(
               data: [
-                "__typename": SchemaAPI.Objects.Audio.typename,
-                "Id": id,
+                "__typename": SchemaAPI.Objects.Source.typename,
                 "Name": name,
+                "Id": id,
                 "Cover": cover,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(UpdateRoomMutation.Data.UpdateRoom.File.File.self),
-                ObjectIdentifier(FileAttrs.self),
-                ObjectIdentifier(PlayerItemAttrs.File.self)
+                ObjectIdentifier(UpdateRoomMutation.Data.UpdateRoom.MediaInfo.Source.self),
+                ObjectIdentifier(SourceAttrs.self),
+                ObjectIdentifier(MediaInfoAttrs.Source.self)
               ]
             ))
           }
-        }
-      }
-
-      /// UpdateRoom.Playlist
-      ///
-      /// Parent Type: `Audio`
-      struct Playlist: SchemaAPI.SelectionSet {
-        let __data: DataDict
-        init(_dataDict: DataDict) { __data = _dataDict }
-
-        static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Audio }
-
-        var id: String? { __data["Id"] }
-        var name: String? { __data["Name"] }
-        var cover: String? { __data["Cover"] }
-
-        struct Fragments: FragmentContainer {
-          let __data: DataDict
-          init(_dataDict: DataDict) { __data = _dataDict }
-
-          var fileAttrs: FileAttrs { _toFragment() }
-        }
-
-        init(
-          id: String? = nil,
-          name: String? = nil,
-          cover: String? = nil
-        ) {
-          self.init(_dataDict: DataDict(
-            data: [
-              "__typename": SchemaAPI.Objects.Audio.typename,
-              "Id": id,
-              "Name": name,
-              "Cover": cover,
-            ],
-            fulfilledFragments: [
-              ObjectIdentifier(UpdateRoomMutation.Data.UpdateRoom.Playlist.self),
-              ObjectIdentifier(FileAttrs.self),
-              ObjectIdentifier(RoomAttrs.Playlist.self)
-            ]
-          ))
         }
       }
 

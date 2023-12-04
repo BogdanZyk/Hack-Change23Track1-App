@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct PlayerView2: View {
     let namespace: Namespace.ID
@@ -13,15 +14,22 @@ struct PlayerView2: View {
     @Binding var showFullScreen: Bool
     var isDisabledControls: Bool = false
     @ObservedObject var viewModel: RoomViewModel
+    @State var player: AVPlayer?
     @State private var showPlayerControlsBtn: Bool = false
     var body: some View {
         ZStack {
             playerLayerView
-            if showPlayerControlsBtn || !viewModel.audioState.isPlay {
-                controlsLayerView
-            }
+//            if showPlayerControlsBtn || !viewModel.audioState.isPlay {
+//                controlsLayerView
+//            }
         }
         .foregroundColor(.white)
+        .onAppear {
+            if let path = viewModel.room.mediaInfo?.url, let url = URL(string: path) {
+                print(url.absoluteString)
+                player = .init(url: url)
+            }
+        }
     }
 }
 
@@ -36,14 +44,18 @@ extension PlayerView2 {
     private var playerLayerView: some View {
         ZStack {
             Color.black
-            VideoView(videoTrack: viewModel.remoteVideoTrack, rotation: isLandscapeOrientation ? ._90 : ._0)
-                .matchedGeometryEffect(id: "videoLayer", in: namespace)
-        }
-        .onTapGesture {
-            withAnimation(.easeIn(duration: 0.3)){
-                showPlayerControlsBtn.toggle()
+            if let player {
+                VideoPlayer(player: player)
             }
+             
+//            VideoView(videoTrack: viewModel.remoteVideoTrack, rotation: isLandscapeOrientation ? ._90 : ._0)
+//                .matchedGeometryEffect(id: "videoLayer", in: namespace)
         }
+//        .onTapGesture {
+//            withAnimation(.easeIn(duration: 0.3)){
+//                showPlayerControlsBtn.toggle()
+//            }
+//        }
     }
     
     private var controlsLayerView: some View {

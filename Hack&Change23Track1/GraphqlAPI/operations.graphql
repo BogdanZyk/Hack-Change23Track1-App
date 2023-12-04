@@ -31,9 +31,9 @@ fragment UserAttrs on User {
     Email
 }
 
-query ListAudio {
-  ListAudio {
-    ...FileAttrs
+query ListSources {
+  ListSources {
+    ...SourceAttrs
   }
 }
 
@@ -68,11 +68,8 @@ mutation DeleteRoom($roomId: String!) {
 }
 
 fragment RoomAttrs on Room {
-    File {
-      ...PlayerItemAttrs
-    }
-    Playlist {
-      ...FileAttrs
+    MediaInfo {
+      ...MediaInfoAttrs
     }
     Id
     Likes
@@ -88,23 +85,24 @@ fragment RoomAttrs on Room {
     }
 }
 
-fragment PlayerItemAttrs on PlayFile {
+
+fragment MediaInfoAttrs on MediaInfo {
   CurrentSeconds
-  DurationSeconds
-  File {
-    ...FileAttrs
-  }
   Pause
+  Source {
+    ...SourceAttrs
+  }
+  Url
 }
 
-fragment FileAttrs on Audio {
-  Id
-  Name
-  Cover
+fragment SourceAttrs on Source {
+    Name
+    Id
+    Cover
 }
 
-mutation LoadAudio($roomId: String!, $audioId: String!) {
-  LoadAudio(RoomId: $roomId, AudioId: $audioId) {
+mutation LoadMedia($sourceId: String!, $roomId: String!) {
+  LoadMedia(SourceId: $sourceId, RoomId: $roomId) {
     ...RoomAttrs
   }
 }

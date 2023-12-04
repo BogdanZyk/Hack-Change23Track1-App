@@ -307,8 +307,8 @@ final class RoomViewModel: ObservableObject {
     @Published private(set) var room: RoomAttrs
     @Published private(set) var roomCountLikes: Int = 0
     @Published private(set) var members: [String: RoomMember] = [:]
-    @Published private(set) var audios = [AudioItem]()
-    @Published private(set) var currentAudio: AudioItem?
+    @Published private(set) var videos = [VideoItem]()
+    @Published private(set) var currentVideo: VideoItem?
     @Published private(set) var status: WebRTCStatus = .new
     @Published private(set) var isMute: Bool = false
     
@@ -390,12 +390,13 @@ extension RoomViewModel {
 // MARK: - Audio actions
 extension RoomViewModel {
 
-    func setAudio(_ audio: AudioItem) {
+    func setVideo(_ video: VideoItem) {
         guard let id = room.id,
               room.userIsOwner(for: currentUser.id) else { return }
         Task {
             do {
-                try await roomDataService.loadAudio(for: id, audioId: audio.id)
+                let newRoom = try await roomDataService.loadVideo(for: id, sourceId: video.id)
+                self.room = newRoom
                 try await setAudioAction(.play)
             } catch {
                 appAlert = .errors(errors: [error])
@@ -413,39 +414,39 @@ extension RoomViewModel {
         }
     }
 
-    func addPlaylist(_ audios: [AudioItem]) {
-        self.audios = audios
-        sendPlaylistToDataChannel(.init(files: audios.compactMap({$0.id})))
+    func addPlaylist(_ videos: [VideoItem]) {
+        self.videos = videos
+        sendPlaylistToDataChannel(.init(files: videos.compactMap({$0.id})))
     }
 
     func updatePlaylist(_ status: PlaylistStatus) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {return}
             status.statuses.forEach { item in
-                guard let index = self.audios.firstIndex(where: {$0.id == item.id}) else {return}
-                self.audios[index].setStatus(item.status)
+                guard let index = self.videos.firstIndex(where: {$0.id == item.id}) else {return}
+                self.videos[index].setStatus(item.status)
             }
         }
     }
 
     func startNextAudio() {
-        guard let index = audios.firstIndex(where: {$0.id == currentAudio?.id}),
-        currentAudio?.id != audios.last?.id else { return }
-        setAudio(audios[index + 1])
+        guard let index = videos.firstIndex(where: {$0.id == currentVideo?.id}),
+        currentVideo?.id != videos.last?.id else { return }
+        setVideo(videos[index + 1])
     }
 
     func startPreviewsAudio() {
-        guard let index = audios.firstIndex(where: {$0.id == currentAudio?.id}),
-        currentAudio?.id != audios.first?.id else { return }
-        setAudio(audios[index - 1])
+        guard let index = videos.firstIndex(where: {$0.id == currentVideo?.id}),
+        currentVideo?.id != videos.first?.id else { return }
+        setVideo(videos[index - 1])
     }
 
     var isDisabledNext: Bool {
-        audios.last?.id == currentAudio?.id
+        videos.last?.id == currentVideo?.id
     }
 
     var isDisabledPreviews: Bool {
-        audios.first?.id == currentAudio?.id
+        videos.first?.id == currentVideo?.id
     }
 
     func muteToggle() {
@@ -513,8 +514,9 @@ extension RoomViewModel {
     }
 
     private func setTracks() {
-        guard let files = room.playlist?.compactMap({$0?.fragments.fileAttrs}) else { return }
-        audios = files.compactMap({.init(file: $0, status: .ok)})
+        #warning("TODO")
+//        guard let files = room.?.compactMap({$0?.fragments.fileAttrs}) else { return }
+//        videos = files.compactMap({.init(file: $0, status: .ok)})
     }
 }
 
@@ -541,6 +543,7 @@ extension RoomViewModel: WebRTCClientDelegate {
     }
 
     func webRTCClient(_ client: WebRTCClient, didReceiveData data: Data) {
+        print(String(data: data, encoding: .utf8))
         if let audioState = try? JSONHelper.decoder.decode(RoomPlayerState.self, from: data) {
             self.onChangeAudio(audioState)
         } else if let message = try? JSONHelper.decoder.decode(Message.self, from: data) {
@@ -575,8 +578,8 @@ extension RoomViewModel: WebRTCClientDelegate {
 
             if state.fileId != audioState.id {
                 audioState = .init(from: state)
-                guard let currentAudio = audios.first(where: {$0.id == state.fileId}) else { return }
-                self.currentAudio = currentAudio
+                guard let currentVideo = videos.first(where: {$0.id == state.fileId}) else { return }
+                self.currentVideo = currentVideo
 //                RemoteCommandHelper.shared.setupNowPlaying(RemoteCommandHelper.MediaItem(title: currentAudio.name ?? "No name", album: "Album", image: UIImage(systemName: "person")))
 
             } else {

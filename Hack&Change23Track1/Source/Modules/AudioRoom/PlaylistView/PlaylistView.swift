@@ -13,14 +13,14 @@ extension AudioRoomView {
         @Binding var showTracksLib: Bool
         var isOwner: Bool
         var playedId: String?
-        let audios: [AudioItem]
-        let onTap: (AudioItem) -> Void
+        let videos: [VideoItem]
+        let onTap: (VideoItem) -> Void
         var body: some View {
             ScrollView(.vertical, showsIndicators: false) {
-                if !audios.isEmpty {
+                if !videos.isEmpty {
                     LazyVStack(alignment: .leading, spacing: 0) {
                         addShort
-                        ForEach(audios) {
+                        ForEach(videos) {
                             rowView($0)
                         }
                     }
@@ -35,14 +35,14 @@ extension AudioRoomView {
         }
         
         @ViewBuilder
-        private func rowView(_ audio: AudioItem) -> some View {
-            let isPlay = audio.id == playedId
-            let isLoading = audio.status == .download
+        private func rowView(_ video: VideoItem) -> some View {
+            let isPlay = video.id == playedId
+            let isLoading = video.status == .download
             HStack {
-                LazyNukeImage(fullPath: audio.file.coverFullPath)
+                LazyNukeImage(fullPath: video.file.coverFullPath)
                     .frame(width: 52, height: 52)
                     .cornerRadius(8)
-                Text(audio.file.name ?? "no name")
+                Text(video.file.name ?? "no name")
                     .font(.headline.weight(.semibold))
                     .padding(.trailing)
                 Spacer()
@@ -62,7 +62,7 @@ extension AudioRoomView {
             .opacity(isLoading ? 0.6 : 1)
             .disabled(isLoading)
             .onTapGesture {
-                onTap(audio)
+                onTap(video)
             }
         }
         
@@ -104,6 +104,6 @@ struct PlaylistView_Previews: PreviewProvider {
         AudioRoomView.PlaylistView(showTracksLib: .constant(false),
                                    isOwner: false,
                                    playedId: "1",
-                                   audios: [.init(file: .init(name: "test"))], onTap: {_ in })
+                                   videos: [.init(file: .init(name: "test"))], onTap: {_ in })
     }
 }

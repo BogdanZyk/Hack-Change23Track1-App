@@ -5,7 +5,7 @@
 
 struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
   static var fragmentDefinition: StaticString {
-    #"fragment RoomAttrs on Room { __typename File { __typename ...PlayerItemAttrs } Playlist { __typename ...FileAttrs } Id Likes Private Image Key Name Members { __typename ...UserAttrs } Owner { __typename Id } }"#
+    #"fragment RoomAttrs on Room { __typename MediaInfo { __typename ...MediaInfoAttrs } Id Likes Private Image Key Name Members { __typename ...UserAttrs } Owner { __typename Id } }"#
   }
 
   let __data: DataDict
@@ -14,8 +14,7 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
   static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Room }
   static var __selections: [ApolloAPI.Selection] { [
     .field("__typename", String.self),
-    .field("File", File?.self),
-    .field("Playlist", [Playlist?]?.self),
+    .field("MediaInfo", MediaInfo?.self),
     .field("Id", String?.self),
     .field("Likes", Int?.self),
     .field("Private", Bool?.self),
@@ -26,8 +25,7 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
     .field("Owner", Owner?.self),
   ] }
 
-  var file: File? { __data["File"] }
-  var playlist: [Playlist?]? { __data["Playlist"] }
+  var mediaInfo: MediaInfo? { __data["MediaInfo"] }
   var id: String? { __data["Id"] }
   var likes: Int? { __data["Likes"] }
   var `private`: Bool? { __data["Private"] }
@@ -38,8 +36,7 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
   var owner: Owner? { __data["Owner"] }
 
   init(
-    file: File? = nil,
-    playlist: [Playlist?]? = nil,
+    mediaInfo: MediaInfo? = nil,
     id: String? = nil,
     likes: Int? = nil,
     `private`: Bool? = nil,
@@ -52,8 +49,7 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
     self.init(_dataDict: DataDict(
       data: [
         "__typename": SchemaAPI.Objects.Room.typename,
-        "File": file._fieldData,
-        "Playlist": playlist._fieldData,
+        "MediaInfo": mediaInfo._fieldData,
         "Id": id,
         "Likes": likes,
         "Private": `private`,
@@ -69,135 +65,91 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
     ))
   }
 
-  /// File
+  /// MediaInfo
   ///
-  /// Parent Type: `PlayFile`
-  struct File: SchemaAPI.SelectionSet {
+  /// Parent Type: `MediaInfo`
+  struct MediaInfo: SchemaAPI.SelectionSet {
     let __data: DataDict
     init(_dataDict: DataDict) { __data = _dataDict }
 
-    static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.PlayFile }
+    static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.MediaInfo }
     static var __selections: [ApolloAPI.Selection] { [
       .field("__typename", String.self),
-      .fragment(PlayerItemAttrs.self),
+      .fragment(MediaInfoAttrs.self),
     ] }
 
     var currentSeconds: String? { __data["CurrentSeconds"] }
-    var durationSeconds: String? { __data["DurationSeconds"] }
-    var file: File? { __data["File"] }
     var pause: Bool? { __data["Pause"] }
+    var source: Source? { __data["Source"] }
+    var url: String? { __data["Url"] }
 
     struct Fragments: FragmentContainer {
       let __data: DataDict
       init(_dataDict: DataDict) { __data = _dataDict }
 
-      var playerItemAttrs: PlayerItemAttrs { _toFragment() }
+      var mediaInfoAttrs: MediaInfoAttrs { _toFragment() }
     }
 
     init(
       currentSeconds: String? = nil,
-      durationSeconds: String? = nil,
-      file: File? = nil,
-      pause: Bool? = nil
+      pause: Bool? = nil,
+      source: Source? = nil,
+      url: String? = nil
     ) {
       self.init(_dataDict: DataDict(
         data: [
-          "__typename": SchemaAPI.Objects.PlayFile.typename,
+          "__typename": SchemaAPI.Objects.MediaInfo.typename,
           "CurrentSeconds": currentSeconds,
-          "DurationSeconds": durationSeconds,
-          "File": file._fieldData,
           "Pause": pause,
+          "Source": source._fieldData,
+          "Url": url,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(RoomAttrs.File.self),
-          ObjectIdentifier(PlayerItemAttrs.self)
+          ObjectIdentifier(RoomAttrs.MediaInfo.self),
+          ObjectIdentifier(MediaInfoAttrs.self)
         ]
       ))
     }
 
-    /// File.File
+    /// MediaInfo.Source
     ///
-    /// Parent Type: `Audio`
-    struct File: SchemaAPI.SelectionSet {
+    /// Parent Type: `Source`
+    struct Source: SchemaAPI.SelectionSet {
       let __data: DataDict
       init(_dataDict: DataDict) { __data = _dataDict }
 
-      static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Audio }
+      static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Source }
 
-      var id: String? { __data["Id"] }
       var name: String? { __data["Name"] }
+      var id: String? { __data["Id"] }
       var cover: String? { __data["Cover"] }
 
       struct Fragments: FragmentContainer {
         let __data: DataDict
         init(_dataDict: DataDict) { __data = _dataDict }
 
-        var fileAttrs: FileAttrs { _toFragment() }
+        var sourceAttrs: SourceAttrs { _toFragment() }
       }
 
       init(
-        id: String? = nil,
         name: String? = nil,
+        id: String? = nil,
         cover: String? = nil
       ) {
         self.init(_dataDict: DataDict(
           data: [
-            "__typename": SchemaAPI.Objects.Audio.typename,
-            "Id": id,
+            "__typename": SchemaAPI.Objects.Source.typename,
             "Name": name,
+            "Id": id,
             "Cover": cover,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(RoomAttrs.File.File.self),
-            ObjectIdentifier(FileAttrs.self),
-            ObjectIdentifier(PlayerItemAttrs.File.self)
+            ObjectIdentifier(RoomAttrs.MediaInfo.Source.self),
+            ObjectIdentifier(SourceAttrs.self),
+            ObjectIdentifier(MediaInfoAttrs.Source.self)
           ]
         ))
       }
-    }
-  }
-
-  /// Playlist
-  ///
-  /// Parent Type: `Audio`
-  struct Playlist: SchemaAPI.SelectionSet {
-    let __data: DataDict
-    init(_dataDict: DataDict) { __data = _dataDict }
-
-    static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Audio }
-    static var __selections: [ApolloAPI.Selection] { [
-      .field("__typename", String.self),
-      .fragment(FileAttrs.self),
-    ] }
-
-    var id: String? { __data["Id"] }
-    var name: String? { __data["Name"] }
-    var cover: String? { __data["Cover"] }
-
-    struct Fragments: FragmentContainer {
-      let __data: DataDict
-      init(_dataDict: DataDict) { __data = _dataDict }
-
-      var fileAttrs: FileAttrs { _toFragment() }
-    }
-
-    init(
-      id: String? = nil,
-      name: String? = nil,
-      cover: String? = nil
-    ) {
-      self.init(_dataDict: DataDict(
-        data: [
-          "__typename": SchemaAPI.Objects.Audio.typename,
-          "Id": id,
-          "Name": name,
-          "Cover": cover,
-        ],
-        fulfilledFragments: [
-          ObjectIdentifier(RoomAttrs.Playlist.self),
-          ObjectIdentifier(FileAttrs.self)
-        ]
-      ))
     }
   }
 

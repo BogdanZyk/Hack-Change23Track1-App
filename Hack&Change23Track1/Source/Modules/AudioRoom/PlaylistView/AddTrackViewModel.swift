@@ -10,21 +10,16 @@ import Combine
 
 class AddTrackViewModel: ObservableObject {
     
-    @Published private(set) var audios: [FileAttrs] = [
-    
-        .init(id: "1", name: "Name1\nAuthor name"),
-        .init(id: "2", name: "Name2\nAuthor name"),
-        .init(id: "3", name: "Name3\nAuthor name")
-    ]
-    @Published private(set) var searchResult = [FileAttrs]()
-    @Published private(set) var selectedAudios: [FileAttrs] = []
+    @Published private(set) var videos: [SourceAttrs] = []
+    @Published private(set) var searchResult = [SourceAttrs]()
+    @Published private(set) var selectedVideo: [SourceAttrs] = []
     
     @Published var searchQuery: String = ""
     private var cancellable = Set<AnyCancellable>()
     private let roomDataService = RoomDataService()
     
-    init(selectedAudios: [FileAttrs]) {
-        self.selectedAudios = selectedAudios
+    init(selectedAudios: [SourceAttrs]) {
+        self.selectedVideo = selectedAudios
         listenToSearch()
     }
     
@@ -35,9 +30,9 @@ class AddTrackViewModel: ObservableObject {
              .sink { [weak self] delayQuery in
                  guard let self = self else {return}
                  if delayQuery.isEmpty {
-                     self.searchResult = audios
+                     self.searchResult = videos
                  } else {
-                     self.searchResult = audios.filter { $0.name?.contains(delayQuery) ?? false }
+                     self.searchResult = videos.filter { $0.name?.contains(delayQuery) ?? false }
                  }
              }
              .store(in: &cancellable)
@@ -46,14 +41,14 @@ class AddTrackViewModel: ObservableObject {
     @MainActor
     func fetchAudios() async {
         let audios = try? await roomDataService.fetchAudios()
-        self.audios = audios ?? []
+        self.videos = audios ?? []
     }
     
-    func addOrRemove(for audio: FileAttrs) {
-        if selectedAudios.contains(where: {$0.id == audio.id}) {
-            selectedAudios.removeAll(where: {$0.id == audio.id})
+    func addOrRemove(for video: SourceAttrs) {
+        if selectedVideo.contains(where: {$0.id == video.id}) {
+            selectedVideo.removeAll(where: {$0.id == video.id})
         } else {
-            selectedAudios.append(audio)
+            selectedVideo.append(video)
         }
     }
 }

@@ -17,7 +17,7 @@ struct RoomRowView: View {
             VStack(alignment: .leading, spacing: 3) {
                 Text(room.name ?? "No name")
                     .font(.primary(weight: .medium))
-                Text(room.file?.file?.name ?? "No set track")
+                Text(room.mediaInfo?.source?.name ?? "No set track")
                     .font(.medium())
                     .fixedSize(horizontal: false, vertical: true)
                 HStack(spacing: 16) {

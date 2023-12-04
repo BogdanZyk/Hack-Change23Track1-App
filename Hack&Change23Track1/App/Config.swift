@@ -9,11 +9,11 @@ import Foundation
 
 struct Config {
     
-    static let baseURL = "http://45.12.237.146:8000"
+    //static let baseURL = "http://45.12.237.146:8000"
 //    static let socketURL = "ws://45.12.237.146:8000"
 //
 //
-    //static let baseURL = "http://localhost:8000"
+    static let baseURL = "http://localhost:8000"
     //static let socketURL = "ws://localhost:8000"
 
     

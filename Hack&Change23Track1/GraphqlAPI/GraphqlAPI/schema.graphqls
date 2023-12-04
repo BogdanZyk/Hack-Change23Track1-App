@@ -9,39 +9,42 @@ A directive used by the Apollo iOS client to annotate operations or fragments th
 directive @apollo_client_ios_localCacheMutation on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
 
 """"""
-type StickerPack {
+type RootMutationType {
   """"""
-  Name: String
+  CreateRoom(Name: String!, Image: String, Private: Boolean, Type: RoomType): Room
 
   """"""
-  Stickers: [String]
+  DeleteRoom(RoomId: String!): Room
+
+  """"""
+  InitConnection(SDP: ServerSDP!, RoomId: String!): ClientSDP
+
+  """"""
+  LikeRoom(RoomId: String!): Room
+
+  """"""
+  LoadMedia(RoomId: String!, SourceId: String!): Room
+
+  """"""
+  RoomAction(RoomId: String!, Action: String!, Arg: String!): Room
+
+  """"""
+  SignIn(Email: String!, Password: String!): Token
+
+  """"""
+  SignUp(Email: String!, Login: String!, Password: String!): Token
+
+  """"""
+  UpdateCurrentUser(Login: String, Avatar: String): User
+
+  """"""
+  UpdateRoom(RoomId: String!, Name: String, Image: String, Private: Boolean, Type: RoomType): Room
 }
 
 """"""
-type PlayFile {
+type Token {
   """"""
-  CurrentSeconds: String
-
-  """"""
-  DurationSeconds: String
-
-  """"""
-  File: Audio
-
-  """"""
-  Pause: Boolean
-}
-
-""""""
-enum RoomType {
-  """"""
-  NO_TYPE
-
-  """"""
-  SINGLE
-
-  """"""
-  PLAYLIST
+  Token: String!
 }
 
 """"""
@@ -54,24 +57,15 @@ input ServerSDP {
 }
 
 """"""
-type RootQueryType {
+type Source {
   """"""
-  AllStickers: [StickerPack]
+  Cover: String
 
   """"""
-  CurrentUser: User
+  Id: String
 
   """"""
-  GetRoomByKey(Key: String!): Room
-
-  """"""
-  ListAudio: [Audio]
-
-  """"""
-  ListRooms: [Room]
-
-  """"""
-  SearchAudio(Query: String!): [Audio]
+  Name: String
 }
 
 """"""
@@ -92,9 +86,6 @@ type User {
 """"""
 type Room {
   """"""
-  File: PlayFile
-
-  """"""
   Id: String
 
   """"""
@@ -107,6 +98,9 @@ type Room {
   Likes: Int
 
   """"""
+  MediaInfo: MediaInfo
+
+  """"""
   Members: [User]
 
   """"""
@@ -116,7 +110,7 @@ type Room {
   Owner: User
 
   """"""
-  Playlist: [Audio]
+  Playlist: [Source]
 
   """"""
   Private: Boolean
@@ -135,52 +129,58 @@ type ClientSDP {
 }
 
 """"""
-type Audio {
+enum RoomType {
   """"""
-  Cover: String
+  NO_TYPE
 
   """"""
-  Id: String
+  SINGLE
 
+  """"""
+  PLAYLIST
+}
+
+""""""
+type RootQueryType {
+  """"""
+  AllStickers: [StickerPack]
+
+  """"""
+  CurrentUser: User
+
+  """"""
+  GetRoomByKey(Key: String!): Room
+
+  """"""
+  ListRooms: [Room]
+
+  """"""
+  ListSources: [Source]
+
+  """"""
+  SearchSource(Query: String!): [Source]
+}
+
+""""""
+type StickerPack {
   """"""
   Name: String
+
+  """"""
+  Stickers: [String]
 }
 
 """"""
-type RootMutationType {
+type MediaInfo {
   """"""
-  CreateRoom(Name: String!, Image: String, Private: Boolean, Type: RoomType): Room
+  CurrentSeconds: String
 
   """"""
-  DeleteRoom(RoomId: String!): Room
+  Pause: Boolean
 
   """"""
-  InitConnection(RoomId: String!, SDP: ServerSDP!): ClientSDP
+  Source: Source
 
   """"""
-  LikeRoom(RoomId: String!): Room
-
-  """"""
-  LoadAudio(RoomId: String!, AudioId: String!): Room
-
-  """"""
-  RoomAction(RoomId: String!, Action: String!, Arg: String!): Room
-
-  """"""
-  SignIn(Email: String!, Password: String!): Token
-
-  """"""
-  SignUp(Login: String!, Password: String!, Email: String!): Token
-
-  """"""
-  UpdateCurrentUser(Login: String, Avatar: String): User
-
-  """"""
-  UpdateRoom(Type: RoomType, RoomId: String!, Name: String, Image: String, Private: Boolean): Room
-}
-
-""""""
-type Token {
-  """"""
-  Token: String!
+  Url: String
 }

@@ -3,36 +3,28 @@
 
 @_exported import ApolloAPI
 
-class CreateRoomMutation: GraphQLMutation {
-  static let operationName: String = "CreateRoom"
+class LoadMediaMutation: GraphQLMutation {
+  static let operationName: String = "LoadMedia"
   static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation CreateRoom($name: String!, $type: RoomType, $image: String, $private: Boolean) { CreateRoom(Name: $name, Type: $type, Image: $image, Private: $private) { __typename ...RoomAttrs } }"#,
+      #"mutation LoadMedia($sourceId: String!, $roomId: String!) { LoadMedia(SourceId: $sourceId, RoomId: $roomId) { __typename ...RoomAttrs } }"#,
       fragments: [RoomAttrs.self, MediaInfoAttrs.self, SourceAttrs.self, UserAttrs.self]
     ))
 
-  public var name: String
-  public var type: GraphQLNullable<GraphQLEnum<SchemaAPI.RoomType>>
-  public var image: GraphQLNullable<String>
-  public var `private`: GraphQLNullable<Bool>
+  public var sourceId: String
+  public var roomId: String
 
   public init(
-    name: String,
-    type: GraphQLNullable<GraphQLEnum<SchemaAPI.RoomType>>,
-    image: GraphQLNullable<String>,
-    `private`: GraphQLNullable<Bool>
+    sourceId: String,
+    roomId: String
   ) {
-    self.name = name
-    self.type = type
-    self.image = image
-    self.`private` = `private`
+    self.sourceId = sourceId
+    self.roomId = roomId
   }
 
   public var __variables: Variables? { [
-    "name": name,
-    "type": type,
-    "image": image,
-    "private": `private`
+    "sourceId": sourceId,
+    "roomId": roomId
   ] }
 
   struct Data: SchemaAPI.SelectionSet {
@@ -41,34 +33,32 @@ class CreateRoomMutation: GraphQLMutation {
 
     static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.RootMutationType }
     static var __selections: [ApolloAPI.Selection] { [
-      .field("CreateRoom", CreateRoom?.self, arguments: [
-        "Name": .variable("name"),
-        "Type": .variable("type"),
-        "Image": .variable("image"),
-        "Private": .variable("private")
+      .field("LoadMedia", LoadMedia?.self, arguments: [
+        "SourceId": .variable("sourceId"),
+        "RoomId": .variable("roomId")
       ]),
     ] }
 
-    var createRoom: CreateRoom? { __data["CreateRoom"] }
+    var loadMedia: LoadMedia? { __data["LoadMedia"] }
 
     init(
-      createRoom: CreateRoom? = nil
+      loadMedia: LoadMedia? = nil
     ) {
       self.init(_dataDict: DataDict(
         data: [
           "__typename": SchemaAPI.Objects.RootMutationType.typename,
-          "CreateRoom": createRoom._fieldData,
+          "LoadMedia": loadMedia._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(CreateRoomMutation.Data.self)
+          ObjectIdentifier(LoadMediaMutation.Data.self)
         ]
       ))
     }
 
-    /// CreateRoom
+    /// LoadMedia
     ///
     /// Parent Type: `Room`
-    struct CreateRoom: SchemaAPI.SelectionSet {
+    struct LoadMedia: SchemaAPI.SelectionSet {
       let __data: DataDict
       init(_dataDict: DataDict) { __data = _dataDict }
 
@@ -120,13 +110,13 @@ class CreateRoomMutation: GraphQLMutation {
             "Owner": owner._fieldData,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(CreateRoomMutation.Data.CreateRoom.self),
+            ObjectIdentifier(LoadMediaMutation.Data.LoadMedia.self),
             ObjectIdentifier(RoomAttrs.self)
           ]
         ))
       }
 
-      /// CreateRoom.MediaInfo
+      /// LoadMedia.MediaInfo
       ///
       /// Parent Type: `MediaInfo`
       struct MediaInfo: SchemaAPI.SelectionSet {
@@ -162,14 +152,14 @@ class CreateRoomMutation: GraphQLMutation {
               "Url": url,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(CreateRoomMutation.Data.CreateRoom.MediaInfo.self),
+              ObjectIdentifier(LoadMediaMutation.Data.LoadMedia.MediaInfo.self),
               ObjectIdentifier(MediaInfoAttrs.self),
               ObjectIdentifier(RoomAttrs.MediaInfo.self)
             ]
           ))
         }
 
-        /// CreateRoom.MediaInfo.Source
+        /// LoadMedia.MediaInfo.Source
         ///
         /// Parent Type: `Source`
         struct Source: SchemaAPI.SelectionSet {
@@ -202,7 +192,7 @@ class CreateRoomMutation: GraphQLMutation {
                 "Cover": cover,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(CreateRoomMutation.Data.CreateRoom.MediaInfo.Source.self),
+                ObjectIdentifier(LoadMediaMutation.Data.LoadMedia.MediaInfo.Source.self),
                 ObjectIdentifier(SourceAttrs.self),
                 ObjectIdentifier(MediaInfoAttrs.Source.self)
               ]
@@ -211,7 +201,7 @@ class CreateRoomMutation: GraphQLMutation {
         }
       }
 
-      /// CreateRoom.Member
+      /// LoadMedia.Member
       ///
       /// Parent Type: `User`
       struct Member: SchemaAPI.SelectionSet {
@@ -247,7 +237,7 @@ class CreateRoomMutation: GraphQLMutation {
               "Email": email,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(CreateRoomMutation.Data.CreateRoom.Member.self),
+              ObjectIdentifier(LoadMediaMutation.Data.LoadMedia.Member.self),
               ObjectIdentifier(UserAttrs.self),
               ObjectIdentifier(RoomAttrs.Member.self)
             ]
