@@ -16,7 +16,7 @@ struct RoomPlayerState: Codable {
     let likes: Int
     
     enum AudioStatus: String, Codable {
-        case play, pause
+        case play, pause, move
     }
     
 }

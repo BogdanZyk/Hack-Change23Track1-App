@@ -22,15 +22,14 @@ struct AudioRoomView: View {
         )
     }
     
+    @State private var orientation: UIInterfaceOrientationMask = .portrait
+    
     var body: some View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {
+                topBarView
                 playerView
                 tabButtons
-            }
-            .ignoresSafeArea(.container, edges: .top)
-            .overlay(alignment: .top) {
-                topBarView
             }
             .overlay {
                 contextOverlay
@@ -53,9 +52,10 @@ struct AudioRoomView: View {
         }
         .overlay {
             if showFullScreen {
-                FullScreenPlayer(namespace: namespace, close: $showFullScreen, videoTrack: viewModel.remoteVideoTrack)
+                FullScreenPlayer(namespace: namespace, close: $showFullScreen, viewModel: viewModel)
             }
         }
+        //.forceRotation(orientation: .portrait)
     }
 }
 
@@ -109,12 +109,12 @@ extension AudioRoomView {
     }
     
     private var playerView: some View {
-        PlayerView(
+        PlayerView2(
             namespace: namespace,
             showFullScreen: $showFullScreen,
-            showFullVersion: !isFocused,
                    isDisabledControls: !viewModel.isOwner,
                    viewModel: viewModel)
+        .frame(maxHeight: getRect().height / 3.5)
     }
     
     private var tabViewSection: some View {
@@ -126,7 +126,9 @@ extension AudioRoomView {
     
     @ViewBuilder
     private var tabButtons: some View {
-        TabButtons(tab: $tab)
+        if !isFocused {
+            TabButtons(tab: $tab)
+        }
     }
     
     enum SheetItem: String, Identifiable {

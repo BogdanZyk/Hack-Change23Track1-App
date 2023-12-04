@@ -328,7 +328,6 @@ final class RoomViewModel: ObservableObject {
     }
 
     func connectRoom() async {
-        //connect to websocket
         prepareWebRTCClient()
         await sentOfferToServerAndSetRemoteSdp()
     }
