@@ -79,9 +79,7 @@ extension BottomBarView {
             }
             if !text.isEmpty {
                 Button {
-                    withAnimation(.easeIn(duration: 0.2)) {
-                        onSend(.text(text))
-                    }
+                    onSend(.text(text))
                 } label: {
                     Image(systemName: "paperplane.fill")
                         .font(.title3)

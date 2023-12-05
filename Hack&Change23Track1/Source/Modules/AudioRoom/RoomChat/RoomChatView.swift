@@ -23,9 +23,15 @@ struct RoomChatView: View {
             .overlay(alignment: .bottomTrailing) {
                 downActionButton(proxy)
             }
-            .onReceive(roomVM.receivedMessage) {
-                onReceivedNewMessage($0, proxy: proxy)
+            .onChange(of: chatVM.lastMessageId) {
+                scrollToLastMessageIfNeeded($0, proxy: proxy)
             }
+            .simultaneousGesture(
+            TapGesture()
+                .onEnded{ _ in
+                    isFocused = false
+                }
+            )
         }
         .foregroundColor(.white)
         .safeAreaInset(edge: .bottom, spacing: 0) {
@@ -35,12 +41,11 @@ struct RoomChatView: View {
         .overlayPreferenceValue(BoundsPreferece.self) {
             contextMenu($0)
         }
-        .simultaneousGesture(
-        TapGesture()
-            .onEnded{ _ in
-                isFocused = false
+        .onAppear {
+            if roomVM.chatDelegate == nil {
+                roomVM.chatDelegate = chatVM
             }
-        )
+        }
     }
 }
 
@@ -52,12 +57,9 @@ struct RoomChatView_Previews: PreviewProvider {
 
 extension RoomChatView {
     
-    private func onReceivedNewMessage(_ message: Message, proxy: ScrollViewProxy) {
-        withAnimation {
-            chatVM.setOrUpdateMessage(message)
-        }
+    private func scrollToLastMessageIfNeeded(_ id: String, proxy: ScrollViewProxy) {
         if !hiddenDownButton {
-            scrollToDown(message.id, proxy: proxy)
+            scrollToDown(id, proxy: proxy)
         }
     }
 }
@@ -68,7 +70,7 @@ extension RoomChatView {
     private var bottomBarSection: some View {
         BottomBarView(text: $message,
                       replyMessage: chatVM.replyMessage) {
-            createAndSendMessage($0)
+            sendMessage($0)
         }
         .focused($isFocused)
     }
@@ -125,7 +127,7 @@ extension RoomChatView {
                     }
                 MessageContextMenuView(message: selectedMessage,
                                        preferense: preferense,
-                                       onAction: hadleMessageContextAction)
+                                       onAction: handleMessageContextAction)
             }
             .transition(.opacity)
         }
@@ -156,43 +158,15 @@ extension RoomChatView {
 
 extension RoomChatView {
     
-    private func createAndSendMessage(_ content: Message.MessageContent) {
+    private func sendMessage(_ content: Message.MessageContent) {
+        guard let client = roomVM.webRTCClient else { return }
         message = ""
-        var message = Message(id: UUID().uuidString,
-                              from: roomVM.currentUser,
-                              type: .message,
-                              text: "",
-                              replyMessage: chatVM.replyMessage)
-        
-        switch content {
-        case .text(let text):
-            message.type = .message
-            message.text = text
-        case .sticker(let sticker):
-            message.type = .sticker
-            message.sticker = sticker
-        }
-        
-        chatVM.resetReply()
-        roomVM.sendMessageToDataChannel(message)
+        chatVM.createAndSendMessage(content, webRTCClient: client, currentUser: roomVM.currentUser)
     }
     
-    private func hadleMessageContextAction(_ action: MessageContextAction) {
-        switch action {
-        case .reaction(let oldMessage, let reaction):
-            var newMessage = oldMessage
-            newMessage.addedReaction(from: roomVM.currentUser, reaction: reaction)
-            roomVM.sendMessageToDataChannel(newMessage)
-        case .copy:
-            chatVM.copyMessage()
-        case .reply:
-            chatVM.setReplayMessage()
-        case .report:
-            guard var selectedMessage = chatVM.selectedMessage else {return}
-            selectedMessage.type = .hidden
-            roomVM.sendMessageToDataChannel(selectedMessage)
-        }
-        chatVM.selectMessage(nil)
+    private func handleMessageContextAction(_ action: MessageContextAction) {
+        guard let client = roomVM.webRTCClient else { return }
+        chatVM.handleMessageContextAction(action, webRTCClient: client, currentUser: roomVM.currentUser)
     }
     
 }

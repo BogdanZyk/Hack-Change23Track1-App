@@ -21,11 +21,11 @@ final class RoomViewModel: ObservableObject {
     @Published private(set) var currentVideo: VideoItem?
     @Published private(set) var status: WebRTCStatus = .new
     
-    private(set) var receivedMessage = PassthroughSubject<Message, Never>()
-
+    weak var chatDelegate: ChatProviderDelegate?
+    
     let currentUser: RoomMember
     private let roomDataService = RoomDataService()
-    private var webRTCClient: WebRTCClient?
+    private(set) var webRTCClient: WebRTCClient?
 
     init(room: RoomAttrs,
          currentUser: RoomMember) {
@@ -36,7 +36,7 @@ final class RoomViewModel: ObservableObject {
         self.setTracks()
         self.setCurrentVideo(room.mediaInfo?.source?.id, url: room.mediaInfo?.url)
     }
-
+    
     func connectRoom() async {
         prepareWebRTCClient()
         await sentOfferToServerAndSetRemoteSdp()
@@ -127,7 +127,7 @@ extension RoomViewModel {
                     print("backward")
                 case .forward:
                     print("forward")
-                    setNextvideo()
+                    setNextVideo()
                 case .end:
                     print("end")
                 case .set:
@@ -154,7 +154,7 @@ extension RoomViewModel {
         }
     }
 
-    func setNextvideo() {
+    func setNextVideo() {
         guard let index = playList.firstIndex(where: {$0.id == currentVideo?.id}),
         currentVideo?.id != playList.last?.id else { return }
         setVideo(playList[index + 1])
@@ -256,6 +256,7 @@ extension RoomViewModel: WebRTCClientDelegate {
         if let audioState = try? JSONHelper.decoder.decode(RoomPlayerState.self, from: data) {
             self.onChangeAudio(audioState)
         } else if let message = try? JSONHelper.decoder.decode(Message.self, from: data) {
+            self.chatDelegate?.onReceivedMessage(message)
             self.onReceivedMessage(message)
         } else if let playListState = try? JSONHelper.decoder.decode(PlaylistStatus.self, from: data) {
             self.updatePlaylistStatus(playListState)
@@ -267,8 +268,7 @@ extension RoomViewModel: WebRTCClientDelegate {
     private func onReceivedMessage(_ message: Message) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            receivedMessage.send(message)
-
+            
             if message.type == .joined {
                 members[message.from.id] = message.from
             } else if message.type == .leaving {
