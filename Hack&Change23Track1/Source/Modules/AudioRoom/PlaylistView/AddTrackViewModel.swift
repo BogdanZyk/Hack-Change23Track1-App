@@ -39,9 +39,9 @@ class AddTrackViewModel: ObservableObject {
      }
   
     @MainActor
-    func fetchAudios() async {
-        let audios = try? await roomDataService.fetchAudios()
-        self.videos = audios ?? []
+    func fetchVideos() async {
+        let videos = try? await roomDataService.fetchVideos()
+        self.videos = videos ?? []
     }
     
     func addOrRemove(for video: SourceAttrs) {

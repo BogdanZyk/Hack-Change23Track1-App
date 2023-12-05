@@ -78,24 +78,19 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
     }
         
     func onChangePlayerState(_ state: RoomPlayerState) {
-        print("state", state.status.rawValue)
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else {return}
-            let seconds = state.currentSeconds
-            switch state.status {
-                
-            case .play:
-                self.playerEvent = .play
-            case .pause:
-                self.playerEvent = .pause
-            case .move:
-                self.playerEvent = .seek(seconds)
-            case .changeSource:
-                break
-//                if currentVideo?.id != "remoteId" {
-                //self.playerEvent = .set(.init(id: UUID().uuidString, url: state.wrappedUrl!), seconds)
-//                }
-            }
+        let seconds = state.currentSeconds
+        switch state.status {
+        case .play:
+            self.playerEvent = .play
+        case .pause:
+            self.playerEvent = .pause
+        case .move:
+            self.playerEvent = .seek(seconds)
+        case .changeSource:
+            break
+            //                if currentVideo?.id != "remoteId" {
+            //self.playerEvent = .set(.init(id: UUID().uuidString, url: state.wrappedUrl!), seconds)
+            //                }
         }
     }
     

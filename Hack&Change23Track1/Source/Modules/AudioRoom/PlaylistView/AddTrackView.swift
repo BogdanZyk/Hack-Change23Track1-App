@@ -37,7 +37,7 @@ struct AddTrackView: View {
             addButton
         }
         .task {
-            await viewModel.fetchAudios()
+            await viewModel.fetchVideos()
         }
     }
 }

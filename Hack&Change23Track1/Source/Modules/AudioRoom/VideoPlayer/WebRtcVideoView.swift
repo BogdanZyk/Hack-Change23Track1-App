@@ -23,7 +23,6 @@ struct VideoView: UIViewRepresentable {
 
     func updateUIView(_ view: RTCMTLVideoView, context: Context) {
         if videoTrack != nil, currentVideoTrackId != videoTrack?.trackId  {
-            print("Set video track in player view", videoTrack?.trackId)
             DispatchQueue.main.async {
                 currentVideoTrackId = videoTrack?.trackId
             }

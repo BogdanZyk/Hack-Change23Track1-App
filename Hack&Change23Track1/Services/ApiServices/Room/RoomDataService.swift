@@ -73,7 +73,7 @@ final class RoomDataService {
         return likes
     }
     
-    func fetchAudios() async throws -> [SourceAttrs] {
+    func fetchVideos() async throws -> [SourceAttrs] {
         let query = ListSourcesQuery()
         let data = try await api.fetch(query: query)
         
