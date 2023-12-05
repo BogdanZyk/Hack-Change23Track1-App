@@ -10,11 +10,11 @@ import SwiftUI
 struct AddTrackView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: AddTrackViewModel
-    private let onSubmit: ([VideoItem]) -> Void
+    private let onSubmit: ([SourceAttrs]) -> Void
     
-    init(selectedAudios: [VideoItem], onSubmit: @escaping ([VideoItem]) -> Void) {
-        let files = selectedAudios.map { $0.file }
-        self._viewModel = StateObject(wrappedValue: AddTrackViewModel(selectedAudios: files))
+    init(selectedAudios: [SourceAttrs],
+         onSubmit: @escaping ([SourceAttrs]) -> Void) {
+        self._viewModel = StateObject(wrappedValue: AddTrackViewModel(selectedAudios: selectedAudios))
         self.onSubmit = onSubmit
     }
     var body: some View {
@@ -90,7 +90,7 @@ extension AddTrackView {
         if countTrack > 0 {
             PrimaryButton(label: "Added \(countTrack) tracks", isLoading: false) {
                 dismiss()
-                onSubmit(viewModel.selectedVideo.compactMap({.init(file: $0, status: .wait)}))
+                onSubmit(viewModel.selectedVideo)
             }
             .padding()
         }

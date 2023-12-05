@@ -15,13 +15,13 @@ struct VideoPlayer: View {
     @Binding var isLandscape: Bool
     @State private var timeoutTask: DispatchWorkItem?
     private var size: CGSize
-    private var item: PlayerItem?
+    private var item: VideoItem?
     private var onEvent: (PlayerEvent) -> Void
     private var setEvent: PlayerEvent
     private var disabled: Disabled
     private let viewFraction: Double = 3.5
     
-    init(item: PlayerItem? = nil,
+    init(item: VideoItem? = nil,
          size: CGSize,
          isLandscape: Binding<Bool>,
          setEvent: PlayerEvent,
@@ -215,7 +215,7 @@ extension VideoPlayer {
     
     private func onChangeSeek(_ change: Bool) {
         if !change {
-            onEvent(.seek(manager.seconds))
+            onEvent(.seek(manager.seconds.rounded()))
         }
         manager.isSeek = change
     }

@@ -106,7 +106,7 @@ extension AudioRoomView {
     }
     
     private func playerView(_ proxy: GeometryProxy) -> some View {
-        VideoPlayer(item: playerManager.currentVideo?.getPlayerItem(),
+        VideoPlayer(item: playerManager.currentVideo,
                     size: proxy.size,
                     isLandscape: $isLandscape,
                     setEvent: playerManager.playerEvent,

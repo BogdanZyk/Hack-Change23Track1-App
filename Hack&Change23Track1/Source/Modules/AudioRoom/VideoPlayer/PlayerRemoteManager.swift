@@ -22,10 +22,9 @@ protocol PlayerRemoteProvider: AnyObject {
     //    }
 }
 
-@MainActor
 class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
     
-    @Published private(set) var playList = [VideoItem]()
+    @Published private(set) var playList = [SourceAttrs]()
     @Published private(set) var currentVideo: VideoItem?
     @Published private(set) var playerEvent: PlayerEvent = .pause
     @Published var appAlert: AppAlert?
@@ -39,7 +38,7 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
         self.room = room
         self.currentUser = currentUser
         setTracks()
-        setCurrentVideo(room.mediaInfo?.source?.id, url: room.mediaInfo?.url)
+        setCurrentVideo(room.mediaInfo?.source?.id, path: room.mediaInfo?.url)
     }
     
     func refreshRoom() {
@@ -51,7 +50,7 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
         }
     }
     
-    func addPlaylist(_ videos: [VideoItem], client: WebRTCClient?) {
+    func addPlaylist(_ videos: [SourceAttrs], client: WebRTCClient?) {
         guard let client else { return }
         do {
             let remotePlayList = Playlist(files: videos.compactMap({$0.id}))
@@ -63,14 +62,13 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
         }
     }
     
-    func setVideo(_ video: VideoItem) {
-        guard let id = room.id,
-              room.userIsOwner(for: currentUser.id) else { return }
+    func setVideo(_ video: SourceAttrs) {
+        guard let uid = room.id,
+              room.userIsOwner(for: currentUser.id),
+              let sourceId = video.id else { return }
         Task {
             do {
-                let newRoom = try await roomDataService.loadVideo(for: id, sourceId: video.id)
-                setCurrentVideo(newRoom.mediaInfo?.source?.id, url: newRoom.mediaInfo?.url)
-                try await setPlayerAction(.play)
+                try await roomDataService.loadVideo(for: uid, sourceId: sourceId)
             } catch {
                 appAlert = .errors(errors: [error])
             }
@@ -78,19 +76,23 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
     }
         
     func onChangePlayerState(_ state: RoomPlayerState) {
-        let seconds = state.currentSeconds
-        switch state.status {
-        case .play:
-            self.playerEvent = .play
-        case .pause:
-            self.playerEvent = .pause
-        case .move:
-            self.playerEvent = .seek(seconds)
-        case .changeSource:
-            break
-            //                if currentVideo?.id != "remoteId" {
-            //self.playerEvent = .set(.init(id: UUID().uuidString, url: state.wrappedUrl!), seconds)
-            //                }
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {return}
+            print(state.status, state.currentSeconds)
+            let seconds = state.currentSeconds
+            switch state.status {
+            case .play:
+                self.playerEvent = .play
+            case .pause:
+                self.playerEvent = .pause
+            case .move:
+                self.playerEvent = .seek(seconds)
+            case .changeSource:
+                break
+                //                if currentVideo?.id != "remoteId" {
+                //self.playerEvent = .set(.init(id: UUID().uuidString, url: state.wrappedUrl!), seconds)
+                //                }
+            }
         }
     }
     
@@ -153,12 +155,13 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
     
     private func setTracks() {
         guard let files = room.playlist?.compactMap({$0?.fragments.sourceAttrs}) else { return }
-        playList = files.compactMap({.init(file: $0, status: .ok)})
+        playList = files
     }
     
-    private func setCurrentVideo(_ id: String?, url: String?) {
-        guard let id, let index = playList.firstIndex(where: {$0.id == id}) else { return }
-        playList[index].setUrl(url)
-        currentVideo = playList[index]
+    private func setCurrentVideo(_ id: String?, path: String?) {
+        guard let id, let path,
+              let first = playList.first(where: {$0.id == id}),
+              let url = URL(string: path) else { return }
+        currentVideo = .init(id: id, url: url, name: first.name, cover: first.cover)
     }
 }

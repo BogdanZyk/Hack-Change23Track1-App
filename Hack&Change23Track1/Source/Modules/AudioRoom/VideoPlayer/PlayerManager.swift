@@ -9,18 +9,8 @@ import Foundation
 import AVFoundation
 import SwiftUI
 
-struct PlayerItem: Identifiable, Equatable {
-    let id: String
-    let url: URL
-    var cower: String?
-    var name: String?
-    
-    static let mock = PlayerItem(id: UUID().uuidString, url: Bundle.main.url(forResource: "video_simple", withExtension: "mp4")!, cower: nil, name: "Video name")
-    
-}
-
 enum PlayerEvent: Identifiable, Equatable {
-    case set(PlayerItem, Double),
+    case set(VideoItem, Double),
          play,
          pause,
          seek(Double),
@@ -56,7 +46,7 @@ final class PlayerManager: ObservableObject {
     @Published private(set) var isPlaying: Bool = false
     @Published private(set) var isBuffering: Bool = false
     @Published private(set) var player: AVPlayer?
-    private(set) var currentItem: PlayerItem?
+    private(set) var currentItem: VideoItem?
     
     private(set) var lastPlayer: AVPlayer?
     
@@ -73,17 +63,14 @@ final class PlayerManager: ObservableObject {
     private var cancelBag = CancelBag()
     private var timeObserver: Any?
     
-    init(item: PlayerItem?) {
+    init(item: VideoItem?) {
         
         startScreenNotificationHandler()
         
         if let item {
-            player = .init(url: item.url)
-            currentItem = item
-            startTimeObserver()
+            setItem(item)
         }
-        startSubscriptions()
-        
+    
         setupAudioSession()
     }
     
@@ -127,7 +114,7 @@ final class PlayerManager: ObservableObject {
             .store(in: cancelBag)
     }
     
-    func setItem(_ item: PlayerItem) {
+    func setItem(_ item: VideoItem) {
         if currentItem?.id == item.id { return }
         pause()
         self.currentItem = item
@@ -137,6 +124,7 @@ final class PlayerManager: ObservableObject {
         } else {
             player = .init(playerItem: playerItem)
         }
+        player?.automaticallyWaitsToMinimizeStalling = true
         startSubscriptions()
         startTimeObserver()
     }
@@ -168,7 +156,7 @@ final class PlayerManager: ObservableObject {
     }
     
     func seekAndPlay(_ time: Double) {
-        player?.seek(to: .init(seconds: time, preferredTimescale: 1))
+        player?.seek(to: .init(seconds: time, preferredTimescale: 1000))
         play()
     }
         

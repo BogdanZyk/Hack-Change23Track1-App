@@ -13,8 +13,8 @@ extension AudioRoomView {
         @Binding var showTracksLib: Bool
         var isOwner: Bool
         var playedId: String?
-        let videos: [VideoItem]
-        let onTap: (VideoItem) -> Void
+        let videos: [SourceAttrs]
+        let onTap: (SourceAttrs) -> Void
         var body: some View {
             ScrollView(.vertical, showsIndicators: false) {
                 if !videos.isEmpty {
@@ -35,14 +35,13 @@ extension AudioRoomView {
         }
         
         @ViewBuilder
-        private func rowView(_ video: VideoItem) -> some View {
+        private func rowView(_ video: SourceAttrs) -> some View {
             let isPlay = video.id == playedId
-            let isLoading = video.status == .download
             HStack {
-                LazyNukeImage(fullPath: video.file.coverFullPath)
+                LazyNukeImage(fullPath: video.cover)
                     .frame(width: 52, height: 52)
                     .cornerRadius(8)
-                Text(video.file.name ?? "no name")
+                Text(video.name ?? "no name")
                     .font(.headline.weight(.semibold))
                     .padding(.trailing)
                 Spacer()
@@ -50,17 +49,12 @@ extension AudioRoomView {
                     SoundWaveView(color: .primaryPink)
                         .frame(width: 28, height: 28)
                 }
-                if isLoading {
-                    ProgressView()
-                }
             }
             .hLeading()
             .padding(.horizontal)
             .padding(.vertical, 20)
             .background(isPlay ? Color.primaryGray.opacity(0.5) : Color.primaryBg)
             .contentShape(Rectangle())
-            .opacity(isLoading ? 0.6 : 1)
-            .disabled(isLoading)
             .onTapGesture {
                 onTap(video)
             }
@@ -104,6 +98,6 @@ struct PlaylistView_Previews: PreviewProvider {
         AudioRoomView.PlaylistView(showTracksLib: .constant(false),
                                    isOwner: false,
                                    playedId: "1",
-                                   videos: [.init(file: .init(name: "test"), status: .ok)], onTap: {_ in })
+                                   videos: [.init(name: "name", id: "1", cover: nil)], onTap: {_ in })
     }
 }
