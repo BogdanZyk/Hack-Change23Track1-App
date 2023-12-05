@@ -118,6 +118,7 @@
 		5AAE6AC92B1E11200055303F /* Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6AC82B1E11200055303F /* Orientation.swift */; };
 		5AAE6ACB2B1E11810055303F /* VideoPlayerRepresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6ACA2B1E11810055303F /* VideoPlayerRepresenter.swift */; };
 		5AAE6ACD2B1E2AE20055303F /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6ACC2B1E2AE20055303F /* NotificationCenter.swift */; };
+		5AAE6ACF2B1F209E0055303F /* PlayerRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6ACE2B1F209E0055303F /* PlayerRemoteManager.swift */; };
 		5ADD4B392B18B0D300B0C05B /* FullSreenPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD4B382B18B0D300B0C05B /* FullSreenPlayer.swift */; };
 		5ADD4B3B2B18DC3700B0C05B /* PlayerView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD4B3A2B18DC3700B0C05B /* PlayerView2.swift */; };
 /* End PBXBuildFile section */
@@ -234,6 +235,7 @@
 		5AAE6AC82B1E11200055303F /* Orientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Orientation.swift; sourceTree = "<group>"; };
 		5AAE6ACA2B1E11810055303F /* VideoPlayerRepresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerRepresenter.swift; sourceTree = "<group>"; };
 		5AAE6ACC2B1E2AE20055303F /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
+		5AAE6ACE2B1F209E0055303F /* PlayerRemoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRemoteManager.swift; sourceTree = "<group>"; };
 		5ADD4B382B18B0D300B0C05B /* FullSreenPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSreenPlayer.swift; sourceTree = "<group>"; };
 		5ADD4B3A2B18DC3700B0C05B /* PlayerView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -720,6 +722,7 @@
 				5AAE6AC12B1E10130055303F /* PlayerManager.swift */,
 				5AAE6AC62B1E11000055303F /* VideoPlayer.swift */,
 				5AAE6ACA2B1E11810055303F /* VideoPlayerRepresenter.swift */,
+				5AAE6ACE2B1F209E0055303F /* PlayerRemoteManager.swift */,
 			);
 			path = VideoPlayer;
 			sourceTree = "<group>";
@@ -897,6 +900,7 @@
 				5A58E7A62B115D8100D0723C /* PlaylistView.swift in Sources */,
 				5AAE6ABD2B1DF4C50055303F /* LoadMediaMutation.graphql.swift in Sources */,
 				5A81F4422B10A49C00D9998F /* SDPClientAttrs.graphql.swift in Sources */,
+				5AAE6ACF2B1F209E0055303F /* PlayerRemoteManager.swift in Sources */,
 				5A58E7BA2B11F45200D0723C /* RoomType.graphql.swift in Sources */,
 				5A58E7B12B1174D200D0723C /* MessageRowView.swift in Sources */,
 				5A81F46C2B10BABB00D9998F /* Apollo+Extensions.swift in Sources */,

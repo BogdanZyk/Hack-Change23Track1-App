@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct AudioRoomView: View {
-    @Namespace private var namespace
     @Environment(\.dismiss) private var dismiss
     @StateObject private var chatVM = RoomChatViewModel()
     @StateObject private var viewModel: RoomViewModel
+    @StateObject private var playerManager: PlayerRemoteManager
     @State private var tab: RoomTab = .chat
     @State private var isLandscape: Bool = false
     @State private var sheetItem: SheetItem?
@@ -20,6 +20,9 @@ struct AudioRoomView: View {
     init(room: RoomAttrs, currentUser: RoomMember) {
         self._viewModel = StateObject(
             wrappedValue: RoomViewModel(room: room, currentUser: currentUser)
+        )
+        self._playerManager = StateObject(
+            wrappedValue: PlayerRemoteManager(room: room, currentUser: currentUser)
         )
     }
 
@@ -103,17 +106,23 @@ extension AudioRoomView {
     }
     
     private func playerView(_ proxy: GeometryProxy) -> some View {
-        VideoPlayer(item: viewModel.currentVideo?.getPlayerItem(),
+        VideoPlayer(item: playerManager.currentVideo?.getPlayerItem(),
                     size: proxy.size,
                     isLandscape: $isLandscape,
-                    setEvent: viewModel.playerEvent,
+                    setEvent: playerManager.playerEvent,
                     disabled: .init(),
-                    onEvent: { viewModel.handlePlayerEvents($0) })
+                    onEvent: { playerManager.handlePlayerEvents($0) })
         .padding(.top, proxy.safeAreaInsets.top)
+        .onAppear {
+            if viewModel.remotePlayerDelegate == nil {
+                viewModel.remotePlayerDelegate = playerManager
+            }
+        }
     }
     
     private var tabViewSection: some View {
         RoomTabView(tab: $tab,
+                    playerManager: playerManager,
                     viewModel: viewModel,
                     chatVM: chatVM,
                     isFocused: _isFocused)

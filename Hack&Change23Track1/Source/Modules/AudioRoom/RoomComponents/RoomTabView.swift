@@ -12,6 +12,7 @@ extension AudioRoomView {
     
     struct RoomTabView: View {
         @Binding var tab: RoomTab
+        @ObservedObject var playerManager: PlayerRemoteManager
         @ObservedObject var viewModel: RoomViewModel
         @ObservedObject var chatVM: RoomChatViewModel
         @FocusState var isFocused: Bool
@@ -22,8 +23,8 @@ extension AudioRoomView {
                     .toolbar(.hidden, for: .tabBar)
             }
             .sheet(isPresented: $showAddTracksView) {
-                AddTrackView(selectedAudios: viewModel.playList,
-                             onSubmit: { viewModel.addPlaylist($0) })
+                AddTrackView(selectedAudios: playerManager.playList,
+                             onSubmit: { playerManager.addPlaylist($0, client: viewModel.webRTCClient) })
             }
         }
                 
@@ -40,12 +41,13 @@ extension AudioRoomView {
             case .playlist:
                 PlaylistView(showTracksLib: $showAddTracksView,
                              isOwner: viewModel.isOwner,
-                             playedId: viewModel.currentVideo?.id,
-                             videos: viewModel.playList,
-                             onTap: viewModel.setVideo)
+                             playedId: playerManager.currentVideo?.id,
+                             videos: playerManager.playList,
+                             onTap: playerManager.setVideo)
+                .appAlert($playerManager.appAlert)
                 .onAppear {
                     if !viewModel.isOwner {
-                        viewModel.refreshRoom()
+                        playerManager.refreshRoom()
                     }
                 }
             }

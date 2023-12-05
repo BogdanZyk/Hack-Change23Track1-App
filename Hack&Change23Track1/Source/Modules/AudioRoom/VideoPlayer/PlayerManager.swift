@@ -20,9 +20,9 @@ struct PlayerItem: Identifiable, Equatable {
 }
 
 enum PlayerEvent: Identifiable, Equatable {
-    case set(PlayerItem),
-         play(Double),
-         pause(Double),
+    case set(PlayerItem, Double),
+         play,
+         pause,
          seek(Double),
          backward,
          forward,
@@ -127,9 +127,9 @@ final class PlayerManager: ObservableObject {
             .store(in: cancelBag)
     }
     
-    func setItemPlayer(_ item: PlayerItem) {
+    func setItem(_ item: PlayerItem) {
         if currentItem?.id == item.id { return }
-        player?.pause()
+        pause()
         self.currentItem = item
         let playerItem = AVPlayerItem(url: item.url)
         if let player {
@@ -137,29 +137,26 @@ final class PlayerManager: ObservableObject {
         } else {
             player = .init(playerItem: playerItem)
         }
-        player?.play()
         startSubscriptions()
         startTimeObserver()
-        onEvent?(.set(item))
     }
     
     func play() {
         player?.play()
-        onEvent?(.play(seconds))
     }
     
     func pause() {
         player?.pause()
-        onEvent?(.pause(seconds))
     }
     
     func handlePlayerEvent(_ event: PlayerEvent) {
         switch event {
-        case .set(let item):
-            setItemPlayer(item)
-        case .play(let seconds):
+        case .set(let item, let seconds):
+            setItem(item)
             seekAndPlay(seconds)
-        case .pause(_):
+        case .play:
+            seekAndPlay(seconds)
+        case .pause:
             player?.pause()
         case .seek(let seconds):
             seekAndPlay(seconds)
@@ -172,21 +169,9 @@ final class PlayerManager: ObservableObject {
     
     func seekAndPlay(_ time: Double) {
         player?.seek(to: .init(seconds: time, preferredTimescale: 1))
-        player?.play()
+        play()
     }
-    
-    func seekTime() {
-        player?.seek(to: .init(seconds: seconds, preferredTimescale: 1)) { [weak self] completed in
-            guard let self = self else {return}
-            if completed {
-                self.onEvent?(.seek(self.seconds))
-            } else {
-                self.seekTime()
-            }
-        }
-    }
-    
-    
+        
     private func setupAudioSession() {
         do {
             let session = AVAudioSession.sharedInstance()

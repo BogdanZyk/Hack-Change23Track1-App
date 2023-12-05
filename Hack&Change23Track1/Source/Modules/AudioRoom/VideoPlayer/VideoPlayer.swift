@@ -84,7 +84,7 @@ struct VideoPlayer: View {
 
 struct VideoPlayer_Previews: PreviewProvider {
     static var previews: some View {
-        VideoPlayer(item: .mock, size: .init(width: 300, height: 300), isLandscape: .constant(false), setEvent: .play(0), disabled: .init(), onEvent: {_ in })
+        VideoPlayer(item: .mock, size: .init(width: 300, height: 300), isLandscape: .constant(false), setEvent: .play, disabled: .init(), onEvent: {_ in })
         
     }
 }
@@ -115,10 +115,10 @@ extension VideoPlayer {
             
             Button {
                 if manager.isPlaying {
-                    manager.pause()
+                    onEvent(.pause)
                     cancelTimeoutControls()
                 } else {
-                    manager.play()
+                    onEvent(.play)
                     timeoutControls()
                 }
             } label: {
@@ -215,7 +215,7 @@ extension VideoPlayer {
     
     private func onChangeSeek(_ change: Bool) {
         if !change {
-            manager.seekTime()
+            onEvent(.seek(manager.seconds))
         }
         manager.isSeek = change
     }
