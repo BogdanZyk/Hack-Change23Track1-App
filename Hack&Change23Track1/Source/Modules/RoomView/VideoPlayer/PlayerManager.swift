@@ -34,20 +34,14 @@ final class PlayerManager: ObservableObject {
     private var timeObserver: Any?
     
     init(item: VideoItem?) {
-        
         startScreenNotificationHandler()
         
         if let item {
             setItem(item)
         }
-    
-       // setupAudioSession()
+        setupAudioSession()
     }
-    
-    deinit {
-        removeTimeObserver()
-    }
-    
+            
     private func disconnectAVPlayer() {
         toggleVideoTracks(isEnabled: false)
         lastPlayer = player
@@ -55,21 +49,25 @@ final class PlayerManager: ObservableObject {
     }
     
     private func connectAVPlayer() {
+        guard let lastPlayer else { return }
         player = lastPlayer
         toggleVideoTracks(isEnabled: true)
-        lastPlayer = nil
+        self.lastPlayer = nil
     }
     
     func startScreenNotificationHandler() {
         nc.publisher(for: UIApplication.didEnterBackgroundNotification)
             .sink { [weak self] _ in
                 guard let self = self else {return}
+                print("didEnterBackgroundNotification")
                 self.disconnectAVPlayer()
             }
             .store(in: cancelBag)
         nc.publisher(for: UIApplication.didBecomeActiveNotification)
             .sink { [weak self] _ in
-                self?.connectAVPlayer()
+                guard let self = self else {return}
+                print("didBecomeActiveNotification")
+                self.connectAVPlayer()
             }
             .store(in: cancelBag)
     }
@@ -87,10 +85,6 @@ final class PlayerManager: ObservableObject {
         player?.automaticallyWaitsToMinimizeStalling = true
         startSubscriptions()
         startTimeObserver()
-        #warning("To do set from bg")
-        if let lastPlayer {
-            self.lastPlayer = player
-        }
     }
     
     func play() {
@@ -118,6 +112,8 @@ final class PlayerManager: ObservableObject {
             play()
         case .backward, .forward:
             break
+        case .close:
+            resetAll()
         }
     }
     
@@ -180,11 +176,11 @@ final class PlayerManager: ObservableObject {
         }
     }
     
-    private func removeTimeObserver(){
+    private func removeObservers(){
         if let timeObserver = timeObserver {
             player?.removeTimeObserver(timeObserver)
-            cancelBag.cancel()
         }
+        cancelBag.cancel()
     }
     
     private func toggleVideoTracks(isEnabled: Bool) {
@@ -201,6 +197,17 @@ final class PlayerManager: ObservableObject {
                 }
             }
         }
+    }
+    
+    private func resetAll() {
+        print("reset player")
+        removeObservers()
+        player?.pause()
+        lastPlayer?.pause()
+        lastPlayer = nil
+        player = nil
+        currentItem = nil
+        onEvent = nil
     }
 }
 

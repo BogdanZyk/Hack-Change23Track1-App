@@ -119,6 +119,8 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
                     print("end")
                 case .set:
                     break
+                case .close:
+                    break
                 }
             } catch {
                 appAlert = .errors(errors: [error])
@@ -148,6 +150,10 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
 
     var isDisabledPreviews: Bool {
         playList.first?.id == currentVideo?.id
+    }
+    
+    func closePlayer() {
+        playerEvent = .close
     }
     
     private func setPlayerAction(_ action: RoomAction, arg: String = "") async throws {

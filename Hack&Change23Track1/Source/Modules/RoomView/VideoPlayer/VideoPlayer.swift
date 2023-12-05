@@ -149,7 +149,7 @@ extension VideoPlayer {
                 Text(manager.seconds.minuteSeconds)
                 Group {
                     if disabled.disabledAllControls {
-                        ProgressView(value: manager.progress, total: 1)
+                        ProgressView(value: manager.progress, total: 1.0)
                     } else {
                         Slider(value: $manager.progress, in: 0...1) { change in
                             onChangeSeek(change)

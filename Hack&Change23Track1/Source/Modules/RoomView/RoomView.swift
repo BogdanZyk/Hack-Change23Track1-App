@@ -59,6 +59,7 @@ struct RoomView: View {
             makeSheet($0)
         }
         .forceRotation(orientation: [.portrait, .landscape])
+        .alert("Leave the room?", isPresented: $viewModel.isPresentedLeaveAlert) { alertButton }
     }
 }
 
@@ -78,8 +79,7 @@ extension RoomView {
             .overlay {
                 HStack {
                     Button {
-                        viewModel.disconnectAll()
-                        dismiss()
+                        viewModel.isPresentedLeaveAlert.toggle()
                     } label: {
                         Image(systemName: "xmark")
                     }
@@ -177,6 +177,14 @@ extension RoomView {
         case .share:
             ShareSheet(code: viewModel.room.key ?? "")
                 .presentationDetents([.medium])
+        }
+    }
+    
+    private var alertButton: some View {
+        Button("Yes", role: .destructive) {
+            viewModel.disconnectAll()
+            playerManager.closePlayer()
+            dismiss()
         }
     }
 }

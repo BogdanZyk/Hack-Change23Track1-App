@@ -13,6 +13,7 @@ import Combine
 final class RoomViewModel: ObservableObject {
     
     @Published var appAlert: AppAlert?
+    @Published var isPresentedLeaveAlert: Bool = false
     @Published private(set) var room: RoomAttrs
     @Published private(set) var roomCountLikes: Int = 0
     @Published private(set) var members: [String: RoomMember] = [:]

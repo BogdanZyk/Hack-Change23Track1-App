@@ -62,7 +62,7 @@ extension RoomChatView {
                         .roundedCorner(16, corners: corners)
                     }
                 case .sticker:
-                    HStack(alignment: .bottom) {
+                    HStack(alignment: .bottom, spacing: 6) {
                         avatarView
                         VStack(alignment: .leading, spacing: 4) {
                             replyMessage
