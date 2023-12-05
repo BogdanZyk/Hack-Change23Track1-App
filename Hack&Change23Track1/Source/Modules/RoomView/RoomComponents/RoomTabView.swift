@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-extension AudioRoomView {
+extension RoomView {
     
     struct RoomTabView: View {
         @Binding var tab: RoomTab
@@ -59,7 +59,7 @@ extension AudioRoomView {
         @Binding var tab: RoomTab
         var body: some View {
             HStack(spacing: 0) {
-                ForEach(AudioRoomView.RoomTab.allCases, id: \.self) {item in
+                ForEach(RoomView.RoomTab.allCases, id: \.self) {item in
                     Text(item.rawValue.capitalized)
                         .hCenter()
                         .padding(.vertical, 10)
@@ -86,6 +86,6 @@ extension AudioRoomView {
 
 struct RoomTabView2_Previews: PreviewProvider {
     static var previews: some View {
-        AudioRoomView(room: .mock, currentUser: .mock)
+        RoomView(room: .mock, currentUser: .mock)
     }
 }

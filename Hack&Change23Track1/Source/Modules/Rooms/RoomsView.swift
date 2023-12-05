@@ -101,7 +101,7 @@ extension RoomsView {
                 self.screen = .room($0)
             }
         case .room(let room):
-            AudioRoomView(room: room, currentUser: userManager.getRoomMember())
+            RoomView(room: room, currentUser: userManager.getRoomMember())
         }
     }
     

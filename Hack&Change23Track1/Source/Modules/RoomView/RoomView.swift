@@ -1,5 +1,5 @@
 //
-//  AudioRoomView.swift
+//  RoomView.swift
 //  Hack&Change23Track1
 //
 //  Created by Bogdan Zykov on 24.11.2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AudioRoomView: View {
+struct RoomView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var chatVM = RoomChatViewModel()
     @StateObject private var viewModel: RoomViewModel
@@ -64,11 +64,11 @@ struct AudioRoomView: View {
 
 struct AudioRoomView_Previews: PreviewProvider {
     static var previews: some View {
-        AudioRoomView(room: .mock, currentUser: .mock)
+        RoomView(room: .mock, currentUser: .mock)
     }
 }
 
-extension AudioRoomView {
+extension RoomView {
     
     private var topBarView: some View {
         Text(viewModel.room.name ?? "no key")
@@ -110,7 +110,8 @@ extension AudioRoomView {
                     size: proxy.size,
                     isLandscape: $isLandscape,
                     setEvent: playerManager.playerEvent,
-                    disabled: .init(),
+                    disabled: .init(disabledAllControls: playerManager.isDisableControls,
+                                    disabledBackwardBtn: playerManager.isDisabledPreviews, disabledForwardBtn: playerManager.isDisabledNext),
                     onEvent: { playerManager.handlePlayerEvents($0) })
         .padding(.top, proxy.safeAreaInsets.top)
         .onAppear {

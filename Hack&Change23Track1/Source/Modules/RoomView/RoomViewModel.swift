@@ -116,12 +116,6 @@ extension RoomViewModel {
 
 extension RoomViewModel: WebRTCClientDelegate {
     
-    func webRTCClient(_ client: WebRTCClient, didStartReceivingOnTrack track: RTCVideoTrack) {}
-    
-
-    func webRTCClient(_ client: WebRTCClient, didAdd stream: RTCMediaStream) {}
-    
-
     func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState) {
         print("Connection status ->", state.statusValue.rawValue)
         DispatchQueue.main.async {
@@ -130,7 +124,7 @@ extension RoomViewModel: WebRTCClientDelegate {
     }
 
     func webRTCClient(_ client: WebRTCClient, didReceiveData data: Data) {
-        print("didReceiveData ->", String(data: data, encoding: .utf8))
+//        print("didReceiveData ->", String(data: data, encoding: .utf8))
         if let audioState = try? JSONHelper.decoder.decode(RoomPlayerState.self, from: data) {
             self.remotePlayerDelegate?.onChangePlayerState(audioState)
         } else if let message = try? JSONHelper.decoder.decode(Message.self, from: data) {
@@ -140,8 +134,6 @@ extension RoomViewModel: WebRTCClientDelegate {
 //            self.updatePlaylistStatus(playListState)
         }
     }
-
-    func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {}
 
     private func updateMembers(_ message: Message) {
         DispatchQueue.main.async { [weak self] in
@@ -153,5 +145,12 @@ extension RoomViewModel: WebRTCClientDelegate {
             }
         }
     }
+    
+    func webRTCClient(_ client: WebRTCClient, didStartReceivingOnTrack track: RTCVideoTrack) {}
+    
+    func webRTCClient(_ client: WebRTCClient, didAdd stream: RTCMediaStream) {}
+    
+    func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {}
+
 }
 

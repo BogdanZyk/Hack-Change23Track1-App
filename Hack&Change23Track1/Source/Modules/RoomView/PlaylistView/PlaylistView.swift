@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension AudioRoomView {
+extension RoomView {
     
     struct PlaylistView: View {
         @Binding var showTracksLib: Bool
@@ -16,6 +16,7 @@ extension AudioRoomView {
         let videos: [SourceAttrs]
         let onTap: (SourceAttrs) -> Void
         var body: some View {
+            
             ScrollView(.vertical, showsIndicators: false) {
                 if !videos.isEmpty {
                     LazyVStack(alignment: .leading, spacing: 0) {
@@ -95,7 +96,7 @@ extension AudioRoomView {
 
 struct PlaylistView_Previews: PreviewProvider {
     static var previews: some View {
-        AudioRoomView.PlaylistView(showTracksLib: .constant(false),
+        RoomView.PlaylistView(showTracksLib: .constant(false),
                                    isOwner: false,
                                    playedId: "1",
                                    videos: [.init(name: "name", id: "1", cover: nil)], onTap: {_ in })

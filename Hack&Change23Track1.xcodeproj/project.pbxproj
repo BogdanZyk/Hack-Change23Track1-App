@@ -11,7 +11,7 @@
 		5A58E7832B11218400D0723C /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = 5A58E7822B11218400D0723C /* WebRTC */; };
 		5A58E7862B1121A200D0723C /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5A58E7852B1121A200D0723C /* NukeUI */; };
 		5A58E7882B1121ED00D0723C /* LazyNukeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7872B1121ED00D0723C /* LazyNukeImage.swift */; };
-		5A58E78B2B1131BF00D0723C /* AudioRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E78A2B1131BF00D0723C /* AudioRoomView.swift */; };
+		5A58E78B2B1131BF00D0723C /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E78A2B1131BF00D0723C /* RoomView.swift */; };
 		5A58E78D2B11327200D0723C /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E78C2B11327200D0723C /* RoomViewModel.swift */; };
 		5A58E7902B1135B200D0723C /* RoomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E78F2B1135B200D0723C /* RoomTabView.swift */; };
 		5A58E7922B11373400D0723C /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7912B11373400D0723C /* UIApplication.swift */; };
@@ -124,7 +124,7 @@
 
 /* Begin PBXFileReference section */
 		5A58E7872B1121ED00D0723C /* LazyNukeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyNukeImage.swift; sourceTree = "<group>"; };
-		5A58E78A2B1131BF00D0723C /* AudioRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRoomView.swift; sourceTree = "<group>"; };
+		5A58E78A2B1131BF00D0723C /* RoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
 		5A58E78C2B11327200D0723C /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
 		5A58E78F2B1135B200D0723C /* RoomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTabView.swift; sourceTree = "<group>"; };
 		5A58E7912B11373400D0723C /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
@@ -252,7 +252,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5A58E7892B1131A100D0723C /* AudioRoom */ = {
+		5A58E7892B1131A100D0723C /* RoomView */ = {
 			isa = PBXGroup;
 			children = (
 				5AAE6AC02B1E0FF80055303F /* VideoPlayer */,
@@ -260,10 +260,10 @@
 				5A58E7BD2B120B7400D0723C /* PlaylistView */,
 				5A58E7932B1137F900D0723C /* RoomChat */,
 				5A58E78E2B1135A600D0723C /* RoomComponents */,
-				5A58E78A2B1131BF00D0723C /* AudioRoomView.swift */,
+				5A58E78A2B1131BF00D0723C /* RoomView.swift */,
 				5A58E78C2B11327200D0723C /* RoomViewModel.swift */,
 			);
-			path = AudioRoom;
+			path = RoomView;
 			sourceTree = "<group>";
 		};
 		5A58E78E2B1135A600D0723C /* RoomComponents */ = {
@@ -425,7 +425,7 @@
 			children = (
 				5A81F4612B10B91D00D9998F /* Auth */,
 				5A81F4722B10BC8100D9998F /* RootContainer */,
-				5A58E7892B1131A100D0723C /* AudioRoom */,
+				5A58E7892B1131A100D0723C /* RoomView */,
 				5A81F4762B10BCF300D9998F /* Rooms */,
 				5A81F4752B10BCEB00D9998F /* Profile */,
 			);
@@ -813,7 +813,7 @@
 				5A81F4502B10A49C00D9998F /* User.graphql.swift in Sources */,
 				5A58E7AF2B116C2500D0723C /* BottomBarView.swift in Sources */,
 				5A81F4022B10980300D9998F /* DecoderEncoderHelper.swift in Sources */,
-				5A58E78B2B1131BF00D0723C /* AudioRoomView.swift in Sources */,
+				5A58E78B2B1131BF00D0723C /* RoomView.swift in Sources */,
 				5A81F4442B10A49C00D9998F /* RoomActionMutation.graphql.swift in Sources */,
 				5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */,
 				5A58E79B2B114C5800D0723C /* Task.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension AudioRoomView {
+extension RoomView {
     struct MembersView: View {
         var ownerId: String?
         let members: [RoomMember]
@@ -47,6 +47,6 @@ extension AudioRoomView {
 
 struct MemberView_Previews: PreviewProvider {
     static var previews: some View {
-        AudioRoomView.MembersView(ownerId: "", members: [.mock])
+        RoomView.MembersView(ownerId: "", members: [.mock])
     }
 }
