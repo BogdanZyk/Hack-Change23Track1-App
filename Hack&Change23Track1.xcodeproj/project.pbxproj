@@ -118,6 +118,7 @@
 		5AAE6ACD2B1E2AE20055303F /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6ACC2B1E2AE20055303F /* NotificationCenter.swift */; };
 		5AAE6ACF2B1F209E0055303F /* PlayerRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6ACE2B1F209E0055303F /* PlayerRemoteManager.swift */; };
 		5AAE6AD12B1F461E0055303F /* VideoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6AD02B1F461E0055303F /* VideoItem.swift */; };
+		5AAE6AD32B1F56C40055303F /* PlayerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6AD22B1F56C40055303F /* PlayerEvent.swift */; };
 		5ADD4B392B18B0D300B0C05B /* FullSreenPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD4B382B18B0D300B0C05B /* FullSreenPlayer.swift */; };
 /* End PBXBuildFile section */
 
@@ -233,6 +234,7 @@
 		5AAE6ACC2B1E2AE20055303F /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		5AAE6ACE2B1F209E0055303F /* PlayerRemoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRemoteManager.swift; sourceTree = "<group>"; };
 		5AAE6AD02B1F461E0055303F /* VideoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoItem.swift; sourceTree = "<group>"; };
+		5AAE6AD22B1F56C40055303F /* PlayerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerEvent.swift; sourceTree = "<group>"; };
 		5ADD4B382B18B0D300B0C05B /* FullSreenPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSreenPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -709,6 +711,7 @@
 				5AAE6AC62B1E11000055303F /* VideoPlayer.swift */,
 				5AAE6ACA2B1E11810055303F /* VideoPlayerRepresenter.swift */,
 				5AAE6ACE2B1F209E0055303F /* PlayerRemoteManager.swift */,
+				5AAE6AD22B1F56C40055303F /* PlayerEvent.swift */,
 			);
 			path = VideoPlayer;
 			sourceTree = "<group>";
@@ -835,6 +838,7 @@
 				5A58E7902B1135B200D0723C /* RoomTabView.swift in Sources */,
 				5A81F44E2B10A49C00D9998F /* SchemaAPI.graphql.swift in Sources */,
 				5A81F47C2B10C07D00D9998F /* RoomsViewModel.swift in Sources */,
+				5AAE6AD32B1F56C40055303F /* PlayerEvent.swift in Sources */,
 				5A81F48B2B10D63600D9998F /* GetRoomByKeyQuery.graphql.swift in Sources */,
 				5ADD4B392B18B0D300B0C05B /* FullSreenPlayer.swift in Sources */,
 				5A81F40E2B109CEC00D9998F /* SessionDescription.swift in Sources */,

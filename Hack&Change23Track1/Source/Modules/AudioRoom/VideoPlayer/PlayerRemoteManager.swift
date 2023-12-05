@@ -41,6 +41,7 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
         setCurrentVideo(room.mediaInfo?.source?.id, path: room.mediaInfo?.url)
     }
     
+    @MainActor
     func refreshRoom() {
         guard let code = room.key else { return }
         Task {
@@ -96,6 +97,7 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
         }
     }
     
+    @MainActor
     func handlePlayerEvents(_ event: PlayerEvent) {
         
         Task {

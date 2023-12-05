@@ -9,36 +9,6 @@ import Foundation
 import AVFoundation
 import SwiftUI
 
-enum PlayerEvent: Identifiable, Equatable {
-    case set(VideoItem, Double),
-         play,
-         pause,
-         seek(Double),
-         backward,
-         forward,
-         end
-    
-    var id: Int {
-        switch self {
-            
-        case .play:
-            return 0
-        case .pause:
-            return 1
-        case .seek:
-            return 2
-        case .end:
-            return 3
-        case .set:
-            return 4
-        case .backward:
-            return 5
-        case .forward:
-            return 6
-        }
-    }
-}
-
 final class PlayerManager: ObservableObject {
     
     @Published var progress: CGFloat = .zero
@@ -71,7 +41,7 @@ final class PlayerManager: ObservableObject {
             setItem(item)
         }
     
-        setupAudioSession()
+       // setupAudioSession()
     }
     
     deinit {
@@ -87,17 +57,7 @@ final class PlayerManager: ObservableObject {
     private func connectAVPlayer() {
         player = lastPlayer
         toggleVideoTracks(isEnabled: true)
-    }
-    
-    private func toggleVideoTracks(isEnabled: Bool) {
-        guard let tracks = player?.currentItem?.tracks else { return }
-        for playerItemTrack in tracks {
-            // Find the video tracks.
-            if playerItemTrack.assetTrack?.hasMediaCharacteristic(.visual) ?? false {
-                // Disable the track.
-                playerItemTrack.isEnabled = isEnabled
-            }
-        }
+        lastPlayer = nil
     }
     
     func startScreenNotificationHandler() {
@@ -127,14 +87,20 @@ final class PlayerManager: ObservableObject {
         player?.automaticallyWaitsToMinimizeStalling = true
         startSubscriptions()
         startTimeObserver()
+        #warning("To do set from bg")
+        if let lastPlayer {
+            self.lastPlayer = player
+        }
     }
     
     func play() {
         player?.play()
+        lastPlayer?.play()
     }
     
     func pause() {
         player?.pause()
+        lastPlayer?.pause()
     }
     
     func handlePlayerEvent(_ event: PlayerEvent) {
@@ -145,18 +111,20 @@ final class PlayerManager: ObservableObject {
         case .play:
             seekAndPlay(seconds)
         case .pause:
-            player?.pause()
+            pause()
         case .seek(let seconds):
             seekAndPlay(seconds)
         case .end:
-            player?.pause()
+            play()
         case .backward, .forward:
             break
         }
     }
     
     func seekAndPlay(_ time: Double) {
-        player?.seek(to: .init(seconds: time, preferredTimescale: 1000))
+        let time = CMTime(seconds: time, preferredTimescale: 1000)
+        player?.seek(to: time)
+        lastPlayer?.seek(to: time)
         play()
     }
         
@@ -216,6 +184,22 @@ final class PlayerManager: ObservableObject {
         if let timeObserver = timeObserver {
             player?.removeTimeObserver(timeObserver)
             cancelBag.cancel()
+        }
+    }
+    
+    private func toggleVideoTracks(isEnabled: Bool) {
+        guard let tracks = player?.currentItem?.tracks else { return }
+        Task {
+            for playerItemTrack in tracks {
+                // Find the video tracks.
+                if let assetTrack = playerItemTrack.assetTrack {
+                    let visualCharacteristics = try? await assetTrack.load(.mediaCharacteristics)
+                    if visualCharacteristics?.contains(.visual) == true {
+                        // Disable the track.
+                        playerItemTrack.isEnabled = isEnabled
+                    }
+                }
+            }
         }
     }
 }

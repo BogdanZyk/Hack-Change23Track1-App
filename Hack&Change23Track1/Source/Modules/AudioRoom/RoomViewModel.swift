@@ -134,8 +134,8 @@ extension RoomViewModel: WebRTCClientDelegate {
         if let audioState = try? JSONHelper.decoder.decode(RoomPlayerState.self, from: data) {
             self.remotePlayerDelegate?.onChangePlayerState(audioState)
         } else if let message = try? JSONHelper.decoder.decode(Message.self, from: data) {
-            self.chatDelegate?.onReceivedMessage(message)
             self.updateMembers(message)
+            self.chatDelegate?.onReceivedMessage(message)
         } else if let playListState = try? JSONHelper.decoder.decode(PlaylistStatus.self, from: data) {
 //            self.updatePlaylistStatus(playListState)
         }
