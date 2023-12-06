@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A54B56E2B2063BD0008824C /* WebViewRepresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A54B56C2B2063BD0008824C /* WebViewRepresenter.swift */; };
+		5A54B56F2B2063BD0008824C /* WebNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A54B56D2B2063BD0008824C /* WebNavigationView.swift */; };
+		5A54B5712B206E740008824C /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A54B5702B206E740008824C /* Playlist.swift */; };
 		5A58E7802B11217100D0723C /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 5A58E77F2B11217100D0723C /* Apollo */; };
 		5A58E7832B11218400D0723C /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = 5A58E7822B11218400D0723C /* WebRTC */; };
 		5A58E7862B1121A200D0723C /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5A58E7852B1121A200D0723C /* NukeUI */; };
@@ -34,7 +37,6 @@
 		5A58E7BC2B11F54A00D0723C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7BB2B11F54A00D0723C /* String.swift */; };
 		5A58E7BF2B120C2B00D0723C /* AddTrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7BE2B120C2B00D0723C /* AddTrackView.swift */; };
 		5A58E7C12B120C3F00D0723C /* AddTrackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7C02B120C3F00D0723C /* AddTrackViewModel.swift */; };
-		5A58E7C42B1215BA00D0723C /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7C32B1215BA00D0723C /* Playlist.swift */; };
 		5A58E7C82B12724700D0723C /* RoomSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7C72B12724700D0723C /* RoomSettingsView.swift */; };
 		5A58E7CA2B12824E00D0723C /* UpdateRoomMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7C92B12824E00D0723C /* UpdateRoomMutation.graphql.swift */; };
 		5A58E7CC2B12826800D0723C /* AllStickersQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7CB2B12826800D0723C /* AllStickersQuery.graphql.swift */; };
@@ -123,6 +125,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A54B56C2B2063BD0008824C /* WebViewRepresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewRepresenter.swift; sourceTree = "<group>"; };
+		5A54B56D2B2063BD0008824C /* WebNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebNavigationView.swift; sourceTree = "<group>"; };
+		5A54B5702B206E740008824C /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		5A58E7872B1121ED00D0723C /* LazyNukeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyNukeImage.swift; sourceTree = "<group>"; };
 		5A58E78A2B1131BF00D0723C /* RoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
 		5A58E78C2B11327200D0723C /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
@@ -147,7 +152,6 @@
 		5A58E7BB2B11F54A00D0723C /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		5A58E7BE2B120C2B00D0723C /* AddTrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrackView.swift; sourceTree = "<group>"; };
 		5A58E7C02B120C3F00D0723C /* AddTrackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrackViewModel.swift; sourceTree = "<group>"; };
-		5A58E7C32B1215BA00D0723C /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		5A58E7C52B126EC600D0723C /* Hack-Change23Track1-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Hack-Change23Track1-Info.plist"; sourceTree = SOURCE_ROOT; };
 		5A58E7C72B12724700D0723C /* RoomSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomSettingsView.swift; sourceTree = "<group>"; };
 		5A58E7C92B12824E00D0723C /* UpdateRoomMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRoomMutation.graphql.swift; sourceTree = "<group>"; };
@@ -252,6 +256,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A54B56B2B2063A60008824C /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				5A54B56D2B2063BD0008824C /* WebNavigationView.swift */,
+				5A54B56C2B2063BD0008824C /* WebViewRepresenter.swift */,
+			);
+			path = WebView;
+			sourceTree = "<group>";
+		};
 		5A58E7892B1131A100D0723C /* RoomView */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,7 +339,7 @@
 		5A58E7C22B12156600D0723C /* Playlist */ = {
 			isa = PBXGroup;
 			children = (
-				5A58E7C32B1215BA00D0723C /* Playlist.swift */,
+				5A54B5702B206E740008824C /* Playlist.swift */,
 				5AAE6AD02B1F461E0055303F /* VideoItem.swift */,
 			);
 			path = Playlist;
@@ -435,6 +448,7 @@
 		5A81F3F72B10973B00D9998F /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
+				5A54B56B2B2063A60008824C /* WebView */,
 				5A81F4672B10B9A900D9998F /* AppAlert.swift */,
 				5A81F4812B10C47300D9998F /* PrimaryTextField.swift */,
 				5A81F4832B10CA0200D9998F /* PrimaryButton.swift */,
@@ -814,11 +828,11 @@
 				5A58E7AF2B116C2500D0723C /* BottomBarView.swift in Sources */,
 				5A81F4022B10980300D9998F /* DecoderEncoderHelper.swift in Sources */,
 				5A58E78B2B1131BF00D0723C /* RoomView.swift in Sources */,
+				5A54B56F2B2063BD0008824C /* WebNavigationView.swift in Sources */,
 				5A81F4442B10A49C00D9998F /* RoomActionMutation.graphql.swift in Sources */,
 				5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */,
 				5A58E79B2B114C5800D0723C /* Task.swift in Sources */,
 				5A81F4802B10C36600D9998F /* Font.swift in Sources */,
-				5A58E7C42B1215BA00D0723C /* Playlist.swift in Sources */,
 				5AAE6AC72B1E11000055303F /* VideoPlayer.swift in Sources */,
 				5A8C32732B176B1600E1BCDA /* AppError.swift in Sources */,
 				5AAE6ABA2B1DF4AC0055303F /* SourceAttrs.graphql.swift in Sources */,
@@ -851,6 +865,7 @@
 				5A58E7C12B120C3F00D0723C /* AddTrackViewModel.swift in Sources */,
 				5A81F47E2B10C0BB00D9998F /* CreateRoomView.swift in Sources */,
 				5A58E7C82B12724700D0723C /* RoomSettingsView.swift in Sources */,
+				5A54B5712B206E740008824C /* Playlist.swift in Sources */,
 				5A8C32762B176E2700E1BCDA /* WebRtcVideoView.swift in Sources */,
 				5A81F44A2B10A49C00D9998F /* LikeRoomMutation.graphql.swift in Sources */,
 				5A58E78D2B11327200D0723C /* RoomViewModel.swift in Sources */,
@@ -870,6 +885,7 @@
 				5A81F3FC2B1097BA00D9998F /* View.swift in Sources */,
 				5A81F4492B10A49C00D9998F /* CreateRoomMutation.graphql.swift in Sources */,
 				5A58E7992B114C3F00D0723C /* ParticlesModifier.swift in Sources */,
+				5A54B56E2B2063BD0008824C /* WebViewRepresenter.swift in Sources */,
 				5A81F4472B10A49C00D9998F /* SignUpMutation.graphql.swift in Sources */,
 				5A81F48D2B10DAC500D9998F /* RoomRowView.swift in Sources */,
 				5A81F4132B109FF900D9998F /* IceCandidate.swift in Sources */,
