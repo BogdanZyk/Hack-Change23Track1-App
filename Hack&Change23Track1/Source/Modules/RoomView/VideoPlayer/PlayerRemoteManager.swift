@@ -26,7 +26,7 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
     
     @Published private(set) var playList = [SourceAttrs]()
     @Published private(set) var currentVideo: VideoItem?
-    @Published private(set) var playerEvent: PlayerEvent = .pause
+    @Published private(set) var playerEvent: PlayerEvent = .pause(0)
     @Published var appAlert: AppAlert?
     
     private var room: RoomAttrs
@@ -71,7 +71,9 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
             do {
                 try await roomDataService.loadVideo(for: uid, sourceId: sourceId)
             } catch {
-                appAlert = .errors(errors: [error])
+                await MainActor.run {
+                    appAlert = .errors(errors: [error])
+                }
             }
         }
     }
@@ -83,9 +85,9 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
             let seconds = state.currentSeconds
             switch state.status {
             case .play:
-                self.playerEvent = .play
+                self.playerEvent = .play(seconds)
             case .pause:
-                self.playerEvent = .pause
+                self.playerEvent = .pause(seconds)
             case .move:
                 self.playerEvent = .seek(seconds)
             case .changeSource:
@@ -103,12 +105,12 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
         Task {
             do {
                 switch event {
-                case .play:
-                    try await setPlayerAction(.play)
-                case .pause:
-                    try await setPlayerAction(.pause)
-                case .seek(let double):
-                    try await setPlayerAction(.move, arg: "\(double)")
+                case .play(let seconds):
+                    try await setPlayerAction(.play, arg: "\(seconds)")
+                case .pause(let seconds):
+                    try await setPlayerAction(.pause, arg: "\(seconds)")
+                case .seek(let seconds):
+                    try await setPlayerAction(.move, arg: "\(seconds)")
                 case .backward:
                     print("backward")
                     setPreviewsVideo()

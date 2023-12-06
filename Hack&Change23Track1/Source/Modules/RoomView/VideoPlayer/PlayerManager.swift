@@ -102,10 +102,10 @@ final class PlayerManager: ObservableObject {
         case .set(let item, let seconds):
             setItem(item)
             seekAndPlay(seconds)
-        case .play:
+        case .play(let seconds):
             seekAndPlay(seconds)
-        case .pause:
-            pause()
+        case .pause(let seconds):
+            seekAndPause(seconds)
         case .seek(let seconds):
             seekAndPlay(seconds)
         case .end:
@@ -118,10 +118,19 @@ final class PlayerManager: ObservableObject {
     }
     
     func seekAndPlay(_ time: Double) {
+        seek(time)
+        play()
+    }
+    
+    func seekAndPause(_ time: Double) {
+        seek(time)
+        pause()
+    }
+    
+    func seek(_ time: Double) {
         let time = CMTime(seconds: time, preferredTimescale: 1000)
         player?.seek(to: time)
         lastPlayer?.seek(to: time)
-        play()
     }
         
     private func setupAudioSession() {

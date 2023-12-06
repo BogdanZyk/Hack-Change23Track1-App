@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct VideoPlayer: View {
-    @Environment(\.scenePhase) private var scenePhase
     @Environment(\.orientation) private var orientation
     @StateObject private var manager: PlayerManager
     @State private var showPlayerControls: Bool = false
-    @Binding var isLandscape: Bool
     @State private var timeoutTask: DispatchWorkItem?
     private var size: CGSize
     private var item: VideoItem?
@@ -23,13 +21,11 @@ struct VideoPlayer: View {
     
     init(item: VideoItem? = nil,
          size: CGSize,
-         isLandscape: Binding<Bool>,
          setEvent: PlayerEvent,
          disabled: Disabled,
          onEvent: @escaping (PlayerEvent) -> Void) {
         self._manager = StateObject(wrappedValue: .init(item: item))
         self.size = size
-        self._isLandscape = isLandscape
         self.item = item
         self.onEvent = onEvent
         self.setEvent = setEvent
@@ -37,7 +33,7 @@ struct VideoPlayer: View {
     }
     
     private var videoSize: CGSize {
-        .init(width: size.width, height: isLandscape ? size.height : (size.height / viewFraction))
+        .init(width: size.width, height: orientation.type.isLandscape ? size.height : (size.height / viewFraction))
     }
     
     var body: some View {
@@ -45,6 +41,7 @@ struct VideoPlayer: View {
             Color.black
             if let player = manager.player {
                 VideoPlayerRepresenter(player: player)
+                    .ignoresSafeArea()
                     .overlay {
                         playBackLayer
                         if manager.isBuffering {
@@ -75,16 +72,13 @@ struct VideoPlayer: View {
         .onChange(of: setEvent) {
             manager.handlePlayerEvent($0)
         }
-        .onChange(of: orientation.type) {
-            isLandscape = $0.isLandscape
-        }
         .forceRotation(orientation: [.landscape, .portrait])
     }
 }
 
 struct VideoPlayer_Previews: PreviewProvider {
     static var previews: some View {
-        VideoPlayer(item: .mock, size: .init(width: 300, height: 300), isLandscape: .constant(false), setEvent: .play, disabled: .init(), onEvent: {_ in })
+        VideoPlayer(item: .mock, size: .init(width: 300, height: 300), setEvent: .play(0), disabled: .init(), onEvent: {_ in })
         
     }
 }
@@ -92,8 +86,7 @@ struct VideoPlayer_Previews: PreviewProvider {
 extension VideoPlayer {
     
     private var playBackLayer: some View {
-        Rectangle()
-            .fill(.black.opacity(0.4))
+        Color.black.opacity(0.4).ignoresSafeArea()
             .opacity(showPlayerControls || manager.isSeek ? 1 : 0)
             .animation(.easeIn(duration: 0.35), value: manager.isSeek)
             .overlay {
@@ -115,10 +108,10 @@ extension VideoPlayer {
             
             Button {
                 if manager.isPlaying {
-                    onEvent(.pause)
+                    onEvent(.pause(manager.seconds.rounded()))
                     cancelTimeoutControls()
                 } else {
-                    onEvent(.play)
+                    onEvent(.play(manager.seconds.rounded()))
                     timeoutControls()
                 }
             } label: {

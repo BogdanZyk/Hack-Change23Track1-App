@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct RoomView: View {
+    @Environment(\.orientation) private var orientation
     @Environment(\.dismiss) private var dismiss
     @StateObject private var chatVM = RoomChatViewModel()
     @StateObject private var viewModel: RoomViewModel
     @StateObject private var playerManager: PlayerRemoteManager
     @State private var tab: RoomTab = .chat
-    @State private var isLandscape: Bool = false
     @State private var sheetItem: SheetItem?
     @FocusState private var isFocused: Bool
     
@@ -33,17 +33,17 @@ struct RoomView: View {
                     playerView(proxy)
                         .overlay(alignment: .top) {
                             topBarView
-                                .padding(.top, 44)
                         }
                     tabButtons
                 }
                 .overlay {
                     contextOverlay
                 }
-                tabViewSection
+                if !orientation.type.isLandscape {
+                    tabViewSection
+                }
             }
         }
-        .ignoresSafeArea()
         .foregroundColor(.primaryFont)
         .background(Color.primaryBg.ignoresSafeArea())
         .appAlert($viewModel.appAlert)
@@ -102,18 +102,17 @@ extension RoomView {
                 .font(.title2)
             }
             .padding(.horizontal)
-            .padding(.bottom, 10)
+            .padding(.top, 8)
     }
     
     private func playerView(_ proxy: GeometryProxy) -> some View {
         VideoPlayer(item: playerManager.currentVideo,
                     size: proxy.size,
-                    isLandscape: $isLandscape,
                     setEvent: playerManager.playerEvent,
                     disabled: .init(disabledAllControls: playerManager.isDisableControls,
                                     disabledBackwardBtn: playerManager.isDisabledPreviews, disabledForwardBtn: playerManager.isDisabledNext),
                     onEvent: { playerManager.handlePlayerEvents($0) })
-        .padding(.top, proxy.safeAreaInsets.top)
+        //.padding(.top, proxy.safeAreaInsets.top)
         .onAppear {
             if viewModel.remotePlayerDelegate == nil {
                 viewModel.remotePlayerDelegate = playerManager
@@ -131,7 +130,7 @@ extension RoomView {
     
     @ViewBuilder
     private var tabButtons: some View {
-        if !isFocused {
+        if !isFocused && !orientation.type.isLandscape {
             TabButtons(tab: $tab)
         }
     }
@@ -184,6 +183,8 @@ extension RoomView {
         Button("Yes", role: .destructive) {
             viewModel.disconnectAll()
             playerManager.closePlayer()
+            orientation.changeOrientation(to: .portrait)
+            isFocused = false
             dismiss()
         }
     }

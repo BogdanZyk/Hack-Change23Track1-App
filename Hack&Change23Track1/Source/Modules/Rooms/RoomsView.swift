@@ -38,6 +38,7 @@ struct RoomsView: View {
         .confirmationDialog("", isPresented: $showConfirmDialog) {
             confirmAction
         }
+        .forceRotation(orientation: .portrait)
     }
 }
 

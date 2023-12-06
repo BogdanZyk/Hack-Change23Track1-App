@@ -10,8 +10,8 @@ import Foundation
 enum PlayerEvent: Identifiable, Equatable {
     
     case set(VideoItem, Double),
-         play,
-         pause,
+         play(Double),
+         pause(Double),
          seek(Double),
          backward,
          forward,

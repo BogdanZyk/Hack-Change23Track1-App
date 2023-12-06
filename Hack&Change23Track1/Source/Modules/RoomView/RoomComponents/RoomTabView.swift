@@ -16,15 +16,20 @@ extension RoomView {
         @ObservedObject var viewModel: RoomViewModel
         @ObservedObject var chatVM: RoomChatViewModel
         @FocusState var isFocused: Bool
-        @State private var showAddTracksView: Bool = false
+        @State private var showWebView: Bool = false
         var body: some View {
             TabView(selection: $tab) {
                 makeView
                     .toolbar(.hidden, for: .tabBar)
             }
-            .sheet(isPresented: $showAddTracksView) {
+            .sheet(isPresented: $showWebView) {
                 AddTrackView(selectedAudios: playerManager.playList,
                              onSubmit: { playerManager.addPlaylist($0, client: viewModel.webRTCClient) })
+                
+//                WebNavigationView { id in
+//                    print(id)
+//                    playerManager.addPlaylist([.init(name: "Video from youtube", id: id, cover: nil)], client: viewModel.webRTCClient)
+//                }
             }
         }
                 
@@ -39,7 +44,7 @@ extension RoomView {
                 MembersView(ownerId: viewModel.room.owner?.id,
                             members: viewModel.members.map({$0.value}))
             case .playlist:
-                PlaylistView(showTracksLib: $showAddTracksView,
+                PlaylistView(showTracksLib: $showWebView,
                              isOwner: viewModel.isOwner,
                              playedId: playerManager.currentVideo?.id,
                              videos: playerManager.playList,

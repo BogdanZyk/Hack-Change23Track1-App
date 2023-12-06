@@ -9,7 +9,8 @@ import Foundation
 
 struct RoomPlayerState: Codable {
 
-    
+    //видео со всеми полями
+    //отправляй секунды для каждого типа
     let url: String
     let status: AudioStatus
     let currentSeconds: Double
