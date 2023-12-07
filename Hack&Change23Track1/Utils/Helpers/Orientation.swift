@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 final class OrientationManager: ObservableObject {
-    @Published var type: UIDeviceOrientation = .unknown
+    @Published var type: UIDeviceOrientation = .portrait
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -30,7 +30,8 @@ final class OrientationManager: ObservableObject {
         
         NotificationCenter.default
             .publisher(for: UIDevice.orientationDidChangeNotification)
-            .sink() { [weak self] _ in
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
                 self?.type = UIDevice.current.orientation
             }
             .store(in: &cancellables)
@@ -62,7 +63,7 @@ extension EnvironmentValues {
 extension UIDeviceOrientation {
     var isLandscape: Bool {
         switch self {
-        case .landscapeLeft, .landscapeRight:
+        case .landscapeLeft, .landscapeRight, .portraitUpsideDown:
             return true
         default:
             return false

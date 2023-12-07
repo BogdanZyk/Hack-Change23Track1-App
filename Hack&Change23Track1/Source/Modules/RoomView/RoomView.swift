@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct RoomView: View {
-    @Environment(\.orientation) private var orientation
+    @StateObject private var orientation = OrientationManager()
     @Environment(\.dismiss) private var dismiss
     @StateObject private var chatVM = RoomChatViewModel()
     @StateObject private var viewModel: RoomViewModel
     @StateObject private var playerManager: PlayerRemoteManager
     @State private var tab: RoomTab = .chat
     @State private var sheetItem: SheetItem?
+    @State private var showChatForLandscape: Bool = false
     @FocusState private var isFocused: Bool
     
     init(room: RoomAttrs, currentUser: RoomMember) {
@@ -27,27 +28,32 @@ struct RoomView: View {
     }
 
     var body: some View {
-        GeometryReader { proxy in
+        
+        VStack(spacing: 0) {
             VStack(spacing: 0) {
-                VStack(spacing: 0) {
-                    playerView(proxy)
-                        .overlay(alignment: .top) {
-                            topBarView
-                        }
-                    tabButtons
+                HStack(spacing: 0) {
+                    playerView
+                    chatLandscape
+                        .transition(.move(edge: .trailing))
                 }
-                .overlay {
-                    contextOverlay
-                }
-                if !orientation.type.isLandscape {
-                    tabViewSection
-                }
+                .animation(.default, value: showChatForLandscape)
+                tabButtons
+            }
+            .overlay {
+                contextOverlay
+            }
+            if !orientation.type.isLandscape {
+                tabViewSection
             }
         }
+        
         .foregroundColor(.primaryFont)
         .background(Color.primaryBg.ignoresSafeArea())
         .appAlert($viewModel.appAlert)
         .task {
+            if viewModel.remotePlayerDelegate == nil {
+                viewModel.remotePlayerDelegate = playerManager
+            }
             await viewModel.connectRoom()
         }
         .overlay {
@@ -101,22 +107,39 @@ extension RoomView {
                 }
                 .font(.title2)
             }
-            .padding(.horizontal)
-            .padding(.top, 8)
+            .padding(12)
     }
     
-    private func playerView(_ proxy: GeometryProxy) -> some View {
+    private var playerView: some View {
         VideoPlayer(item: playerManager.currentVideo,
-                    size: proxy.size,
+                    orientation: orientation,
                     setEvent: playerManager.playerEvent,
                     disabled: .init(disabledAllControls: playerManager.isDisableControls,
                                     disabledBackwardBtn: playerManager.isDisabledPreviews, disabledForwardBtn: playerManager.isDisabledNext),
                     onEvent: { playerManager.handlePlayerEvents($0) })
-        //.padding(.top, proxy.safeAreaInsets.top)
-        .onAppear {
-            if viewModel.remotePlayerDelegate == nil {
-                viewModel.remotePlayerDelegate = playerManager
+        .overlay(alignment: .top) {
+            if orientation.type.isLandscape {
+                Button {
+                    showChatForLandscape.toggle()
+                    isFocused = false
+                } label: {
+                    Image(systemName: "text.bubble")
+                        .foregroundColor(.white)
+                        .padding()
+                }
+                .hTrailing()
+            } else {
+                topBarView
             }
+        }
+    }
+    
+    @ViewBuilder
+    private var chatLandscape: some View {
+        if orientation.type.isLandscape && showChatForLandscape {
+            RoomChatView(isFocused: _isFocused,
+                         roomVM: viewModel,
+                         chatVM: chatVM)
         }
     }
     
@@ -130,8 +153,10 @@ extension RoomView {
     
     @ViewBuilder
     private var tabButtons: some View {
-        if !isFocused && !orientation.type.isLandscape {
-            TabButtons(tab: $tab)
+        if !orientation.type.isLandscape {
+            if !isFocused {
+                TabButtons(tab: $tab)
+            }
         }
     }
     
@@ -159,7 +184,7 @@ extension RoomView {
     
     @ViewBuilder
     private var contextOverlay: some View {
-        if chatVM.selectedMessage != nil {
+        if chatVM.selectedMessage != nil && !orientation.type.isLandscape  {
             Color.black.opacity(0.2)
                 .ignoresSafeArea()
                 .onTapGesture {

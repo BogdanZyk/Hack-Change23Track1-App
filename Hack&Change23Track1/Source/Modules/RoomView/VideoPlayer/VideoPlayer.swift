@@ -8,32 +8,31 @@
 import SwiftUI
 
 struct VideoPlayer: View {
-    @Environment(\.orientation) private var orientation
+    @ObservedObject private var orientation: OrientationManager
     @StateObject private var manager: PlayerManager
     @State private var showPlayerControls: Bool = false
     @State private var timeoutTask: DispatchWorkItem?
-    private var size: CGSize
     private var item: VideoItem?
     private var onEvent: (PlayerEvent) -> Void
     private var setEvent: PlayerEvent
     private var disabled: Disabled
-    private let viewFraction: Double = 3.5
+    private let viewFraction: Double = 4.2
     
     init(item: VideoItem? = nil,
-         size: CGSize,
+         orientation: OrientationManager,
          setEvent: PlayerEvent,
          disabled: Disabled,
          onEvent: @escaping (PlayerEvent) -> Void) {
         self._manager = StateObject(wrappedValue: .init(item: item))
-        self.size = size
+        self._orientation = ObservedObject(initialValue: orientation)
         self.item = item
         self.onEvent = onEvent
         self.setEvent = setEvent
         self.disabled = disabled
     }
     
-    private var videoSize: CGSize {
-        .init(width: size.width, height: orientation.type.isLandscape ? size.height : (size.height / viewFraction))
+    private var videoHeight: CGFloat {
+        orientation.type.isLandscape ? getRect().height : getRect().height / viewFraction
     }
     
     var body: some View {
@@ -63,7 +62,7 @@ struct VideoPlayer: View {
                     }
             }
         }
-        .frame(width: videoSize.width, height: videoSize.height, alignment: .center)
+        .frame(maxHeight: videoHeight)
         .onAppear {
             if manager.onEvent == nil {
                 manager.onEvent = onEvent
@@ -72,13 +71,12 @@ struct VideoPlayer: View {
         .onChange(of: setEvent) {
             manager.handlePlayerEvent($0)
         }
-        .forceRotation(orientation: [.landscape, .portrait])
     }
 }
 
 struct VideoPlayer_Previews: PreviewProvider {
     static var previews: some View {
-        VideoPlayer(item: .mock, size: .init(width: 300, height: 300), setEvent: .play(0), disabled: .init(), onEvent: {_ in })
+        VideoPlayer(item: .mock, orientation: .init(), setEvent: .play(0), disabled: .init(), onEvent: {_ in })
         
     }
 }
@@ -152,6 +150,7 @@ extension VideoPlayer {
                 .animation(.default, value: manager.progress)
                 Text(manager.totalTime.minuteSeconds)
                 Button {
+                    UIApplication.shared.endEditing()
                     if orientation.type.isLandscape {
                         orientation.changeOrientation(to: .portrait)
                     } else {
