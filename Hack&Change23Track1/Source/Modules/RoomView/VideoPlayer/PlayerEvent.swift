@@ -15,7 +15,6 @@ enum PlayerEvent: Identifiable, Equatable {
          seek(Double),
          backward,
          forward,
-         end,
          close
     
     var id: Int {
@@ -27,16 +26,14 @@ enum PlayerEvent: Identifiable, Equatable {
             return 1
         case .seek:
             return 2
-        case .end:
-            return 3
         case .set:
-            return 4
+            return 3
         case .backward:
-            return 5
+            return 4
         case .forward:
-            return 6
+            return 5
         case .close:
-            return 7
+            return 6
         }
     }
 }

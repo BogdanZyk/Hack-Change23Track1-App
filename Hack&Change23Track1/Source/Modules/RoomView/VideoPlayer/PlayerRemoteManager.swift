@@ -38,7 +38,6 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
         self.room = room
         self.currentUser = currentUser
         setTracks()
-        setCurrentVideo(room.mediaInfo?.source?.id, path: room.mediaInfo?.url)
     }
     
     @MainActor
@@ -79,9 +78,9 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
     }
         
     func onChangePlayerState(_ state: RoomPlayerState) {
+        print("changePlayerState", state.status, state.currentSeconds)
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {return}
-            print(state.status, state.currentSeconds)
             let seconds = state.currentSeconds
             switch state.status {
             case .play:
@@ -91,11 +90,18 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
             case .move:
                 self.playerEvent = .seek(seconds)
             case .changeSource:
-                break
-                //                if currentVideo?.id != "remoteId" {
-                //self.playerEvent = .set(.init(id: UUID().uuidString, url: state.wrappedUrl!), seconds)
-                //                }
+                setNewVideoIfNeeded(state)
             }
+        }
+    }
+    
+    private func setNewVideoIfNeeded(_ state: RoomPlayerState) {
+        guard let source = state.source,
+              let url = state.wrappedUrl else { return }
+        if currentVideo?.id != state.source?.id {
+            let newVideo = VideoItem(id: source.id, url: url, cover: source.cover)
+            self.currentVideo = newVideo
+            playerEvent = .set(newVideo, state.currentSeconds)
         }
     }
     
@@ -117,11 +123,7 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
                 case .forward:
                     print("forward")
                     setNextVideo()
-                case .end:
-                    print("end")
-                case .set:
-                    break
-                case .close:
+                case .set, .close:
                     break
                 }
             } catch {

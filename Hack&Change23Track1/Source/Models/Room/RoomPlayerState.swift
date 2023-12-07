@@ -9,18 +9,27 @@ import Foundation
 
 struct RoomPlayerState: Codable {
 
-    //видео со всеми полями
-    //отправляй секунды для каждого типа
+    let source: Source?
     let url: String
     let status: AudioStatus
     let currentSeconds: Double
     
     enum AudioStatus: String, Codable {
-        case play, pause, move, changeSource
+        case play
+        case pause
+        case move
+        case changeSource = "change_source"
     }
     
     var wrappedUrl: URL? {
         URL(string: url)
+    }
+    
+    struct Source: Codable {
+        let id: String
+        let name: String?
+        let path: String?
+        let cover: String?
     }
 }
 

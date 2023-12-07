@@ -111,7 +111,7 @@ extension RoomView {
     }
     
     private var playerView: some View {
-        VideoPlayer(item: playerManager.currentVideo,
+        VideoPlayer(item: nil,
                     orientation: orientation,
                     setEvent: playerManager.playerEvent,
                     disabled: .init(disabledAllControls: playerManager.isDisableControls,

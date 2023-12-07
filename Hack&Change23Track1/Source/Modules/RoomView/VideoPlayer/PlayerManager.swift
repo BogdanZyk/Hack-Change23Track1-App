@@ -108,8 +108,6 @@ final class PlayerManager: ObservableObject {
             seekAndPause(seconds)
         case .seek(let seconds):
             seekAndPlay(seconds)
-        case .end:
-            play()
         case .backward, .forward:
             break
         case .close:
@@ -177,11 +175,8 @@ final class PlayerManager: ObservableObject {
             guard let self = self else { return }
             guard !isSeek else { return }
             let currentTime = player.currentTime().seconds
-            let calcProgress = currentTime / totalTime
+            let calcProgress = min((currentTime / totalTime), totalTime)
             progress = calcProgress
-            if calcProgress == 1 {
-                onEvent?(.end)
-            }
         }
     }
     

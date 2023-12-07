@@ -344,7 +344,6 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
         switch transceiver.mediaType {
         case .video:
             if let track = transceiver.receiver.track as? RTCVideoTrack {
-                print("didStart video transceiver trackId", track.trackId)
                 self.delegate?.webRTCClient(self, didStartReceivingOnTrack: track)
             }
         default:
