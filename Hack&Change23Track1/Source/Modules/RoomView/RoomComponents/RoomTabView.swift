@@ -23,13 +23,7 @@ extension RoomView {
                     .toolbar(.hidden, for: .tabBar)
             }
             .sheet(isPresented: $showWebView) {
-                AddTrackView(selectedAudios: playerManager.playList,
-                             onSubmit: { playerManager.addPlaylist($0, client: viewModel.webRTCClient) })
-                
-//                WebNavigationView { id in
-//                    print(id)
-//                    playerManager.addPlaylist([.init(name: "Video from youtube", id: id, cover: nil)], client: viewModel.webRTCClient)
-//                }
+                WebNavigationView(onSelect: { playerManager.addVideoItemInPlaylist($0) })
             }
         }
                 
@@ -48,11 +42,11 @@ extension RoomView {
                              isOwner: viewModel.isOwner,
                              playedId: playerManager.currentVideo?.id,
                              videos: playerManager.playList,
-                             onTap: playerManager.setVideo)
+                             onTap: { playerManager.setSource($0.id) })
                 .appAlert($playerManager.appAlert)
                 .onAppear {
                     if !viewModel.isOwner {
-                        playerManager.refreshRoom()
+                        playerManager.fetchPlaylist()
                     }
                 }
             }

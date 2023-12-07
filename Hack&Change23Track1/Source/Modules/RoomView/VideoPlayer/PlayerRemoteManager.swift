@@ -9,6 +9,7 @@ import Foundation
 
 protocol PlayerRemoteProvider: AnyObject {
     
+    @MainActor
     func onChangePlayerState(_ state: RoomPlayerState)
     
     //    func updatePlaylistStatus(_ status: PlaylistStatus) {
@@ -22,6 +23,7 @@ protocol PlayerRemoteProvider: AnyObject {
     //    }
 }
 
+@MainActor
 class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
     
     @Published private(set) var playList = [SourceAttrs]()
@@ -29,7 +31,7 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
     @Published private(set) var playerEvent: PlayerEvent = .pause(0)
     @Published var appAlert: AppAlert?
     
-    private var room: RoomAttrs
+    private let room: RoomAttrs
     private let currentUser: RoomMember
     private let roomDataService = RoomDataService()
     
@@ -37,38 +39,41 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
          currentUser: RoomMember) {
         self.room = room
         self.currentUser = currentUser
-        setTracks()
+        fetchPlaylist()
     }
     
-    @MainActor
-    func refreshRoom() {
-        guard let code = room.key else { return }
-        Task {
-            let room = try await roomDataService.findRoom(code)
-            self.room = room
-            self.setTracks()
-        }
-    }
-    
-    func addPlaylist(_ videos: [SourceAttrs], client: WebRTCClient?) {
-        guard let client else { return }
-        do {
-            let remotePlayList = Playlist(files: videos.compactMap({$0.id}))
-            let data = try JSONHelper.encoder.encode(remotePlayList)
-            client.sendData(data)
-            self.playList = videos
-        } catch {
-            appAlert = .errors(errors: [error])
-        }
-    }
-    
-    func setVideo(_ video: SourceAttrs) {
-        guard let uid = room.id,
-              room.userIsOwner(for: currentUser.id),
-              let sourceId = video.id else { return }
+    func addVideoItemInPlaylist(_ sourceId: String) {
+        guard let id = room.id else { return }
         Task {
             do {
-                try await roomDataService.loadVideo(for: uid, sourceId: sourceId)
+                let newPlaylist = try await
+                roomDataService.addVideoToPlaylist(roomId: id, sourceId: sourceId)
+                self.playList = newPlaylist
+            } catch {
+                appAlert = .errors(errors: [error])
+            }
+        }
+    }
+    
+    func fetchPlaylist() {
+        guard let id = room.id else { return }
+        Task {
+            do {
+                let newPlaylist = try await roomDataService.getRoomPlaylist(for: id)
+                self.playList = newPlaylist
+            } catch {
+                appAlert = .errors(errors: [error])
+            }
+        }
+    }
+    
+    func setSource(_ id: String?) {
+        guard let uid = room.id,
+              room.userIsOwner(for: currentUser.id),
+              let id else { return }
+        Task {
+            do {
+                try await roomDataService.loadVideo(for: uid, sourceId: id)
             } catch {
                 await MainActor.run {
                     appAlert = .errors(errors: [error])
@@ -105,9 +110,7 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
         }
     }
     
-    @MainActor
     func handlePlayerEvents(_ event: PlayerEvent) {
-        
         Task {
             do {
                 switch event {
@@ -135,13 +138,13 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
     func setNextVideo() {
         guard let index = playList.firstIndex(where: {$0.id == currentVideo?.id}),
         currentVideo?.id != playList.last?.id else { return }
-        setVideo(playList[index + 1])
+        setSource(playList[index + 1].id)
     }
 
     func setPreviewsVideo() {
         guard let index = playList.firstIndex(where: {$0.id == currentVideo?.id}),
         currentVideo?.id != playList.first?.id else { return }
-        setVideo(playList[index - 1])
+        setSource(playList[index - 1].id)
     }
     
     var isDisableControls: Bool {
@@ -164,12 +167,7 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
         guard let id = room.id else { return }
         try await roomDataService.setRoomAction(for: id, action: action, arg: arg)
     }
-    
-    private func setTracks() {
-        guard let files = room.playlist?.compactMap({$0?.fragments.sourceAttrs}) else { return }
-        playList = files
-    }
-    
+        
     private func setCurrentVideo(_ id: String?, path: String?) {
         guard let id, let path,
               let first = playList.first(where: {$0.id == id}),

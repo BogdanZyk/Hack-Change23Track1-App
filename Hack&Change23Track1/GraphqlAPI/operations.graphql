@@ -31,15 +31,21 @@ fragment UserAttrs on User {
     Email
 }
 
-query ListSources {
-  ListSources {
+query ListRooms {
+  ListRooms {
+    ...RoomAttrs
+  }
+}
+
+query GetRoomPlaylist($roomId: String!) {
+  GetRoomPlaylist(RoomId: $roomId) {
     ...SourceAttrs
   }
 }
 
-query ListRooms {
-  ListRooms {
-    ...RoomAttrs
+mutation DeletePlaylistSource($roomId: String!, $sourceId: String!) {
+  DeletePlaylistSource(RoomId: $roomId, SourceId: $sourceId) {
+    ...SourceAttrs
   }
 }
 
@@ -83,25 +89,26 @@ fragment RoomAttrs on Room {
     Owner {
       Id
     }
-    Playlist {
-    ...SourceAttrs
-    }
 }
 
 
 fragment MediaInfoAttrs on MediaInfo {
   CurrentSeconds
-  Pause
   Source {
     ...SourceAttrs
   }
-  Url
 }
 
 fragment SourceAttrs on Source {
     Name
     Id
     Cover
+}
+
+mutation AddPlaylistSource($roomId: String!, $sourceUrl: String!) {
+  AddPlaylistSource(RoomId: $roomId, SourceUrl: $sourceUrl) {
+    ...SourceAttrs
+  }
 }
 
 mutation LoadMedia($sourceId: String!, $roomId: String!) {

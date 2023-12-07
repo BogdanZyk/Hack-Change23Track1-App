@@ -19,6 +19,7 @@ final class PlayerManager: ObservableObject {
     private(set) var currentItem: VideoItem?
     
     private(set) var lastPlayer: AVPlayer?
+    private(set) var lastBufferTime: Double = .zero
     
     var totalTime: Double {
         player?.currentItem?.duration.seconds ?? 0
@@ -82,6 +83,7 @@ final class PlayerManager: ObservableObject {
         } else {
             player = .init(playerItem: playerItem)
         }
+        lastBufferTime = Date.now.timeIntervalSince1970
         player?.automaticallyWaitsToMinimizeStalling = true
         startSubscriptions()
         startTimeObserver()
@@ -161,12 +163,41 @@ final class PlayerManager: ObservableObject {
             }
             .store(in: cancelBag)
         
-        player.currentItem?.publisher(for: \.isPlaybackLikelyToKeepUp)
-            .sink{ [weak self] in
+//        player.currentItem?.publisher(for: \.isPlaybackLikelyToKeepUp)
+//            .sink{ [weak self] completed in
+//                guard let self = self else {return}
+//                self.isBuffering = !completed
+//                if completed {
+//                    updateTimeFromBufferDifference()
+//                }
+//            }
+//            .store(in: cancelBag)
+        
+        player.currentItem?.publisher(for: \.status)
+            .sink{ [weak self] status in
                 guard let self = self else {return}
-                self.isBuffering = !$0
+               
+                self.isBuffering = status != .readyToPlay
+                
+                if status == .readyToPlay {
+                    updateTimeFromBufferDifference()
+                }
+//                self.isBuffering = !completed
+//                if completed {
+//                    updateTimeFromBufferDifference()
+//                }
             }
             .store(in: cancelBag)
+    }
+    
+    private func updateTimeFromBufferDifference() {
+        if lastBufferTime == 0 { return }
+        let timeCompleted = Date.now.timeIntervalSince1970
+        let timeDifference = timeCompleted - lastBufferTime
+        print("buffer time", timeDifference)
+        guard let currentTime = player?.currentTime().seconds else { return }
+        seek(currentTime + timeDifference)
+        lastBufferTime = .zero
     }
     
     private func startTimeObserver() {

@@ -73,11 +73,33 @@ final class RoomDataService {
         return likes
     }
     
-    func fetchVideos() async throws -> [SourceAttrs] {
-        let query = ListSourcesQuery()
-        let data = try await api.fetch(query: query)
+    func getRoomPlaylist(for id: String) async throws -> [SourceAttrs] {
+        let query = GetRoomPlaylistQuery(roomId: id)
+        let data = try await api.fetch(query: query, cachePolicy: .fetchIgnoringCacheCompletely)
         
-        guard let fileAttrs = data?.data?.listSources?.compactMap({$0?.fragments.sourceAttrs}) else {
+        guard let fileAttrs = data?.data?.getRoomPlaylist?.compactMap({$0?.fragments.sourceAttrs}) else {
+            throw URLError(.badServerResponse)
+        }
+        
+        return fileAttrs
+    }
+    
+    func addVideoToPlaylist(roomId: String, sourceId: String) async throws -> [SourceAttrs] {
+        let mutation = AddPlaylistSourceMutation(roomId: roomId, sourceUrl: sourceId)
+        let data = try await api.mutation(mutation: mutation)
+        
+        guard let fileAttrs = data.data?.addPlaylistSource?.compactMap({$0?.fragments.sourceAttrs}) else {
+            throw URLError(.badServerResponse)
+        }
+        
+        return fileAttrs
+    }
+    
+    func removeSource(roomId: String, sourceId: String) async throws -> [SourceAttrs] {
+        let mutation = DeletePlaylistSourceMutation(roomId: roomId, sourceId: sourceId)
+        let data = try await api.mutation(mutation: mutation)
+        
+        guard let fileAttrs = data.data?.deletePlaylistSource?.compactMap({$0?.fragments.sourceAttrs}) else {
             throw URLError(.badServerResponse)
         }
         
@@ -145,5 +167,5 @@ extension RoomAttrs {
         owner?.id == id
     }
     
-    static let mock = RoomAttrs(mediaInfo: .init(currentSeconds: "0", pause: false, source: nil, url: ""), id: "123", likes: 68, private: false, image: "", key: "00000", name: "Room name", members: [.init(id: "1", login: "test", avatar: "", email: "email@test.com")])
+    static let mock = RoomAttrs(mediaInfo: .init(currentSeconds: "0", source: nil), id: "123", likes: 68, private: false, image: "", key: "00000", name: "Room name", members: [.init(id: "1", login: "test", avatar: "", email: "email@test.com")])
 }

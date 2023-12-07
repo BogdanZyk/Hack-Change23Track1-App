@@ -37,8 +37,8 @@ struct VideoPlayer: View {
     
     var body: some View {
         ZStack {
-            Color.black
-            if let player = manager.player {
+            Color.black.ignoresSafeArea()
+            if let player = manager.player, !manager.isBuffering {
                 VideoPlayerRepresenter(player: player)
                     .ignoresSafeArea()
                     .overlay {
@@ -60,6 +60,11 @@ struct VideoPlayer: View {
                             timeoutControls()
                         }
                     }
+            } else if let image = manager.currentItem?.cover {
+                LazyNukeImage(fullPath: image,
+                              resizeSize: .init(width: 480, height: 360),
+                              contentMode: .aspectFit,
+                              loadColor: .black)
             }
         }
         .frame(maxHeight: videoHeight)
@@ -217,4 +222,19 @@ extension VideoPlayer {
         var disabledBackwardBtn: Bool = false
         var disabledForwardBtn: Bool = false
     }
+}
+
+
+extension View{
+    
+    func centerCropped() -> some View {
+        GeometryReader { geo in
+            self
+                
+                .scaledToFill()
+                .frame(width: geo.size.width, height: geo.size.height)
+                .clipped()
+        }
+    }
+    
 }

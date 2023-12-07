@@ -5,7 +5,7 @@
 
 struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
   static var fragmentDefinition: StaticString {
-    #"fragment RoomAttrs on Room { __typename MediaInfo { __typename ...MediaInfoAttrs } Id Likes Private Image Key Name Members { __typename ...UserAttrs } Owner { __typename Id } Playlist { __typename ...SourceAttrs } }"#
+    #"fragment RoomAttrs on Room { __typename MediaInfo { __typename ...MediaInfoAttrs } Id Likes Private Image Key Name Members { __typename ...UserAttrs } Owner { __typename Id } }"#
   }
 
   let __data: DataDict
@@ -23,7 +23,6 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
     .field("Name", String?.self),
     .field("Members", [Member?]?.self),
     .field("Owner", Owner?.self),
-    .field("Playlist", [Playlist?]?.self),
   ] }
 
   var mediaInfo: MediaInfo? { __data["MediaInfo"] }
@@ -35,7 +34,6 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
   var name: String? { __data["Name"] }
   var members: [Member?]? { __data["Members"] }
   var owner: Owner? { __data["Owner"] }
-  var playlist: [Playlist?]? { __data["Playlist"] }
 
   init(
     mediaInfo: MediaInfo? = nil,
@@ -46,8 +44,7 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
     key: String? = nil,
     name: String? = nil,
     members: [Member?]? = nil,
-    owner: Owner? = nil,
-    playlist: [Playlist?]? = nil
+    owner: Owner? = nil
   ) {
     self.init(_dataDict: DataDict(
       data: [
@@ -61,7 +58,6 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
         "Name": name,
         "Members": members._fieldData,
         "Owner": owner._fieldData,
-        "Playlist": playlist._fieldData,
       ],
       fulfilledFragments: [
         ObjectIdentifier(RoomAttrs.self)
@@ -83,9 +79,7 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
     ] }
 
     var currentSeconds: String? { __data["CurrentSeconds"] }
-    var pause: Bool? { __data["Pause"] }
     var source: Source? { __data["Source"] }
-    var url: String? { __data["Url"] }
 
     struct Fragments: FragmentContainer {
       let __data: DataDict
@@ -96,17 +90,13 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
 
     init(
       currentSeconds: String? = nil,
-      pause: Bool? = nil,
-      source: Source? = nil,
-      url: String? = nil
+      source: Source? = nil
     ) {
       self.init(_dataDict: DataDict(
         data: [
           "__typename": SchemaAPI.Objects.MediaInfo.typename,
           "CurrentSeconds": currentSeconds,
-          "Pause": pause,
           "Source": source._fieldData,
-          "Url": url,
         ],
         fulfilledFragments: [
           ObjectIdentifier(RoomAttrs.MediaInfo.self),
@@ -229,50 +219,6 @@ struct RoomAttrs: SchemaAPI.SelectionSet, Fragment {
         ],
         fulfilledFragments: [
           ObjectIdentifier(RoomAttrs.Owner.self)
-        ]
-      ))
-    }
-  }
-
-  /// Playlist
-  ///
-  /// Parent Type: `Source`
-  struct Playlist: SchemaAPI.SelectionSet {
-    let __data: DataDict
-    init(_dataDict: DataDict) { __data = _dataDict }
-
-    static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Source }
-    static var __selections: [ApolloAPI.Selection] { [
-      .field("__typename", String.self),
-      .fragment(SourceAttrs.self),
-    ] }
-
-    var name: String? { __data["Name"] }
-    var id: String? { __data["Id"] }
-    var cover: String? { __data["Cover"] }
-
-    struct Fragments: FragmentContainer {
-      let __data: DataDict
-      init(_dataDict: DataDict) { __data = _dataDict }
-
-      var sourceAttrs: SourceAttrs { _toFragment() }
-    }
-
-    init(
-      name: String? = nil,
-      id: String? = nil,
-      cover: String? = nil
-    ) {
-      self.init(_dataDict: DataDict(
-        data: [
-          "__typename": SchemaAPI.Objects.Source.typename,
-          "Name": name,
-          "Id": id,
-          "Cover": cover,
-        ],
-        fulfilledFragments: [
-          ObjectIdentifier(RoomAttrs.Playlist.self),
-          ObjectIdentifier(SourceAttrs.self)
         ]
       ))
     }

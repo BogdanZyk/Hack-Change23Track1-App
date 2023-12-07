@@ -9,81 +9,6 @@ A directive used by the Apollo iOS client to annotate operations or fragments th
 directive @apollo_client_ios_localCacheMutation on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
 
 """"""
-type RootMutationType {
-  """"""
-  CreateRoom(Name: String!, Image: String, Private: Boolean, Type: RoomType): Room
-
-  """"""
-  DeleteRoom(RoomId: String!): Room
-
-  """"""
-  InitConnection(SDP: ServerSDP!, RoomId: String!): ClientSDP
-
-  """"""
-  LikeRoom(RoomId: String!): Room
-
-  """"""
-  LoadMedia(RoomId: String!, SourceId: String!): Room
-
-  """"""
-  RoomAction(RoomId: String!, Action: String!, Arg: String!): Room
-
-  """"""
-  SignIn(Email: String!, Password: String!): Token
-
-  """"""
-  SignUp(Email: String!, Login: String!, Password: String!): Token
-
-  """"""
-  UpdateCurrentUser(Login: String, Avatar: String): User
-
-  """"""
-  UpdateRoom(RoomId: String!, Name: String, Image: String, Private: Boolean, Type: RoomType): Room
-}
-
-""""""
-type Token {
-  """"""
-  Token: String!
-}
-
-""""""
-input ServerSDP {
-  """"""
-  Type: String
-
-  """"""
-  Sdp: String
-}
-
-""""""
-type Source {
-  """"""
-  Cover: String
-
-  """"""
-  Id: String
-
-  """"""
-  Name: String
-}
-
-""""""
-type User {
-  """"""
-  Avatar: String!
-
-  """"""
-  Email: String!
-
-  """"""
-  Id: String!
-
-  """"""
-  Login: String!
-}
-
-""""""
 type Room {
   """"""
   Id: String
@@ -120,54 +45,9 @@ type Room {
 }
 
 """"""
-type ClientSDP {
+type Token {
   """"""
-  Sdp: String!
-
-  """"""
-  Type: String!
-}
-
-""""""
-enum RoomType {
-  """"""
-  NO_TYPE
-
-  """"""
-  SINGLE
-
-  """"""
-  PLAYLIST
-}
-
-""""""
-type RootQueryType {
-  """"""
-  AllStickers: [StickerPack]
-
-  """"""
-  CurrentUser: User
-
-  """"""
-  GetRoomByKey(Key: String!): Room
-
-  """"""
-  ListRooms: [Room]
-
-  """"""
-  ListSources: [Source]
-
-  """"""
-  SearchSource(Query: String!): [Source]
-}
-
-""""""
-type StickerPack {
-  """"""
-  Name: String
-
-  """"""
-  Stickers: [String]
+  Token: String!
 }
 
 """"""
@@ -183,4 +63,133 @@ type MediaInfo {
 
   """"""
   Url: String
+}
+
+""""""
+type RootMutationType {
+  """"""
+  AddPlaylistSource(RoomId: String!, SourceUrl: String!): [Source]
+
+  """"""
+  CreateRoom(Name: String!, Image: String, Private: Boolean, Type: RoomType): Room
+
+  """"""
+  DeletePlaylistSource(RoomId: String!, SourceId: String!): [Source]
+
+  """"""
+  DeleteRoom(RoomId: String!): Room
+
+  """"""
+  InitConnection(RoomId: String!, SDP: ServerSDP!): ClientSDP
+
+  """"""
+  LikeRoom(RoomId: String!): Room
+
+  """"""
+  LoadMedia(RoomId: String!, SourceId: String!): Room
+
+  """"""
+  RoomAction(RoomId: String!, Action: String!, Arg: String!): Room
+
+  """"""
+  SignIn(Email: String!, Password: String!): Token
+
+  """"""
+  SignUp(Email: String!, Login: String!, Password: String!): Token
+
+  """"""
+  UpdateCurrentUser(Login: String, Avatar: String): User
+
+  """"""
+  UpdateRoom(RoomId: String!, Name: String, Image: String, Private: Boolean, Type: RoomType): Room
+}
+
+""""""
+type RootQueryType {
+  """"""
+  AllStickers: [StickerPack]
+
+  """"""
+  CurrentUser: User
+
+  """"""
+  GetRoomByKey(Key: String!): Room
+
+  """"""
+  GetRoomPlaylist(RoomId: String!): [Source]
+
+  """"""
+  ListRooms: [Room]
+
+  """"""
+  ListSources: [Source]
+
+  """"""
+  SearchSource(Query: String!): [Source]
+}
+
+""""""
+type Source {
+  """"""
+  Cover: String
+
+  """"""
+  Id: String
+
+  """"""
+  Name: String
+}
+
+""""""
+type User {
+  """"""
+  Avatar: String!
+
+  """"""
+  Email: String!
+
+  """"""
+  Id: String!
+
+  """"""
+  Login: String!
+}
+
+""""""
+type ClientSDP {
+  """"""
+  Sdp: String!
+
+  """"""
+  Type: String!
+}
+
+""""""
+type StickerPack {
+  """"""
+  Name: String
+
+  """"""
+  Stickers: [String]
+}
+
+""""""
+enum RoomType {
+  """"""
+  NO_TYPE
+
+  """"""
+  SINGLE
+
+  """"""
+  PLAYLIST
+}
+
+""""""
+input ServerSDP {
+  """"""
+  Type: String
+
+  """"""
+  Sdp: String
 }

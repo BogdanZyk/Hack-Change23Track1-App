@@ -126,9 +126,7 @@ class LoadMediaMutation: GraphQLMutation {
         static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.MediaInfo }
 
         var currentSeconds: String? { __data["CurrentSeconds"] }
-        var pause: Bool? { __data["Pause"] }
         var source: Source? { __data["Source"] }
-        var url: String? { __data["Url"] }
 
         struct Fragments: FragmentContainer {
           let __data: DataDict
@@ -139,17 +137,13 @@ class LoadMediaMutation: GraphQLMutation {
 
         init(
           currentSeconds: String? = nil,
-          pause: Bool? = nil,
-          source: Source? = nil,
-          url: String? = nil
+          source: Source? = nil
         ) {
           self.init(_dataDict: DataDict(
             data: [
               "__typename": SchemaAPI.Objects.MediaInfo.typename,
               "CurrentSeconds": currentSeconds,
-              "Pause": pause,
               "Source": source._fieldData,
-              "Url": url,
             ],
             fulfilledFragments: [
               ObjectIdentifier(LoadMediaMutation.Data.LoadMedia.MediaInfo.self),
