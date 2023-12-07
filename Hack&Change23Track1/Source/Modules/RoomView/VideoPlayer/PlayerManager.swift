@@ -163,29 +163,13 @@ final class PlayerManager: ObservableObject {
             }
             .store(in: cancelBag)
         
-//        player.currentItem?.publisher(for: \.isPlaybackLikelyToKeepUp)
-//            .sink{ [weak self] completed in
-//                guard let self = self else {return}
-//                self.isBuffering = !completed
-//                if completed {
-//                    updateTimeFromBufferDifference()
-//                }
-//            }
-//            .store(in: cancelBag)
-        
         player.currentItem?.publisher(for: \.status)
             .sink{ [weak self] status in
                 guard let self = self else {return}
-               
                 self.isBuffering = status != .readyToPlay
-                
                 if status == .readyToPlay {
                     updateTimeFromBufferDifference()
                 }
-//                self.isBuffering = !completed
-//                if completed {
-//                    updateTimeFromBufferDifference()
-//                }
             }
             .store(in: cancelBag)
     }

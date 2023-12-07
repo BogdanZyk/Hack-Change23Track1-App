@@ -13,23 +13,41 @@ extension RoomView {
         @Binding var showTracksLib: Bool
         var isOwner: Bool
         var playedId: String?
-        let videos: [SourceAttrs]
+        var videos: [SourceAttrs]
         let onTap: (SourceAttrs) -> Void
         var body: some View {
             
-            ScrollView(.vertical, showsIndicators: false) {
-                if !videos.isEmpty {
-                    LazyVStack(alignment: .leading, spacing: 0) {
-                        addShort
-                        ForEach(videos) {
-                            rowView($0)
-                        }
+            Group {
+                if videos.isEmpty {
+                    ZStack {
+                        addButton
                     }
+                    .allFrame()
                 } else {
-                    addButton
+                    List {
+                        Group {
+                            addShort
+                            ForEach(videos) {
+                                rowView($0)
+                                    .contextMenu {
+                                        Button("Remove", role: .destructive) {
+                                            
+                                        }
+                                    }
+                            }
+                            .onMove { indexSet, offset in
+                                //                            videos.move(fromOffsets: indexSet, toOffset: offset)
+                                print(indexSet, offset)
+                            }
+                        }
+                        .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.primaryBg)
+                    }
+                    .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
                 }
             }
-            .allFrame()
             .padding(.top)
             .background(Color.primaryBg)
             .foregroundColor(Color.primaryFont)
@@ -40,11 +58,12 @@ extension RoomView {
             let isPlay = video.id == playedId
             HStack {
                 LazyNukeImage(fullPath: video.cover)
-                    .frame(width: 52, height: 52)
+                    .frame(width: 60, height: 60)
                     .cornerRadius(8)
                 Text(video.name ?? "no name")
                     .font(.headline.weight(.semibold))
                     .padding(.trailing)
+                    .lineLimit(2)
                 Spacer()
                 if isPlay {
                     SoundWaveView(color: .primaryPink)
@@ -80,7 +99,7 @@ extension RoomView {
         
         @ViewBuilder
         private var addShort: some View {
-            if isOwner {
+           //if isOwner {
                 Button {
                     showTracksLib.toggle()
                 } label: {
@@ -88,7 +107,8 @@ extension RoomView {
                         .padding()
                 }
                 .foregroundColor(.primaryPink)
-            }
+                .buttonStyle(.plain)
+            //}
         }
     }
 }
@@ -99,6 +119,7 @@ struct PlaylistView_Previews: PreviewProvider {
         RoomView.PlaylistView(showTracksLib: .constant(false),
                                    isOwner: false,
                                    playedId: "1",
-                                   videos: [.init(name: "name", id: "1", cover: nil)], onTap: {_ in })
+                                   videos: [.init(name: "name", id: "1", cover: nil),
+                                            .init(name: "name 2", id: "2", cover: nil)], onTap: {_ in })
     }
 }

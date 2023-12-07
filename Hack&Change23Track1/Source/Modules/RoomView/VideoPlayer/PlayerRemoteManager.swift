@@ -11,16 +11,6 @@ protocol PlayerRemoteProvider: AnyObject {
     
     @MainActor
     func onChangePlayerState(_ state: RoomPlayerState)
-    
-    //    func updatePlaylistStatus(_ status: PlaylistStatus) {
-    //        DispatchQueue.main.async { [weak self] in
-    //            guard let self = self else {return}
-    //            status.statuses.forEach { item in
-    //                guard let index = self.playList.firstIndex(where: {$0.id == item.id}) else {return}
-    //                self.playList[index].setStatus(item.status)
-    //            }
-    //        }
-    //    }
 }
 
 @MainActor
@@ -29,6 +19,7 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
     @Published private(set) var playList = [SourceAttrs]()
     @Published private(set) var currentVideo: VideoItem?
     @Published private(set) var playerEvent: PlayerEvent = .pause(0)
+    @Published private(set) var showSetVideoLoader: Bool = false
     @Published var appAlert: AppAlert?
     
     private let room: RoomAttrs
@@ -45,12 +36,16 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
     func addVideoItemInPlaylist(_ sourceId: String) {
         guard let id = room.id else { return }
         Task {
+            showSetVideoLoader = true
             do {
                 let newPlaylist = try await
                 roomDataService.addVideoToPlaylist(roomId: id, sourceId: sourceId)
                 self.playList = newPlaylist
+                guard let last = playList.last else { return }
+                setSource(last.id)
             } catch {
                 appAlert = .errors(errors: [error])
+                showSetVideoLoader = false
             }
         }
     }
@@ -72,13 +67,13 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
               room.userIsOwner(for: currentUser.id),
               let id else { return }
         Task {
+            showSetVideoLoader = true
             do {
                 try await roomDataService.loadVideo(for: uid, sourceId: id)
             } catch {
-                await MainActor.run {
-                    appAlert = .errors(errors: [error])
-                }
+                appAlert = .errors(errors: [error])
             }
+            showSetVideoLoader = false
         }
     }
         
@@ -104,7 +99,7 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
         guard let source = state.source,
               let url = state.wrappedUrl else { return }
         if currentVideo?.id != state.source?.id {
-            let newVideo = VideoItem(id: source.id, url: url, cover: source.cover)
+            let newVideo = VideoItem(id: source.id, url: url, name: source.name, cover: source.cover)
             self.currentVideo = newVideo
             playerEvent = .set(newVideo, state.currentSeconds)
         }

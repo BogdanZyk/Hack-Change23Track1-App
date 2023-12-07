@@ -31,6 +31,7 @@ struct RoomView: View {
         
         VStack(spacing: 0) {
             VStack(spacing: 0) {
+                topBarView
                 HStack(spacing: 0) {
                     playerView
                     chatLandscape
@@ -77,37 +78,41 @@ struct AudioRoomView_Previews: PreviewProvider {
 
 extension RoomView {
     
+    @ViewBuilder
     private var topBarView: some View {
-        Text(viewModel.room.name ?? "no key")
-            .font(.primary())
-            .hCenter()
-            .lineLimit(1)
-            .overlay {
-                HStack {
-                    Button {
-                        viewModel.isPresentedLeaveAlert.toggle()
-                    } label: {
-                        Image(systemName: "xmark")
-                    }
-                    
-                    Spacer()
-                    if viewModel.isOwner {
+        if !orientation.type.isLandscape {
+            Text(viewModel.room.name ?? "no key")
+                .font(.primary())
+                .hCenter()
+                .lineLimit(1)
+                .overlay {
+                    HStack {
                         Button {
-                            sheetItem = .settings
+                            viewModel.isPresentedLeaveAlert.toggle()
                         } label: {
-                            Image(systemName: "gearshape.fill")
+                            Image(systemName: "xmark")
                         }
-                    } else {
-                        Button {
-                            sheetItem = .share
-                        } label: {
-                            Image(systemName: "arrowshape.turn.up.forward.fill")
+                        
+                        Spacer()
+                        if viewModel.isOwner {
+                            Button {
+                                sheetItem = .settings
+                            } label: {
+                                Image(systemName: "gearshape.fill")
+                            }
+                        } else {
+                            Button {
+                                sheetItem = .share
+                            } label: {
+                                Image(systemName: "arrowshape.turn.up.forward.fill")
+                            }
                         }
                     }
+                    .font(.title2)
                 }
-                .font(.title2)
-            }
-            .padding(12)
+                .padding(.horizontal)
+                .padding(.bottom, 10)
+        }
     }
     
     private var playerView: some View {
@@ -128,8 +133,14 @@ extension RoomView {
                         .padding()
                 }
                 .hTrailing()
-            } else {
-                topBarView
+            }
+        }
+        .overlay {
+            if playerManager.showSetVideoLoader {
+                Color.black.opacity(0.3)
+                ProgressView()
+                    .scaleEffect(1.5)
+                    .tint(Color.primaryPink)
             }
         }
     }

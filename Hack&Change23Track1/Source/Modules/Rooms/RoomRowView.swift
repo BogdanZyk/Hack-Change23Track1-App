@@ -11,9 +11,7 @@ struct RoomRowView: View {
     let room: RoomAttrs
     var body: some View {
         HStack(alignment: .top, spacing: 14) {
-            LazyNukeImage(path: room.image)
-                .frame(width: 80, height: 80)
-                .cornerRadius(10)
+            roomImage
             VStack(alignment: .leading, spacing: 3) {
                 Text(room.name ?? "No name")
                     .font(.primary(weight: .medium))
@@ -42,5 +40,22 @@ struct RoomRowView_Previews: PreviewProvider {
     static var previews: some View {
         RoomRowView(room: .mock)
             .padding()
+    }
+}
+
+
+extension RoomRowView {
+    
+    private var roomImage: some View {
+        Group {
+            if let fullPath = room.mediaInfo?.source?.cover {
+                LazyNukeImage(fullPath: fullPath)
+            } else if let image = room.image {
+                LazyNukeImage(path: room.image)
+            }
+        }
+        .frame(width: 80, height: 80)
+        .cornerRadius(10)
+        
     }
 }
