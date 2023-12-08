@@ -11,10 +11,13 @@ extension RoomView {
     
     struct PlaylistView: View {
         @Binding var showTracksLib: Bool
+        var showLoader: Bool
         var isOwner: Bool
         var playedId: String?
-        var videos: [SourceAttrs]
+        @Binding var videos: [SourceAttrs]
         let onTap: (SourceAttrs) -> Void
+        let onRemove: (String) -> Void
+        let onMove: (String, Int) -> Void
         var body: some View {
             
             Group {
@@ -27,17 +30,19 @@ extension RoomView {
                     List {
                         Group {
                             addShort
-                            ForEach(videos) {
-                                rowView($0)
+                            ForEach(videos) { video in
+                                rowView(video)
                                     .contextMenu {
                                         Button("Remove", role: .destructive) {
-                                            
+                                            onRemove(video.id ?? "")
+                                            videos.removeAll(where: {$0.id == video.id})
                                         }
                                     }
                             }
                             .onMove { indexSet, offset in
-                                //                            videos.move(fromOffsets: indexSet, toOffset: offset)
-                                print(indexSet, offset)
+                                videos.move(fromOffsets: indexSet, toOffset: offset)
+                                guard let id = videos[s: offset]?.id else { return }
+                                onMove(id, offset)
                             }
                         }
                         .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
@@ -46,11 +51,20 @@ extension RoomView {
                     }
                     .listStyle(.plain)
                     .scrollContentBackground(.hidden)
+                    .disabled(!isOwner)
                 }
             }
             .padding(.top)
             .background(Color.primaryBg)
             .foregroundColor(Color.primaryFont)
+            .overlay {
+                if showLoader {
+                    Color.black.opacity(0.3)
+                    ProgressView()
+                        .scaleEffect(1.5)
+                        .tint(Color.primaryPink)
+                }
+            }
         }
         
         @ViewBuilder
@@ -99,7 +113,7 @@ extension RoomView {
         
         @ViewBuilder
         private var addShort: some View {
-           //if isOwner {
+           if isOwner {
                 Button {
                     showTracksLib.toggle()
                 } label: {
@@ -108,7 +122,7 @@ extension RoomView {
                 }
                 .foregroundColor(.primaryPink)
                 .buttonStyle(.plain)
-            //}
+            }
         }
     }
 }
@@ -117,9 +131,13 @@ extension RoomView {
 struct PlaylistView_Previews: PreviewProvider {
     static var previews: some View {
         RoomView.PlaylistView(showTracksLib: .constant(false),
-                                   isOwner: false,
-                                   playedId: "1",
-                                   videos: [.init(name: "name", id: "1", cover: nil),
-                                            .init(name: "name 2", id: "2", cover: nil)], onTap: {_ in })
+                              showLoader: false,
+                              isOwner: false,
+                              playedId: "1",
+                              videos: .constant([.init(name: "name", id: "1", cover: nil),
+                                                 .init(name: "name 2", id: "2", cover: nil)]),
+                              onTap: {_ in },
+                              onRemove: {_ in},
+                              onMove: {_, _ in})
     }
 }

@@ -23,7 +23,7 @@ extension RoomView {
                     .toolbar(.hidden, for: .tabBar)
             }
             .sheet(isPresented: $showWebView) {
-                WebNavigationView(onSelect: { playerManager.addVideoItemInPlaylist($0) })
+                WebNavigationView(onSelect: { playerManager.addNewVideoItemAndSetToPlay($0) })
             }
         }
                 
@@ -39,10 +39,13 @@ extension RoomView {
                             members: viewModel.members.map({$0.value}))
             case .playlist:
                 PlaylistView(showTracksLib: $showWebView,
+                             showLoader: playerManager.itemLoader == .addingPlaylist,
                              isOwner: viewModel.isOwner,
                              playedId: playerManager.currentVideo?.id,
-                             videos: playerManager.playList,
-                             onTap: { playerManager.setSource($0.id) })
+                             videos: $playerManager.playList,
+                             onTap: { playerManager.setSource($0.id) },
+                             onRemove: { playerManager.removeSource(for: $0) },
+                             onMove: { playerManager.moveSource(for: $0, to: $1) })
                 .appAlert($playerManager.appAlert)
                 .onAppear {
                     if !viewModel.isOwner {

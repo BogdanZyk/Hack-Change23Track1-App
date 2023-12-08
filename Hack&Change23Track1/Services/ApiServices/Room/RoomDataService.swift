@@ -95,6 +95,7 @@ final class RoomDataService {
         return fileAttrs
     }
     
+    @discardableResult
     func removeSource(roomId: String, sourceId: String) async throws -> [SourceAttrs] {
         let mutation = DeletePlaylistSourceMutation(roomId: roomId, sourceId: sourceId)
         let data = try await api.mutation(mutation: mutation)

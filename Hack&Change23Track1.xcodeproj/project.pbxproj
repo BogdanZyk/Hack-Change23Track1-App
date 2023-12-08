@@ -44,7 +44,7 @@
 		5A7AE3712B21F9E700071D82 /* DeletePlaylistSourceMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE36F2B21F9E700071D82 /* DeletePlaylistSourceMutation.graphql.swift */; };
 		5A7AE3722B21F9E700071D82 /* AddPlaylistSourceMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE3702B21F9E700071D82 /* AddPlaylistSourceMutation.graphql.swift */; };
 		5A7AE3742B21F9F600071D82 /* GetRoomPlaylistQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE3732B21F9F600071D82 /* GetRoomPlaylistQuery.graphql.swift */; };
-		5A7AE3762B221BDD00071D82 /* ListTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE3752B221BDD00071D82 /* ListTest.swift */; };
+		5A7AE3782B230F8B00071D82 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE3772B230F8B00071D82 /* Array.swift */; };
 		5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */; };
 		5A81F3D82B1091AA00D9998F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D72B1091AA00D9998F /* ContentView.swift */; };
 		5A81F3DA2B1091AB00D9998F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F3D92B1091AB00D9998F /* Assets.xcassets */; };
@@ -161,7 +161,7 @@
 		5A7AE36F2B21F9E700071D82 /* DeletePlaylistSourceMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeletePlaylistSourceMutation.graphql.swift; sourceTree = "<group>"; };
 		5A7AE3702B21F9E700071D82 /* AddPlaylistSourceMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlaylistSourceMutation.graphql.swift; sourceTree = "<group>"; };
 		5A7AE3732B21F9F600071D82 /* GetRoomPlaylistQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRoomPlaylistQuery.graphql.swift; sourceTree = "<group>"; };
-		5A7AE3752B221BDD00071D82 /* ListTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTest.swift; sourceTree = "<group>"; };
+		5A7AE3772B230F8B00071D82 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		5A81F3D22B1091AA00D9998F /* Hack&Change23Track1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hack&Change23Track1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hack_Change23Track1App.swift; sourceTree = "<group>"; };
 		5A81F3D72B1091AA00D9998F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -332,7 +332,6 @@
 			isa = PBXGroup;
 			children = (
 				5A58E7A52B115D8100D0723C /* PlaylistView.swift */,
-				5A7AE3752B221BDD00071D82 /* ListTest.swift */,
 			);
 			path = PlaylistView;
 			sourceTree = "<group>";
@@ -496,6 +495,7 @@
 				5A58E79A2B114C5800D0723C /* Task.swift */,
 				5A58E7BB2B11F54A00D0723C /* String.swift */,
 				5AAE6ACC2B1E2AE20055303F /* NotificationCenter.swift */,
+				5A7AE3772B230F8B00071D82 /* Array.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -825,6 +825,7 @@
 				5A81F4862B10D03100D9998F /* CreateRoomViewModel.swift in Sources */,
 				5A81F4522B10A49C00D9998F /* ClientSDP.graphql.swift in Sources */,
 				5A81F46E2B10BB9D00D9998F /* UserManager.swift in Sources */,
+				5A7AE3782B230F8B00071D82 /* Array.swift in Sources */,
 				5A81F4462B10A49C00D9998F /* SignInMutation.graphql.swift in Sources */,
 				5AAE6AC22B1E10130055303F /* PlayerManager.swift in Sources */,
 				5A81F4502B10A49C00D9998F /* User.graphql.swift in Sources */,
@@ -849,7 +850,6 @@
 				5A58E7A42B115A9300D0723C /* UserAvatarView.swift in Sources */,
 				5A58E7CC2B12826800D0723C /* AllStickersQuery.graphql.swift in Sources */,
 				5A58E79E2B114E2A00D0723C /* Message.swift in Sources */,
-				5A7AE3762B221BDD00071D82 /* ListTest.swift in Sources */,
 				5AAE6AB62B1DF4970055303F /* Source.graphql.swift in Sources */,
 				5AAE6AC52B1E10BF0055303F /* CancelBag.swift in Sources */,
 				5A81F44B2B10A49C00D9998F /* ListRoomsQuery.graphql.swift in Sources */,

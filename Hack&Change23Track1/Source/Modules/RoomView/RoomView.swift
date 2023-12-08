@@ -136,7 +136,7 @@ extension RoomView {
             }
         }
         .overlay {
-            if playerManager.showSetVideoLoader {
+            if playerManager.itemLoader == .setSource {
                 Color.black.opacity(0.3)
                 ProgressView()
                     .scaleEffect(1.5)

@@ -16,10 +16,10 @@ protocol PlayerRemoteProvider: AnyObject {
 @MainActor
 class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
     
-    @Published private(set) var playList = [SourceAttrs]()
+    @Published var playList = [SourceAttrs]()
     @Published private(set) var currentVideo: VideoItem?
     @Published private(set) var playerEvent: PlayerEvent = .pause(0)
-    @Published private(set) var showSetVideoLoader: Bool = false
+    @Published private(set) var itemLoader: ItemStateLoading = .empty
     @Published var appAlert: AppAlert?
     
     private let room: RoomAttrs
@@ -33,19 +33,19 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
         fetchPlaylist()
     }
     
-    func addVideoItemInPlaylist(_ sourceId: String) {
+    func addNewVideoItemAndSetToPlay(_ sourceId: String) {
         guard let id = room.id else { return }
         Task {
-            showSetVideoLoader = true
+            itemLoader = .addingPlaylist
             do {
                 let newPlaylist = try await
                 roomDataService.addVideoToPlaylist(roomId: id, sourceId: sourceId)
                 self.playList = newPlaylist
+                itemLoader = .empty
                 guard let last = playList.last else { return }
                 setSource(last.id)
             } catch {
-                appAlert = .errors(errors: [error])
-                showSetVideoLoader = false
+                handleError(error)
             }
         }
     }
@@ -57,24 +57,44 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
                 let newPlaylist = try await roomDataService.getRoomPlaylist(for: id)
                 self.playList = newPlaylist
             } catch {
-                appAlert = .errors(errors: [error])
+                handleError(error)
             }
         }
     }
     
     func setSource(_ id: String?) {
-        guard let uid = room.id,
+        guard let roomId = room.id,
               room.userIsOwner(for: currentUser.id),
               let id else { return }
         Task {
-            showSetVideoLoader = true
+            itemLoader = .setSource
             do {
-                try await roomDataService.loadVideo(for: uid, sourceId: id)
+                try await roomDataService.loadVideo(for: roomId, sourceId: id)
+                itemLoader = .empty
             } catch {
-                appAlert = .errors(errors: [error])
+                handleError(error)
             }
-            showSetVideoLoader = false
         }
+    }
+    
+    func moveSource(for id: String, to: Int) {
+        
+    }
+    
+    func removeSource(for id: String) {
+        guard let roomId = room.id else { return }
+        Task {
+            do {
+                try await roomDataService.removeSource(roomId: roomId, sourceId: id)
+            } catch {
+                handleError(error)
+            }
+        }
+    }
+    
+    private func handleError(_ error: Error) {
+        appAlert = .errors(errors: [error])
+        itemLoader = .empty
     }
         
     func onChangePlayerState(_ state: RoomPlayerState) {
@@ -168,5 +188,9 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
               let first = playList.first(where: {$0.id == id}),
               let url = URL(string: path) else { return }
         currentVideo = .init(id: id, url: url, name: first.name, cover: first.cover)
+    }
+    
+    enum ItemStateLoading: Int {
+        case addingPlaylist, setSource, empty
     }
 }
