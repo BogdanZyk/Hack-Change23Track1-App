@@ -96,6 +96,16 @@ final class RoomDataService {
     }
     
     @discardableResult
+    func moveSource(roomId: String, sourceId: String, index: Int) async throws -> [SourceAttrs] {
+        let mutation = UpdatePlaylistSourcePositionMutation(roomId: roomId, sourceId: sourceId, newPositionIndex: index)
+        let data = try await api.mutation(mutation: mutation)
+        guard let fileAttrs = data.data?.updatePlaylistSourcePosition?.compactMap({$0?.fragments.sourceAttrs}) else {
+            throw URLError(.badServerResponse)
+        }
+        return fileAttrs
+    }
+    
+    @discardableResult
     func removeSource(roomId: String, sourceId: String) async throws -> [SourceAttrs] {
         let mutation = DeletePlaylistSourceMutation(roomId: roomId, sourceId: sourceId)
         let data = try await api.mutation(mutation: mutation)

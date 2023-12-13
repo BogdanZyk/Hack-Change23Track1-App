@@ -32,12 +32,6 @@ extension RoomView {
                             addShort
                             ForEach(videos) { video in
                                 rowView(video)
-                                    .contextMenu {
-                                        Button("Remove", role: .destructive) {
-                                            onRemove(video.id ?? "")
-                                            videos.removeAll(where: {$0.id == video.id})
-                                        }
-                                    }
                             }
                             .onMove { indexSet, offset in
                                 videos.move(fromOffsets: indexSet, toOffset: offset)
@@ -59,7 +53,7 @@ extension RoomView {
             .foregroundColor(Color.primaryFont)
             .overlay {
                 if showLoader {
-                    Color.black.opacity(0.3)
+                    Color.black.opacity(0.3).ignoresSafeArea()
                     ProgressView()
                         .scaleEffect(1.5)
                         .tint(Color.primaryPink)
@@ -71,6 +65,7 @@ extension RoomView {
         private func rowView(_ video: SourceAttrs) -> some View {
             let isPlay = video.id == playedId
             HStack {
+                Text("\(video.index ?? 0)")
                 LazyNukeImage(fullPath: video.cover)
                     .frame(width: 60, height: 60)
                     .cornerRadius(8)
@@ -91,6 +86,14 @@ extension RoomView {
             .contentShape(Rectangle())
             .onTapGesture {
                 onTap(video)
+            }
+            .contextMenu {
+                if !isPlay {
+                    Button("Remove", role: .destructive) {
+                        onRemove(video.id ?? "")
+                        videos.removeAll(where: {$0.id == video.id})
+                    }
+                }
             }
         }
         

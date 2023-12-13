@@ -79,8 +79,15 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
         }
     }
     
-    func moveSource(for id: String, to: Int) {
-        
+    func moveSource(for id: String, to index: Int) {
+        guard let roomId = room.id else { return }
+        Task {
+            do {
+                try await roomDataService.moveSource(roomId: roomId, sourceId: id, index: index)
+            } catch {
+                handleError(error)
+            }
+        }
     }
     
     func removeSource(for id: String) {
