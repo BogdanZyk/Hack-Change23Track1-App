@@ -8,7 +8,7 @@ class GetRoomByKeyQuery: GraphQLQuery {
   static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"query GetRoomByKey($key: String!) { GetRoomByKey(Key: $key) { __typename ...RoomAttrs } }"#,
-      fragments: [RoomAttrs.self, MediaInfoAttrs.self, SourceAttrs.self, UserAttrs.self]
+      fragments: [RoomAttrs.self, MediaInfoAttrs.self, UserAttrs.self]
     ))
 
   public var key: String
@@ -115,7 +115,7 @@ class GetRoomByKeyQuery: GraphQLQuery {
         static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.MediaInfo }
 
         var currentSeconds: String? { __data["CurrentSeconds"] }
-        var source: Source? { __data["Source"] }
+        var source: MediaInfoAttrs.Source? { __data["Source"] }
 
         struct Fragments: FragmentContainer {
           let __data: DataDict
@@ -126,7 +126,7 @@ class GetRoomByKeyQuery: GraphQLQuery {
 
         init(
           currentSeconds: String? = nil,
-          source: Source? = nil
+          source: MediaInfoAttrs.Source? = nil
         ) {
           self.init(_dataDict: DataDict(
             data: [
@@ -140,47 +140,6 @@ class GetRoomByKeyQuery: GraphQLQuery {
               ObjectIdentifier(RoomAttrs.MediaInfo.self)
             ]
           ))
-        }
-
-        /// GetRoomByKey.MediaInfo.Source
-        ///
-        /// Parent Type: `Source`
-        struct Source: SchemaAPI.SelectionSet {
-          let __data: DataDict
-          init(_dataDict: DataDict) { __data = _dataDict }
-
-          static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Source }
-
-          var name: String? { __data["Name"] }
-          var id: String? { __data["Id"] }
-          var cover: String? { __data["Cover"] }
-
-          struct Fragments: FragmentContainer {
-            let __data: DataDict
-            init(_dataDict: DataDict) { __data = _dataDict }
-
-            var sourceAttrs: SourceAttrs { _toFragment() }
-          }
-
-          init(
-            name: String? = nil,
-            id: String? = nil,
-            cover: String? = nil
-          ) {
-            self.init(_dataDict: DataDict(
-              data: [
-                "__typename": SchemaAPI.Objects.Source.typename,
-                "Name": name,
-                "Id": id,
-                "Cover": cover,
-              ],
-              fulfilledFragments: [
-                ObjectIdentifier(GetRoomByKeyQuery.Data.GetRoomByKey.MediaInfo.Source.self),
-                ObjectIdentifier(SourceAttrs.self),
-                ObjectIdentifier(MediaInfoAttrs.Source.self)
-              ]
-            ))
-          }
         }
       }
 

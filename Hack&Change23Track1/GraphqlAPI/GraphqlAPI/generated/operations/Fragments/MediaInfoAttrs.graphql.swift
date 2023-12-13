@@ -5,7 +5,7 @@
 
 struct MediaInfoAttrs: SchemaAPI.SelectionSet, Fragment {
   static var fragmentDefinition: StaticString {
-    #"fragment MediaInfoAttrs on MediaInfo { __typename CurrentSeconds Source { __typename ...SourceAttrs } }"#
+    #"fragment MediaInfoAttrs on MediaInfo { __typename CurrentSeconds Source { __typename Name Id Cover } }"#
   }
 
   let __data: DataDict
@@ -47,19 +47,14 @@ struct MediaInfoAttrs: SchemaAPI.SelectionSet, Fragment {
     static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Source }
     static var __selections: [ApolloAPI.Selection] { [
       .field("__typename", String.self),
-      .fragment(SourceAttrs.self),
+      .field("Name", String?.self),
+      .field("Id", String?.self),
+      .field("Cover", String?.self),
     ] }
 
     var name: String? { __data["Name"] }
     var id: String? { __data["Id"] }
     var cover: String? { __data["Cover"] }
-
-    struct Fragments: FragmentContainer {
-      let __data: DataDict
-      init(_dataDict: DataDict) { __data = _dataDict }
-
-      var sourceAttrs: SourceAttrs { _toFragment() }
-    }
 
     init(
       name: String? = nil,
@@ -74,8 +69,7 @@ struct MediaInfoAttrs: SchemaAPI.SelectionSet, Fragment {
           "Cover": cover,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(MediaInfoAttrs.Source.self),
-          ObjectIdentifier(SourceAttrs.self)
+          ObjectIdentifier(MediaInfoAttrs.Source.self)
         ]
       ))
     }

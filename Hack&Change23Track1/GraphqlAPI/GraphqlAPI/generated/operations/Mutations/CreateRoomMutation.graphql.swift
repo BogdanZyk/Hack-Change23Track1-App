@@ -8,7 +8,7 @@ class CreateRoomMutation: GraphQLMutation {
   static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"mutation CreateRoom($name: String!, $type: RoomType, $image: String, $private: Boolean) { CreateRoom(Name: $name, Type: $type, Image: $image, Private: $private) { __typename ...RoomAttrs } }"#,
-      fragments: [RoomAttrs.self, MediaInfoAttrs.self, SourceAttrs.self, UserAttrs.self]
+      fragments: [RoomAttrs.self, MediaInfoAttrs.self, UserAttrs.self]
     ))
 
   public var name: String
@@ -136,7 +136,7 @@ class CreateRoomMutation: GraphQLMutation {
         static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.MediaInfo }
 
         var currentSeconds: String? { __data["CurrentSeconds"] }
-        var source: Source? { __data["Source"] }
+        var source: MediaInfoAttrs.Source? { __data["Source"] }
 
         struct Fragments: FragmentContainer {
           let __data: DataDict
@@ -147,7 +147,7 @@ class CreateRoomMutation: GraphQLMutation {
 
         init(
           currentSeconds: String? = nil,
-          source: Source? = nil
+          source: MediaInfoAttrs.Source? = nil
         ) {
           self.init(_dataDict: DataDict(
             data: [
@@ -161,47 +161,6 @@ class CreateRoomMutation: GraphQLMutation {
               ObjectIdentifier(RoomAttrs.MediaInfo.self)
             ]
           ))
-        }
-
-        /// CreateRoom.MediaInfo.Source
-        ///
-        /// Parent Type: `Source`
-        struct Source: SchemaAPI.SelectionSet {
-          let __data: DataDict
-          init(_dataDict: DataDict) { __data = _dataDict }
-
-          static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Source }
-
-          var name: String? { __data["Name"] }
-          var id: String? { __data["Id"] }
-          var cover: String? { __data["Cover"] }
-
-          struct Fragments: FragmentContainer {
-            let __data: DataDict
-            init(_dataDict: DataDict) { __data = _dataDict }
-
-            var sourceAttrs: SourceAttrs { _toFragment() }
-          }
-
-          init(
-            name: String? = nil,
-            id: String? = nil,
-            cover: String? = nil
-          ) {
-            self.init(_dataDict: DataDict(
-              data: [
-                "__typename": SchemaAPI.Objects.Source.typename,
-                "Name": name,
-                "Id": id,
-                "Cover": cover,
-              ],
-              fulfilledFragments: [
-                ObjectIdentifier(CreateRoomMutation.Data.CreateRoom.MediaInfo.Source.self),
-                ObjectIdentifier(SourceAttrs.self),
-                ObjectIdentifier(MediaInfoAttrs.Source.self)
-              ]
-            ))
-          }
         }
       }
 

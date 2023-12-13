@@ -9,7 +9,7 @@ import Foundation
 
 enum PlayerEvent: Identifiable, Equatable {
     
-    case set(VideoItem, Double),
+    case set(VideoItem, Double, Bool),
          play(Double),
          pause(Double),
          seek(Double),
@@ -34,6 +34,15 @@ enum PlayerEvent: Identifiable, Equatable {
             return 5
         case .close:
             return 6
+        }
+    }
+    
+    var isPlay: Bool {
+        switch self {
+        case .play, .set:
+            return true
+        default:
+            return false
         }
     }
 }

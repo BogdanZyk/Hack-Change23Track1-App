@@ -9,6 +9,21 @@ A directive used by the Apollo iOS client to annotate operations or fragments th
 directive @apollo_client_ios_localCacheMutation on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
 
 """"""
+type User {
+  """"""
+  Avatar: String!
+
+  """"""
+  Email: String!
+
+  """"""
+  Id: String!
+
+  """"""
+  Login: String!
+}
+
+""""""
 type Room {
   """"""
   Id: String
@@ -45,9 +60,120 @@ type Room {
 }
 
 """"""
+type ClientSDP {
+  """"""
+  Sdp: String!
+
+  """"""
+  Type: String!
+}
+
+""""""
+enum RoomType {
+  """"""
+  NO_TYPE
+
+  """"""
+  SINGLE
+
+  """"""
+  PLAYLIST
+}
+
+""""""
+type RootQueryType {
+  """"""
+  AllStickers: [StickerPack]
+
+  """"""
+  CurrentUser: User
+
+  """"""
+  GetRoomById(Id: String!): Room
+
+  """"""
+  GetRoomByKey(Key: String!): Room
+
+  """"""
+  GetRoomPlaylist(RoomId: String!): [PlaylistSource]
+
+  """"""
+  ListRooms: [Room]
+
+  """"""
+  ListSources: [Source]
+
+  """"""
+  SearchSource(Query: String!): [Source]
+}
+
+""""""
+type RootMutationType {
+  """"""
+  AddPlaylistSource(RoomId: String!, SourceUrl: String!): [PlaylistSource]
+
+  """"""
+  CreateRoom(Name: String!, Image: String, Private: Boolean, Type: RoomType): Room
+
+  """"""
+  DeletePlaylistSource(RoomId: String!, SourceId: String!): [PlaylistSource]
+
+  """"""
+  DeleteRoom(RoomId: String!): Room
+
+  """"""
+  InitConnection(RoomId: String!, SDP: ServerSDP!): ClientSDP
+
+  """"""
+  LikeRoom(RoomId: String!): Room
+
+  """"""
+  LoadMedia(SourceId: String!, RoomId: String!): Room
+
+  """"""
+  RoomAction(Action: String!, Arg: String!, RoomId: String!): Room
+
+  """"""
+  SignIn(Email: String!, Password: String!): Token
+
+  """"""
+  SignUp(Login: String!, Password: String!, Email: String!): Token
+
+  """"""
+  UpdateCurrentUser(Avatar: String, Login: String): User
+
+  """"""
+  UpdatePlaylistSourcePosition(RoomId: String!, SourceId: String!, NewPositionIndex: Int!): [PlaylistSource]
+
+  """"""
+  UpdateRoom(RoomId: String!, Name: String, Image: String, Private: Boolean, Type: RoomType): Room
+}
+
+""""""
+type Source {
+  """"""
+  Cover: String
+
+  """"""
+  Id: String
+
+  """"""
+  Name: String
+}
+
+""""""
 type Token {
   """"""
   Token: String!
+}
+
+""""""
+input ServerSDP {
+  """"""
+  Type: String
+
+  """"""
+  Sdp: String
 }
 
 """"""
@@ -66,105 +192,6 @@ type MediaInfo {
 }
 
 """"""
-type RootMutationType {
-  """"""
-  AddPlaylistSource(RoomId: String!, SourceUrl: String!): [Source]
-
-  """"""
-  CreateRoom(Name: String!, Image: String, Private: Boolean, Type: RoomType): Room
-
-  """"""
-  DeletePlaylistSource(RoomId: String!, SourceId: String!): [Source]
-
-  """"""
-  DeleteRoom(RoomId: String!): Room
-
-  """"""
-  InitConnection(RoomId: String!, SDP: ServerSDP!): ClientSDP
-
-  """"""
-  LikeRoom(RoomId: String!): Room
-
-  """"""
-  LoadMedia(RoomId: String!, SourceId: String!): Room
-
-  """"""
-  RoomAction(RoomId: String!, Action: String!, Arg: String!): Room
-
-  """"""
-  SignIn(Email: String!, Password: String!): Token
-
-  """"""
-  SignUp(Email: String!, Login: String!, Password: String!): Token
-
-  """"""
-  UpdateCurrentUser(Login: String, Avatar: String): User
-
-  """"""
-  UpdateRoom(RoomId: String!, Name: String, Image: String, Private: Boolean, Type: RoomType): Room
-}
-
-""""""
-type RootQueryType {
-  """"""
-  AllStickers: [StickerPack]
-
-  """"""
-  CurrentUser: User
-
-  """"""
-  GetRoomByKey(Key: String!): Room
-
-  """"""
-  GetRoomPlaylist(RoomId: String!): [Source]
-
-  """"""
-  ListRooms: [Room]
-
-  """"""
-  ListSources: [Source]
-
-  """"""
-  SearchSource(Query: String!): [Source]
-}
-
-""""""
-type Source {
-  """"""
-  Cover: String
-
-  """"""
-  Id: String
-
-  """"""
-  Name: String
-}
-
-""""""
-type User {
-  """"""
-  Avatar: String!
-
-  """"""
-  Email: String!
-
-  """"""
-  Id: String!
-
-  """"""
-  Login: String!
-}
-
-""""""
-type ClientSDP {
-  """"""
-  Sdp: String!
-
-  """"""
-  Type: String!
-}
-
-""""""
 type StickerPack {
   """"""
   Name: String
@@ -174,22 +201,16 @@ type StickerPack {
 }
 
 """"""
-enum RoomType {
+type PlaylistSource {
   """"""
-  NO_TYPE
+  Cover: String
 
   """"""
-  SINGLE
+  Id: String
 
   """"""
-  PLAYLIST
-}
-
-""""""
-input ServerSDP {
-  """"""
-  Type: String
+  Index: Int
 
   """"""
-  Sdp: String
+  Name: String
 }

@@ -3,28 +3,32 @@
 
 @_exported import ApolloAPI
 
-class AddPlaylistSourceMutation: GraphQLMutation {
-  static let operationName: String = "AddPlaylistSource"
+class UpdatePlaylistSourcePositionMutation: GraphQLMutation {
+  static let operationName: String = "UpdatePlaylistSourcePosition"
   static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation AddPlaylistSource($roomId: String!, $sourceUrl: String!) { AddPlaylistSource(RoomId: $roomId, SourceUrl: $sourceUrl) { __typename ...SourceAttrs } }"#,
+      #"mutation UpdatePlaylistSourcePosition($roomId: String!, $sourceId: String!, $newPositionIndex: Int!) { UpdatePlaylistSourcePosition( RoomId: $roomId SourceId: $sourceId NewPositionIndex: $newPositionIndex ) { __typename ...SourceAttrs } }"#,
       fragments: [SourceAttrs.self]
     ))
 
   public var roomId: String
-  public var sourceUrl: String
+  public var sourceId: String
+  public var newPositionIndex: Int
 
   public init(
     roomId: String,
-    sourceUrl: String
+    sourceId: String,
+    newPositionIndex: Int
   ) {
     self.roomId = roomId
-    self.sourceUrl = sourceUrl
+    self.sourceId = sourceId
+    self.newPositionIndex = newPositionIndex
   }
 
   public var __variables: Variables? { [
     "roomId": roomId,
-    "sourceUrl": sourceUrl
+    "sourceId": sourceId,
+    "newPositionIndex": newPositionIndex
   ] }
 
   struct Data: SchemaAPI.SelectionSet {
@@ -33,32 +37,33 @@ class AddPlaylistSourceMutation: GraphQLMutation {
 
     static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.RootMutationType }
     static var __selections: [ApolloAPI.Selection] { [
-      .field("AddPlaylistSource", [AddPlaylistSource?]?.self, arguments: [
+      .field("UpdatePlaylistSourcePosition", [UpdatePlaylistSourcePosition?]?.self, arguments: [
         "RoomId": .variable("roomId"),
-        "SourceUrl": .variable("sourceUrl")
+        "SourceId": .variable("sourceId"),
+        "NewPositionIndex": .variable("newPositionIndex")
       ]),
     ] }
 
-    var addPlaylistSource: [AddPlaylistSource?]? { __data["AddPlaylistSource"] }
+    var updatePlaylistSourcePosition: [UpdatePlaylistSourcePosition?]? { __data["UpdatePlaylistSourcePosition"] }
 
     init(
-      addPlaylistSource: [AddPlaylistSource?]? = nil
+      updatePlaylistSourcePosition: [UpdatePlaylistSourcePosition?]? = nil
     ) {
       self.init(_dataDict: DataDict(
         data: [
           "__typename": SchemaAPI.Objects.RootMutationType.typename,
-          "AddPlaylistSource": addPlaylistSource._fieldData,
+          "UpdatePlaylistSourcePosition": updatePlaylistSourcePosition._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(AddPlaylistSourceMutation.Data.self)
+          ObjectIdentifier(UpdatePlaylistSourcePositionMutation.Data.self)
         ]
       ))
     }
 
-    /// AddPlaylistSource
+    /// UpdatePlaylistSourcePosition
     ///
     /// Parent Type: `PlaylistSource`
-    struct AddPlaylistSource: SchemaAPI.SelectionSet {
+    struct UpdatePlaylistSourcePosition: SchemaAPI.SelectionSet {
       let __data: DataDict
       init(_dataDict: DataDict) { __data = _dataDict }
 
@@ -95,7 +100,7 @@ class AddPlaylistSourceMutation: GraphQLMutation {
             "Index": index,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(AddPlaylistSourceMutation.Data.AddPlaylistSource.self),
+            ObjectIdentifier(UpdatePlaylistSourcePositionMutation.Data.UpdatePlaylistSourcePosition.self),
             ObjectIdentifier(SourceAttrs.self)
           ]
         ))

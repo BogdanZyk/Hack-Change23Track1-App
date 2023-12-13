@@ -103,9 +103,13 @@ final class PlayerManager: ObservableObject {
     
     func handlePlayerEvent(_ event: PlayerEvent) {
         switch event {
-        case .set(let item, let seconds):
+        case .set(let item, let seconds, let isPlay):
             setItem(item)
-            seekAndPlay(seconds)
+            if isPlay {
+                seekAndPlay(seconds)
+            } else {
+                seekAndPause(seconds)
+            }
         case .play(let seconds):
             seekAndPlay(seconds)
         case .pause(let seconds):

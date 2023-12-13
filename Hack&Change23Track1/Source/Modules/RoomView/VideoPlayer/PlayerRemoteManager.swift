@@ -42,8 +42,10 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
                 roomDataService.addVideoToPlaylist(roomId: id, sourceId: sourceId)
                 self.playList = newPlaylist
                 itemLoader = .empty
-                guard let last = playList.last else { return }
-                setSource(last.id)
+                if playList.count == 1 {
+                    guard let last = playList.last else { return }
+                    setSource(last.id)
+                }
             } catch {
                 handleError(error)
             }
@@ -118,11 +120,26 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
     private func setNewVideoIfNeeded(_ state: RoomPlayerState) {
         guard let source = state.source,
               let url = state.wrappedUrl else { return }
-        if currentVideo?.id != state.source?.id {
-            let newVideo = VideoItem(id: source.id, url: url, name: source.name, cover: source.cover)
-            self.currentVideo = newVideo
-            playerEvent = .set(newVideo, state.currentSeconds)
+        if currentVideo == nil {
+            setVideoItem(source: source,
+                         seconds: state.currentSeconds,
+                         url: url,
+                         withPlay: playerEvent.isPlay)
+        } else if currentVideo?.id != state.source?.id {
+            setVideoItem(source: source,
+                         seconds: state.currentSeconds,
+                         url: url,
+                         withPlay: true)
         }
+    }
+    
+    private func setVideoItem(source: RoomPlayerState.Source,
+                          seconds: Double,
+                          url: URL,
+                          withPlay: Bool) {
+        let newVideo = VideoItem(id: source.id, url: url, name: source.name, cover: source.cover)
+        currentVideo = newVideo
+        playerEvent = .set(newVideo, seconds, withPlay)
     }
     
     func handlePlayerEvents(_ event: PlayerEvent) {

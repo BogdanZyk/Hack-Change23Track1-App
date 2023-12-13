@@ -38,6 +38,7 @@ public extension SchemaAPI {
       case "Room": return SchemaAPI.Objects.Room
       case "MediaInfo": return SchemaAPI.Objects.MediaInfo
       case "Source": return SchemaAPI.Objects.Source
+      case "PlaylistSource": return SchemaAPI.Objects.PlaylistSource
       case "ClientSDP": return SchemaAPI.Objects.ClientSDP
       case "StickerPack": return SchemaAPI.Objects.StickerPack
       default: return nil

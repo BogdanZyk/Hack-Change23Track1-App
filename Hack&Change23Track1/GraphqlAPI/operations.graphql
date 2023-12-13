@@ -49,6 +49,12 @@ mutation DeletePlaylistSource($roomId: String!, $sourceId: String!) {
   }
 }
 
+mutation UpdatePlaylistSourcePosition($roomId: String!, $sourceId: String!, $newPositionIndex: Int!) {
+  UpdatePlaylistSourcePosition(RoomId: $roomId, SourceId: $sourceId, NewPositionIndex: $newPositionIndex) {
+    ...SourceAttrs
+  }
+}
+
 query GetRoomByKey($key: String!) {
   GetRoomByKey(Key: $key) {
     ...RoomAttrs
@@ -95,14 +101,17 @@ fragment RoomAttrs on Room {
 fragment MediaInfoAttrs on MediaInfo {
   CurrentSeconds
   Source {
-    ...SourceAttrs
-  }
-}
-
-fragment SourceAttrs on Source {
     Name
     Id
     Cover
+  }
+}
+
+fragment SourceAttrs on PlaylistSource {
+    Name
+    Id
+    Cover
+    Index
 }
 
 mutation AddPlaylistSource($roomId: String!, $sourceUrl: String!) {

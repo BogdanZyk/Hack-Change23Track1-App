@@ -45,6 +45,8 @@
 		5A7AE3722B21F9E700071D82 /* AddPlaylistSourceMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE3702B21F9E700071D82 /* AddPlaylistSourceMutation.graphql.swift */; };
 		5A7AE3742B21F9F600071D82 /* GetRoomPlaylistQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE3732B21F9F600071D82 /* GetRoomPlaylistQuery.graphql.swift */; };
 		5A7AE3782B230F8B00071D82 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE3772B230F8B00071D82 /* Array.swift */; };
+		5A7AE37A2B29B95000071D82 /* UpdatePlaylistSourcePositionMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE3792B29B95000071D82 /* UpdatePlaylistSourcePositionMutation.graphql.swift */; };
+		5A7AE37C2B29B97800071D82 /* PlaylistSource.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE37B2B29B97800071D82 /* PlaylistSource.graphql.swift */; };
 		5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */; };
 		5A81F3D82B1091AA00D9998F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F3D72B1091AA00D9998F /* ContentView.swift */; };
 		5A81F3DA2B1091AB00D9998F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F3D92B1091AB00D9998F /* Assets.xcassets */; };
@@ -162,6 +164,8 @@
 		5A7AE3702B21F9E700071D82 /* AddPlaylistSourceMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlaylistSourceMutation.graphql.swift; sourceTree = "<group>"; };
 		5A7AE3732B21F9F600071D82 /* GetRoomPlaylistQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRoomPlaylistQuery.graphql.swift; sourceTree = "<group>"; };
 		5A7AE3772B230F8B00071D82 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		5A7AE3792B29B95000071D82 /* UpdatePlaylistSourcePositionMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePlaylistSourcePositionMutation.graphql.swift; sourceTree = "<group>"; };
+		5A7AE37B2B29B97800071D82 /* PlaylistSource.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistSource.graphql.swift; sourceTree = "<group>"; };
 		5A81F3D22B1091AA00D9998F /* Hack&Change23Track1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hack&Change23Track1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A81F3D52B1091AA00D9998F /* Hack_Change23Track1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hack_Change23Track1App.swift; sourceTree = "<group>"; };
 		5A81F3D72B1091AA00D9998F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -232,7 +236,6 @@
 		5AAE6AB92B1DF4AC0055303F /* MediaInfoAttrs.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaInfoAttrs.graphql.swift; sourceTree = "<group>"; };
 		5AAE6ABC2B1DF4C50055303F /* LoadMediaMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMediaMutation.graphql.swift; sourceTree = "<group>"; };
 		5AAE6AC12B1E10130055303F /* PlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
-		5AAE6AC32B1E10470055303F /* video_simple.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_simple.mp4; sourceTree = "<group>"; };
 		5AAE6AC42B1E10BF0055303F /* CancelBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBag.swift; sourceTree = "<group>"; };
 		5AAE6AC62B1E11000055303F /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 		5AAE6AC82B1E11200055303F /* Orientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Orientation.swift; sourceTree = "<group>"; };
@@ -372,7 +375,6 @@
 		5A81F3D42B1091AA00D9998F /* Hack&Change23Track1 */ = {
 			isa = PBXGroup;
 			children = (
-				5AAE6AC32B1E10470055303F /* video_simple.mp4 */,
 				5A58E7C52B126EC600D0723C /* Hack-Change23Track1-Info.plist */,
 				5A81F4052B1098B200D9998F /* GraphqlAPI */,
 				5A81F3F22B1096F200D9998F /* App */,
@@ -566,6 +568,7 @@
 		5A81F4222B10A49C00D9998F /* Mutations */ = {
 			isa = PBXGroup;
 			children = (
+				5A7AE3792B29B95000071D82 /* UpdatePlaylistSourcePositionMutation.graphql.swift */,
 				5A7AE3702B21F9E700071D82 /* AddPlaylistSourceMutation.graphql.swift */,
 				5A7AE36F2B21F9E700071D82 /* DeletePlaylistSourceMutation.graphql.swift */,
 				5AAE6ABC2B1DF4C50055303F /* LoadMediaMutation.graphql.swift */,
@@ -610,6 +613,7 @@
 		5A81F4312B10A49C00D9998F /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				5A7AE37B2B29B97800071D82 /* PlaylistSource.graphql.swift */,
 				5AAE6AB52B1DF4970055303F /* MediaInfo.graphql.swift */,
 				5AAE6AB42B1DF4970055303F /* Source.graphql.swift */,
 				5A58E7CF2B1283C500D0723C /* StickerPack.graphql.swift */,
@@ -843,6 +847,7 @@
 				5A81F4742B10BC9E00D9998F /* RootContainerView.swift in Sources */,
 				5A81F4822B10C47300D9998F /* PrimaryTextField.swift in Sources */,
 				5A58E7CE2B12832300D0723C /* RoomTemplate.swift in Sources */,
+				5A7AE37C2B29B97800071D82 /* PlaylistSource.graphql.swift in Sources */,
 				5A58E7A82B115F1E00D0723C /* SoundWaveView.swift in Sources */,
 				5A81F3FE2B1097DC00D9998F /* Double.swift in Sources */,
 				5A81F4552B10A49C00D9998F /* Room.graphql.swift in Sources */,
@@ -861,6 +866,7 @@
 				5ADD4B392B18B0D300B0C05B /* FullSreenPlayer.swift in Sources */,
 				5A81F40E2B109CEC00D9998F /* SessionDescription.swift in Sources */,
 				5A7AE3722B21F9E700071D82 /* AddPlaylistSourceMutation.graphql.swift in Sources */,
+				5A7AE37A2B29B95000071D82 /* UpdatePlaylistSourcePositionMutation.graphql.swift in Sources */,
 				5A8C32712B17647900E1BCDA /* WebRTCClient.swift in Sources */,
 				5A58E7922B11373400D0723C /* UIApplication.swift in Sources */,
 				5A58E7B72B11F04D00D0723C /* ShareUtils.swift in Sources */,
