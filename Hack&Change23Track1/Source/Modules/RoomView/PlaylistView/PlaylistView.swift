@@ -65,7 +65,6 @@ extension RoomView {
         private func rowView(_ video: SourceAttrs) -> some View {
             let isPlay = video.id == playedId
             HStack {
-                Text("\(video.index ?? 0)")
                 LazyNukeImage(fullPath: video.cover)
                     .frame(width: 60, height: 60)
                     .cornerRadius(8)

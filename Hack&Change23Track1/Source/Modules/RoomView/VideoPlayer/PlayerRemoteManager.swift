@@ -44,6 +44,7 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
                 itemLoader = .empty
                 if playList.count == 1 {
                     guard let last = playList.last else { return }
+                    playerEvent = .play(0)
                     setSource(last.id)
                 }
             } catch {
