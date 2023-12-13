@@ -19,6 +19,7 @@ struct VideoPlayerRepresenter: UIViewControllerRepresentable {
         controller.showsPlaybackControls = false
         controller.allowsVideoFrameAnalysis = false
         controller.allowsPictureInPicturePlayback = false
+        controller.updatesNowPlayingInfoCenter = false
         
         return controller
     }

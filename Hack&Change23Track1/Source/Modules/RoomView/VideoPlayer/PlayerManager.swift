@@ -21,6 +21,8 @@ final class PlayerManager: ObservableObject {
     private(set) var lastPlayer: AVPlayer?
     private(set) var lastBufferTime: Double = .zero
     
+    private let commandCenter = RemoteCommandHelper.shared
+    
     var totalTime: Double {
         player?.currentItem?.duration.seconds ?? 0
     }
@@ -131,17 +133,18 @@ final class PlayerManager: ObservableObject {
         let time = CMTime(seconds: time, preferredTimescale: 1000)
         player?.seek(to: time)
         lastPlayer?.seek(to: time)
+        changeTimeInCommandItem()
     }
         
     private func setupAudioSession() {
         do {
             let session = AVAudioSession.sharedInstance()
-            try session.setCategory(.playback, mode: .moviePlayback)
+            try session.setCategory(.playAndRecord, mode: .default)
             try session.overrideOutputAudioPort(.speaker)
             try session.setActive(true)
         }
         catch {
-          print("Setting category to AVAudioSessionCategoryPlayback failed.")
+            print("Setting category to AVAudioSessionCategoryPlayback failed.", error.localizedDescription)
         }
     }
     
@@ -169,6 +172,7 @@ final class PlayerManager: ObservableObject {
                 self.isBuffering = status != .readyToPlay
                 if status == .readyToPlay {
                     updateTimeFromBufferDifference()
+                    setRemoteCommandsItem()
                 }
             }
             .store(in: cancelBag)
@@ -227,6 +231,22 @@ final class PlayerManager: ObservableObject {
         player = nil
         currentItem = nil
         onEvent = nil
+    }
+    
+    private func setRemoteCommandsItem() {
+        guard let currentItem else { return }
+        Task {
+            let image = await currentItem.loadPreview()
+            let time = player?.currentTime().seconds ?? 0
+            commandCenter.setupNowPlaying(currentItem,
+                                          image: image,
+                                          currentTime: time,
+                                          duration: totalTime)
+        }
+    }
+    
+    private func changeTimeInCommandItem() {
+        commandCenter.updateTime(currentTime: seconds)
     }
 }
 

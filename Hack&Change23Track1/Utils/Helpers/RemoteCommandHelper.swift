@@ -28,40 +28,36 @@ final class RemoteCommandHelper {
         commandCenter.playCommand.addTarget { _ in .success }
     }
     
-    func setupNowPlaying(_ item: MediaItem) {
+    func setupNowPlaying(_ item: VideoItem,
+                         image: UIImage?,
+                         currentTime: Double,
+                         duration: Double) {
         
-        print("set RemoteCommandCenter")
-
-        let nowPlayingInfoCenter = MPNowPlayingInfoCenter.default()
-        var nowPlayingInfo = nowPlayingInfoCenter.nowPlayingInfo ?? [String: Any]()
+        var nowPlayingInfo = [String: Any]()
         
-        let image = item.image ?? UIImage()
-        let artwork = MPMediaItemArtwork(boundsSize: image.size, requestHandler: {  (_) -> UIImage in
-          return image
-        })
-
-        nowPlayingInfo[MPMediaItemPropertyTitle] = item.title
+        nowPlayingInfo[MPMediaItemPropertyTitle] = item.name ?? "no name"
         
-        if let album = item.album {
-            nowPlayingInfo[MPMediaItemPropertyAlbumTitle] = album
+        if let image {
+            let artwork = MPMediaItemArtwork(boundsSize: image.size) { _ in image }
+            nowPlayingInfo[MPMediaItemPropertyArtwork] = artwork
         }
-        nowPlayingInfo[MPMediaItemPropertyArtwork] = artwork
+
         nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = NSNumber(value: 1.0)
-        
-//        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = NSNumber(value: 0)
-//        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = NSNumber(value: 300)
-//
-        nowPlayingInfo[MPNowPlayingInfoPropertyIsLiveStream] = true
-        nowPlayingInfoCenter.nowPlayingInfo = nowPlayingInfo
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = NSNumber(value: currentTime)
+        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = NSNumber(value: duration)
+//        nowPlayingInfo[MPNowPlayingInfoPropertyIsLiveStream] = true
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+    
+        print("set RemoteCommandCenter", nowPlayingInfo)
+    }
+    
+    func updateTime(currentTime: Double) {
+        var oldPlayingInfo = MPNowPlayingInfoCenter.default().nowPlayingInfo
+        oldPlayingInfo?[MPMediaItemPropertyPlaybackDuration] = NSNumber(value: currentTime)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = oldPlayingInfo
     }
     
     func removeNowPlayingItem() {
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nil
-    }
-    
-    struct MediaItem {
-        let title: String
-        var album: String?
-        var image: UIImage?
     }
 }
