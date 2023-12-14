@@ -15,16 +15,13 @@ class WebViewModel: ObservableObject {
     @Published var isLoaderVisible: Bool = false
     @Published private(set) var videoId: String?
     
-    
     func setVideoIdUrl(_ url: URL?) {
         
         guard let pathComponents = url?.pathComponents else { return }
         
         if pathComponents.contains("watch") {
-            print("video id", url?.query())
             videoId = removeVParameter(from: url?.query())
         } else if pathComponents.contains("shorts") {
-            print("shorts id", pathComponents.last)
             videoId = pathComponents.last
         }
     }
@@ -84,6 +81,11 @@ struct WebView: UIViewRepresentable {
             print("didFinish")
             self.parent.viewModel.isLoaderVisible = false
             webView.addObserver(self, forKeyPath: "URL", options: .new, context: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                webView.evaluateJavaScript(YouTubeJSHelper.hideBottomTabBar, in: nil, in: .defaultClient)
+                webView.evaluateJavaScript(YouTubeJSHelper.hideProfileButton, in: nil, in: .defaultClient)
+            }
+
         }
         
         func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
@@ -107,4 +109,24 @@ struct WebView: UIViewRepresentable {
         }
     }
 }
+
+fileprivate struct YouTubeJSHelper {
+    
+    static let hideBottomTabBar = """
+    function hideBottomTabBar() {
+        const headerTitle = document.querySelector('ytm-pivot-bar-renderer');
+        headerTitle.style.display = 'none';
+    }
+        hideBottomTabBar();
+    """
+  
+    static let hideProfileButton = """
+    function hideProfileButton() {
+        const headerTitle = document.querySelector('ytm-topbar-menu-button-renderer');
+        headerTitle.style.display = 'none';
+    }
+        hideProfileButton();
+    """
+}
+
 

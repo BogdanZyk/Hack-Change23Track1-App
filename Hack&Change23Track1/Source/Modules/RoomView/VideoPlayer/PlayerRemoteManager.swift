@@ -161,10 +161,8 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
                 case .seek(let seconds):
                     try await setPlayerAction(.move, arg: "\(seconds)")
                 case .backward:
-                    print("backward")
                     setPreviewsVideo()
                 case .forward:
-                    print("forward")
                     setNextVideo()
                 case .set, .close:
                     break
