@@ -10,7 +10,7 @@ import PhotosUI
 
 struct CreateRoomView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject private var viewModel = CreateRoomViewModel()
+    @ObservedObject var viewModel = CreateRoomViewModel()
     @State private var photoItem: PhotosPickerItem?
     let onCreate: (RoomAttrs) -> Void
     var body: some View {
@@ -66,12 +66,16 @@ struct CreateRoomView: View {
                                     viewModel.template.image = nil
                                 }
                         }
-                }else {
+                } else {
                     PhotosPicker(selection: $photoItem, matching: .images) {
                         ZStack {
-                            Rectangle()
-                                .fill(Color.primaryGray)
-                            Image(systemName: "plus")
+                            if let image = viewModel.template.imagePath {
+                                LazyNukeImage(fullPath: image)
+                            } else {
+                                Rectangle()
+                                    .fill(Color.primaryGray)
+                                Image(systemName: "plus")
+                            }
                         }
                     }
                 }
@@ -82,12 +86,11 @@ struct CreateRoomView: View {
     }
     
     private var submitButton: some View{
-        PrimaryButton(label: "Create",
+        PrimaryButton(label: "Create room",
                       isDisabled: viewModel.template.name.isEmpty,
                       isLoading: viewModel.showLoader) {
             Task {
-                guard let newRoom = await viewModel.createRoom() else { return }
-                dismiss()
+                guard let newRoom = await viewModel.submitRoom() else { return }
                 onCreate(newRoom)
             }
         }

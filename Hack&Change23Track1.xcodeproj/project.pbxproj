@@ -41,6 +41,8 @@
 		5A58E7CE2B12832300D0723C /* RoomTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7CD2B12832300D0723C /* RoomTemplate.swift */; };
 		5A58E7D02B1283C500D0723C /* StickerPack.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7CF2B1283C500D0723C /* StickerPack.graphql.swift */; };
 		5A58E7D22B1287AB00D0723C /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7D12B1287AB00D0723C /* ShareSheet.swift */; };
+		5A703C4F2B2AFED100948F2D /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A703C4E2B2AFED100948F2D /* AppRouter.swift */; };
+		5A703C512B2B451B00948F2D /* CreateRoomWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A703C502B2B451B00948F2D /* CreateRoomWebView.swift */; };
 		5A7AE3712B21F9E700071D82 /* DeletePlaylistSourceMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE36F2B21F9E700071D82 /* DeletePlaylistSourceMutation.graphql.swift */; };
 		5A7AE3722B21F9E700071D82 /* AddPlaylistSourceMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE3702B21F9E700071D82 /* AddPlaylistSourceMutation.graphql.swift */; };
 		5A7AE3742B21F9F600071D82 /* GetRoomPlaylistQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE3732B21F9F600071D82 /* GetRoomPlaylistQuery.graphql.swift */; };
@@ -160,6 +162,8 @@
 		5A58E7CD2B12832300D0723C /* RoomTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTemplate.swift; sourceTree = "<group>"; };
 		5A58E7CF2B1283C500D0723C /* StickerPack.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerPack.graphql.swift; sourceTree = "<group>"; };
 		5A58E7D12B1287AB00D0723C /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		5A703C4E2B2AFED100948F2D /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
+		5A703C502B2B451B00948F2D /* CreateRoomWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomWebView.swift; sourceTree = "<group>"; };
 		5A7AE36F2B21F9E700071D82 /* DeletePlaylistSourceMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeletePlaylistSourceMutation.graphql.swift; sourceTree = "<group>"; };
 		5A7AE3702B21F9E700071D82 /* AddPlaylistSourceMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlaylistSourceMutation.graphql.swift; sourceTree = "<group>"; };
 		5A7AE3732B21F9F600071D82 /* GetRoomPlaylistQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRoomPlaylistQuery.graphql.swift; sourceTree = "<group>"; };
@@ -691,6 +695,7 @@
 			isa = PBXGroup;
 			children = (
 				5A81F4732B10BC9E00D9998F /* RootContainerView.swift */,
+				5A703C4E2B2AFED100948F2D /* AppRouter.swift */,
 			);
 			path = RootContainer;
 			sourceTree = "<group>";
@@ -720,6 +725,7 @@
 				5A81F4852B10D03100D9998F /* CreateRoomViewModel.swift */,
 				5A81F47D2B10C0BB00D9998F /* CreateRoomView.swift */,
 				5A81F4882B10D29200D9998F /* JoinInRoomView.swift */,
+				5A703C502B2B451B00948F2D /* CreateRoomWebView.swift */,
 			);
 			path = CreateRoom;
 			sourceTree = "<group>";
@@ -880,6 +886,7 @@
 				5A81F4632B10B95000D9998F /* AuthView.swift in Sources */,
 				5A81F46A2B10BA8100D9998F /* ApolloClient.swift in Sources */,
 				5A58E7AC2B116B3B00D0723C /* RoomChatViewModel.swift in Sources */,
+				5A703C512B2B451B00948F2D /* CreateRoomWebView.swift in Sources */,
 				5A81F4542B10A49C00D9998F /* RootQueryType.graphql.swift in Sources */,
 				5A81F4092B1098FD00D9998F /* Config.swift in Sources */,
 				5AAE6ABB2B1DF4AC0055303F /* MediaInfoAttrs.graphql.swift in Sources */,
@@ -902,6 +909,7 @@
 				5A81F4892B10D29200D9998F /* JoinInRoomView.swift in Sources */,
 				5A58E7B32B117CB300D0723C /* MessageContextMenu.swift in Sources */,
 				5AAE6AC92B1E11200055303F /* Orientation.swift in Sources */,
+				5A703C4F2B2AFED100948F2D /* AppRouter.swift in Sources */,
 				5A81F4572B10A49C00D9998F /* SchemaConfiguration.swift in Sources */,
 				5A81F4712B10BBC800D9998F /* RoomMember.swift in Sources */,
 				5A81F4682B10B9A900D9998F /* AppAlert.swift in Sources */,

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct RoomView: View {
+    @EnvironmentObject var appRouter: AppRouter
     @StateObject private var orientation = OrientationManager()
-    @Environment(\.dismiss) private var dismiss
     @StateObject private var chatVM = RoomChatViewModel()
     @StateObject private var viewModel: RoomViewModel
     @StateObject private var playerManager: PlayerRemoteManager
@@ -73,6 +73,7 @@ struct RoomView: View {
 struct AudioRoomView_Previews: PreviewProvider {
     static var previews: some View {
         RoomView(room: .mock, currentUser: .mock)
+            .environmentObject(AppRouter())
     }
 }
 
@@ -221,7 +222,7 @@ extension RoomView {
             playerManager.closePlayer()
             orientation.changeOrientation(to: .portrait)
             isFocused = false
-            dismiss()
+            appRouter.popToRoot()
         }
     }
 }

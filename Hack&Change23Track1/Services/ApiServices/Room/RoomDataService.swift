@@ -163,13 +163,7 @@ enum RoomAction: String {
 }
 
 extension RoomAttrs: Identifiable {}
-extension SourceAttrs: Identifiable {
-    
-    var coverFullPath: String {
-        "http://45.12.237.146" + (cover ?? "")
-    }
-    
-}
+extension SourceAttrs: Identifiable {}
 
 
 extension RoomAttrs {

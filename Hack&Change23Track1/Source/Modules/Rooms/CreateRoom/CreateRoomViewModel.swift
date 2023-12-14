@@ -14,22 +14,53 @@ class CreateRoomViewModel: ObservableObject {
     @Published var appAlert: AppAlert?
     @Published var showLoader: Bool = false
     
+    private var selectedSource: SourceAttrs?
+    private var createdRoom: RoomAttrs?
     private let roomService = RoomDataService()
-        
-    func createRoom() async -> RoomAttrs? {
+
+    func createRoomWithVideo(for id: String) async {
         showLoader = true
         do {
-            let base = template.createBase64Image()
-            let newRoom = try await roomService.createRoom(name: template.name,
-                                                           image: template.createBase64Image(),
-                                                           isPrivate: template.isPrivateRoom)
+            let room = try await createRoom()
+            guard let roomId = room.id else { return }
+            let tracks = try await roomService.addVideoToPlaylist(roomId: roomId, sourceId: id)
+            guard let source = tracks.first else { return }
+            selectedSource = source
+            setTemplate(source)
+            createdRoom = room
             showLoader = false
-            return newRoom
         } catch {
-            appAlert = .errors(errors: [error])
+            self.appAlert = .errors(errors: [error])
+            showLoader = false
+        }
+    }
+        
+    func submitRoom() async -> RoomAttrs? {
+        guard let sourceId = selectedSource?.id, let roomId = createdRoom?.id else { return nil }
+        showLoader = true
+        do {
+            let room =  try await roomService.loadVideo(for: roomId, sourceId: sourceId)
+            showLoader = false
+            return room
+        } catch {
+            self.appAlert = .errors(errors: [error])
             showLoader = false
             return nil
         }
+    }
+    
+    private func setTemplate(_ source: SourceAttrs) {
+        template = .init(name: source.name ?? "No name",
+                         isPrivateRoom: false,
+                         image: nil,
+                         imagePath: source.cover)
+    }
+    
+    private func createRoom() async throws -> RoomAttrs {
+        let newRoom = try await roomService.createRoom(name: template.name,
+                                                       image: template.createBase64Image(),
+                                                       isPrivate: template.isPrivateRoom)
+        return newRoom
     }
     
     func findRoom(_ code: String) async -> RoomAttrs? {

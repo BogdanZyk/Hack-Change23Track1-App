@@ -9,19 +9,22 @@ import SwiftUI
 
 struct WebNavigationView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject var viewModel = WebViewModel()
+    @StateObject private var viewModel = WebViewModel()
     let url = "https://www.youtube.com/"
+    var withDismiss: Bool = true
     let onSelect: (String) -> Void
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
-            HStack {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark")
+            if withDismiss {
+                HStack {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                    .padding()
+                    Spacer()
                 }
-                .padding()
-                Spacer()
             }
             WebView(url: url, viewModel: viewModel)
                 .ignoresSafeArea()
@@ -30,7 +33,9 @@ struct WebNavigationView: View {
         .onChange(of: viewModel.videoId) { newValue in
             guard let newValue else {return}
             onSelect(newValue)
-            dismiss()
+            if withDismiss {
+                dismiss()
+            }
         }
     }
 }

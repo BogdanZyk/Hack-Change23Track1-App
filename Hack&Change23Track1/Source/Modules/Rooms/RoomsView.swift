@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RoomsView: View {
+    @EnvironmentObject var appRouter: AppRouter
     @EnvironmentObject var userManager: UserManager
     @StateObject private var viewModel = RoomsViewModel()
     @State private var screen: FullScreen?
@@ -32,9 +33,9 @@ struct RoomsView: View {
         .task {
             fetchRooms()
         }
-        .fullScreenCover(item: $screen) {
-            makeFullScreen($0)
-        }
+//        .fullScreenCover(item: $screen) {
+//            makeFullScreen($0)
+//        }
         .confirmationDialog("", isPresented: $showConfirmDialog) {
             confirmAction
         }
@@ -46,6 +47,7 @@ struct RoomsView_Previews: PreviewProvider {
     static var previews: some View {
         RoomsView()
             .environmentObject(UserManager())
+            .environmentObject(AppRouter())
     }
 }
 
@@ -74,17 +76,18 @@ extension RoomsView {
     private func roomRow(_ room: RoomAttrs) -> some View {
         RoomRowView(room: room)
             .onTapGesture {
-                screen = .room(room)
+                appRouter.setPath(to: .room(room))
+//                screen = .room(room)
             }
     }
     
     private var confirmAction: some View {
         Group {
             Button("Create room") {
-                screen = .create
+                appRouter.setPath(to: .createRoom)
             }
             Button("Join in room") {
-                screen = .join
+                appRouter.setPath(to: .joinRoom)
             }
         }
     }

@@ -31,7 +31,7 @@ struct RoomTemplate {
     }
     
     init() {
-        self.name = ""
+        self.name = "No name"
         self.isPrivateRoom = false
         self.image = nil
         self.imagePath = nil
