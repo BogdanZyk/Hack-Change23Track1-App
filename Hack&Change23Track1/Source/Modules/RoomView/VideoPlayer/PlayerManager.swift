@@ -152,7 +152,7 @@ final class PlayerManager: ObservableObject {
         }
     }
     
-    private func startSubscriptions(){
+    private func startSubscriptions() {
         guard let player else { return }
         player.publisher(for: \.timeControlStatus)
             .sink { [weak self] status in
@@ -203,7 +203,7 @@ final class PlayerManager: ObservableObject {
         }
     }
     
-    private func removeObservers(){
+    private func removeObservers() {
         if let timeObserver = timeObserver {
             player?.removeTimeObserver(timeObserver)
         }
