@@ -41,6 +41,7 @@
 		5A58E7CE2B12832300D0723C /* RoomTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7CD2B12832300D0723C /* RoomTemplate.swift */; };
 		5A58E7D02B1283C500D0723C /* StickerPack.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7CF2B1283C500D0723C /* StickerPack.graphql.swift */; };
 		5A58E7D22B1287AB00D0723C /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7D12B1287AB00D0723C /* ShareSheet.swift */; };
+		5A6231FC2B307EBA00E17DB5 /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 5A6231FB2B307EBA00E17DB5 /* ApolloWebSocket */; };
 		5A703C4F2B2AFED100948F2D /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A703C4E2B2AFED100948F2D /* AppRouter.swift */; };
 		5A703C512B2B451B00948F2D /* CreateRoomWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A703C502B2B451B00948F2D /* CreateRoomWebView.swift */; };
 		5A7AE3712B21F9E700071D82 /* DeletePlaylistSourceMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE36F2B21F9E700071D82 /* DeletePlaylistSourceMutation.graphql.swift */; };
@@ -257,6 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A58E7862B1121A200D0723C /* NukeUI in Frameworks */,
+				5A6231FC2B307EBA00E17DB5 /* ApolloWebSocket in Frameworks */,
 				5A58E7802B11217100D0723C /* Apollo in Frameworks */,
 				5A58E7832B11218400D0723C /* WebRTC in Frameworks */,
 			);
@@ -360,11 +362,19 @@
 			path = RoomSettings;
 			sourceTree = "<group>";
 		};
+		5A6231FA2B307EBA00E17DB5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5A81F3C92B1091AA00D9998F = {
 			isa = PBXGroup;
 			children = (
 				5A81F3D42B1091AA00D9998F /* Hack&Change23Track1 */,
 				5A81F3D32B1091AA00D9998F /* Products */,
+				5A6231FA2B307EBA00E17DB5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -763,6 +773,7 @@
 				5A58E77F2B11217100D0723C /* Apollo */,
 				5A58E7822B11218400D0723C /* WebRTC */,
 				5A58E7852B1121A200D0723C /* NukeUI */,
+				5A6231FB2B307EBA00E17DB5 /* ApolloWebSocket */,
 			);
 			productName = "Hack&Change23Track1";
 			productReference = 5A81F3D22B1091AA00D9998F /* Hack&Change23Track1.app */;
@@ -1185,6 +1196,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5A58E7842B1121A200D0723C /* XCRemoteSwiftPackageReference "NukeUI" */;
 			productName = NukeUI;
+		};
+		5A6231FB2B307EBA00E17DB5 /* ApolloWebSocket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A58E77E2B11217100D0723C /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = ApolloWebSocket;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

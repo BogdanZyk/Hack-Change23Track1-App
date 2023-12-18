@@ -31,51 +31,12 @@ fragment UserAttrs on User {
     Email
 }
 
-query ListRooms {
-  ListRooms {
-    ...RoomAttrs
-  }
-}
-
-query GetRoomPlaylist($roomId: String!) {
-  GetRoomPlaylist(RoomId: $roomId) {
-    ...SourceAttrs
-  }
-}
-
-mutation DeletePlaylistSource($roomId: String!, $sourceId: String!) {
-  DeletePlaylistSource(RoomId: $roomId, SourceId: $sourceId) {
-    ...SourceAttrs
-  }
-}
-
-mutation UpdatePlaylistSourcePosition($roomId: String!, $sourceId: String!, $newPositionIndex: Int!) {
-  UpdatePlaylistSourcePosition(RoomId: $roomId, SourceId: $sourceId, NewPositionIndex: $newPositionIndex) {
-    ...SourceAttrs
-  }
-}
-
-query GetRoomByKey($key: String!) {
-  GetRoomByKey(Key: $key) {
-    ...RoomAttrs
-  }
-}
-
-mutation CreateRoom($name: String!, $type: RoomType, $image: String, $private: Boolean) {
-  CreateRoom(Name: $name, Type: $type, Image: $image, Private: $private) {
-    ...RoomAttrs
-  }
-}
-
-mutation UpdateRoom($roomId: String!, $image: String, $private: Boolean, $type: RoomType, $name: String) {
-  UpdateRoom(RoomId: $roomId, Image: $image, Private: $private, Type: $type, Name: $name) {
-     ...RoomAttrs
-  }
-}
-
-mutation DeleteRoom($roomId: String!) {
-  DeleteRoom(RoomId: $roomId) {
-    Id
+query GetPaginatedRooms($page: Int, $pageSize: Int) {
+  GetPaginatedRooms(Page: $page, PageSize: $pageSize) {
+    Entries {
+      ...RoomAttrs
+    }
+    TotalPages
   }
 }
 
@@ -97,6 +58,50 @@ fragment RoomAttrs on Room {
     }
 }
 
+query GetRoomPaginategPlaylist($roomId: String!, $page: Int, $pageSize: Int) {
+  GetRoomPlaylist(RoomId: $roomId, Page: $page, PageSize: $pageSize) {
+    Entries {
+      ...SourceAttrs
+    }
+    TotalPages
+  }
+}
+
+mutation DeletePlaylistSource($playlistRowId: String!, $roomId: String!) {
+  DeletePlaylistSource(PlaylistRowId: $playlistRowId, RoomId: $roomId) {
+    ...SourceAttrs
+  }
+}
+
+mutation MovePlaylistSourcePosition($position: Int!, $roomId: String!, $playlistRowId: String!) {
+  MovePlaylistSourcePosition(Position: $position, RoomId: $roomId, PlaylistRowId: $playlistRowId) {
+    ...SourceAttrs
+  }
+}
+
+query GetRoomByKey($key: String!) {
+  GetRoomByKey(Key: $key) {
+    ...RoomAttrs
+  }
+}
+
+mutation CreateRoom($name: String!, $type: RoomType, $image: String, $private: Boolean) {
+  CreateRoom(Name: $name, Type: $type, Image: $image, Private: $private) {
+    ...RoomAttrs
+  }
+}
+
+mutation UpdateRoom($roomId: String!, $name: String!, $private: Boolean, $type: RoomType, $image: String) {
+  UpdateRoom(RoomId: $roomId, Name: $name, Private: $private, Type: $type, Image: $image) {
+    ...RoomAttrs
+  }
+}
+
+mutation DeleteRoom($roomId: String!) {
+  DeleteRoom(RoomId: $roomId) {
+    Id
+  }
+}
 
 fragment MediaInfoAttrs on MediaInfo {
   CurrentSeconds
@@ -114,8 +119,8 @@ fragment SourceAttrs on PlaylistSource {
     Index
 }
 
-mutation AddPlaylistSource($roomId: String!, $sourceUrl: String!) {
-  AddPlaylistSource(RoomId: $roomId, SourceUrl: $sourceUrl) {
+mutation AddPlaylistSource($roomId: String!, $url: String!) {
+  AddPlaylistSource(RoomId: $roomId, Url: $url) {
     ...SourceAttrs
   }
 }
@@ -155,3 +160,11 @@ query AllStickers {
   }
 }
 
+
+subscription SubscribePlaylistUpdates($roomId: String!) {
+  SubscribePlaylistUpdates(RoomId: $roomId) {
+    Id
+  }
+}
+
+["/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:23:error:Fragment \"UserAttrs\" cannot be spread here as objects of type \"Token\" can never be of type \"User\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:44:error:Cannot query field \"MediaInfo\" on type \"Room\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:53:error:Cannot query field \"Members\" on type \"Room\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:56:error:Cannot query field \"Owner\" on type \"Room\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:106:error:Unknown type \"MediaInfo\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:116:error:Cannot query field \"Name\" on type \"PlaylistRow\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:118:error:Cannot query field \"Cover\" on type \"PlaylistRow\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:123:error:Variable \"$sourceUrl\" is not defined by operation \"AddPlaylistSource\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:122:error:Variable \"$sourceUrl\" is not defined by operation \"AddPlaylistSource\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:122:error:Variable \"$url\" is never used in operation \"AddPlaylistSource\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:129:error:Cannot query field \"LoadMedia\" on type \"RootMutationType\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:135:error:Cannot query field \"LikeRoom\" on type \"RootMutationType\". Did you mean \"DeleteRoom\"?", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:141:error:Cannot query field \"RoomAction\" on type \"RootMutationType\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:146:error:Unknown type \"ServerSDP\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:147:error:Cannot query field \"InitConnection\" on type \"RootMutationType\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:152:error:Unknown type \"ClientSDP\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:158:error:Cannot query field \"AllStickers\" on type \"RootQueryType\"."]

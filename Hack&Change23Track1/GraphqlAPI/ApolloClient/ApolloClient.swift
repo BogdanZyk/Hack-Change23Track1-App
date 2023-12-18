@@ -9,22 +9,55 @@ import Foundation
 import ApolloAPI
 import Combine
 import Apollo
+import ApolloWebSocket
 
-class Network {
+final class Network {
 
     static let shared = Network()
 
-    private init() { }
+    private init() {
+        //createSplitClientIfNeeded()
+    }
 
+    ///Only Apollo RequestChainNetworkTransport client
     private(set) lazy var client: ApolloClient = {
-        let url = URL(string: Config.baseURL + "/api")!
-        let client = URLSessionClient()
         let store = ApolloStore(cache: InMemoryNormalizedCache())
-        let provider = NetworkInterceptorProvider(store: store, client: client)
-        let transport = RequestChainNetworkTransport(interceptorProvider: provider,
-                                                     endpointURL: url)
+        let transport = makeRequestChainNetworkTransport(store: store)
         return ApolloClient(networkTransport: transport, store: store)
     }()
+    
+    ///Apollo split client with WebSocket
+    private(set) var splitClient: ApolloClient?
+        
+    func createSplitClientIfNeeded() {
+        guard let token = UserDefaults.standard.string(forKey: "JWT") else { return }
+        let store = client.store
+        let requestTransport = makeRequestChainNetworkTransport(store: store)
+        let webSocketTransport = makeWebSocketTransport(token)
+        let splitTransport = SplitNetworkTransport(
+            uploadingNetworkTransport: requestTransport,
+            webSocketNetworkTransport: webSocketTransport
+        )
+        splitClient = ApolloClient(networkTransport: splitTransport, store: store)
+        print("On CreateSplitClient")
+    }
+
+    private func makeRequestChainNetworkTransport(store: ApolloStore) -> RequestChainNetworkTransport {
+        let url = URL(string: Config.baseURL + "/api")!
+        let client = URLSessionClient()
+        let provider = NetworkInterceptorProvider(store: store, client: client)
+        return RequestChainNetworkTransport(interceptorProvider: provider,
+                                                     endpointURL: url)
+    }
+    
+    private func makeWebSocketTransport(_ token: String) -> WebSocketTransport {
+        let url = URL(string: Config.socketURL)!
+        let webSocketClient = WebSocket(url: url, protocol: .graphql_transport_ws)
+        let authPayload: JSONEncodableDictionary = ["authToken": "\(token)"]
+        let config = WebSocketTransport.Configuration(connectingPayload: authPayload)
+        return WebSocketTransport(websocket: webSocketClient, config: config)
+    }
+    
 }
 
 extension Network {

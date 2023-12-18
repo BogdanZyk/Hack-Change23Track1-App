@@ -8,6 +8,7 @@
 import Foundation
 import Apollo
 import ApolloAPI
+import Combine
 
 extension ApolloClient {
 
@@ -67,6 +68,43 @@ extension ApolloClient {
             continuation.onTermination = { @Sendable _ in request.cancel() }
         }.first(where: {_ in true})
     }
+    
+//    public func subscribe<Subscription: GraphQLSubscription>(subscription: Subscription) async throws -> GraphQLResult<Subscription.Data>? {
+//        try await AsyncThrowingStream { continuation in
+//
+//            self.subscribe(subscription: subscription) { result in
+//                switch result {
+//
+//                }
+//            }
+//
+//
+////            let request = fetch(
+////                query: query,
+////                cachePolicy: cachePolicy,
+////                contextIdentifier: contextIdentifier,
+////                queue: queue
+////            ) { response in
+////                switch response {
+////                case .success(let result):
+////
+////                    if let error = result.errors?.first {
+////                        continuation.finish(throwing: error)
+////                    }
+////
+////                    continuation.yield(result)
+////
+////                    if result.isFinalForCachePolicy(cachePolicy) {
+////                        continuation.finish()
+////                    }
+////                case .failure(let error):
+////                    continuation.finish(throwing: error)
+////                }
+////            }
+//            continuation.onTermination = { @Sendable _ in }
+//            //continuation.onTermination = { @Sendable _ in request.cancel() }
+//        }
+//    }
 }
 
 extension GraphQLResult {
@@ -86,3 +124,63 @@ extension GraphQLResult {
     }
 }
 
+extension ApolloClient {
+    
+    func subscribePublisher<Subscription: GraphQLSubscription>(subscription: Subscription)
+    -> GraphQLSubscriptionPublisher<Subscription> {
+        GraphQLSubscriptionPublisher(client: self, subscription: subscription)
+    }
+}
+
+public final class GraphQLSubscriptionSubscription<GraphSubscription: GraphQLSubscription, SubscriberType: Subscriber>: Subscription
+where SubscriberType.Input == GraphQLResult<GraphSubscription.Data>, SubscriberType.Failure == Error {
+    
+    private var subscriber: SubscriberType?
+    private var cancellable: Apollo.Cancellable? = nil
+    
+    public init(client: ApolloClient, subscription: GraphSubscription, subscriber: SubscriberType) {
+        self.subscriber = subscriber
+        cancellable = client.subscribe(
+            subscription: subscription,
+            resultHandler: self.handle)
+    }
+    
+    deinit {
+        cancellable?.cancel()
+    }
+    
+    public func request(_ demand: Subscribers.Demand) { }
+    
+    public func cancel() {
+        cancellable?.cancel()
+        cancellable = nil
+    }
+    
+    private func handle(result: Result<GraphQLResult<GraphSubscription.Data>, Error>) {
+        switch result {
+        case .success(let resultSet):
+            _ = subscriber?.receive(resultSet)
+        case .failure(let e):
+            subscriber?.receive(completion: Subscribers.Completion<Error>.failure(e))
+            subscriber?.receive(completion: .finished)
+        }
+    }
+}
+
+public struct GraphQLSubscriptionPublisher<Subscription: GraphQLSubscription>: Publisher {
+    public typealias Output = GraphQLResult<Subscription.Data>
+    public typealias Failure = Error
+    
+    private let client: ApolloClient
+    private let subscription: Subscription
+    
+    init(client: ApolloClient, subscription: Subscription) {
+        self.client = client
+        self.subscription = subscription
+    }
+    
+    public func receive<S>(subscriber: S) where S : Subscriber, S.Failure == Error, S.Input == GraphQLResult<Subscription.Data> {
+        let subscription = GraphQLSubscriptionSubscription(client: self.client, subscription: self.subscription, subscriber: subscriber)
+        subscriber.receive(subscription: subscription)
+    }
+}

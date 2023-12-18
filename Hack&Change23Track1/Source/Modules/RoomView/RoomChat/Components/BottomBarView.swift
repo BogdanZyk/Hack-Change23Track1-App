@@ -13,7 +13,7 @@ struct BottomBarView: View {
     var replyMessage: Message.ReplyMessage?
     let onSend: (Message.MessageContent) -> Void
     var body: some View {
-        VStack(spacing: 4){
+        VStack(spacing: 4) {
             Divider()
             VStack(alignment: .leading, spacing: 10) {
                 if let replyMessage {

@@ -1,6 +1,7 @@
 schema {
   query: RootQueryType
   mutation: RootMutationType
+  subscription: RootSubscriptionType
 }
 
 """
@@ -9,18 +10,24 @@ A directive used by the Apollo iOS client to annotate operations or fragments th
 directive @apollo_client_ios_localCacheMutation on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
 
 """"""
-type User {
+type PaginatedPlaylistRows {
   """"""
-  Avatar: String!
+  Entries: [PlaylistRow]
 
   """"""
-  Email: String!
+  Page: Int
 
   """"""
-  Id: String!
+  PageCount: Int
 
   """"""
-  Login: String!
+  PageSize: Int
+
+  """"""
+  TotalCount: Int
+
+  """"""
+  TotalPages: Int
 }
 
 """"""
@@ -38,19 +45,7 @@ type Room {
   Likes: Int
 
   """"""
-  MediaInfo: MediaInfo
-
-  """"""
-  Members: [User]
-
-  """"""
   Name: String
-
-  """"""
-  Owner: User
-
-  """"""
-  Playlist: [Source]
 
   """"""
   Private: Boolean
@@ -60,78 +55,69 @@ type Room {
 }
 
 """"""
-type ClientSDP {
+type Token {
   """"""
-  Sdp: String!
-
-  """"""
-  Type: String!
+  Token: String!
 }
 
 """"""
-enum RoomType {
+type PaginatedRooms {
   """"""
-  NO_TYPE
+  Entries: [Room]
 
   """"""
-  SINGLE
+  Page: Int
 
   """"""
-  PLAYLIST
+  PageCount: Int
+
+  """"""
+  PageSize: Int
+
+  """"""
+  TotalCount: Int
+
+  """"""
+  TotalPages: Int
 }
 
 """"""
-type RootQueryType {
+type PaginatedSources {
   """"""
-  AllStickers: [StickerPack]
+  Entries: [Source]
 
   """"""
-  CurrentUser: User
+  Page: Int
 
   """"""
-  GetRoomById(Id: String!): Room
+  PageCount: Int
 
   """"""
-  GetRoomByKey(Key: String!): Room
+  PageSize: Int
 
   """"""
-  GetRoomPlaylist(RoomId: String!): [PlaylistSource]
+  TotalCount: Int
 
   """"""
-  ListRooms: [Room]
-
-  """"""
-  ListSources: [Source]
-
-  """"""
-  SearchSource(Query: String!): [Source]
+  TotalPages: Int
 }
 
 """"""
 type RootMutationType {
   """"""
-  AddPlaylistSource(RoomId: String!, SourceUrl: String!): [PlaylistSource]
+  AddPlaylistSource(RoomId: String!, Url: String!): [PlaylistRow]
 
   """"""
   CreateRoom(Name: String!, Image: String, Private: Boolean, Type: RoomType): Room
 
   """"""
-  DeletePlaylistSource(RoomId: String!, SourceId: String!): [PlaylistSource]
+  DeletePlaylistSource(PlaylistRowId: String!, RoomId: String!): [PlaylistRow]
 
   """"""
   DeleteRoom(RoomId: String!): Room
 
   """"""
-  InitConnection(RoomId: String!, SDP: ServerSDP!): ClientSDP
-
-  """"""
-  LikeRoom(RoomId: String!): Room
-
-  """"""
-  LoadMedia(SourceId: String!, RoomId: String!): Room
-
-  """"""
-  RoomAction(Action: String!, Arg: String!, RoomId: String!): Room
+  MovePlaylistSourcePosition(Position: Int!, RoomId: String!, PlaylistRowId: String!): [PlaylistRow]
 
   """"""
   SignIn(Email: String!, Password: String!): Token
@@ -140,77 +126,92 @@ type RootMutationType {
   SignUp(Login: String!, Password: String!, Email: String!): Token
 
   """"""
-  UpdateCurrentUser(Avatar: String, Login: String): User
+  UpdateCurrentUser(Login: String, Avatar: String): Token
 
   """"""
-  UpdatePlaylistSourcePosition(RoomId: String!, SourceId: String!, NewPositionIndex: Int!): [PlaylistSource]
+  UpdateRoom(Private: Boolean, Type: RoomType, RoomId: String!, Name: String!, Image: String): Room
+}
+
+""""""
+enum RoomType {
+  """"""
+  PLAYLIST
 
   """"""
-  UpdateRoom(RoomId: String!, Name: String, Image: String, Private: Boolean, Type: RoomType): Room
+  NO_TYPE
+
+  """"""
+  SINGLE
+}
+
+""""""
+type User {
+  """"""
+  Avatar: String!
+
+  """"""
+  Email: String!
+
+  """"""
+  Id: String!
+
+  """"""
+  Login: String!
 }
 
 """"""
 type Source {
   """"""
-  Cover: String
+  Cover: String!
 
   """"""
-  Id: String
+  Id: String!
 
   """"""
-  Name: String
+  Name: String!
 }
 
 """"""
-type Token {
+type RootQueryType {
   """"""
-  Token: String!
+  CurrentUser: User
+
+  """"""
+  GetOwnSources(PageSize: Int = 10, Page: Int = 1): PaginatedSources
+
+  """"""
+  GetPaginatedRooms(Page: Int = 1, PageSize: Int = 10): PaginatedRooms
+
+  """"""
+  GetPaginatedSources(Page: Int = 1, PageSize: Int = 10): PaginatedSources
+
+  """"""
+  GetRoom(RoomId: String!): Room
+
+  """"""
+  GetRoomByKey(Key: String!): Room
+
+  """"""
+  GetRoomPlaylist(RoomId: String!, Page: Int = 1, PageSize: Int = 10): PaginatedPlaylistRows
 }
 
 """"""
-input ServerSDP {
+type PlaylistRow {
   """"""
-  Type: String
+  Id: String!
 
   """"""
-  Sdp: String
+  Index: Int!
+
+  """"""
+  RoomId: String!
+
+  """"""
+  SourceId: String!
 }
 
 """"""
-type MediaInfo {
+type RootSubscriptionType {
   """"""
-  CurrentSeconds: String
-
-  """"""
-  Pause: Boolean
-
-  """"""
-  Source: Source
-
-  """"""
-  Url: String
-}
-
-""""""
-type StickerPack {
-  """"""
-  Name: String
-
-  """"""
-  Stickers: [String]
-}
-
-""""""
-type PlaylistSource {
-  """"""
-  Cover: String
-
-  """"""
-  Id: String
-
-  """"""
-  Index: Int
-
-  """"""
-  Name: String
+  SubscribePlaylistUpdates(RoomId: String!): [PlaylistRow]
 }
