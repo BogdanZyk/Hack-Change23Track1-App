@@ -21,8 +21,8 @@ struct RoomRowView: View {
                 HStack(spacing: 16) {
                     Label("\(room.likes ?? 0)", systemImage: "heart.fill")
                         .foregroundColor(Color.pink)
-                    Label("\(room.members?.count ?? 0)", systemImage: "headphones")
-                        .foregroundColor(Color.purple)
+//                    Label("\(room.members?.count ?? 0)", systemImage: "headphones")
+//                        .foregroundColor(Color.purple)
                 }
                 .padding(.top, 10)
             }

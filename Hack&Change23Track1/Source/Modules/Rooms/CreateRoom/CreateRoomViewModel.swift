@@ -23,8 +23,8 @@ class CreateRoomViewModel: ObservableObject {
         do {
             let room = try await createRoom()
             guard let roomId = room.id else { return }
-            let tracks = try await roomService.addVideoToPlaylist(roomId: roomId, sourceId: id)
-            guard let source = tracks.first else { return }
+            let tracks = try await roomService.addVideoToPlaylist(roomId: roomId, url: id)
+            guard let source = tracks.first?.source.fragments.sourceAttrs else { return }
             selectedSource = source
             setTemplate(source)
             createdRoom = room
@@ -39,9 +39,9 @@ class CreateRoomViewModel: ObservableObject {
         guard let sourceId = selectedSource?.id, let roomId = createdRoom?.id else { return nil }
         showLoader = true
         do {
-            let room =  try await roomService.loadVideo(for: roomId, sourceId: sourceId)
+            let room = try await roomService.setRoomAction(for: roomId, action: .move, arg: "")
             showLoader = false
-            return room
+            return createdRoom
         } catch {
             self.appAlert = .errors(errors: [error])
             showLoader = false

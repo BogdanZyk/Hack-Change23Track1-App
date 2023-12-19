@@ -10,27 +10,6 @@ A directive used by the Apollo iOS client to annotate operations or fragments th
 directive @apollo_client_ios_localCacheMutation on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
 
 """"""
-type PaginatedPlaylistRows {
-  """"""
-  Entries: [PlaylistRow]
-
-  """"""
-  Page: Int
-
-  """"""
-  PageCount: Int
-
-  """"""
-  PageSize: Int
-
-  """"""
-  TotalCount: Int
-
-  """"""
-  TotalPages: Int
-}
-
-""""""
 type Room {
   """"""
   Id: String
@@ -45,7 +24,13 @@ type Room {
   Likes: Int
 
   """"""
+  MediaInfo: MediaInfo
+
+  """"""
   Name: String
+
+  """"""
+  Owner: User
 
   """"""
   Private: Boolean
@@ -55,9 +40,87 @@ type Room {
 }
 
 """"""
+type PlaylistRow {
+  """"""
+  Id: String!
+
+  """"""
+  Index: Int!
+
+  """"""
+  RoomId: String!
+
+  """"""
+  Source: Source!
+
+  """"""
+  SourceId: String!
+}
+
+""""""
+type RootMutationType {
+  """"""
+  AddPlaylistSource(RoomId: String!, Url: String!): [PlaylistRow]
+
+  """"""
+  CreateRoom(Name: String!, Image: String, Private: Boolean, Type: RoomType): Room
+
+  """"""
+  DeletePlaylistSource(PlaylistRowId: String!, RoomId: String!): [PlaylistRow]
+
+  """"""
+  DeleteRoom(RoomId: String!): Room
+
+  """"""
+  MovePlaylistSourcePosition(PlaylistRowId: String!, Position: Int!, RoomId: String!): [PlaylistRow]
+
+  """"""
+  RoomAction(RoomId: String, Action: String, Arg: String): Boolean
+
+  """"""
+  SignIn(Email: String!, Password: String!): Token
+
+  """"""
+  SignUp(Login: String!, Password: String!, Email: String!): Token
+
+  """"""
+  UpdateCurrentUser(Login: String, Avatar: String): User
+
+  """"""
+  UpdateRoom(Type: RoomType, RoomId: String!, Name: String!, Image: String, Private: Boolean): Room
+}
+
+""""""
 type Token {
   """"""
   Token: String!
+}
+
+""""""
+type RootQueryType {
+  """"""
+  CurrentUser: User
+
+  """"""
+  GetMediaInfo(RoomId: String): MediaInfo
+
+  """"""
+  GetOwnSources: [PlaylistRow]
+
+  """"""
+  GetPaginatedRooms(Page: Int = 1, PageSize: Int = 10): PaginatedRooms
+
+  """"""
+  GetPaginatedSources: [PlaylistRow]
+
+  """"""
+  GetRoom(RoomId: String!): Room
+
+  """"""
+  GetRoomByKey(Key: String!): Room
+
+  """"""
+  GetRoomPlaylist(RoomId: String!): [PlaylistRow]
 }
 
 """"""
@@ -82,66 +145,36 @@ type PaginatedRooms {
 }
 
 """"""
-type PaginatedSources {
+type MediaInfo {
   """"""
-  Entries: [Source]
+  CurrentTimeSeconds: Float
 
   """"""
-  Page: Int
+  DurationSeconds: Float
 
   """"""
-  PageCount: Int
+  Play: Boolean
 
   """"""
-  PageSize: Int
+  RoomId: String
 
   """"""
-  TotalCount: Int
+  Source: Source
 
   """"""
-  TotalPages: Int
+  SourceId: String
 }
 
 """"""
-type RootMutationType {
+type Source {
   """"""
-  AddPlaylistSource(RoomId: String!, Url: String!): [PlaylistRow]
+  Cover: String!
 
   """"""
-  CreateRoom(Name: String!, Image: String, Private: Boolean, Type: RoomType): Room
+  Id: String!
 
   """"""
-  DeletePlaylistSource(PlaylistRowId: String!, RoomId: String!): [PlaylistRow]
-
-  """"""
-  DeleteRoom(RoomId: String!): Room
-
-  """"""
-  MovePlaylistSourcePosition(Position: Int!, RoomId: String!, PlaylistRowId: String!): [PlaylistRow]
-
-  """"""
-  SignIn(Email: String!, Password: String!): Token
-
-  """"""
-  SignUp(Login: String!, Password: String!, Email: String!): Token
-
-  """"""
-  UpdateCurrentUser(Login: String, Avatar: String): Token
-
-  """"""
-  UpdateRoom(Private: Boolean, Type: RoomType, RoomId: String!, Name: String!, Image: String): Room
-}
-
-""""""
-enum RoomType {
-  """"""
-  PLAYLIST
-
-  """"""
-  NO_TYPE
-
-  """"""
-  SINGLE
+  Name: String!
 }
 
 """"""
@@ -160,58 +193,19 @@ type User {
 }
 
 """"""
-type Source {
+enum RoomType {
   """"""
-  Cover: String!
+  NO_TYPE
 
   """"""
-  Id: String!
+  SINGLE
 
   """"""
-  Name: String!
-}
-
-""""""
-type RootQueryType {
-  """"""
-  CurrentUser: User
-
-  """"""
-  GetOwnSources(PageSize: Int = 10, Page: Int = 1): PaginatedSources
-
-  """"""
-  GetPaginatedRooms(Page: Int = 1, PageSize: Int = 10): PaginatedRooms
-
-  """"""
-  GetPaginatedSources(Page: Int = 1, PageSize: Int = 10): PaginatedSources
-
-  """"""
-  GetRoom(RoomId: String!): Room
-
-  """"""
-  GetRoomByKey(Key: String!): Room
-
-  """"""
-  GetRoomPlaylist(RoomId: String!, Page: Int = 1, PageSize: Int = 10): PaginatedPlaylistRows
-}
-
-""""""
-type PlaylistRow {
-  """"""
-  Id: String!
-
-  """"""
-  Index: Int!
-
-  """"""
-  RoomId: String!
-
-  """"""
-  SourceId: String!
+  PLAYLIST
 }
 
 """"""
 type RootSubscriptionType {
   """"""
-  SubscribePlaylistUpdates(RoomId: String!): [PlaylistRow]
+  SubscribeMediaInfo(RoomId: String): MediaInfo
 }

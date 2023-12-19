@@ -5,39 +5,35 @@
 
 struct SourceAttrs: SchemaAPI.SelectionSet, Fragment {
   static var fragmentDefinition: StaticString {
-    #"fragment SourceAttrs on PlaylistSource { __typename Name Id Cover Index }"#
+    #"fragment SourceAttrs on Source { __typename Id Cover Name }"#
   }
 
   let __data: DataDict
   init(_dataDict: DataDict) { __data = _dataDict }
 
-  static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.PlaylistSource }
+  static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Source }
   static var __selections: [ApolloAPI.Selection] { [
     .field("__typename", String.self),
-    .field("Name", String?.self),
-    .field("Id", String?.self),
-    .field("Cover", String?.self),
-    .field("Index", Int?.self),
+    .field("Id", String.self),
+    .field("Cover", String.self),
+    .field("Name", String.self),
   ] }
 
-  var name: String? { __data["Name"] }
-  var id: String? { __data["Id"] }
-  var cover: String? { __data["Cover"] }
-  var index: Int? { __data["Index"] }
+  var id: String { __data["Id"] }
+  var cover: String { __data["Cover"] }
+  var name: String { __data["Name"] }
 
   init(
-    name: String? = nil,
-    id: String? = nil,
-    cover: String? = nil,
-    index: Int? = nil
+    id: String,
+    cover: String,
+    name: String
   ) {
     self.init(_dataDict: DataDict(
       data: [
-        "__typename": SchemaAPI.Objects.PlaylistSource.typename,
-        "Name": name,
+        "__typename": SchemaAPI.Objects.Source.typename,
         "Id": id,
         "Cover": cover,
-        "Index": index,
+        "Name": name,
       ],
       fulfilledFragments: [
         ObjectIdentifier(SourceAttrs.self)

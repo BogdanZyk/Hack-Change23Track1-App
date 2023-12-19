@@ -16,7 +16,7 @@ final class Network {
     static let shared = Network()
 
     private init() {
-        //createSplitClientIfNeeded()
+        createSplitClientIfNeeded()
     }
 
     ///Only Apollo RequestChainNetworkTransport client
@@ -52,7 +52,7 @@ final class Network {
     
     private func makeWebSocketTransport(_ token: String) -> WebSocketTransport {
         let url = URL(string: Config.socketURL)!
-        let webSocketClient = WebSocket(url: url, protocol: .graphql_transport_ws)
+        let webSocketClient = WebSocket(url: url, protocol: .graphql_ws)
         let authPayload: JSONEncodableDictionary = ["authToken": "\(token)"]
         let config = WebSocketTransport.Configuration(connectingPayload: authPayload)
         return WebSocketTransport(websocket: webSocketClient, config: config)

@@ -7,36 +7,36 @@ class UpdateRoomMutation: GraphQLMutation {
   static let operationName: String = "UpdateRoom"
   static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation UpdateRoom($roomId: String!, $image: String, $private: Boolean, $type: RoomType, $name: String) { UpdateRoom( RoomId: $roomId Image: $image Private: $private Type: $type Name: $name ) { __typename ...RoomAttrs } }"#,
-      fragments: [RoomAttrs.self, MediaInfoAttrs.self, UserAttrs.self]
+      #"mutation UpdateRoom($roomId: String!, $name: String!, $private: Boolean, $type: RoomType, $image: String) { UpdateRoom( RoomId: $roomId Name: $name Private: $private Type: $type Image: $image ) { __typename ...RoomAttrs } }"#,
+      fragments: [RoomAttrs.self, MediaInfoAttrs.self, SourceAttrs.self]
     ))
 
   public var roomId: String
-  public var image: GraphQLNullable<String>
+  public var name: String
   public var `private`: GraphQLNullable<Bool>
   public var type: GraphQLNullable<GraphQLEnum<SchemaAPI.RoomType>>
-  public var name: GraphQLNullable<String>
+  public var image: GraphQLNullable<String>
 
   public init(
     roomId: String,
-    image: GraphQLNullable<String>,
+    name: String,
     `private`: GraphQLNullable<Bool>,
     type: GraphQLNullable<GraphQLEnum<SchemaAPI.RoomType>>,
-    name: GraphQLNullable<String>
+    image: GraphQLNullable<String>
   ) {
     self.roomId = roomId
-    self.image = image
+    self.name = name
     self.`private` = `private`
     self.type = type
-    self.name = name
+    self.image = image
   }
 
   public var __variables: Variables? { [
     "roomId": roomId,
-    "image": image,
+    "name": name,
     "private": `private`,
     "type": type,
-    "name": name
+    "image": image
   ] }
 
   struct Data: SchemaAPI.SelectionSet {
@@ -47,10 +47,10 @@ class UpdateRoomMutation: GraphQLMutation {
     static var __selections: [ApolloAPI.Selection] { [
       .field("UpdateRoom", UpdateRoom?.self, arguments: [
         "RoomId": .variable("roomId"),
-        "Image": .variable("image"),
+        "Name": .variable("name"),
         "Private": .variable("private"),
         "Type": .variable("type"),
-        "Name": .variable("name")
+        "Image": .variable("image")
       ]),
     ] }
 
@@ -90,7 +90,6 @@ class UpdateRoomMutation: GraphQLMutation {
       var image: String? { __data["Image"] }
       var key: String? { __data["Key"] }
       var name: String? { __data["Name"] }
-      var members: [Member?]? { __data["Members"] }
       var owner: RoomAttrs.Owner? { __data["Owner"] }
 
       struct Fragments: FragmentContainer {
@@ -108,7 +107,6 @@ class UpdateRoomMutation: GraphQLMutation {
         image: String? = nil,
         key: String? = nil,
         name: String? = nil,
-        members: [Member?]? = nil,
         owner: RoomAttrs.Owner? = nil
       ) {
         self.init(_dataDict: DataDict(
@@ -121,7 +119,6 @@ class UpdateRoomMutation: GraphQLMutation {
             "Image": image,
             "Key": key,
             "Name": name,
-            "Members": members._fieldData,
             "Owner": owner._fieldData,
           ],
           fulfilledFragments: [
@@ -140,8 +137,9 @@ class UpdateRoomMutation: GraphQLMutation {
 
         static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.MediaInfo }
 
-        var currentSeconds: String? { __data["CurrentSeconds"] }
-        var source: MediaInfoAttrs.Source? { __data["Source"] }
+        var currentTimeSeconds: Double? { __data["CurrentTimeSeconds"] }
+        var durationSeconds: Double? { __data["DurationSeconds"] }
+        var source: Source? { __data["Source"] }
 
         struct Fragments: FragmentContainer {
           let __data: DataDict
@@ -151,13 +149,15 @@ class UpdateRoomMutation: GraphQLMutation {
         }
 
         init(
-          currentSeconds: String? = nil,
-          source: MediaInfoAttrs.Source? = nil
+          currentTimeSeconds: Double? = nil,
+          durationSeconds: Double? = nil,
+          source: Source? = nil
         ) {
           self.init(_dataDict: DataDict(
             data: [
               "__typename": SchemaAPI.Objects.MediaInfo.typename,
-              "CurrentSeconds": currentSeconds,
+              "CurrentTimeSeconds": currentTimeSeconds,
+              "DurationSeconds": durationSeconds,
               "Source": source._fieldData,
             ],
             fulfilledFragments: [
@@ -167,49 +167,46 @@ class UpdateRoomMutation: GraphQLMutation {
             ]
           ))
         }
-      }
 
-      /// UpdateRoom.Member
-      ///
-      /// Parent Type: `User`
-      struct Member: SchemaAPI.SelectionSet {
-        let __data: DataDict
-        init(_dataDict: DataDict) { __data = _dataDict }
-
-        static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.User }
-
-        var id: String { __data["Id"] }
-        var login: String { __data["Login"] }
-        var avatar: String { __data["Avatar"] }
-        var email: String { __data["Email"] }
-
-        struct Fragments: FragmentContainer {
+        /// UpdateRoom.MediaInfo.Source
+        ///
+        /// Parent Type: `Source`
+        struct Source: SchemaAPI.SelectionSet {
           let __data: DataDict
           init(_dataDict: DataDict) { __data = _dataDict }
 
-          var userAttrs: UserAttrs { _toFragment() }
-        }
+          static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Source }
 
-        init(
-          id: String,
-          login: String,
-          avatar: String,
-          email: String
-        ) {
-          self.init(_dataDict: DataDict(
-            data: [
-              "__typename": SchemaAPI.Objects.User.typename,
-              "Id": id,
-              "Login": login,
-              "Avatar": avatar,
-              "Email": email,
-            ],
-            fulfilledFragments: [
-              ObjectIdentifier(UpdateRoomMutation.Data.UpdateRoom.Member.self),
-              ObjectIdentifier(UserAttrs.self),
-              ObjectIdentifier(RoomAttrs.Member.self)
-            ]
-          ))
+          var id: String { __data["Id"] }
+          var cover: String { __data["Cover"] }
+          var name: String { __data["Name"] }
+
+          struct Fragments: FragmentContainer {
+            let __data: DataDict
+            init(_dataDict: DataDict) { __data = _dataDict }
+
+            var sourceAttrs: SourceAttrs { _toFragment() }
+          }
+
+          init(
+            id: String,
+            cover: String,
+            name: String
+          ) {
+            self.init(_dataDict: DataDict(
+              data: [
+                "__typename": SchemaAPI.Objects.Source.typename,
+                "Id": id,
+                "Cover": cover,
+                "Name": name,
+              ],
+              fulfilledFragments: [
+                ObjectIdentifier(UpdateRoomMutation.Data.UpdateRoom.MediaInfo.Source.self),
+                ObjectIdentifier(SourceAttrs.self),
+                ObjectIdentifier(MediaInfoAttrs.Source.self)
+              ]
+            ))
+          }
         }
       }
     }

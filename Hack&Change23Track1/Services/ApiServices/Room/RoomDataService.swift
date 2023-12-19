@@ -12,15 +12,17 @@ final class RoomDataService {
     
     private let api = Network.shared.client
     
-    func fetchRooms() async throws -> [RoomAttrs] {
-        let query = ListRoomsQuery()
+    func fetchPaginatedRooms(page: Int = 1, pageSize: Int = 20) async throws -> (rooms: [RoomAttrs], total: Int) {
+        let query = GetPaginatedRoomsQuery(page: .init(integerLiteral: page), pageSize: .init(integerLiteral: pageSize))
         let data = try await api.fetch(query: query, cachePolicy: .fetchIgnoringCacheData)
         
-        guard let rooms = data?.data?.listRooms?.compactMap({$0?.fragments.roomAttrs}) else {
+        guard let rooms = data?.data?.getPaginatedRooms?.entries?.compactMap({$0?.fragments.roomAttrs}),
+              let total = data?.data?.getPaginatedRooms?.totalPages else {
             throw URLError(.badServerResponse)
         }
         
-        return rooms
+        
+        return (rooms, total)
     }
     
     func createRoom(name: String, image: String, isPrivate: Bool) async throws -> RoomAttrs {
@@ -43,7 +45,11 @@ final class RoomDataService {
     
     @discardableResult
     func updateRoom(for id: String, name: String, image: String, isPrivate: Bool) async throws -> RoomAttrs {
-        let mutation = UpdateRoomMutation(roomId: id, image: .init(stringLiteral: image), private: .some(isPrivate), type: .some(.case(.playlist)), name: .init(stringLiteral: name))
+        let mutation = UpdateRoomMutation(roomId: id,
+                                          name: .init(stringLiteral: name),
+                                          private: .some(isPrivate),
+                                          type: .some(.case(.playlist)),
+                                          image: .init(stringLiteral: image))
         let data = try await api.mutation(mutation: mutation)
         guard let room = data.data?.updateRoom?.fragments.roomAttrs else {
             throw URLError(.badServerResponse)
@@ -64,97 +70,83 @@ final class RoomDataService {
     
     @discardableResult
     func likeRoom(for id: String) async throws -> Int {
-        let mutation = LikeRoomMutation(roomId: id)
-        let data = try await api.mutation(mutation: mutation)
-        
-        guard let likes = data.data?.likeRoom?.likes else {
-            throw URLError(.badServerResponse)
-        }
-        return likes
+//        let mutation = LikeRoomMutation(roomId: id)
+//        let data = try await api.mutation(mutation: mutation)
+//
+//        guard let likes = data.data?.likeRoom?.likes else {
+//            throw URLError(.badServerResponse)
+//        }
+//        return likes
+        0
     }
     
-    func getRoomPlaylist(for id: String) async throws -> [SourceAttrs] {
+    func getRoomPlaylist(for id: String) async throws -> [PlaylistRowAttrs] {
         let query = GetRoomPlaylistQuery(roomId: id)
         let data = try await api.fetch(query: query, cachePolicy: .fetchIgnoringCacheCompletely)
         
-        guard let fileAttrs = data?.data?.getRoomPlaylist?.compactMap({$0?.fragments.sourceAttrs}) else {
+        guard let fileAttrs = data?.data?.getRoomPlaylist?.compactMap({$0?.fragments.playlistRowAttrs}) else {
             throw URLError(.badServerResponse)
         }
         
         return fileAttrs
     }
     
-    func addVideoToPlaylist(roomId: String, sourceId: String) async throws -> [SourceAttrs] {
-        let mutation = AddPlaylistSourceMutation(roomId: roomId, sourceUrl: sourceId)
+    func addVideoToPlaylist(roomId: String, url: String) async throws -> [PlaylistRowAttrs] {
+        let mutation = AddPlaylistSourceMutation(roomId: roomId, url: url)
         let data = try await api.mutation(mutation: mutation)
         
-        guard let fileAttrs = data.data?.addPlaylistSource?.compactMap({$0?.fragments.sourceAttrs}) else {
+        guard let fileAttrs = data.data?.addPlaylistSource?.compactMap({$0?.fragments.playlistRowAttrs}) else {
             throw URLError(.badServerResponse)
         }
         
+        return fileAttrs
+    }
+    
+    @discardableResult
+    func movePlaylistItem(roomId: String, playlistRowId: String, index: Int) async throws -> [PlaylistRowAttrs] {
+        let mutation = MovePlaylistSourcePositionMutation(position: index, roomId: roomId, playlistRowId: playlistRowId)
+        let data = try await api.mutation(mutation: mutation)
+        guard let fileAttrs = data.data?.movePlaylistSourcePosition?.compactMap({$0?.fragments.playlistRowAttrs}) else {
+            throw URLError(.badServerResponse)
+        }
         return fileAttrs
     }
     
     @discardableResult
-    func moveSource(roomId: String, sourceId: String, index: Int) async throws -> [SourceAttrs] {
-        let mutation = UpdatePlaylistSourcePositionMutation(roomId: roomId, sourceId: sourceId, newPositionIndex: index)
-        let data = try await api.mutation(mutation: mutation)
-        guard let fileAttrs = data.data?.updatePlaylistSourcePosition?.compactMap({$0?.fragments.sourceAttrs}) else {
-            throw URLError(.badServerResponse)
-        }
-        return fileAttrs
-    }
-    
-    @discardableResult
-    func removeSource(roomId: String, sourceId: String) async throws -> [SourceAttrs] {
-        let mutation = DeletePlaylistSourceMutation(roomId: roomId, sourceId: sourceId)
+    func removePlaylistItem(roomId: String, playlistRowId: String) async throws -> [PlaylistRowAttrs] {
+        let mutation = DeletePlaylistSourceMutation(playlistRowId: playlistRowId, roomId: roomId)
         let data = try await api.mutation(mutation: mutation)
         
-        guard let fileAttrs = data.data?.deletePlaylistSource?.compactMap({$0?.fragments.sourceAttrs}) else {
+        guard let fileAttrs = data.data?.deletePlaylistSource?.compactMap({$0?.fragments.playlistRowAttrs}) else {
             throw URLError(.badServerResponse)
         }
         
         return fileAttrs
-    }
-    
-    func initConnection(for roomId: String, offer: SessionDescription) async throws -> SessionDescription {
-        let mutation = InitConnectionMutation(sdp: offer.serverSDPParams, roomId: roomId)
-        let data = try await api.mutation(mutation: mutation, publishResultToStore: false)
-       
-        guard let sDPClientAttrs = data.data?.initConnection?.fragments.sDPClientAttrs else {
-            throw AppError.custom(errorDescription: "Empty sDPClientAttrs")
-        }
-        
-        return .init(from: sDPClientAttrs)
-    }
-    
-    @discardableResult
-    func loadVideo(for roomId: String, sourceId: String) async throws -> RoomAttrs {
-        
-        let mutation = LoadMediaMutation(sourceId: sourceId, roomId: roomId)
-        
-        let data = try await api.mutation(mutation: mutation)
-        
-        guard let room = data.data?.loadMedia?.fragments.roomAttrs else {
-            throw URLError(.badServerResponse)
-        }
-        
-        return room
     }
     
     @discardableResult
     func setRoomAction(for roomId: String, action: RoomAction, arg: String = "") async throws -> Bool {
-        let mutation = RoomActionMutation(roomId: roomId, action: action.rawValue, arg: arg)
+        let mutation = RoomActionMutation(arg: .init(stringLiteral: arg), action: .init(stringLiteral: action.rawValue), roomId: .init(stringLiteral: roomId))
         let data = try await api.mutation(mutation: mutation)
-        return data.data?.roomAction?.fragments.roomAttrs != nil
+
+        if let error = data.errors?.first {
+           throw AppError.custom(errorDescription: error.localizedDescription)
+        }
+        
+        return data.data?.roomAction ?? false
     }
     
     func fetchStickers() async -> [String] {
-        let query = AllStickersQuery()
-        let data = try? await api.fetch(query: query)
-        guard let stickers = data?.data?.allStickers?.compactMap({$0?.stickers?.compactMap({$0})})
-            .flatMap({$0}) else { return []}
-        return stickers
+//        let query = AllStickersQuery()
+//        let data = try? await api.fetch(query: query)
+//        guard let stickers = data?.data?.allStickers?.compactMap({$0?.stickers?.compactMap({$0})})
+//            .flatMap({$0}) else { return []}
+//        return stickers
+        []
+    }
+    
+    func subscribe() {
+        
     }
 }
 
@@ -164,7 +156,7 @@ enum RoomAction: String {
 
 extension RoomAttrs: Identifiable {}
 extension SourceAttrs: Identifiable {}
-
+extension PlaylistRowAttrs: Identifiable {}
 
 extension RoomAttrs {
     
@@ -172,5 +164,5 @@ extension RoomAttrs {
         owner?.id == id
     }
     
-    static let mock = RoomAttrs(mediaInfo: .init(currentSeconds: "0", source: nil), id: "123", likes: 68, private: false, image: "", key: "00000", name: "Room name", members: [.init(id: "1", login: "test", avatar: "", email: "email@test.com")])
+    static let mock = RoomAttrs(mediaInfo: .init(currentTimeSeconds: 0, source: nil), id: "123", likes: 68, private: false, image: "", key: "00000", name: "Room name")
 }

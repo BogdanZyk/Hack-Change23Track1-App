@@ -43,9 +43,9 @@ extension RoomView {
                              isOwner: viewModel.isOwner,
                              playedId: playerManager.currentVideo?.id,
                              videos: $playerManager.playList,
-                             onTap: { playerManager.setSource($0.id) },
+                             onTap: { playerManager.selectPlaylistItem($0) },
                              onRemove: { playerManager.removeSource(for: $0) },
-                             onMove: { playerManager.moveSource(for: $0, to: $1) })
+                             onMove: { playerManager.movePlaylistItem(for: $0, to: $1) })
                 .appAlert($playerManager.appAlert)
                 .onAppear {
                     if !viewModel.isOwner {

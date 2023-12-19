@@ -7,24 +7,24 @@ class AddPlaylistSourceMutation: GraphQLMutation {
   static let operationName: String = "AddPlaylistSource"
   static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation AddPlaylistSource($roomId: String!, $sourceUrl: String!) { AddPlaylistSource(RoomId: $roomId, SourceUrl: $sourceUrl) { __typename ...SourceAttrs } }"#,
-      fragments: [SourceAttrs.self]
+      #"mutation AddPlaylistSource($roomId: String!, $url: String!) { AddPlaylistSource(RoomId: $roomId, Url: $url) { __typename ...PlaylistRowAttrs } }"#,
+      fragments: [PlaylistRowAttrs.self, SourceAttrs.self]
     ))
 
   public var roomId: String
-  public var sourceUrl: String
+  public var url: String
 
   public init(
     roomId: String,
-    sourceUrl: String
+    url: String
   ) {
     self.roomId = roomId
-    self.sourceUrl = sourceUrl
+    self.url = url
   }
 
   public var __variables: Variables? { [
     "roomId": roomId,
-    "sourceUrl": sourceUrl
+    "url": url
   ] }
 
   struct Data: SchemaAPI.SelectionSet {
@@ -35,7 +35,7 @@ class AddPlaylistSourceMutation: GraphQLMutation {
     static var __selections: [ApolloAPI.Selection] { [
       .field("AddPlaylistSource", [AddPlaylistSource?]?.self, arguments: [
         "RoomId": .variable("roomId"),
-        "SourceUrl": .variable("sourceUrl")
+        "Url": .variable("url")
       ]),
     ] }
 
@@ -57,48 +57,86 @@ class AddPlaylistSourceMutation: GraphQLMutation {
 
     /// AddPlaylistSource
     ///
-    /// Parent Type: `PlaylistSource`
+    /// Parent Type: `PlaylistRow`
     struct AddPlaylistSource: SchemaAPI.SelectionSet {
       let __data: DataDict
       init(_dataDict: DataDict) { __data = _dataDict }
 
-      static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.PlaylistSource }
+      static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.PlaylistRow }
       static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
-        .fragment(SourceAttrs.self),
+        .fragment(PlaylistRowAttrs.self),
       ] }
 
-      var name: String? { __data["Name"] }
-      var id: String? { __data["Id"] }
-      var cover: String? { __data["Cover"] }
-      var index: Int? { __data["Index"] }
+      var id: String { __data["Id"] }
+      var index: Int { __data["Index"] }
+      var source: Source { __data["Source"] }
 
       struct Fragments: FragmentContainer {
         let __data: DataDict
         init(_dataDict: DataDict) { __data = _dataDict }
 
-        var sourceAttrs: SourceAttrs { _toFragment() }
+        var playlistRowAttrs: PlaylistRowAttrs { _toFragment() }
       }
 
       init(
-        name: String? = nil,
-        id: String? = nil,
-        cover: String? = nil,
-        index: Int? = nil
+        id: String,
+        index: Int,
+        source: Source
       ) {
         self.init(_dataDict: DataDict(
           data: [
-            "__typename": SchemaAPI.Objects.PlaylistSource.typename,
-            "Name": name,
+            "__typename": SchemaAPI.Objects.PlaylistRow.typename,
             "Id": id,
-            "Cover": cover,
             "Index": index,
+            "Source": source._fieldData,
           ],
           fulfilledFragments: [
             ObjectIdentifier(AddPlaylistSourceMutation.Data.AddPlaylistSource.self),
-            ObjectIdentifier(SourceAttrs.self)
+            ObjectIdentifier(PlaylistRowAttrs.self)
           ]
         ))
+      }
+
+      /// AddPlaylistSource.Source
+      ///
+      /// Parent Type: `Source`
+      struct Source: SchemaAPI.SelectionSet {
+        let __data: DataDict
+        init(_dataDict: DataDict) { __data = _dataDict }
+
+        static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Source }
+
+        var id: String { __data["Id"] }
+        var cover: String { __data["Cover"] }
+        var name: String { __data["Name"] }
+
+        struct Fragments: FragmentContainer {
+          let __data: DataDict
+          init(_dataDict: DataDict) { __data = _dataDict }
+
+          var sourceAttrs: SourceAttrs { _toFragment() }
+        }
+
+        init(
+          id: String,
+          cover: String,
+          name: String
+        ) {
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": SchemaAPI.Objects.Source.typename,
+              "Id": id,
+              "Cover": cover,
+              "Name": name,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(AddPlaylistSourceMutation.Data.AddPlaylistSource.Source.self),
+              ObjectIdentifier(SourceAttrs.self),
+              ObjectIdentifier(PlaylistRowAttrs.Source.self)
+            ]
+          ))
+        }
       }
     }
   }

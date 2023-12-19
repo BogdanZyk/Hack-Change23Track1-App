@@ -50,32 +50,26 @@ fragment RoomAttrs on Room {
     Image
     Key
     Name
-    Members {
-      ...UserAttrs
-    }
     Owner {
       Id
     }
 }
 
-query GetRoomPaginategPlaylist($roomId: String!, $page: Int, $pageSize: Int) {
-  GetRoomPlaylist(RoomId: $roomId, Page: $page, PageSize: $pageSize) {
-    Entries {
-      ...SourceAttrs
-    }
-    TotalPages
+query GetRoomPlaylist($roomId: String!) {
+  GetRoomPlaylist(RoomId: $roomId) {
+    ...PlaylistRowAttrs
   }
 }
 
 mutation DeletePlaylistSource($playlistRowId: String!, $roomId: String!) {
   DeletePlaylistSource(PlaylistRowId: $playlistRowId, RoomId: $roomId) {
-    ...SourceAttrs
+    ...PlaylistRowAttrs
   }
 }
 
 mutation MovePlaylistSourcePosition($position: Int!, $roomId: String!, $playlistRowId: String!) {
   MovePlaylistSourcePosition(Position: $position, RoomId: $roomId, PlaylistRowId: $playlistRowId) {
-    ...SourceAttrs
+    ...PlaylistRowAttrs
   }
 }
 
@@ -103,68 +97,37 @@ mutation DeleteRoom($roomId: String!) {
   }
 }
 
-fragment MediaInfoAttrs on MediaInfo {
-  CurrentSeconds
+fragment PlaylistRowAttrs on PlaylistRow {
+  Id
+  Index
   Source {
-    Name
-    Id
-    Cover
-  }
-}
-
-fragment SourceAttrs on PlaylistSource {
-    Name
-    Id
-    Cover
-    Index
-}
-
-mutation AddPlaylistSource($roomId: String!, $url: String!) {
-  AddPlaylistSource(RoomId: $roomId, Url: $url) {
     ...SourceAttrs
   }
 }
 
-mutation LoadMedia($sourceId: String!, $roomId: String!) {
-  LoadMedia(SourceId: $sourceId, RoomId: $roomId) {
-    ...RoomAttrs
-  }
-}
-
-mutation LikeRoom($roomId: String!) {
-  LikeRoom(RoomId: $roomId) {
-    Likes
-  }
-}
-
-mutation RoomAction($roomId: String!, $action: String!, $arg: String!) {
-  RoomAction(RoomId: $roomId, Action: $action, Arg: $arg) {
-    ...RoomAttrs
-  }
-}
-
-mutation InitConnection($sdp: ServerSDP!, $roomId: String!) {
-  InitConnection(SDP: $sdp, RoomId: $roomId) {
-    ...SDPClientAttrs
-  }
-}
-
-fragment SDPClientAttrs on ClientSDP {
-    Sdp
-    Type
-}
-
-query AllStickers {
-  AllStickers {
-    Stickers
+fragment MediaInfoAttrs on MediaInfo {
+  CurrentTimeSeconds
+  DurationSeconds
+  Source {
+    ...SourceAttrs
   }
 }
 
 
-subscription SubscribePlaylistUpdates($roomId: String!) {
-  SubscribePlaylistUpdates(RoomId: $roomId) {
+fragment SourceAttrs on Source {
     Id
+    Cover
+    Name
+}
+
+mutation AddPlaylistSource($roomId: String!, $url: String!) {
+  AddPlaylistSource(RoomId: $roomId, Url: $url) {
+    ...PlaylistRowAttrs
   }
 }
 
-["/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:23:error:Fragment \"UserAttrs\" cannot be spread here as objects of type \"Token\" can never be of type \"User\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:44:error:Cannot query field \"MediaInfo\" on type \"Room\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:53:error:Cannot query field \"Members\" on type \"Room\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:56:error:Cannot query field \"Owner\" on type \"Room\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:106:error:Unknown type \"MediaInfo\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:116:error:Cannot query field \"Name\" on type \"PlaylistRow\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:118:error:Cannot query field \"Cover\" on type \"PlaylistRow\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:123:error:Variable \"$sourceUrl\" is not defined by operation \"AddPlaylistSource\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:122:error:Variable \"$sourceUrl\" is not defined by operation \"AddPlaylistSource\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:122:error:Variable \"$url\" is never used in operation \"AddPlaylistSource\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:129:error:Cannot query field \"LoadMedia\" on type \"RootMutationType\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:135:error:Cannot query field \"LikeRoom\" on type \"RootMutationType\". Did you mean \"DeleteRoom\"?", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:141:error:Cannot query field \"RoomAction\" on type \"RootMutationType\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:146:error:Unknown type \"ServerSDP\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:147:error:Cannot query field \"InitConnection\" on type \"RootMutationType\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:152:error:Unknown type \"ClientSDP\".", "/Users/bogdanzykov/Documents/ProjectsIOS/Hack&Change23Track1/Hack&Change23Track1/GraphqlAPI/operations.graphql:158:error:Cannot query field \"AllStickers\" on type \"RootQueryType\"."]
+
+
+mutation RoomAction($arg: String, $action: String, $roomId: String) {
+  RoomAction(Arg: $arg, Action: $action, RoomId: $roomId) }
+

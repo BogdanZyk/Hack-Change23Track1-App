@@ -16,7 +16,7 @@ protocol PlayerRemoteProvider: AnyObject {
 @MainActor
 class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
     
-    @Published var playList = [SourceAttrs]()
+    @Published var playList = [PlaylistRowAttrs]()
     @Published private(set) var currentVideo: VideoItem?
     @Published private(set) var playerEvent: PlayerEvent = .pause(0)
     @Published private(set) var itemLoader: ItemStateLoading = .empty
@@ -39,13 +39,14 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
             itemLoader = .addingPlaylist
             do {
                 let newPlaylist = try await
-                roomDataService.addVideoToPlaylist(roomId: id, sourceId: sourceId)
+                roomDataService.addVideoToPlaylist(roomId: id, url: sourceId)
+                
                 self.playList = newPlaylist
                 itemLoader = .empty
                 if playList.count == 1 {
                     guard let last = playList.last else { return }
                     playerEvent = .play(0)
-                    setSource(last.id)
+                    selectPlaylistItem(last.id)
                 }
             } catch {
                 handleError(error)
@@ -65,14 +66,14 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
         }
     }
     
-    func setSource(_ id: String?) {
+    func selectPlaylistItem(_ id: String?) {
         guard let roomId = room.id,
               room.userIsOwner(for: currentUser.id),
               let id else { return }
         Task {
             itemLoader = .setSource
             do {
-                try await roomDataService.loadVideo(for: roomId, sourceId: id)
+                try await roomDataService.setRoomAction(for: roomId, action: .move, arg: id)
                 itemLoader = .empty
             } catch {
                 handleError(error)
@@ -80,11 +81,11 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
         }
     }
     
-    func moveSource(for id: String, to index: Int) {
+    func movePlaylistItem(for id: String, to index: Int) {
         guard let roomId = room.id else { return }
         Task {
             do {
-                try await roomDataService.moveSource(roomId: roomId, sourceId: id, index: index)
+                try await roomDataService.movePlaylistItem(roomId: roomId, playlistRowId: id, index: index)
             } catch {
                 handleError(error)
             }
@@ -95,7 +96,7 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
         guard let roomId = room.id else { return }
         Task {
             do {
-                try await roomDataService.removeSource(roomId: roomId, sourceId: id)
+                try await roomDataService.removePlaylistItem(roomId: roomId, playlistRowId: id)
             } catch {
                 handleError(error)
             }
@@ -176,13 +177,13 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
     func setNextVideo() {
         guard let index = playList.firstIndex(where: {$0.id == currentVideo?.id}),
         currentVideo?.id != playList.last?.id else { return }
-        setSource(playList[index + 1].id)
+        selectPlaylistItem(playList[index + 1].id)
     }
 
     func setPreviewsVideo() {
         guard let index = playList.firstIndex(where: {$0.id == currentVideo?.id}),
         currentVideo?.id != playList.first?.id else { return }
-        setSource(playList[index - 1].id)
+        selectPlaylistItem(playList[index - 1].id)
     }
     
     var isDisableControls: Bool {
@@ -208,9 +209,9 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
         
     private func setCurrentVideo(_ id: String?, path: String?) {
         guard let id, let path,
-              let first = playList.first(where: {$0.id == id}),
+              let source = playList.first(where: {$0.id == id})?.source,
               let url = URL(string: path) else { return }
-        currentVideo = .init(id: id, url: url, name: first.name, cover: first.cover)
+        currentVideo = .init(id: id, url: url, name: source.name, cover: source.cover)
     }
     
     enum ItemStateLoading: Int {

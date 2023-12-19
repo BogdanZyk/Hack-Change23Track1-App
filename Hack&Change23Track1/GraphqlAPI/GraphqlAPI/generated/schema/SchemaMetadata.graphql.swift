@@ -35,12 +35,11 @@ public extension SchemaAPI {
       case "Token": return SchemaAPI.Objects.Token
       case "RootQueryType": return SchemaAPI.Objects.RootQueryType
       case "User": return SchemaAPI.Objects.User
+      case "PaginatedRooms": return SchemaAPI.Objects.PaginatedRooms
       case "Room": return SchemaAPI.Objects.Room
       case "MediaInfo": return SchemaAPI.Objects.MediaInfo
       case "Source": return SchemaAPI.Objects.Source
-      case "PlaylistSource": return SchemaAPI.Objects.PlaylistSource
-      case "ClientSDP": return SchemaAPI.Objects.ClientSDP
-      case "StickerPack": return SchemaAPI.Objects.StickerPack
+      case "PlaylistRow": return SchemaAPI.Objects.PlaylistRow
       default: return nil
       }
     }

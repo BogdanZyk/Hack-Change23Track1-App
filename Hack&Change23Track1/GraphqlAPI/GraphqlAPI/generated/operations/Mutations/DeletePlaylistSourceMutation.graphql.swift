@@ -7,24 +7,24 @@ class DeletePlaylistSourceMutation: GraphQLMutation {
   static let operationName: String = "DeletePlaylistSource"
   static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation DeletePlaylistSource($roomId: String!, $sourceId: String!) { DeletePlaylistSource(RoomId: $roomId, SourceId: $sourceId) { __typename ...SourceAttrs } }"#,
-      fragments: [SourceAttrs.self]
+      #"mutation DeletePlaylistSource($playlistRowId: String!, $roomId: String!) { DeletePlaylistSource(PlaylistRowId: $playlistRowId, RoomId: $roomId) { __typename ...PlaylistRowAttrs } }"#,
+      fragments: [PlaylistRowAttrs.self, SourceAttrs.self]
     ))
 
+  public var playlistRowId: String
   public var roomId: String
-  public var sourceId: String
 
   public init(
-    roomId: String,
-    sourceId: String
+    playlistRowId: String,
+    roomId: String
   ) {
+    self.playlistRowId = playlistRowId
     self.roomId = roomId
-    self.sourceId = sourceId
   }
 
   public var __variables: Variables? { [
-    "roomId": roomId,
-    "sourceId": sourceId
+    "playlistRowId": playlistRowId,
+    "roomId": roomId
   ] }
 
   struct Data: SchemaAPI.SelectionSet {
@@ -34,8 +34,8 @@ class DeletePlaylistSourceMutation: GraphQLMutation {
     static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.RootMutationType }
     static var __selections: [ApolloAPI.Selection] { [
       .field("DeletePlaylistSource", [DeletePlaylistSource?]?.self, arguments: [
-        "RoomId": .variable("roomId"),
-        "SourceId": .variable("sourceId")
+        "PlaylistRowId": .variable("playlistRowId"),
+        "RoomId": .variable("roomId")
       ]),
     ] }
 
@@ -57,48 +57,86 @@ class DeletePlaylistSourceMutation: GraphQLMutation {
 
     /// DeletePlaylistSource
     ///
-    /// Parent Type: `PlaylistSource`
+    /// Parent Type: `PlaylistRow`
     struct DeletePlaylistSource: SchemaAPI.SelectionSet {
       let __data: DataDict
       init(_dataDict: DataDict) { __data = _dataDict }
 
-      static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.PlaylistSource }
+      static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.PlaylistRow }
       static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
-        .fragment(SourceAttrs.self),
+        .fragment(PlaylistRowAttrs.self),
       ] }
 
-      var name: String? { __data["Name"] }
-      var id: String? { __data["Id"] }
-      var cover: String? { __data["Cover"] }
-      var index: Int? { __data["Index"] }
+      var id: String { __data["Id"] }
+      var index: Int { __data["Index"] }
+      var source: Source { __data["Source"] }
 
       struct Fragments: FragmentContainer {
         let __data: DataDict
         init(_dataDict: DataDict) { __data = _dataDict }
 
-        var sourceAttrs: SourceAttrs { _toFragment() }
+        var playlistRowAttrs: PlaylistRowAttrs { _toFragment() }
       }
 
       init(
-        name: String? = nil,
-        id: String? = nil,
-        cover: String? = nil,
-        index: Int? = nil
+        id: String,
+        index: Int,
+        source: Source
       ) {
         self.init(_dataDict: DataDict(
           data: [
-            "__typename": SchemaAPI.Objects.PlaylistSource.typename,
-            "Name": name,
+            "__typename": SchemaAPI.Objects.PlaylistRow.typename,
             "Id": id,
-            "Cover": cover,
             "Index": index,
+            "Source": source._fieldData,
           ],
           fulfilledFragments: [
             ObjectIdentifier(DeletePlaylistSourceMutation.Data.DeletePlaylistSource.self),
-            ObjectIdentifier(SourceAttrs.self)
+            ObjectIdentifier(PlaylistRowAttrs.self)
           ]
         ))
+      }
+
+      /// DeletePlaylistSource.Source
+      ///
+      /// Parent Type: `Source`
+      struct Source: SchemaAPI.SelectionSet {
+        let __data: DataDict
+        init(_dataDict: DataDict) { __data = _dataDict }
+
+        static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Source }
+
+        var id: String { __data["Id"] }
+        var cover: String { __data["Cover"] }
+        var name: String { __data["Name"] }
+
+        struct Fragments: FragmentContainer {
+          let __data: DataDict
+          init(_dataDict: DataDict) { __data = _dataDict }
+
+          var sourceAttrs: SourceAttrs { _toFragment() }
+        }
+
+        init(
+          id: String,
+          cover: String,
+          name: String
+        ) {
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": SchemaAPI.Objects.Source.typename,
+              "Id": id,
+              "Cover": cover,
+              "Name": name,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(DeletePlaylistSourceMutation.Data.DeletePlaylistSource.Source.self),
+              ObjectIdentifier(SourceAttrs.self),
+              ObjectIdentifier(PlaylistRowAttrs.Source.self)
+            ]
+          ))
+        }
       }
     }
   }

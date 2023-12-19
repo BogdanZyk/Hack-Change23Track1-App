@@ -16,8 +16,9 @@ class RoomsViewModel: ObservableObject {
     private let roomService = RoomDataService()
     
     func fetchAllRooms() async {
-        let rooms = try? await roomService.fetchRooms()
-        self.rooms = rooms ?? []
+        let result = try? await roomService.fetchPaginatedRooms(page: 1)
+        self.rooms = result?.rooms ?? []
+        print(result?.total)
     }
     
     func setRoom(_ room: RoomAttrs) {

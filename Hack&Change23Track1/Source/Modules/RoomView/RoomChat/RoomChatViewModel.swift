@@ -13,7 +13,6 @@ protocol ChatProviderDelegate: AnyObject {
     
     func onReceivedMessage(_ message: Message)
     
-    func sendMessage(webRTCClient: WebRTCClient, _ message: Message)
 }
 
 class RoomChatViewModel: ObservableObject, ChatProviderDelegate {
@@ -38,7 +37,6 @@ class RoomChatViewModel: ObservableObject, ChatProviderDelegate {
     }
     
     func createAndSendMessage(_ content: Message.MessageContent,
-                              webRTCClient: WebRTCClient,
                               currentUser: RoomMember) {
         var message = Message(id: UUID().uuidString,
                               from: currentUser,
@@ -56,17 +54,16 @@ class RoomChatViewModel: ObservableObject, ChatProviderDelegate {
         }
         
         resetReply()
-        sendMessage(webRTCClient: webRTCClient, message)
+       // sendMessage(webRTCClient: webRTCClient, message)
     }
     
     func handleMessageContextAction(_ action: MessageContextAction,
-                                            webRTCClient: WebRTCClient,
                                             currentUser: RoomMember) {
         switch action {
         case .reaction(let oldMessage, let reaction):
             var newMessage = oldMessage
             newMessage.addedReaction(from: currentUser, reaction: reaction)
-            sendMessage(webRTCClient: webRTCClient, newMessage)
+            //sendMessage(webRTCClient: webRTCClient, newMessage)
         case .copy:
             copyMessage()
         case .reply:
@@ -74,14 +71,14 @@ class RoomChatViewModel: ObservableObject, ChatProviderDelegate {
         case .report:
             guard var selectedMessage = selectedMessage else {return}
             selectedMessage.type = .hidden
-            sendMessage(webRTCClient: webRTCClient, selectedMessage)
+           // sendMessage(webRTCClient: webRTCClient, selectedMessage)
         }
         selectMessage(nil)
     }
     
-    func sendMessage(webRTCClient: WebRTCClient, _ message: Message) {
-        guard let data = try? JSONHelper.encoder.encode(message) else { return }
-        webRTCClient.sendData(data)
+    func sendMessage(_ message: Message) {
+//        guard let data = try? JSONHelper.encoder.encode(message) else { return }
+//        webRTCClient.sendData(data)
     }
     
     private func setOrUpdateMessage(_ message: Message) {

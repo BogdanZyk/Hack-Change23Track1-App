@@ -7,28 +7,27 @@ class RoomActionMutation: GraphQLMutation {
   static let operationName: String = "RoomAction"
   static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation RoomAction($roomId: String!, $action: String!, $arg: String!) { RoomAction(RoomId: $roomId, Action: $action, Arg: $arg) { __typename ...RoomAttrs } }"#,
-      fragments: [RoomAttrs.self, MediaInfoAttrs.self, UserAttrs.self]
+      #"mutation RoomAction($arg: String, $action: String, $roomId: String) { RoomAction(Arg: $arg, Action: $action, RoomId: $roomId) }"#
     ))
 
-  public var roomId: String
-  public var action: String
-  public var arg: String
+  public var arg: GraphQLNullable<String>
+  public var action: GraphQLNullable<String>
+  public var roomId: GraphQLNullable<String>
 
   public init(
-    roomId: String,
-    action: String,
-    arg: String
+    arg: GraphQLNullable<String>,
+    action: GraphQLNullable<String>,
+    roomId: GraphQLNullable<String>
   ) {
-    self.roomId = roomId
-    self.action = action
     self.arg = arg
+    self.action = action
+    self.roomId = roomId
   }
 
   public var __variables: Variables? { [
-    "roomId": roomId,
+    "arg": arg,
     "action": action,
-    "arg": arg
+    "roomId": roomId
   ] }
 
   struct Data: SchemaAPI.SelectionSet {
@@ -37,171 +36,27 @@ class RoomActionMutation: GraphQLMutation {
 
     static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.RootMutationType }
     static var __selections: [ApolloAPI.Selection] { [
-      .field("RoomAction", RoomAction?.self, arguments: [
-        "RoomId": .variable("roomId"),
+      .field("RoomAction", Bool?.self, arguments: [
+        "Arg": .variable("arg"),
         "Action": .variable("action"),
-        "Arg": .variable("arg")
+        "RoomId": .variable("roomId")
       ]),
     ] }
 
-    var roomAction: RoomAction? { __data["RoomAction"] }
+    var roomAction: Bool? { __data["RoomAction"] }
 
     init(
-      roomAction: RoomAction? = nil
+      roomAction: Bool? = nil
     ) {
       self.init(_dataDict: DataDict(
         data: [
           "__typename": SchemaAPI.Objects.RootMutationType.typename,
-          "RoomAction": roomAction._fieldData,
+          "RoomAction": roomAction,
         ],
         fulfilledFragments: [
           ObjectIdentifier(RoomActionMutation.Data.self)
         ]
       ))
-    }
-
-    /// RoomAction
-    ///
-    /// Parent Type: `Room`
-    struct RoomAction: SchemaAPI.SelectionSet {
-      let __data: DataDict
-      init(_dataDict: DataDict) { __data = _dataDict }
-
-      static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Room }
-      static var __selections: [ApolloAPI.Selection] { [
-        .field("__typename", String.self),
-        .fragment(RoomAttrs.self),
-      ] }
-
-      var mediaInfo: MediaInfo? { __data["MediaInfo"] }
-      var id: String? { __data["Id"] }
-      var likes: Int? { __data["Likes"] }
-      var `private`: Bool? { __data["Private"] }
-      var image: String? { __data["Image"] }
-      var key: String? { __data["Key"] }
-      var name: String? { __data["Name"] }
-      var members: [Member?]? { __data["Members"] }
-      var owner: RoomAttrs.Owner? { __data["Owner"] }
-
-      struct Fragments: FragmentContainer {
-        let __data: DataDict
-        init(_dataDict: DataDict) { __data = _dataDict }
-
-        var roomAttrs: RoomAttrs { _toFragment() }
-      }
-
-      init(
-        mediaInfo: MediaInfo? = nil,
-        id: String? = nil,
-        likes: Int? = nil,
-        `private`: Bool? = nil,
-        image: String? = nil,
-        key: String? = nil,
-        name: String? = nil,
-        members: [Member?]? = nil,
-        owner: RoomAttrs.Owner? = nil
-      ) {
-        self.init(_dataDict: DataDict(
-          data: [
-            "__typename": SchemaAPI.Objects.Room.typename,
-            "MediaInfo": mediaInfo._fieldData,
-            "Id": id,
-            "Likes": likes,
-            "Private": `private`,
-            "Image": image,
-            "Key": key,
-            "Name": name,
-            "Members": members._fieldData,
-            "Owner": owner._fieldData,
-          ],
-          fulfilledFragments: [
-            ObjectIdentifier(RoomActionMutation.Data.RoomAction.self),
-            ObjectIdentifier(RoomAttrs.self)
-          ]
-        ))
-      }
-
-      /// RoomAction.MediaInfo
-      ///
-      /// Parent Type: `MediaInfo`
-      struct MediaInfo: SchemaAPI.SelectionSet {
-        let __data: DataDict
-        init(_dataDict: DataDict) { __data = _dataDict }
-
-        static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.MediaInfo }
-
-        var currentSeconds: String? { __data["CurrentSeconds"] }
-        var source: MediaInfoAttrs.Source? { __data["Source"] }
-
-        struct Fragments: FragmentContainer {
-          let __data: DataDict
-          init(_dataDict: DataDict) { __data = _dataDict }
-
-          var mediaInfoAttrs: MediaInfoAttrs { _toFragment() }
-        }
-
-        init(
-          currentSeconds: String? = nil,
-          source: MediaInfoAttrs.Source? = nil
-        ) {
-          self.init(_dataDict: DataDict(
-            data: [
-              "__typename": SchemaAPI.Objects.MediaInfo.typename,
-              "CurrentSeconds": currentSeconds,
-              "Source": source._fieldData,
-            ],
-            fulfilledFragments: [
-              ObjectIdentifier(RoomActionMutation.Data.RoomAction.MediaInfo.self),
-              ObjectIdentifier(MediaInfoAttrs.self),
-              ObjectIdentifier(RoomAttrs.MediaInfo.self)
-            ]
-          ))
-        }
-      }
-
-      /// RoomAction.Member
-      ///
-      /// Parent Type: `User`
-      struct Member: SchemaAPI.SelectionSet {
-        let __data: DataDict
-        init(_dataDict: DataDict) { __data = _dataDict }
-
-        static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.User }
-
-        var id: String { __data["Id"] }
-        var login: String { __data["Login"] }
-        var avatar: String { __data["Avatar"] }
-        var email: String { __data["Email"] }
-
-        struct Fragments: FragmentContainer {
-          let __data: DataDict
-          init(_dataDict: DataDict) { __data = _dataDict }
-
-          var userAttrs: UserAttrs { _toFragment() }
-        }
-
-        init(
-          id: String,
-          login: String,
-          avatar: String,
-          email: String
-        ) {
-          self.init(_dataDict: DataDict(
-            data: [
-              "__typename": SchemaAPI.Objects.User.typename,
-              "Id": id,
-              "Login": login,
-              "Avatar": avatar,
-              "Email": email,
-            ],
-            fulfilledFragments: [
-              ObjectIdentifier(RoomActionMutation.Data.RoomAction.Member.self),
-              ObjectIdentifier(UserAttrs.self),
-              ObjectIdentifier(RoomAttrs.Member.self)
-            ]
-          ))
-        }
-      }
     }
   }
 }

@@ -8,7 +8,7 @@ class CreateRoomMutation: GraphQLMutation {
   static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"mutation CreateRoom($name: String!, $type: RoomType, $image: String, $private: Boolean) { CreateRoom(Name: $name, Type: $type, Image: $image, Private: $private) { __typename ...RoomAttrs } }"#,
-      fragments: [RoomAttrs.self, MediaInfoAttrs.self, UserAttrs.self]
+      fragments: [RoomAttrs.self, MediaInfoAttrs.self, SourceAttrs.self]
     ))
 
   public var name: String
@@ -85,7 +85,6 @@ class CreateRoomMutation: GraphQLMutation {
       var image: String? { __data["Image"] }
       var key: String? { __data["Key"] }
       var name: String? { __data["Name"] }
-      var members: [Member?]? { __data["Members"] }
       var owner: RoomAttrs.Owner? { __data["Owner"] }
 
       struct Fragments: FragmentContainer {
@@ -103,7 +102,6 @@ class CreateRoomMutation: GraphQLMutation {
         image: String? = nil,
         key: String? = nil,
         name: String? = nil,
-        members: [Member?]? = nil,
         owner: RoomAttrs.Owner? = nil
       ) {
         self.init(_dataDict: DataDict(
@@ -116,7 +114,6 @@ class CreateRoomMutation: GraphQLMutation {
             "Image": image,
             "Key": key,
             "Name": name,
-            "Members": members._fieldData,
             "Owner": owner._fieldData,
           ],
           fulfilledFragments: [
@@ -135,8 +132,9 @@ class CreateRoomMutation: GraphQLMutation {
 
         static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.MediaInfo }
 
-        var currentSeconds: String? { __data["CurrentSeconds"] }
-        var source: MediaInfoAttrs.Source? { __data["Source"] }
+        var currentTimeSeconds: Double? { __data["CurrentTimeSeconds"] }
+        var durationSeconds: Double? { __data["DurationSeconds"] }
+        var source: Source? { __data["Source"] }
 
         struct Fragments: FragmentContainer {
           let __data: DataDict
@@ -146,13 +144,15 @@ class CreateRoomMutation: GraphQLMutation {
         }
 
         init(
-          currentSeconds: String? = nil,
-          source: MediaInfoAttrs.Source? = nil
+          currentTimeSeconds: Double? = nil,
+          durationSeconds: Double? = nil,
+          source: Source? = nil
         ) {
           self.init(_dataDict: DataDict(
             data: [
               "__typename": SchemaAPI.Objects.MediaInfo.typename,
-              "CurrentSeconds": currentSeconds,
+              "CurrentTimeSeconds": currentTimeSeconds,
+              "DurationSeconds": durationSeconds,
               "Source": source._fieldData,
             ],
             fulfilledFragments: [
@@ -162,49 +162,46 @@ class CreateRoomMutation: GraphQLMutation {
             ]
           ))
         }
-      }
 
-      /// CreateRoom.Member
-      ///
-      /// Parent Type: `User`
-      struct Member: SchemaAPI.SelectionSet {
-        let __data: DataDict
-        init(_dataDict: DataDict) { __data = _dataDict }
-
-        static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.User }
-
-        var id: String { __data["Id"] }
-        var login: String { __data["Login"] }
-        var avatar: String { __data["Avatar"] }
-        var email: String { __data["Email"] }
-
-        struct Fragments: FragmentContainer {
+        /// CreateRoom.MediaInfo.Source
+        ///
+        /// Parent Type: `Source`
+        struct Source: SchemaAPI.SelectionSet {
           let __data: DataDict
           init(_dataDict: DataDict) { __data = _dataDict }
 
-          var userAttrs: UserAttrs { _toFragment() }
-        }
+          static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Source }
 
-        init(
-          id: String,
-          login: String,
-          avatar: String,
-          email: String
-        ) {
-          self.init(_dataDict: DataDict(
-            data: [
-              "__typename": SchemaAPI.Objects.User.typename,
-              "Id": id,
-              "Login": login,
-              "Avatar": avatar,
-              "Email": email,
-            ],
-            fulfilledFragments: [
-              ObjectIdentifier(CreateRoomMutation.Data.CreateRoom.Member.self),
-              ObjectIdentifier(UserAttrs.self),
-              ObjectIdentifier(RoomAttrs.Member.self)
-            ]
-          ))
+          var id: String { __data["Id"] }
+          var cover: String { __data["Cover"] }
+          var name: String { __data["Name"] }
+
+          struct Fragments: FragmentContainer {
+            let __data: DataDict
+            init(_dataDict: DataDict) { __data = _dataDict }
+
+            var sourceAttrs: SourceAttrs { _toFragment() }
+          }
+
+          init(
+            id: String,
+            cover: String,
+            name: String
+          ) {
+            self.init(_dataDict: DataDict(
+              data: [
+                "__typename": SchemaAPI.Objects.Source.typename,
+                "Id": id,
+                "Cover": cover,
+                "Name": name,
+              ],
+              fulfilledFragments: [
+                ObjectIdentifier(CreateRoomMutation.Data.CreateRoom.MediaInfo.Source.self),
+                ObjectIdentifier(SourceAttrs.self),
+                ObjectIdentifier(MediaInfoAttrs.Source.self)
+              ]
+            ))
+          }
         }
       }
     }

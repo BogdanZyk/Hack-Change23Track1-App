@@ -5,7 +5,7 @@
 
 struct MediaInfoAttrs: SchemaAPI.SelectionSet, Fragment {
   static var fragmentDefinition: StaticString {
-    #"fragment MediaInfoAttrs on MediaInfo { __typename CurrentSeconds Source { __typename Name Id Cover } }"#
+    #"fragment MediaInfoAttrs on MediaInfo { __typename CurrentTimeSeconds DurationSeconds Source { __typename ...SourceAttrs } }"#
   }
 
   let __data: DataDict
@@ -14,21 +14,25 @@ struct MediaInfoAttrs: SchemaAPI.SelectionSet, Fragment {
   static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.MediaInfo }
   static var __selections: [ApolloAPI.Selection] { [
     .field("__typename", String.self),
-    .field("CurrentSeconds", String?.self),
+    .field("CurrentTimeSeconds", Double?.self),
+    .field("DurationSeconds", Double?.self),
     .field("Source", Source?.self),
   ] }
 
-  var currentSeconds: String? { __data["CurrentSeconds"] }
+  var currentTimeSeconds: Double? { __data["CurrentTimeSeconds"] }
+  var durationSeconds: Double? { __data["DurationSeconds"] }
   var source: Source? { __data["Source"] }
 
   init(
-    currentSeconds: String? = nil,
+    currentTimeSeconds: Double? = nil,
+    durationSeconds: Double? = nil,
     source: Source? = nil
   ) {
     self.init(_dataDict: DataDict(
       data: [
         "__typename": SchemaAPI.Objects.MediaInfo.typename,
-        "CurrentSeconds": currentSeconds,
+        "CurrentTimeSeconds": currentTimeSeconds,
+        "DurationSeconds": durationSeconds,
         "Source": source._fieldData,
       ],
       fulfilledFragments: [
@@ -47,29 +51,35 @@ struct MediaInfoAttrs: SchemaAPI.SelectionSet, Fragment {
     static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Source }
     static var __selections: [ApolloAPI.Selection] { [
       .field("__typename", String.self),
-      .field("Name", String?.self),
-      .field("Id", String?.self),
-      .field("Cover", String?.self),
+      .fragment(SourceAttrs.self),
     ] }
 
-    var name: String? { __data["Name"] }
-    var id: String? { __data["Id"] }
-    var cover: String? { __data["Cover"] }
+    var id: String { __data["Id"] }
+    var cover: String { __data["Cover"] }
+    var name: String { __data["Name"] }
+
+    struct Fragments: FragmentContainer {
+      let __data: DataDict
+      init(_dataDict: DataDict) { __data = _dataDict }
+
+      var sourceAttrs: SourceAttrs { _toFragment() }
+    }
 
     init(
-      name: String? = nil,
-      id: String? = nil,
-      cover: String? = nil
+      id: String,
+      cover: String,
+      name: String
     ) {
       self.init(_dataDict: DataDict(
         data: [
           "__typename": SchemaAPI.Objects.Source.typename,
-          "Name": name,
           "Id": id,
           "Cover": cover,
+          "Name": name,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(MediaInfoAttrs.Source.self)
+          ObjectIdentifier(MediaInfoAttrs.Source.self),
+          ObjectIdentifier(SourceAttrs.self)
         ]
       ))
     }

@@ -14,8 +14,8 @@ extension RoomView {
         var showLoader: Bool
         var isOwner: Bool
         var playedId: String?
-        @Binding var videos: [SourceAttrs]
-        let onTap: (SourceAttrs) -> Void
+        @Binding var videos: [PlaylistRowAttrs]
+        let onTap: (String) -> Void
         let onRemove: (String) -> Void
         let onMove: (String, Int) -> Void
         var body: some View {
@@ -62,13 +62,13 @@ extension RoomView {
         }
         
         @ViewBuilder
-        private func rowView(_ video: SourceAttrs) -> some View {
+        private func rowView(_ video: PlaylistRowAttrs) -> some View {
             let isPlay = video.id == playedId
             HStack {
-                LazyNukeImage(fullPath: video.cover)
+                LazyNukeImage(fullPath: video.source.cover)
                     .frame(width: 60, height: 60)
                     .cornerRadius(8)
-                Text(video.name ?? "no name")
+                Text(video.source.name)
                     .font(.headline.weight(.semibold))
                     .padding(.trailing)
                     .lineLimit(2)
@@ -84,12 +84,12 @@ extension RoomView {
             .background(isPlay ? Color.primaryGray.opacity(0.5) : Color.primaryBg)
             .contentShape(Rectangle())
             .onTapGesture {
-                onTap(video)
+                onTap(video.id)
             }
             .contextMenu {
                 if !isPlay {
                     Button("Remove", role: .destructive) {
-                        onRemove(video.id ?? "")
+                        onRemove(video.id)
                         videos.removeAll(where: {$0.id == video.id})
                     }
                 }
@@ -136,8 +136,7 @@ struct PlaylistView_Previews: PreviewProvider {
                               showLoader: false,
                               isOwner: false,
                               playedId: "1",
-                              videos: .constant([.init(name: "name", id: "1", cover: nil),
-                                                 .init(name: "name 2", id: "2", cover: nil)]),
+                              videos: .constant([]),
                               onTap: {_ in },
                               onRemove: {_ in},
                               onMove: {_, _ in})

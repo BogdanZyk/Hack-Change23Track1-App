@@ -159,14 +159,14 @@ extension RoomChatView {
 extension RoomChatView {
     
     private func sendMessage(_ content: Message.MessageContent) {
-        guard let client = roomVM.webRTCClient else { return }
-        message = ""
-        chatVM.createAndSendMessage(content, webRTCClient: client, currentUser: roomVM.currentUser)
+//        guard let client = roomVM.webRTCClient else { return }
+//        message = ""
+//        chatVM.createAndSendMessage(content, webRTCClient: client, currentUser: roomVM.currentUser)
     }
     
     private func handleMessageContextAction(_ action: MessageContextAction) {
-        guard let client = roomVM.webRTCClient else { return }
-        chatVM.handleMessageContextAction(action, webRTCClient: client, currentUser: roomVM.currentUser)
+//        guard let client = roomVM.webRTCClient else { return }
+//        chatVM.handleMessageContextAction(action, webRTCClient: client, currentUser: roomVM.currentUser)
     }
     
 }

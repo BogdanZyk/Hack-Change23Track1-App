@@ -58,7 +58,7 @@ struct RoomView: View {
             await viewModel.connectRoom()
         }
         .overlay {
-            if !viewModel.status.isConnected {
+            if !viewModel.isConnected {
                 loader
             }
         }
