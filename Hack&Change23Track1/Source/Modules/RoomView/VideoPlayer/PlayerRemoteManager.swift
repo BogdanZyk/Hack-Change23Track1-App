@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SchemaAPI
 
 protocol PlayerRemoteProvider: AnyObject {
     

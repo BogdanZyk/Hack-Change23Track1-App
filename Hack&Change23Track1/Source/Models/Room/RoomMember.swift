@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SchemaAPI
 
 struct RoomMember: Codable, Identifiable {
     let id: String

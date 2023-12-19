@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SchemaAPI
 
 @MainActor
 final class UserManager: ObservableObject {

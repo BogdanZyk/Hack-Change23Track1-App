@@ -7,6 +7,7 @@
 
 import Foundation
 import Apollo
+import SchemaAPI
 
 final class RoomDataService {
     

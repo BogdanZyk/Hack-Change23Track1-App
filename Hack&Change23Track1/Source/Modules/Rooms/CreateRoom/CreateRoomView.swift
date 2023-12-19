@@ -7,6 +7,7 @@
 
 import SwiftUI
 import PhotosUI
+import SchemaAPI
 
 struct CreateRoomView: View {
     @Environment(\.dismiss) private var dismiss

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SchemaAPI
 
 struct RoomView: View {
     @EnvironmentObject var appRouter: AppRouter

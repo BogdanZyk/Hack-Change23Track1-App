@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SchemaAPI
 
 struct RoomRowView: View {
     let room: RoomAttrs

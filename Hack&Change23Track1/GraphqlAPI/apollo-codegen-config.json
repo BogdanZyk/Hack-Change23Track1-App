@@ -10,20 +10,14 @@
     ]
   },
   "output": {
-      "operations" : {
-        "absolute" : {
-          "accessModifier" : "internal",
-          "path" : "./GraphqlAPI/generated/operations/"
-        }
+      "schemaTypes": {
+          "moduleType": {
+              "swiftPackageManager": {}
+          },
+          "path": "./SchemaAPI/"
       },
-          "schemaTypes": {
-              "moduleType": {
-                  "embeddedInTarget": {
-                      "name": "Hack&Change23Track1",
-                      "accessModifier": "public"
-                  }
-              },
-          "path": "./GraphqlAPI/generated/schema/"
+      "operations": {
+          "inSchemaModule": {}
       },
       "testMocks": {
           "none": {

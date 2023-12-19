@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SchemaAPI
 
 struct RoomTemplate {
     var name: String

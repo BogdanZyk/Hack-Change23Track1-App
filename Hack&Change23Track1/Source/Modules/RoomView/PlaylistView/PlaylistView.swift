@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SchemaAPI
 
 extension RoomView {
     

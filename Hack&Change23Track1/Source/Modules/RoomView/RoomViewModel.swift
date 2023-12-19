@@ -8,6 +8,7 @@
 import Foundation
 import WebRTC
 import Combine
+import SchemaAPI
 
 @MainActor
 final class RoomViewModel: ObservableObject {

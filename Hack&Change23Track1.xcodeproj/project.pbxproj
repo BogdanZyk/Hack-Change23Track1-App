@@ -7,38 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5A2D65C72B31C79200636F90 /* RoomAttrs.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65A12B31C79200636F90 /* RoomAttrs.graphql.swift */; };
-		5A2D65C82B31C79200636F90 /* PlaylistRowAttrs.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65A22B31C79200636F90 /* PlaylistRowAttrs.graphql.swift */; };
-		5A2D65C92B31C79200636F90 /* UserAttrs.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65A32B31C79200636F90 /* UserAttrs.graphql.swift */; };
-		5A2D65CA2B31C79200636F90 /* SourceAttrs.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65A42B31C79200636F90 /* SourceAttrs.graphql.swift */; };
-		5A2D65CB2B31C79200636F90 /* MediaInfoAttrs.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65A52B31C79200636F90 /* MediaInfoAttrs.graphql.swift */; };
-		5A2D65CC2B31C79200636F90 /* RoomActionMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65A72B31C79200636F90 /* RoomActionMutation.graphql.swift */; };
-		5A2D65CD2B31C79200636F90 /* DeletePlaylistSourceMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65A82B31C79200636F90 /* DeletePlaylistSourceMutation.graphql.swift */; };
-		5A2D65CE2B31C79200636F90 /* AddPlaylistSourceMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65A92B31C79200636F90 /* AddPlaylistSourceMutation.graphql.swift */; };
-		5A2D65CF2B31C79200636F90 /* SignInMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65AA2B31C79200636F90 /* SignInMutation.graphql.swift */; };
-		5A2D65D02B31C79200636F90 /* SignUpMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65AB2B31C79200636F90 /* SignUpMutation.graphql.swift */; };
-		5A2D65D12B31C79200636F90 /* UpdateRoomMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65AC2B31C79200636F90 /* UpdateRoomMutation.graphql.swift */; };
-		5A2D65D22B31C79200636F90 /* DeleteRoomMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65AD2B31C79200636F90 /* DeleteRoomMutation.graphql.swift */; };
-		5A2D65D32B31C79200636F90 /* CreateRoomMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65AE2B31C79200636F90 /* CreateRoomMutation.graphql.swift */; };
-		5A2D65D42B31C79200636F90 /* UpdateCurrentUserMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65AF2B31C79200636F90 /* UpdateCurrentUserMutation.graphql.swift */; };
-		5A2D65D52B31C79200636F90 /* MovePlaylistSourcePositionMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65B02B31C79200636F90 /* MovePlaylistSourcePositionMutation.graphql.swift */; };
-		5A2D65D72B31C79200636F90 /* GetRoomByKeyQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65B32B31C79200636F90 /* GetRoomByKeyQuery.graphql.swift */; };
-		5A2D65D82B31C79200636F90 /* CurrentUserQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65B42B31C79200636F90 /* CurrentUserQuery.graphql.swift */; };
-		5A2D65D92B31C79200636F90 /* GetPaginatedRoomsQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65B52B31C79200636F90 /* GetPaginatedRoomsQuery.graphql.swift */; };
-		5A2D65DA2B31C79200636F90 /* SchemaAPI.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65B72B31C79200636F90 /* SchemaAPI.graphql.swift */; };
-		5A2D65DB2B31C79200636F90 /* RoomType.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65B92B31C79200636F90 /* RoomType.graphql.swift */; };
-		5A2D65DD2B31C79200636F90 /* User.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65BC2B31C79200636F90 /* User.graphql.swift */; };
-		5A2D65DE2B31C79200636F90 /* RootMutationType.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65BD2B31C79200636F90 /* RootMutationType.graphql.swift */; };
-		5A2D65DF2B31C79200636F90 /* MediaInfo.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65BE2B31C79200636F90 /* MediaInfo.graphql.swift */; };
-		5A2D65E02B31C79200636F90 /* RootQueryType.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65BF2B31C79200636F90 /* RootQueryType.graphql.swift */; };
-		5A2D65E12B31C79200636F90 /* Source.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65C02B31C79200636F90 /* Source.graphql.swift */; };
-		5A2D65E22B31C79200636F90 /* PlaylistRow.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65C12B31C79200636F90 /* PlaylistRow.graphql.swift */; };
-		5A2D65E32B31C79200636F90 /* PaginatedRooms.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65C22B31C79200636F90 /* PaginatedRooms.graphql.swift */; };
-		5A2D65E42B31C79200636F90 /* Room.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65C32B31C79200636F90 /* Room.graphql.swift */; };
-		5A2D65E52B31C79200636F90 /* Token.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65C42B31C79200636F90 /* Token.graphql.swift */; };
-		5A2D65E62B31C79200636F90 /* SchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65C52B31C79200636F90 /* SchemaConfiguration.swift */; };
-		5A2D65E72B31C79200636F90 /* SchemaMetadata.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65C62B31C79200636F90 /* SchemaMetadata.graphql.swift */; };
-		5A2D65E92B31CE5C00636F90 /* GetRoomPlaylistQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2D65E82B31CE5B00636F90 /* GetRoomPlaylistQuery.graphql.swift */; };
+		5A167C392B31DA6B00F26EA7 /* SchemaAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 5A167C382B31DA6B00F26EA7 /* SchemaAPI */; };
 		5A54B56E2B2063BD0008824C /* WebViewRepresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A54B56C2B2063BD0008824C /* WebViewRepresenter.swift */; };
 		5A54B56F2B2063BD0008824C /* WebNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A54B56D2B2063BD0008824C /* WebNavigationView.swift */; };
 		5A54B5712B206E740008824C /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A54B5702B206E740008824C /* Playlist.swift */; };
@@ -121,38 +90,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5A2D65A12B31C79200636F90 /* RoomAttrs.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomAttrs.graphql.swift; sourceTree = "<group>"; };
-		5A2D65A22B31C79200636F90 /* PlaylistRowAttrs.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistRowAttrs.graphql.swift; sourceTree = "<group>"; };
-		5A2D65A32B31C79200636F90 /* UserAttrs.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAttrs.graphql.swift; sourceTree = "<group>"; };
-		5A2D65A42B31C79200636F90 /* SourceAttrs.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceAttrs.graphql.swift; sourceTree = "<group>"; };
-		5A2D65A52B31C79200636F90 /* MediaInfoAttrs.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaInfoAttrs.graphql.swift; sourceTree = "<group>"; };
-		5A2D65A72B31C79200636F90 /* RoomActionMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomActionMutation.graphql.swift; sourceTree = "<group>"; };
-		5A2D65A82B31C79200636F90 /* DeletePlaylistSourceMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeletePlaylistSourceMutation.graphql.swift; sourceTree = "<group>"; };
-		5A2D65A92B31C79200636F90 /* AddPlaylistSourceMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlaylistSourceMutation.graphql.swift; sourceTree = "<group>"; };
-		5A2D65AA2B31C79200636F90 /* SignInMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInMutation.graphql.swift; sourceTree = "<group>"; };
-		5A2D65AB2B31C79200636F90 /* SignUpMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpMutation.graphql.swift; sourceTree = "<group>"; };
-		5A2D65AC2B31C79200636F90 /* UpdateRoomMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRoomMutation.graphql.swift; sourceTree = "<group>"; };
-		5A2D65AD2B31C79200636F90 /* DeleteRoomMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteRoomMutation.graphql.swift; sourceTree = "<group>"; };
-		5A2D65AE2B31C79200636F90 /* CreateRoomMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateRoomMutation.graphql.swift; sourceTree = "<group>"; };
-		5A2D65AF2B31C79200636F90 /* UpdateCurrentUserMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateCurrentUserMutation.graphql.swift; sourceTree = "<group>"; };
-		5A2D65B02B31C79200636F90 /* MovePlaylistSourcePositionMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovePlaylistSourcePositionMutation.graphql.swift; sourceTree = "<group>"; };
-		5A2D65B32B31C79200636F90 /* GetRoomByKeyQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRoomByKeyQuery.graphql.swift; sourceTree = "<group>"; };
-		5A2D65B42B31C79200636F90 /* CurrentUserQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserQuery.graphql.swift; sourceTree = "<group>"; };
-		5A2D65B52B31C79200636F90 /* GetPaginatedRoomsQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPaginatedRoomsQuery.graphql.swift; sourceTree = "<group>"; };
-		5A2D65B72B31C79200636F90 /* SchemaAPI.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaAPI.graphql.swift; sourceTree = "<group>"; };
-		5A2D65B92B31C79200636F90 /* RoomType.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomType.graphql.swift; sourceTree = "<group>"; };
-		5A2D65BC2B31C79200636F90 /* User.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.graphql.swift; sourceTree = "<group>"; };
-		5A2D65BD2B31C79200636F90 /* RootMutationType.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootMutationType.graphql.swift; sourceTree = "<group>"; };
-		5A2D65BE2B31C79200636F90 /* MediaInfo.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaInfo.graphql.swift; sourceTree = "<group>"; };
-		5A2D65BF2B31C79200636F90 /* RootQueryType.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootQueryType.graphql.swift; sourceTree = "<group>"; };
-		5A2D65C02B31C79200636F90 /* Source.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Source.graphql.swift; sourceTree = "<group>"; };
-		5A2D65C12B31C79200636F90 /* PlaylistRow.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistRow.graphql.swift; sourceTree = "<group>"; };
-		5A2D65C22B31C79200636F90 /* PaginatedRooms.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginatedRooms.graphql.swift; sourceTree = "<group>"; };
-		5A2D65C32B31C79200636F90 /* Room.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Room.graphql.swift; sourceTree = "<group>"; };
-		5A2D65C42B31C79200636F90 /* Token.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.graphql.swift; sourceTree = "<group>"; };
-		5A2D65C52B31C79200636F90 /* SchemaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaConfiguration.swift; sourceTree = "<group>"; };
-		5A2D65C62B31C79200636F90 /* SchemaMetadata.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaMetadata.graphql.swift; sourceTree = "<group>"; };
-		5A2D65E82B31CE5B00636F90 /* GetRoomPlaylistQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRoomPlaylistQuery.graphql.swift; sourceTree = "<group>"; };
+		5A2D65EC2B31D98F00636F90 /* SchemaAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SchemaAPI; path = "Hack&Change23Track1/GraphqlAPI/SchemaAPI"; sourceTree = "<group>"; };
 		5A54B56C2B2063BD0008824C /* WebViewRepresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewRepresenter.swift; sourceTree = "<group>"; };
 		5A54B56D2B2063BD0008824C /* WebNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebNavigationView.swift; sourceTree = "<group>"; };
 		5A54B5702B206E740008824C /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
@@ -238,6 +176,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A167C392B31DA6B00F26EA7 /* SchemaAPI in Frameworks */,
 				5A58E7862B1121A200D0723C /* NukeUI in Frameworks */,
 				5A6231FC2B307EBA00E17DB5 /* ApolloWebSocket in Frameworks */,
 				5A58E7802B11217100D0723C /* Apollo in Frameworks */,
@@ -247,100 +186,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5A2D659E2B31C79200636F90 /* generated */ = {
+		5A167C372B31DA6B00F26EA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5A2D659F2B31C79200636F90 /* operations */,
-				5A2D65B62B31C79200636F90 /* schema */,
 			);
-			name = generated;
-			path = GraphqlAPI/generated;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5A2D659F2B31C79200636F90 /* operations */ = {
+		5A2D65EB2B31D98F00636F90 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				5A2D65A02B31C79200636F90 /* Fragments */,
-				5A2D65A62B31C79200636F90 /* Mutations */,
-				5A2D65B12B31C79200636F90 /* Queries */,
+				5A2D65EC2B31D98F00636F90 /* SchemaAPI */,
 			);
-			path = operations;
-			sourceTree = "<group>";
-		};
-		5A2D65A02B31C79200636F90 /* Fragments */ = {
-			isa = PBXGroup;
-			children = (
-				5A2D65A12B31C79200636F90 /* RoomAttrs.graphql.swift */,
-				5A2D65A22B31C79200636F90 /* PlaylistRowAttrs.graphql.swift */,
-				5A2D65A32B31C79200636F90 /* UserAttrs.graphql.swift */,
-				5A2D65A42B31C79200636F90 /* SourceAttrs.graphql.swift */,
-				5A2D65A52B31C79200636F90 /* MediaInfoAttrs.graphql.swift */,
-			);
-			path = Fragments;
-			sourceTree = "<group>";
-		};
-		5A2D65A62B31C79200636F90 /* Mutations */ = {
-			isa = PBXGroup;
-			children = (
-				5A2D65A72B31C79200636F90 /* RoomActionMutation.graphql.swift */,
-				5A2D65A82B31C79200636F90 /* DeletePlaylistSourceMutation.graphql.swift */,
-				5A2D65A92B31C79200636F90 /* AddPlaylistSourceMutation.graphql.swift */,
-				5A2D65AA2B31C79200636F90 /* SignInMutation.graphql.swift */,
-				5A2D65AB2B31C79200636F90 /* SignUpMutation.graphql.swift */,
-				5A2D65AC2B31C79200636F90 /* UpdateRoomMutation.graphql.swift */,
-				5A2D65AD2B31C79200636F90 /* DeleteRoomMutation.graphql.swift */,
-				5A2D65AE2B31C79200636F90 /* CreateRoomMutation.graphql.swift */,
-				5A2D65AF2B31C79200636F90 /* UpdateCurrentUserMutation.graphql.swift */,
-				5A2D65B02B31C79200636F90 /* MovePlaylistSourcePositionMutation.graphql.swift */,
-			);
-			path = Mutations;
-			sourceTree = "<group>";
-		};
-		5A2D65B12B31C79200636F90 /* Queries */ = {
-			isa = PBXGroup;
-			children = (
-				5A2D65E82B31CE5B00636F90 /* GetRoomPlaylistQuery.graphql.swift */,
-				5A2D65B32B31C79200636F90 /* GetRoomByKeyQuery.graphql.swift */,
-				5A2D65B42B31C79200636F90 /* CurrentUserQuery.graphql.swift */,
-				5A2D65B52B31C79200636F90 /* GetPaginatedRoomsQuery.graphql.swift */,
-			);
-			path = Queries;
-			sourceTree = "<group>";
-		};
-		5A2D65B62B31C79200636F90 /* schema */ = {
-			isa = PBXGroup;
-			children = (
-				5A2D65B72B31C79200636F90 /* SchemaAPI.graphql.swift */,
-				5A2D65B82B31C79200636F90 /* Enums */,
-				5A2D65BA2B31C79200636F90 /* Objects */,
-				5A2D65C52B31C79200636F90 /* SchemaConfiguration.swift */,
-				5A2D65C62B31C79200636F90 /* SchemaMetadata.graphql.swift */,
-			);
-			path = schema;
-			sourceTree = "<group>";
-		};
-		5A2D65B82B31C79200636F90 /* Enums */ = {
-			isa = PBXGroup;
-			children = (
-				5A2D65B92B31C79200636F90 /* RoomType.graphql.swift */,
-			);
-			path = Enums;
-			sourceTree = "<group>";
-		};
-		5A2D65BA2B31C79200636F90 /* Objects */ = {
-			isa = PBXGroup;
-			children = (
-				5A2D65BC2B31C79200636F90 /* User.graphql.swift */,
-				5A2D65BD2B31C79200636F90 /* RootMutationType.graphql.swift */,
-				5A2D65BE2B31C79200636F90 /* MediaInfo.graphql.swift */,
-				5A2D65BF2B31C79200636F90 /* RootQueryType.graphql.swift */,
-				5A2D65C02B31C79200636F90 /* Source.graphql.swift */,
-				5A2D65C12B31C79200636F90 /* PlaylistRow.graphql.swift */,
-				5A2D65C22B31C79200636F90 /* PaginatedRooms.graphql.swift */,
-				5A2D65C32B31C79200636F90 /* Room.graphql.swift */,
-				5A2D65C42B31C79200636F90 /* Token.graphql.swift */,
-			);
-			path = Objects;
+			name = Packages;
 			sourceTree = "<group>";
 		};
 		5A54B56B2B2063A60008824C /* WebView */ = {
@@ -430,19 +288,13 @@
 			path = RoomSettings;
 			sourceTree = "<group>";
 		};
-		5A6231FA2B307EBA00E17DB5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		5A81F3C92B1091AA00D9998F = {
 			isa = PBXGroup;
 			children = (
+				5A2D65EB2B31D98F00636F90 /* Packages */,
 				5A81F3D42B1091AA00D9998F /* Hack&Change23Track1 */,
 				5A81F3D32B1091AA00D9998F /* Products */,
-				5A6231FA2B307EBA00E17DB5 /* Frameworks */,
+				5A167C372B31DA6B00F26EA7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -586,7 +438,6 @@
 		5A81F4052B1098B200D9998F /* GraphqlAPI */ = {
 			isa = PBXGroup;
 			children = (
-				5A2D659E2B31C79200636F90 /* generated */,
 				5A81F4072B1098E400D9998F /* ApolloClient */,
 				5A81F4162B10A3A700D9998F /* schema.graphqls */,
 				5A81F4182B10A43800D9998F /* operations.graphql */,
@@ -728,6 +579,7 @@
 				5A58E77F2B11217100D0723C /* Apollo */,
 				5A58E7852B1121A200D0723C /* NukeUI */,
 				5A6231FB2B307EBA00E17DB5 /* ApolloWebSocket */,
+				5A167C382B31DA6B00F26EA7 /* SchemaAPI */,
 			);
 			productName = "Hack&Change23Track1";
 			productReference = 5A81F3D22B1091AA00D9998F /* Hack&Change23Track1.app */;
@@ -790,77 +642,50 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A2D65CE2B31C79200636F90 /* AddPlaylistSourceMutation.graphql.swift in Sources */,
 				5A81F3D82B1091AA00D9998F /* ContentView.swift in Sources */,
 				5A58E7882B1121ED00D0723C /* LazyNukeImage.swift in Sources */,
 				5A81F4042B10983A00D9998F /* RemoteCommandHelper.swift in Sources */,
 				5A81F4862B10D03100D9998F /* CreateRoomViewModel.swift in Sources */,
 				5A81F46E2B10BB9D00D9998F /* UserManager.swift in Sources */,
-				5A2D65E42B31C79200636F90 /* Room.graphql.swift in Sources */,
-				5A2D65D22B31C79200636F90 /* DeleteRoomMutation.graphql.swift in Sources */,
 				5A7AE3782B230F8B00071D82 /* Array.swift in Sources */,
-				5A2D65D02B31C79200636F90 /* SignUpMutation.graphql.swift in Sources */,
 				5AAE6AC22B1E10130055303F /* PlayerManager.swift in Sources */,
 				5A58E7AF2B116C2500D0723C /* BottomBarView.swift in Sources */,
 				5A81F4022B10980300D9998F /* DecoderEncoderHelper.swift in Sources */,
-				5A2D65E12B31C79200636F90 /* Source.graphql.swift in Sources */,
-				5A2D65E52B31C79200636F90 /* Token.graphql.swift in Sources */,
 				5A58E78B2B1131BF00D0723C /* RoomView.swift in Sources */,
 				5A54B56F2B2063BD0008824C /* WebNavigationView.swift in Sources */,
 				5A81F3D62B1091AA00D9998F /* Hack_Change23Track1App.swift in Sources */,
-				5A2D65E92B31CE5C00636F90 /* GetRoomPlaylistQuery.graphql.swift in Sources */,
 				5A58E79B2B114C5800D0723C /* Task.swift in Sources */,
-				5A2D65D12B31C79200636F90 /* UpdateRoomMutation.graphql.swift in Sources */,
 				5A81F4802B10C36600D9998F /* Font.swift in Sources */,
 				5AAE6AC72B1E11000055303F /* VideoPlayer.swift in Sources */,
 				5A8C32732B176B1600E1BCDA /* AppError.swift in Sources */,
 				5A81F4742B10BC9E00D9998F /* RootContainerView.swift in Sources */,
 				5A81F4822B10C47300D9998F /* PrimaryTextField.swift in Sources */,
-				5A2D65DB2B31C79200636F90 /* RoomType.graphql.swift in Sources */,
-				5A2D65C82B31C79200636F90 /* PlaylistRowAttrs.graphql.swift in Sources */,
 				5A58E7CE2B12832300D0723C /* RoomTemplate.swift in Sources */,
-				5A2D65E72B31C79200636F90 /* SchemaMetadata.graphql.swift in Sources */,
 				5A58E7A82B115F1E00D0723C /* SoundWaveView.swift in Sources */,
 				5A81F3FE2B1097DC00D9998F /* Double.swift in Sources */,
-				5A2D65D92B31C79200636F90 /* GetPaginatedRoomsQuery.graphql.swift in Sources */,
 				5A58E7AA2B116B0800D0723C /* RoomChatView.swift in Sources */,
 				5A58E7A42B115A9300D0723C /* UserAvatarView.swift in Sources */,
 				5A58E79E2B114E2A00D0723C /* Message.swift in Sources */,
-				5A2D65E22B31C79200636F90 /* PlaylistRow.graphql.swift in Sources */,
 				5AAE6AC52B1E10BF0055303F /* CancelBag.swift in Sources */,
 				5A58E7902B1135B200D0723C /* RoomTabView.swift in Sources */,
-				5A2D65C72B31C79200636F90 /* RoomAttrs.graphql.swift in Sources */,
-				5A2D65E02B31C79200636F90 /* RootQueryType.graphql.swift in Sources */,
 				5A81F47C2B10C07D00D9998F /* RoomsViewModel.swift in Sources */,
 				5AAE6AD32B1F56C40055303F /* PlayerEvent.swift in Sources */,
 				5ADD4B392B18B0D300B0C05B /* FullSreenPlayer.swift in Sources */,
-				5A2D65DD2B31C79200636F90 /* User.graphql.swift in Sources */,
 				5A58E7922B11373400D0723C /* UIApplication.swift in Sources */,
 				5A58E7B72B11F04D00D0723C /* ShareUtils.swift in Sources */,
-				5A2D65CF2B31C79200636F90 /* SignInMutation.graphql.swift in Sources */,
-				5A2D65CD2B31C79200636F90 /* DeletePlaylistSourceMutation.graphql.swift in Sources */,
-				5A2D65DE2B31C79200636F90 /* RootMutationType.graphql.swift in Sources */,
-				5A2D65E32B31C79200636F90 /* PaginatedRooms.graphql.swift in Sources */,
-				5A2D65D82B31C79200636F90 /* CurrentUserQuery.graphql.swift in Sources */,
 				5A81F47E2B10C0BB00D9998F /* CreateRoomView.swift in Sources */,
 				5A58E7C82B12724700D0723C /* RoomSettingsView.swift in Sources */,
 				5A54B5712B206E740008824C /* Playlist.swift in Sources */,
 				5A8C32762B176E2700E1BCDA /* WebRtcVideoView.swift in Sources */,
-				5A2D65D52B31C79200636F90 /* MovePlaylistSourcePositionMutation.graphql.swift in Sources */,
 				5A58E78D2B11327200D0723C /* RoomViewModel.swift in Sources */,
 				5A81F4632B10B95000D9998F /* AuthView.swift in Sources */,
-				5A2D65DF2B31C79200636F90 /* MediaInfo.graphql.swift in Sources */,
 				5A81F46A2B10BA8100D9998F /* ApolloClient.swift in Sources */,
 				5A58E7AC2B116B3B00D0723C /* RoomChatViewModel.swift in Sources */,
 				5A703C512B2B451B00948F2D /* CreateRoomWebView.swift in Sources */,
-				5A2D65D72B31C79200636F90 /* GetRoomByKeyQuery.graphql.swift in Sources */,
 				5A81F4092B1098FD00D9998F /* Config.swift in Sources */,
-				5A2D65C92B31C79200636F90 /* UserAttrs.graphql.swift in Sources */,
-				5A2D65CB2B31C79200636F90 /* MediaInfoAttrs.graphql.swift in Sources */,
 				5A81F47A2B10BD1500D9998F /* RoomsView.swift in Sources */,
 				5A81F4002B1097EB00D9998F /* Color.swift in Sources */,
 				5AAE6ACB2B1E11810055303F /* VideoPlayerRepresenter.swift in Sources */,
-				5A2D65D32B31C79200636F90 /* CreateRoomMutation.graphql.swift in Sources */,
 				5A81F4602B10B79500D9998F /* UserDataService.swift in Sources */,
 				5A81F3FC2B1097BA00D9998F /* View.swift in Sources */,
 				5A58E7992B114C3F00D0723C /* ParticlesModifier.swift in Sources */,
@@ -872,9 +697,7 @@
 				5AAE6AC92B1E11200055303F /* Orientation.swift in Sources */,
 				5A703C4F2B2AFED100948F2D /* AppRouter.swift in Sources */,
 				5A81F4712B10BBC800D9998F /* RoomMember.swift in Sources */,
-				5A2D65D42B31C79200636F90 /* UpdateCurrentUserMutation.graphql.swift in Sources */,
 				5A81F4682B10B9A900D9998F /* AppAlert.swift in Sources */,
-				5A2D65DA2B31C79200636F90 /* SchemaAPI.graphql.swift in Sources */,
 				5A81F4782B10BD0800D9998F /* ProfileView.swift in Sources */,
 				5A81F45E2B10B75F00D9998F /* RoomDataService.swift in Sources */,
 				5A58E7A62B115D8100D0723C /* PlaylistView.swift in Sources */,
@@ -884,15 +707,12 @@
 				5A81F48F2B10E44400D9998F /* Helpers.swift in Sources */,
 				5A81F4662B10B98500D9998F /* AuthManager.swift in Sources */,
 				5A81F4842B10CA0200D9998F /* PrimaryButton.swift in Sources */,
-				5A2D65CC2B31C79200636F90 /* RoomActionMutation.graphql.swift in Sources */,
 				5AAE6AD12B1F461E0055303F /* VideoItem.swift in Sources */,
 				5A58E7A22B115A0B00D0723C /* MembersView.swift in Sources */,
 				5A58E7972B113AEE00D0723C /* RoomPlayerState.swift in Sources */,
 				5AAE6ACD2B1E2AE20055303F /* NotificationCenter.swift in Sources */,
 				5A58E7BC2B11F54A00D0723C /* String.swift in Sources */,
-				5A2D65CA2B31C79200636F90 /* SourceAttrs.graphql.swift in Sources */,
 				5A58E7B52B117CD000D0723C /* EmojiReactionView.swift in Sources */,
-				5A2D65E62B31C79200636F90 /* SchemaConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1119,6 +939,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5A167C382B31DA6B00F26EA7 /* SchemaAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SchemaAPI;
+		};
 		5A58E77F2B11217100D0723C /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5A58E77E2B11217100D0723C /* XCRemoteSwiftPackageReference "apollo-ios" */;

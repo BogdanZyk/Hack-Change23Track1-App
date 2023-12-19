@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SchemaAPI
 
 struct CreateRoomWebView: View {
     @Environment(\.dismiss) private var dismiss
