@@ -7,26 +7,26 @@ public class RoomActionMutation: GraphQLMutation {
   public static let operationName: String = "RoomAction"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation RoomAction($arg: String, $action: String, $roomId: String) { RoomAction(Arg: $arg, Action: $action, RoomId: $roomId) }"#
+      #"mutation RoomAction($action: MediaAction, $arg: String, $roomId: String) { RoomAction(Action: $action, Arg: $arg, RoomId: $roomId) }"#
     ))
 
+  public var action: GraphQLNullable<GraphQLEnum<MediaAction>>
   public var arg: GraphQLNullable<String>
-  public var action: GraphQLNullable<String>
   public var roomId: GraphQLNullable<String>
 
   public init(
+    action: GraphQLNullable<GraphQLEnum<MediaAction>>,
     arg: GraphQLNullable<String>,
-    action: GraphQLNullable<String>,
     roomId: GraphQLNullable<String>
   ) {
-    self.arg = arg
     self.action = action
+    self.arg = arg
     self.roomId = roomId
   }
 
   public var __variables: Variables? { [
-    "arg": arg,
     "action": action,
+    "arg": arg,
     "roomId": roomId
   ] }
 
@@ -37,8 +37,8 @@ public class RoomActionMutation: GraphQLMutation {
     public static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.RootMutationType }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("RoomAction", Bool?.self, arguments: [
-        "Arg": .variable("arg"),
         "Action": .variable("action"),
+        "Arg": .variable("arg"),
         "RoomId": .variable("roomId")
       ]),
     ] }

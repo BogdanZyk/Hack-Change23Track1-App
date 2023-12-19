@@ -128,6 +128,6 @@ mutation AddPlaylistSource($roomId: String!, $url: String!) {
 
 
 
-mutation RoomAction($arg: String, $action: String, $roomId: String) {
-  RoomAction(Arg: $arg, Action: $action, RoomId: $roomId) }
-
+mutation RoomAction($action: MediaAction, $arg: String, $roomId: String) {
+  RoomAction(Action: $action, Arg: $arg, RoomId: $roomId)
+}

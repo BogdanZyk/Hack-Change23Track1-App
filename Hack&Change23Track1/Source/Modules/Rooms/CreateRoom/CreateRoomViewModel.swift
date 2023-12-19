@@ -15,7 +15,7 @@ class CreateRoomViewModel: ObservableObject {
     @Published var appAlert: AppAlert?
     @Published var showLoader: Bool = false
     
-    private var selectedSource: SourceAttrs?
+    private var selectedTrack: PlaylistRowAttrs?
     private var createdRoom: RoomAttrs?
     private let roomService = RoomDataService()
 
@@ -25,9 +25,9 @@ class CreateRoomViewModel: ObservableObject {
             let room = try await createRoom()
             guard let roomId = room.id else { return }
             let tracks = try await roomService.addVideoToPlaylist(roomId: roomId, url: id)
-            guard let source = tracks.first?.source.fragments.sourceAttrs else { return }
-            selectedSource = source
-            setTemplate(source)
+            guard let playerItem = tracks.first else { return }
+            selectedTrack = playerItem
+            setTemplate(playerItem)
             createdRoom = room
             showLoader = false
         } catch {
@@ -37,10 +37,10 @@ class CreateRoomViewModel: ObservableObject {
     }
         
     func submitRoom() async -> RoomAttrs? {
-        guard let sourceId = selectedSource?.id, let roomId = createdRoom?.id else { return nil }
+        guard let id = selectedTrack?.id, let roomId = createdRoom?.id else { return nil }
         showLoader = true
         do {
-            let room = try await roomService.setRoomAction(for: roomId, action: .move, arg: "")
+            let room = try await roomService.setRoomAction(for: roomId, action: .changeSource, arg: id)
             showLoader = false
             return createdRoom
         } catch {
@@ -50,11 +50,11 @@ class CreateRoomViewModel: ObservableObject {
         }
     }
     
-    private func setTemplate(_ source: SourceAttrs) {
-        template = .init(name: source.name,
+    private func setTemplate(_ item: PlaylistRowAttrs) {
+        template = .init(name: item.source.name,
                          isPrivateRoom: false,
                          image: nil,
-                         imagePath: source.cover)
+                         imagePath: item.source.cover)
     }
     
     private func createRoom() async throws -> RoomAttrs {

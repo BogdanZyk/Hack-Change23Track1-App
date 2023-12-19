@@ -56,10 +56,10 @@ struct RoomView: View {
             if viewModel.remotePlayerDelegate == nil {
                 viewModel.remotePlayerDelegate = playerManager
             }
-            await viewModel.connectRoom()
+            viewModel.connectRoom()
         }
         .overlay {
-            if !viewModel.isConnected {
+            if viewModel.state == .connecting {
                 loader
             }
         }

@@ -126,8 +126,8 @@ final class RoomDataService {
     }
     
     @discardableResult
-    func setRoomAction(for roomId: String, action: RoomAction, arg: String = "") async throws -> Bool {
-        let mutation = RoomActionMutation(arg: .init(stringLiteral: arg), action: .init(stringLiteral: action.rawValue), roomId: .init(stringLiteral: roomId))
+    func setRoomAction(for roomId: String, action: MediaAction, arg: String = "") async throws -> Bool {
+        let mutation = RoomActionMutation(action: .init(action), arg: .init(stringLiteral: arg), roomId: .init(stringLiteral: roomId))
         let data = try await api.mutation(mutation: mutation)
 
         if let error = data.errors?.first {
@@ -151,9 +151,6 @@ final class RoomDataService {
     }
 }
 
-enum RoomAction: String {
-    case play, pause, move
-}
 
 extension RoomAttrs: Identifiable {}
 extension SourceAttrs: Identifiable {}

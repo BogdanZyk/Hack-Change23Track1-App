@@ -18,8 +18,7 @@ final class RoomViewModel: ObservableObject {
     @Published private(set) var room: RoomAttrs
     @Published private(set) var roomCountLikes: Int = 0
     @Published private(set) var members: [String: RoomMember] = [:]
-    @Published var isConnected: Bool = false
-    //@Published private(set) var status: WebRTCStatus = .new
+    @Published private(set) var state: RoomState = .connecting
     
     weak var chatDelegate: ChatProviderDelegate?
     weak var remotePlayerDelegate: PlayerRemoteProvider?
@@ -36,9 +35,19 @@ final class RoomViewModel: ObservableObject {
         self.setMembers()
     }
     
+    deinit {
+        cancelBag.cancel()
+    }
+    
     #warning("connect to websocket for room")
-    func connectRoom() async {
-        isConnected = true
+    func connectRoom() {
+        
+        Task {
+            state = .connecting
+            try await Task.sleep(seconds: 1)
+            connectToWebsocket()
+            state = .connected
+        }
     }
 
 
@@ -135,3 +144,6 @@ extension RoomViewModel {
     
 }
 
+enum RoomState: Int {
+    case connected, connecting, error
+}

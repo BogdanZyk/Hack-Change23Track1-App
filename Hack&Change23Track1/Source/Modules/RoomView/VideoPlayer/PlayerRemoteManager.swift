@@ -203,7 +203,7 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
         playerEvent = .close
     }
     
-    private func setPlayerAction(_ action: RoomAction, arg: String = "") async throws {
+    private func setPlayerAction(_ action: MediaAction, arg: String = "") async throws {
         guard let id = room.id else { return }
         try await roomDataService.setRoomAction(for: id, action: action, arg: arg)
     }
