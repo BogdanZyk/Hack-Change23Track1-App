@@ -50,7 +50,7 @@ class CreateRoomViewModel: ObservableObject {
     }
     
     private func setTemplate(_ source: SourceAttrs) {
-        template = .init(name: source.name ?? "No name",
+        template = .init(name: source.name,
                          isPrivateRoom: false,
                          image: nil,
                          imagePath: source.cover)

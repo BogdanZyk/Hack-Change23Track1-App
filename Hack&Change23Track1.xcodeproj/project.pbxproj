@@ -43,7 +43,6 @@
 		5A54B56F2B2063BD0008824C /* WebNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A54B56D2B2063BD0008824C /* WebNavigationView.swift */; };
 		5A54B5712B206E740008824C /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A54B5702B206E740008824C /* Playlist.swift */; };
 		5A58E7802B11217100D0723C /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 5A58E77F2B11217100D0723C /* Apollo */; };
-		5A58E7832B11218400D0723C /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = 5A58E7822B11218400D0723C /* WebRTC */; };
 		5A58E7862B1121A200D0723C /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5A58E7852B1121A200D0723C /* NukeUI */; };
 		5A58E7882B1121ED00D0723C /* LazyNukeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7872B1121ED00D0723C /* LazyNukeImage.swift */; };
 		5A58E78B2B1131BF00D0723C /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E78A2B1131BF00D0723C /* RoomView.swift */; };
@@ -83,8 +82,6 @@
 		5A81F4022B10980300D9998F /* DecoderEncoderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4012B10980300D9998F /* DecoderEncoderHelper.swift */; };
 		5A81F4042B10983A00D9998F /* RemoteCommandHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4032B10983A00D9998F /* RemoteCommandHelper.swift */; };
 		5A81F4092B1098FD00D9998F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4082B1098FD00D9998F /* Config.swift */; };
-		5A81F40E2B109CEC00D9998F /* SessionDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F40D2B109CEC00D9998F /* SessionDescription.swift */; };
-		5A81F4132B109FF900D9998F /* IceCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4122B109FF900D9998F /* IceCandidate.swift */; };
 		5A81F4152B10A2D000D9998F /* apollo-codegen-config.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F4142B10A2D000D9998F /* apollo-codegen-config.json */; };
 		5A81F4172B10A3A700D9998F /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F4162B10A3A700D9998F /* schema.graphqls */; };
 		5A81F4192B10A43800D9998F /* operations.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 5A81F4182B10A43800D9998F /* operations.graphql */; };
@@ -109,7 +106,6 @@
 		5A81F4892B10D29200D9998F /* JoinInRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F4882B10D29200D9998F /* JoinInRoomView.swift */; };
 		5A81F48D2B10DAC500D9998F /* RoomRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F48C2B10DAC500D9998F /* RoomRowView.swift */; };
 		5A81F48F2B10E44400D9998F /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F48E2B10E44400D9998F /* Helpers.swift */; };
-		5A8C32712B17647900E1BCDA /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8C32702B17647900E1BCDA /* WebRTCClient.swift */; };
 		5A8C32732B176B1600E1BCDA /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8C32722B176B1600E1BCDA /* AppError.swift */; };
 		5A8C32762B176E2700E1BCDA /* WebRtcVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8C32752B176E2700E1BCDA /* WebRtcVideoView.swift */; };
 		5AAE6AC22B1E10130055303F /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6AC12B1E10130055303F /* PlayerManager.swift */; };
@@ -199,8 +195,6 @@
 		5A81F4012B10980300D9998F /* DecoderEncoderHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoderEncoderHelper.swift; sourceTree = "<group>"; };
 		5A81F4032B10983A00D9998F /* RemoteCommandHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCommandHelper.swift; sourceTree = "<group>"; };
 		5A81F4082B1098FD00D9998F /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
-		5A81F40D2B109CEC00D9998F /* SessionDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDescription.swift; sourceTree = "<group>"; };
-		5A81F4122B109FF900D9998F /* IceCandidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IceCandidate.swift; sourceTree = "<group>"; };
 		5A81F4142B10A2D000D9998F /* apollo-codegen-config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "apollo-codegen-config.json"; sourceTree = "<group>"; };
 		5A81F4162B10A3A700D9998F /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = schema.graphqls; path = GraphqlAPI/schema.graphqls; sourceTree = "<group>"; };
 		5A81F4182B10A43800D9998F /* operations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = operations.graphql; sourceTree = "<group>"; };
@@ -225,7 +219,6 @@
 		5A81F4882B10D29200D9998F /* JoinInRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinInRoomView.swift; sourceTree = "<group>"; };
 		5A81F48C2B10DAC500D9998F /* RoomRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRowView.swift; sourceTree = "<group>"; };
 		5A81F48E2B10E44400D9998F /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		5A8C32702B17647900E1BCDA /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
 		5A8C32722B176B1600E1BCDA /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		5A8C32752B176E2700E1BCDA /* WebRtcVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRtcVideoView.swift; sourceTree = "<group>"; };
 		5AAE6AC12B1E10130055303F /* PlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
@@ -248,7 +241,6 @@
 				5A58E7862B1121A200D0723C /* NukeUI in Frameworks */,
 				5A6231FC2B307EBA00E17DB5 /* ApolloWebSocket in Frameworks */,
 				5A58E7802B11217100D0723C /* Apollo in Frameworks */,
-				5A58E7832B11218400D0723C /* WebRTC in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,7 +491,6 @@
 			isa = PBXGroup;
 			children = (
 				5A81F45A2B10B72600D9998F /* ApiServices */,
-				5A81F40C2B109C9100D9998F /* WebRTCClient */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -611,16 +602,6 @@
 				5A81F46B2B10BABB00D9998F /* Apollo+Extensions.swift */,
 			);
 			path = ApolloClient;
-			sourceTree = "<group>";
-		};
-		5A81F40C2B109C9100D9998F /* WebRTCClient */ = {
-			isa = PBXGroup;
-			children = (
-				5A8C32702B17647900E1BCDA /* WebRTCClient.swift */,
-				5A81F40D2B109CEC00D9998F /* SessionDescription.swift */,
-				5A81F4122B109FF900D9998F /* IceCandidate.swift */,
-			);
-			path = WebRTCClient;
 			sourceTree = "<group>";
 		};
 		5A81F45A2B10B72600D9998F /* ApiServices */ = {
@@ -745,7 +726,6 @@
 			name = "Hack&Change23Track1";
 			packageProductDependencies = (
 				5A58E77F2B11217100D0723C /* Apollo */,
-				5A58E7822B11218400D0723C /* WebRTC */,
 				5A58E7852B1121A200D0723C /* NukeUI */,
 				5A6231FB2B307EBA00E17DB5 /* ApolloWebSocket */,
 			);
@@ -779,7 +759,6 @@
 			mainGroup = 5A81F3C92B1091AA00D9998F;
 			packageReferences = (
 				5A58E77E2B11217100D0723C /* XCRemoteSwiftPackageReference "apollo-ios" */,
-				5A58E7812B11218400D0723C /* XCRemoteSwiftPackageReference "WebRTC" */,
 				5A58E7842B1121A200D0723C /* XCRemoteSwiftPackageReference "NukeUI" */,
 			);
 			productRefGroup = 5A81F3D32B1091AA00D9998F /* Products */;
@@ -856,8 +835,6 @@
 				5AAE6AD32B1F56C40055303F /* PlayerEvent.swift in Sources */,
 				5ADD4B392B18B0D300B0C05B /* FullSreenPlayer.swift in Sources */,
 				5A2D65DD2B31C79200636F90 /* User.graphql.swift in Sources */,
-				5A81F40E2B109CEC00D9998F /* SessionDescription.swift in Sources */,
-				5A8C32712B17647900E1BCDA /* WebRTCClient.swift in Sources */,
 				5A58E7922B11373400D0723C /* UIApplication.swift in Sources */,
 				5A58E7B72B11F04D00D0723C /* ShareUtils.swift in Sources */,
 				5A2D65CF2B31C79200636F90 /* SignInMutation.graphql.swift in Sources */,
@@ -889,7 +866,6 @@
 				5A58E7992B114C3F00D0723C /* ParticlesModifier.swift in Sources */,
 				5A54B56E2B2063BD0008824C /* WebViewRepresenter.swift in Sources */,
 				5A81F48D2B10DAC500D9998F /* RoomRowView.swift in Sources */,
-				5A81F4132B109FF900D9998F /* IceCandidate.swift in Sources */,
 				5A58E7D22B1287AB00D0723C /* ShareSheet.swift in Sources */,
 				5A81F4892B10D29200D9998F /* JoinInRoomView.swift in Sources */,
 				5A58E7B32B117CB300D0723C /* MessageContextMenu.swift in Sources */,
@@ -1132,14 +1108,6 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		5A58E7812B11218400D0723C /* XCRemoteSwiftPackageReference "WebRTC" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/stasel/WebRTC";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 119.0.0;
-			};
-		};
 		5A58E7842B1121A200D0723C /* XCRemoteSwiftPackageReference "NukeUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kean/NukeUI";
@@ -1155,11 +1123,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5A58E77E2B11217100D0723C /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
-		};
-		5A58E7822B11218400D0723C /* WebRTC */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5A58E7812B11218400D0723C /* XCRemoteSwiftPackageReference "WebRTC" */;
-			productName = WebRTC;
 		};
 		5A58E7852B1121A200D0723C /* NukeUI */ = {
 			isa = XCSwiftPackageProductDependency;
