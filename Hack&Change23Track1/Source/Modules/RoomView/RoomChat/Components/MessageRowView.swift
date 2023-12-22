@@ -112,9 +112,9 @@ extension RoomChatView {
         private var replyMessage: some View {
             if let reply = message.replyMessage {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(reply.userName)
+                    Text(reply.userName ?? "")
                         .fontWeight(.semibold)
-                    Text(reply.text)
+                    Text(reply.text ?? "")
                 }
                 .font(.small())
                 .padding(.horizontal, 8)
@@ -130,7 +130,7 @@ extension RoomChatView {
                 ForEach(reactions.indices, id: \.self) { index in
                     HStack {
                         HStack(spacing: 5) {
-                            Text(reactions[index].reaction)
+                            Text(reactions[index].reaction.reaction ?? "")
                             Text("\(reactions[index].count)")
                         }
                         .font(.system(size: 15))

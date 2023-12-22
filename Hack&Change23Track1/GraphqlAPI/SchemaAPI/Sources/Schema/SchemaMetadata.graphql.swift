@@ -20,7 +20,7 @@ where Schema == SchemaAPI.SchemaMetadata {}
 public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
   public static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
 
-  public static func objectType(forTypename typename: String) -> Object? {
+  public static func objectType(forTypename typename: String) -> ApolloAPI.Object? {
     switch typename {
     case "RootMutationType": return SchemaAPI.Objects.RootMutationType
     case "Token": return SchemaAPI.Objects.Token
@@ -31,6 +31,11 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "MediaInfo": return SchemaAPI.Objects.MediaInfo
     case "Source": return SchemaAPI.Objects.Source
     case "PlaylistRow": return SchemaAPI.Objects.PlaylistRow
+    case "RootSubscriptionType": return SchemaAPI.Objects.RootSubscriptionType
+    case "InteractiveAction": return SchemaAPI.Objects.InteractiveAction
+    case "Message": return SchemaAPI.Objects.Message
+    case "ReactionMessage": return SchemaAPI.Objects.ReactionMessage
+    case "ReplyMessage": return SchemaAPI.Objects.ReplyMessage
     default: return nil
     }
   }

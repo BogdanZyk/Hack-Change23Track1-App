@@ -7,10 +7,11 @@
 
 import SwiftUI
 import Combine
+import SchemaAPI
 
 struct BottomBarView: View {
     @Binding var text: String
-    var replyMessage: Message.ReplyMessage?
+    var replyMessage: ReplyMessageAttrs?
     let onSend: (Message.MessageContent) -> Void
     var body: some View {
         VStack(spacing: 4) {
@@ -21,8 +22,8 @@ struct BottomBarView: View {
                         Image(systemName: "arrowshape.turn.up.left.fill")
                             .font(.title3)
                         VStack(alignment: .leading, spacing: 1){
-                            Text(replyMessage.userName).bold()
-                            Text(replyMessage.text)
+                            Text(replyMessage.userName ?? "").bold()
+                            Text(replyMessage.text ?? "")
                         }
                     }
                     .lineLimit(1)

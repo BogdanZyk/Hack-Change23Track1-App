@@ -26,4 +26,10 @@ struct RoomMember: Codable, Identifiable {
         self.id = user.id
         self.avatar = user.avatar
     }
+    
+    init(messageUser: MessageUserAttrs?) {
+        self.id = messageUser?.id ?? UUID().uuidString
+        self.login = messageUser?.login ?? "Anonim"
+        self.avatar = messageUser?.avatar
+    }
 }

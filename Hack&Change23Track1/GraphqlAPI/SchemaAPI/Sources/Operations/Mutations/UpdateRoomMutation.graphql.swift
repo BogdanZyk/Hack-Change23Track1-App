@@ -8,7 +8,7 @@ public class UpdateRoomMutation: GraphQLMutation {
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"mutation UpdateRoom($roomId: String!, $name: String!, $private: Boolean, $type: RoomType, $image: String) { UpdateRoom( RoomId: $roomId Name: $name Private: $private Type: $type Image: $image ) { __typename ...RoomAttrs } }"#,
-      fragments: [RoomAttrs.self, MediaInfoAttrs.self, SourceAttrs.self]
+      fragments: [MediaInfoAttrs.self, RoomAttrs.self, SourceAttrs.self]
     ))
 
   public var roomId: String

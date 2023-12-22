@@ -8,7 +8,7 @@ public class GetPaginatedRoomsQuery: GraphQLQuery {
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"query GetPaginatedRooms($page: Int, $pageSize: Int) { GetPaginatedRooms(Page: $page, PageSize: $pageSize) { __typename Entries { __typename ...RoomAttrs } TotalPages } }"#,
-      fragments: [RoomAttrs.self, MediaInfoAttrs.self, SourceAttrs.self]
+      fragments: [MediaInfoAttrs.self, RoomAttrs.self, SourceAttrs.self]
     ))
 
   public var page: GraphQLNullable<Int>

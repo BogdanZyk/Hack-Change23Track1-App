@@ -4,7 +4,7 @@
 import ApolloAPI
 
 public extension Objects {
-  static let PlaylistRow = Object(
+  static let PlaylistRow = ApolloAPI.Object(
     typename: "PlaylistRow",
     implementedInterfaces: []
   )

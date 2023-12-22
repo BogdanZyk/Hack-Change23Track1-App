@@ -9,59 +9,16 @@ A directive used by the Apollo iOS client to annotate operations or fragments th
 """
 directive @apollo_client_ios_localCacheMutation on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
 
-""""""
-type Token {
-  """"""
-  Token: String!
-}
+"""
+Directs the executor to defer this fragment when the `if` argument is true or undefined.
+"""
+directive @defer(
+  """Deferred when true or undefined."""
+  if: Boolean
 
-""""""
-enum RoomType {
-  """"""
-  NO_TYPE
-
-  """"""
-  SINGLE
-
-  """"""
-  PLAYLIST
-}
-
-""""""
-type User {
-  """"""
-  Avatar: String!
-
-  """"""
-  Email: String!
-
-  """"""
-  Id: String!
-
-  """"""
-  Login: String!
-}
-
-""""""
-type MediaInfo {
-  """"""
-  CurrentTimeSeconds: Float
-
-  """"""
-  DurationSeconds: Float
-
-  """"""
-  Play: Boolean
-
-  """"""
-  RoomId: String
-
-  """"""
-  Source: Source
-
-  """"""
-  SourceId: String
-}
+  """Unique name"""
+  label: String
+) on FRAGMENT_SPREAD | INLINE_FRAGMENT
 
 """"""
 type Source {
@@ -76,48 +33,21 @@ type Source {
 }
 
 """"""
-type PlaylistRow {
+input ReactionMessageInput {
   """"""
-  Id: String!
+  From: UserInput
 
   """"""
-  Index: Int!
-
-  """"""
-  RoomId: String!
-
-  """"""
-  Source: Source!
-
-  """"""
-  SourceId: String!
+  Reaction: String
 }
 
 """"""
-type RootQueryType {
+type ReactionMessage {
   """"""
-  CurrentUser: User
+  From: User
 
   """"""
-  GetMediaInfo(RoomId: String): MediaInfo
-
-  """"""
-  GetOwnSources: [PlaylistRow]
-
-  """"""
-  GetPaginatedRooms(PageSize: Int = 10, Page: Int = 1): PaginatedRooms
-
-  """"""
-  GetPaginatedSources: [PlaylistRow]
-
-  """"""
-  GetRoom(RoomId: String!): Room
-
-  """"""
-  GetRoomByKey(Key: String!): Room
-
-  """"""
-  GetRoomPlaylist(RoomId: String!): [PlaylistRow]
+  Reaction: String
 }
 
 """"""
@@ -139,39 +69,6 @@ type PaginatedRooms {
 
   """"""
   TotalPages: Int
-}
-
-""""""
-type RootMutationType {
-  """"""
-  AddPlaylistSource(RoomId: String!, Url: String!): [PlaylistRow]
-
-  """"""
-  CreateRoom(Name: String!, Image: String, Private: Boolean, Type: RoomType): Room
-
-  """"""
-  DeletePlaylistSource(PlaylistRowId: String!, RoomId: String!): [PlaylistRow]
-
-  """"""
-  DeleteRoom(RoomId: String!): Room
-
-  """"""
-  MovePlaylistSourcePosition(PlaylistRowId: String!, Position: Int!, RoomId: String!): [PlaylistRow]
-
-  """"""
-  RoomAction(Action: MediaAction, Arg: String, RoomId: String): Boolean
-
-  """"""
-  SignIn(Email: String!, Password: String!): Token
-
-  """"""
-  SignUp(Email: String!, Login: String!, Password: String!): Token
-
-  """"""
-  UpdateCurrentUser(Avatar: String, Login: String): User
-
-  """"""
-  UpdateRoom(RoomId: String!, Name: String!, Image: String, Private: Boolean, Type: RoomType): Room
 }
 
 """"""
@@ -205,22 +102,283 @@ type Room {
 }
 
 """"""
-enum MediaAction {
+type RootQueryType {
   """"""
-  PLAY
+  CurrentUser: User
 
   """"""
-  PAUSE
+  GetLastMessages(RoomId: String!): InteractiveAction
 
   """"""
-  MOVE
+  GetMediaInfo(RoomId: String): MediaInfo
 
   """"""
-  CHANGE_SOURCE
+  GetOwnSources: [PlaylistRow]
+
+  """"""
+  GetPaginatedRooms(Page: Int = 1, PageSize: Int = 10): PaginatedRooms
+
+  """"""
+  GetPaginatedSources: [PlaylistRow]
+
+  """"""
+  GetRoom(RoomId: String!): Room
+
+  """"""
+  GetRoomByKey(Key: String!): Room
+
+  """"""
+  GetRoomPlaylist(RoomId: String!): [PlaylistRow]
+}
+
+""""""
+type ReplyMessage {
+  """"""
+  Id: String
+
+  """"""
+  Text: String
+
+  """"""
+  UserName: String
+}
+
+""""""
+type MediaInfo {
+  """"""
+  CurrentTimeSeconds: Float
+
+  """"""
+  DurationSeconds: Float
+
+  """"""
+  MediaAction: MediaAction
+
+  """"""
+  Play: Boolean
+
+  """"""
+  RoomId: String
+
+  """"""
+  Source: Source
+
+  """"""
+  SourceId: String
+}
+
+""""""
+input MessageInput {
+  """"""
+  ReplyMessage: ReplyMessageInput
+
+  """"""
+  Reactions: [ReactionMessageInput]
+
+  """"""
+  Sticker: Int
+
+  """"""
+  Id: String
+
+  """"""
+  From: UserInput
+
+  """"""
+  Type: MessageType
+
+  """"""
+  Text: String
+}
+
+""""""
+type InteractiveAction {
+  """"""
+  Message: [Message]
+
+  """"""
+  RoomReaction: Int
+}
+
+""""""
+type Token {
+  """"""
+  Token: String!
+}
+
+""""""
+type Message {
+  """"""
+  From: User
+
+  """"""
+  Id: String
+
+  """"""
+  Reactions: [ReactionMessage]
+
+  """"""
+  ReplyMessage: ReplyMessage
+
+  """"""
+  Sticker: String
+
+  """"""
+  Text: String
+
+  """"""
+  Type: MessageType
+}
+
+""""""
+type User {
+  """"""
+  Avatar: String!
+
+  """"""
+  Email: String!
+
+  """"""
+  Id: String!
+
+  """"""
+  Login: String!
+}
+
+""""""
+type PlaylistRow {
+  """"""
+  Id: String!
+
+  """"""
+  Index: Int!
+
+  """"""
+  RoomId: String!
+
+  """"""
+  Source: Source!
+
+  """"""
+  SourceId: String!
+}
+
+""""""
+enum RoomType {
+  """"""
+  NO_TYPE
+
+  """"""
+  SINGLE
+
+  """"""
+  PLAYLIST
+}
+
+""""""
+input ReplyMessageInput {
+  """"""
+  Id: String
+
+  """"""
+  Text: String
+
+  """"""
+  UserName: String
 }
 
 """"""
 type RootSubscriptionType {
   """"""
+  SubscribeChat(RoomId: String!): InteractiveAction
+
+  """"""
   SubscribeMediaInfo(RoomId: String): MediaInfo
+}
+
+""""""
+enum MessageType {
+  """"""
+  leaving
+
+  """"""
+  message
+
+  """"""
+  sticker
+
+  """"""
+  hidden
+
+  """"""
+  joined
+}
+
+""""""
+enum MediaAction {
+  """"""
+  MOVE
+
+  """"""
+  CHANGE_SOURCE
+
+  """"""
+  PLAY
+
+  """"""
+  PAUSE
+}
+
+""""""
+type RootMutationType {
+  """"""
+  AddPlaylistSource(RoomId: String!, Url: String!): [PlaylistRow]
+
+  """"""
+  CreateRoom(Private: Boolean, Type: RoomType, Name: String!, Image: String): Room
+
+  """"""
+  DeletePlaylistSource(PlaylistRowId: String!, RoomId: String!): [PlaylistRow]
+
+  """"""
+  DeleteRoom(RoomId: String!): Room
+
+  """"""
+  MovePlaylistSourcePosition(PlaylistRowId: String!, Position: Int!, RoomId: String!): [PlaylistRow]
+
+  """"""
+  RoomAction(RoomId: String, Action: MediaAction, Arg: String): Boolean
+
+  """"""
+  SendMessage(RoomId: String!, Message: MessageInput!): Boolean
+
+  """"""
+  SendRoomReaction(RoomId: String!): Int
+
+  """"""
+  SignIn(Email: String!, Password: String!): Token
+
+  """"""
+  SignUp(Password: String!, Email: String!, Login: String!): Token
+
+  """"""
+  UpdateCurrentUser(Avatar: String, Login: String): User
+
+  """"""
+  UpdateRoom(Private: Boolean, Type: RoomType, RoomId: String!, Name: String!, Image: String): Room
+}
+
+""""""
+input UserInput {
+  """"""
+  Id: String!
+
+  """"""
+  Email: String!
+
+  """"""
+  Login: String!
+
+  """"""
+  Avatar: String!
 }

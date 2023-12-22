@@ -4,8 +4,8 @@
 import ApolloAPI
 
 public enum MediaAction: String, EnumType {
-  case play = "PLAY"
-  case pause = "PAUSE"
   case move = "MOVE"
   case changeSource = "CHANGE_SOURCE"
+  case play = "PLAY"
+  case pause = "PAUSE"
 }

@@ -4,7 +4,7 @@
 import ApolloAPI
 
 public extension Objects {
-  static let Token = Object(
+  static let Token = ApolloAPI.Object(
     typename: "Token",
     implementedInterfaces: []
   )

@@ -4,8 +4,8 @@
 import ApolloAPI
 
 public extension Objects {
-  static let Room = ApolloAPI.Object(
-    typename: "Room",
+  static let ReactionMessage = ApolloAPI.Object(
+    typename: "ReactionMessage",
     implementedInterfaces: []
   )
 }

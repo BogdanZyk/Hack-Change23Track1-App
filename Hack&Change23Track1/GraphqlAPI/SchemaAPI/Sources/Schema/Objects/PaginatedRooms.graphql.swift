@@ -4,7 +4,7 @@
 import ApolloAPI
 
 public extension Objects {
-  static let PaginatedRooms = Object(
+  static let PaginatedRooms = ApolloAPI.Object(
     typename: "PaginatedRooms",
     implementedInterfaces: []
   )

@@ -8,7 +8,7 @@ public class GetRoomByKeyQuery: GraphQLQuery {
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"query GetRoomByKey($key: String!) { GetRoomByKey(Key: $key) { __typename ...RoomAttrs } }"#,
-      fragments: [RoomAttrs.self, MediaInfoAttrs.self, SourceAttrs.self]
+      fragments: [MediaInfoAttrs.self, RoomAttrs.self, SourceAttrs.self]
     ))
 
   public var key: String

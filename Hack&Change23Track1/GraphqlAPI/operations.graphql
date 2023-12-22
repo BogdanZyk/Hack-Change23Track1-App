@@ -126,8 +126,68 @@ mutation AddPlaylistSource($roomId: String!, $url: String!) {
   }
 }
 
-
-
 mutation RoomAction($action: MediaAction, $arg: String, $roomId: String) {
   RoomAction(Action: $action, Arg: $arg, RoomId: $roomId)
 }
+
+subscription SubscribeChat($roomId: String!) {
+  SubscribeChat(RoomId: $roomId) {
+    Message {
+       ...MessageAttrs
+    }
+    RoomReaction
+  }
+}
+
+mutation SendMessage($roomId: String!, $message: MessageInput!) {
+  SendMessage(RoomId: $roomId, Message: $message)
+}
+
+mutation SendRoomReaction($roomId: String!) {
+  SendRoomReaction(RoomId: $roomId)
+}
+
+query GetLastMessages($roomId: String!) {
+  GetLastMessages(RoomId: $roomId) {
+    Message {
+      ...MessageAttrs
+    }
+    RoomReaction
+  }
+}
+
+fragment MessageAttrs on Message {
+  From {
+    ...MessageUserAttrs
+  }
+  Id
+  Reactions {
+   ...ReactionMessageAttrs
+  }
+  ReplyMessage {
+  ...ReplyMessageAttrs
+  }
+  Sticker
+  Text
+  Type
+}
+
+fragment ReactionMessageAttrs on ReactionMessage {
+ Reaction
+    From {
+      Id
+    }
+}
+
+fragment ReplyMessageAttrs on ReplyMessage {
+    Id
+    Text
+    UserName
+}
+
+fragment MessageUserAttrs on User {
+    Avatar
+    Id
+    Login
+}
+

@@ -4,7 +4,7 @@
 import ApolloAPI
 
 public extension Objects {
-  static let MediaInfo = Object(
+  static let MediaInfo = ApolloAPI.Object(
     typename: "MediaInfo",
     implementedInterfaces: []
   )

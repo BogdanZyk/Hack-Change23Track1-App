@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import SchemaAPI
 
 protocol ChatProviderDelegate: AnyObject {
     
@@ -20,7 +21,7 @@ class RoomChatViewModel: ObservableObject, ChatProviderDelegate {
     @Published private(set) var messages = [Message]()
     @Published private(set) var selectedMessage: Message?
     @Published private(set) var lastMessageId: String = ""
-    @Published private(set) var replyMessage: Message.ReplyMessage?
+    @Published private(set) var replyMessage: ReplyMessageAttrs?
     
     func selectMessage(_ message: Message?){
         withAnimation {
@@ -62,7 +63,7 @@ class RoomChatViewModel: ObservableObject, ChatProviderDelegate {
         switch action {
         case .reaction(let oldMessage, let reaction):
             var newMessage = oldMessage
-            newMessage.addedReaction(from: currentUser, reaction: reaction)
+            newMessage.addedReaction(from: currentUser.id, reaction: reaction)
             //sendMessage(webRTCClient: webRTCClient, newMessage)
         case .copy:
             copyMessage()

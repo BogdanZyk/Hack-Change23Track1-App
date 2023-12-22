@@ -76,7 +76,6 @@
 		5A81F48D2B10DAC500D9998F /* RoomRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F48C2B10DAC500D9998F /* RoomRowView.swift */; };
 		5A81F48F2B10E44400D9998F /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A81F48E2B10E44400D9998F /* Helpers.swift */; };
 		5A8C32732B176B1600E1BCDA /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8C32722B176B1600E1BCDA /* AppError.swift */; };
-		5A8C32762B176E2700E1BCDA /* WebRtcVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8C32752B176E2700E1BCDA /* WebRtcVideoView.swift */; };
 		5AAE6AC22B1E10130055303F /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6AC12B1E10130055303F /* PlayerManager.swift */; };
 		5AAE6AC52B1E10BF0055303F /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6AC42B1E10BF0055303F /* CancelBag.swift */; };
 		5AAE6AC72B1E11000055303F /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE6AC62B1E11000055303F /* VideoPlayer.swift */; };
@@ -158,7 +157,6 @@
 		5A81F48C2B10DAC500D9998F /* RoomRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRowView.swift; sourceTree = "<group>"; };
 		5A81F48E2B10E44400D9998F /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		5A8C32722B176B1600E1BCDA /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
-		5A8C32752B176E2700E1BCDA /* WebRtcVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRtcVideoView.swift; sourceTree = "<group>"; };
 		5AAE6AC12B1E10130055303F /* PlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
 		5AAE6AC42B1E10BF0055303F /* CancelBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBag.swift; sourceTree = "<group>"; };
 		5AAE6AC62B1E11000055303F /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
@@ -549,7 +547,6 @@
 		5AAE6AC02B1E0FF80055303F /* VideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				5A8C32752B176E2700E1BCDA /* WebRtcVideoView.swift */,
 				5AAE6AC12B1E10130055303F /* PlayerManager.swift */,
 				5AAE6AC62B1E11000055303F /* VideoPlayer.swift */,
 				5AAE6ACA2B1E11810055303F /* VideoPlayerRepresenter.swift */,
@@ -676,7 +673,6 @@
 				5A81F47E2B10C0BB00D9998F /* CreateRoomView.swift in Sources */,
 				5A58E7C82B12724700D0723C /* RoomSettingsView.swift in Sources */,
 				5A54B5712B206E740008824C /* Playlist.swift in Sources */,
-				5A8C32762B176E2700E1BCDA /* WebRtcVideoView.swift in Sources */,
 				5A58E78D2B11327200D0723C /* RoomViewModel.swift in Sources */,
 				5A81F4632B10B95000D9998F /* AuthView.swift in Sources */,
 				5A81F46A2B10BA8100D9998F /* ApolloClient.swift in Sources */,
