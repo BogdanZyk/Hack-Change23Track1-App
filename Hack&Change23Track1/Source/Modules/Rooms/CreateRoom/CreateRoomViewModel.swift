@@ -40,7 +40,7 @@ class CreateRoomViewModel: ObservableObject {
         guard let id = selectedTrack?.id, let roomId = createdRoom?.id else { return nil }
         showLoader = true
         do {
-            let room = try await roomService.setRoomAction(for: roomId, action: .changeSource, arg: id)
+            try await roomService.setRoomAction(for: roomId, action: .changeSource, arg: id)
             showLoader = false
             return createdRoom
         } catch {

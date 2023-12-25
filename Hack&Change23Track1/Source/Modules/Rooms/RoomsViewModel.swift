@@ -25,4 +25,15 @@ class RoomsViewModel: ObservableObject {
     func setRoom(_ room: RoomAttrs) {
         rooms.append(room)
     }
+    
+    func removeRoom(_ id: String) {
+        Task {
+            do {
+                try await roomService.removeRoom(for: id)
+                rooms.removeAll(where: {$0.id == id})
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
 }

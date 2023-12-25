@@ -8,6 +8,7 @@
 import Foundation
 import Apollo
 import SchemaAPI
+import Combine
 
 final class RoomDataService {
     
@@ -146,8 +147,41 @@ final class RoomDataService {
         []
     }
     
-    func subscribe() {
+//    func subscribeToRoomChat(for roomId: String) -> AnyPublisher<SubscribeChatSubscription.Data.SubscribeChat?, Error> {
+//        guard let splitClient else {
+//            return Fail(error: AppError.network(type: .somethingWentWrong)).eraseToAnyPublisher()
+//        }
+//        let subscription = SubscribeChatSubscription(roomId: roomId)
+//        return splitClient.subscribePublisher(subscription: subscription, queue: .global(qos: .userInitiated))
+//            .tryMap {
+//                if let error = $0.errors?.first {
+//                    throw error
+//                }
+//                if let data = $0.data?.subscribeChat {
+//                    return data
+//                }
+//                return nil
+//            }
+//            .eraseToAnyPublisher()
+//    }
+//    
+    func subscribeMediaInfo(for id: String) -> AnyPublisher<SubscribeMediaInfoSubscription.Data.SubscribeMediaInfo?, Error> {
+        guard let splitClient = Network.shared.splitClient else {
+            return Fail(error: AppError.network(type: .somethingWentWrong)).eraseToAnyPublisher()
+        }
+        let subscription = SubscribeMediaInfoSubscription(roomId: .init(stringLiteral: id))
         
+        return splitClient.subscribePublisher(subscription: subscription, queue: .main)
+            .tryMap {
+                if let error = $0.errors?.first {
+                    throw error
+                }
+                if let data = $0.data?.subscribeMediaInfo {
+                    return data
+                }
+                return nil
+            }
+            .eraseToAnyPublisher()
     }
 }
 

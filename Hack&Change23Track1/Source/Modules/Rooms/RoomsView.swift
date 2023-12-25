@@ -80,6 +80,11 @@ extension RoomsView {
                 appRouter.setPath(to: .room(room))
 //                screen = .room(room)
             }
+            .contextMenu {
+                Button("Remove", role: .destructive) {
+                    viewModel.removeRoom(room.id ?? "")
+                }
+            }
     }
     
     private var confirmAction: some View {

@@ -53,10 +53,10 @@ struct RoomView: View {
         .background(Color.primaryBg.ignoresSafeArea())
         .appAlert($viewModel.appAlert)
         .task {
-            if viewModel.remotePlayerDelegate == nil {
-                viewModel.remotePlayerDelegate = playerManager
-            }
             viewModel.connectRoom()
+            if viewModel.chatDelegate == nil {
+                viewModel.chatDelegate = chatVM
+            }
         }
         .overlay {
             if viewModel.state == .connecting {

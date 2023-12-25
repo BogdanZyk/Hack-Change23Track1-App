@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5A167C392B31DA6B00F26EA7 /* SchemaAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 5A167C382B31DA6B00F26EA7 /* SchemaAPI */; };
+		5A43F5AD2B35D59300BBD6E2 /* RoomChatDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A43F5AC2B35D59200BBD6E2 /* RoomChatDataService.swift */; };
 		5A54B56E2B2063BD0008824C /* WebViewRepresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A54B56C2B2063BD0008824C /* WebViewRepresenter.swift */; };
 		5A54B56F2B2063BD0008824C /* WebNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A54B56D2B2063BD0008824C /* WebNavigationView.swift */; };
 		5A54B5712B206E740008824C /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A54B5702B206E740008824C /* Playlist.swift */; };
@@ -90,6 +91,7 @@
 
 /* Begin PBXFileReference section */
 		5A2D65EC2B31D98F00636F90 /* SchemaAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SchemaAPI; path = "Hack&Change23Track1/GraphqlAPI/SchemaAPI"; sourceTree = "<group>"; };
+		5A43F5AC2B35D59200BBD6E2 /* RoomChatDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChatDataService.swift; sourceTree = "<group>"; };
 		5A54B56C2B2063BD0008824C /* WebViewRepresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewRepresenter.swift; sourceTree = "<group>"; };
 		5A54B56D2B2063BD0008824C /* WebNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebNavigationView.swift; sourceTree = "<group>"; };
 		5A54B5702B206E740008824C /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
@@ -474,6 +476,7 @@
 			isa = PBXGroup;
 			children = (
 				5A81F45D2B10B75F00D9998F /* RoomDataService.swift */,
+				5A43F5AC2B35D59200BBD6E2 /* RoomChatDataService.swift */,
 			);
 			path = Room;
 			sourceTree = "<group>";
@@ -643,6 +646,7 @@
 				5A58E7882B1121ED00D0723C /* LazyNukeImage.swift in Sources */,
 				5A81F4042B10983A00D9998F /* RemoteCommandHelper.swift in Sources */,
 				5A81F4862B10D03100D9998F /* CreateRoomViewModel.swift in Sources */,
+				5A43F5AD2B35D59300BBD6E2 /* RoomChatDataService.swift in Sources */,
 				5A81F46E2B10BB9D00D9998F /* UserManager.swift in Sources */,
 				5A7AE3782B230F8B00071D82 /* Array.swift in Sources */,
 				5AAE6AC22B1E10130055303F /* PlayerManager.swift in Sources */,

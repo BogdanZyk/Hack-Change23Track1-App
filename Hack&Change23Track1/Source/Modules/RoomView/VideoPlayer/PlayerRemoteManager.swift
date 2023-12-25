@@ -8,14 +8,14 @@
 import Foundation
 import SchemaAPI
 
-protocol PlayerRemoteProvider: AnyObject {
-    
-    @MainActor
-    func onChangePlayerState(_ state: RoomPlayerState)
-}
+//protocol PlayerRemoteProvider: AnyObject {
+//    
+//    @MainActor
+//    func onChangePlayerState(_ state: RoomPlayerState)
+//}
 
 @MainActor
-class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
+class PlayerRemoteManager: ObservableObject {
     
     @Published var playList = [PlaylistRowAttrs]()
     @Published private(set) var currentVideo: VideoItem?
@@ -23,6 +23,7 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
     @Published private(set) var itemLoader: ItemStateLoading = .empty
     @Published var appAlert: AppAlert?
     
+    private var cancelBag = CancelBag()
     private let room: RoomAttrs
     private let currentUser: RoomMember
     private let roomDataService = RoomDataService()
@@ -32,8 +33,9 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
         self.room = room
         self.currentUser = currentUser
         fetchPlaylist()
+        startRoomMediaSubscription()
     }
-    
+        
     func addNewVideoItemAndSetToPlay(_ sourceId: String) {
         guard let id = room.id else { return }
         Task {
@@ -107,6 +109,23 @@ class PlayerRemoteManager: ObservableObject, PlayerRemoteProvider {
     private func handleError(_ error: Error) {
         appAlert = .errors(errors: [error])
         itemLoader = .empty
+    }
+    
+    private func startRoomMediaSubscription() {
+        guard let id = room.id else { return }
+        roomDataService.subscribeMediaInfo(for: id)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                switch completion {
+                case .finished: break
+                case .failure(let error):
+                    self.appAlert = .errors(errors: [error])
+                }
+            } receiveValue: { mediaData in
+                print("changePlayerState")
+            }
+            .store(in: cancelBag)
+
     }
         
     func onChangePlayerState(_ state: RoomPlayerState) {

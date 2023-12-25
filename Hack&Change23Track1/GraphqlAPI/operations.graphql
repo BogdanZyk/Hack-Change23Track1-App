@@ -191,3 +191,13 @@ fragment MessageUserAttrs on User {
     Login
 }
 
+subscription SubscribeMediaInfo($roomId: String) {
+  SubscribeMediaInfo(RoomId: $roomId) {
+    CurrentTimeSeconds
+    DurationSeconds
+    Play
+    Source {
+      ...SourceAttrs
+    }
+  }
+}

@@ -41,11 +41,6 @@ struct RoomChatView: View {
         .overlayPreferenceValue(BoundsPreferece.self) {
             contextMenu($0)
         }
-        .onAppear {
-            if roomVM.chatDelegate == nil {
-                roomVM.chatDelegate = chatVM
-            }
-        }
     }
 }
 

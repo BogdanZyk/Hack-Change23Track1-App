@@ -20,10 +20,10 @@ final class RoomViewModel: ObservableObject {
     @Published private(set) var state: RoomState = .connecting
     
     weak var chatDelegate: ChatProviderDelegate?
-    weak var remotePlayerDelegate: PlayerRemoteProvider?
     
     let currentUser: RoomMember
     private let roomDataService = RoomDataService()
+    private let roomChatService = RoomChatDataService()
     private var cancelBag = CancelBag()
 
     init(room: RoomAttrs,
@@ -44,16 +44,30 @@ final class RoomViewModel: ObservableObject {
         Task {
             state = .connecting
             try await Task.sleep(seconds: 1)
-            connectToWebsocket()
+            
             state = .connected
         }
     }
 
 
     func disconnectAll() {
-        
+        cancelBag.cancel()
         RemoteCommandHelper.shared.removeNowPlayingItem()
     }
+    
+    func startRoomChatSubscription() {
+        guard let id = room.id else { return }
+        roomChatService.subscribeToRoomChat(for: id)
+            .sink { [weak self] completion in
+                guard let self = self else {return}
+                handleCombineCompletion(completion)
+            } receiveValue: {
+                self.handleChatData($0)
+            }
+            .store(in: cancelBag)
+    }
+    
+   
     
     func connectToWebsocket() {
         // handle connect loader
@@ -80,6 +94,26 @@ final class RoomViewModel: ObservableObject {
 //        }
     }
 
+}
+
+// MARK: - Chat handler
+extension RoomViewModel {
+    
+    private func handleChatData(_ subs: SubscribeChatSubscription.Data.SubscribeChat?) {
+        
+    }
+    
+    private func handleCombineCompletion(_ completion: Subscribers.Completion<Error>) {
+        switch completion {
+        case .finished:
+            break
+        case .failure(let error):
+            DispatchQueue.main.async {
+                self.appAlert = .errors(errors: [error])
+            }
+        }
+    }
+    
 }
 
 
