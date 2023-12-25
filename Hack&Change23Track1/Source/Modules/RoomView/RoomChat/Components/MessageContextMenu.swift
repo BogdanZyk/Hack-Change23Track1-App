@@ -47,7 +47,7 @@ extension MessageContextMenuView{
                                     .font(.body.weight(.light))
                                     .lineLimit(2)
                             } else if message.type == .sticker {
-                                LazyNukeImage(fullPath: message.sticker)
+                                LazyNukeImage(fullPath: message.content)
                                     .frame(width: 70, height: 70)
                             }
                         }
@@ -77,7 +77,7 @@ extension MessageContextMenuView{
                     .hLeading()
                     .background(Color.primaryGray, in: RoundedRectangle(cornerRadius: 8))
                     EmojiReactionView { reaction in
-                        onAction(.reaction(message, reaction.title))
+                        onAction(.reaction(message.id, reaction.title))
                     }
                 }
                 .foregroundColor(.primaryFont)
@@ -98,7 +98,7 @@ struct MessageContextMenuView_Previews: PreviewProvider {
 }
 
 enum MessageContextAction{
-    case reaction(Message, String), copy, reply, report
+    case reaction(String, String), copy, reply, report
     
     var id: Int {
         switch self {

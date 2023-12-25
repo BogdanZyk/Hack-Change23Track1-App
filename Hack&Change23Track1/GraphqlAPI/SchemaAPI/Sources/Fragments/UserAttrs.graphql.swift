@@ -14,22 +14,22 @@ public struct UserAttrs: SchemaAPI.SelectionSet, Fragment {
   public static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.User }
   public static var __selections: [ApolloAPI.Selection] { [
     .field("__typename", String.self),
-    .field("Id", String.self),
-    .field("Login", String.self),
-    .field("Avatar", String.self),
-    .field("Email", String.self),
+    .field("Id", String?.self),
+    .field("Login", String?.self),
+    .field("Avatar", String?.self),
+    .field("Email", String?.self),
   ] }
 
-  public var id: String { __data["Id"] }
-  public var login: String { __data["Login"] }
-  public var avatar: String { __data["Avatar"] }
-  public var email: String { __data["Email"] }
+  public var id: String? { __data["Id"] }
+  public var login: String? { __data["Login"] }
+  public var avatar: String? { __data["Avatar"] }
+  public var email: String? { __data["Email"] }
 
   public init(
-    id: String,
-    login: String,
-    avatar: String,
-    email: String
+    id: String? = nil,
+    login: String? = nil,
+    avatar: String? = nil,
+    email: String? = nil
   ) {
     self.init(_dataDict: DataDict(
       data: [

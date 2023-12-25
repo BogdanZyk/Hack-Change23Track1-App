@@ -118,6 +118,7 @@ fragment SourceAttrs on Source {
     Id
     Cover
     Name
+    Url
 }
 
 mutation AddPlaylistSource($roomId: String!, $url: String!) {
@@ -141,6 +142,14 @@ subscription SubscribeChat($roomId: String!) {
 
 mutation SendMessage($roomId: String!, $message: MessageInput!) {
   SendMessage(RoomId: $roomId, Message: $message)
+}
+
+mutation HideMessage($roomId: String!, $messageId: String!) {
+  HideMessage(RoomId: $roomId, MessageId: $messageId)
+}
+
+mutation SendReaction($roomId: String!, $reaction: String!) {
+  SendReaction(RoomId: $roomId, Reaction: $reaction)
 }
 
 mutation SendRoomReaction($roomId: String!) {
@@ -167,7 +176,6 @@ fragment MessageAttrs on Message {
   ReplyMessage {
   ...ReplyMessageAttrs
   }
-  Sticker
   Text
   Type
 }
@@ -195,7 +203,7 @@ subscription SubscribeMediaInfo($roomId: String) {
   SubscribeMediaInfo(RoomId: $roomId) {
     CurrentTimeSeconds
     DurationSeconds
-    Play
+    MediaAction
     Source {
       ...SourceAttrs
     }

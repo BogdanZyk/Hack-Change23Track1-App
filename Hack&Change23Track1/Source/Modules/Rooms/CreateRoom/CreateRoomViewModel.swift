@@ -51,10 +51,10 @@ class CreateRoomViewModel: ObservableObject {
     }
     
     private func setTemplate(_ item: PlaylistRowAttrs) {
-        template = .init(name: item.source.name,
+        template = .init(name: item.source?.name ?? "",
                          isPrivateRoom: false,
                          image: nil,
-                         imagePath: item.source.cover)
+                         imagePath: item.source?.cover)
     }
     
     private func createRoom() async throws -> RoomAttrs {

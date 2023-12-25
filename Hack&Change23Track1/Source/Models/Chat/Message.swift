@@ -16,16 +16,14 @@ struct Message: Identifiable {
     var text: String?
     var replyMessage: ReplyMessageAttrs?
     var reactions: [ReactionMessageAttrs] = []
-    var sticker: String?
     
-    init(id: String, from: RoomMember, type: MessageType, text: String? = nil, replyMessage: ReplyMessageAttrs? = nil, reactions: [ReactionMessageAttrs] = [], sticker: String? = nil) {
+    init(id: String, from: RoomMember, type: MessageType, text: String? = nil, replyMessage: ReplyMessageAttrs? = nil, reactions: [ReactionMessageAttrs] = []) {
         self.id = id
         self.from = from
         self.type = type
         self.text = text
         self.replyMessage = replyMessage
         self.reactions = reactions
-        self.sticker = sticker
     }
     
     init(attrs: MessageAttrs) {
@@ -35,11 +33,19 @@ struct Message: Identifiable {
         self.text = attrs.text
         self.replyMessage = attrs.replyMessage?.fragments.replyMessageAttrs
         self.reactions = attrs.reactions?.compactMap({$0?.fragments.reactionMessageAttrs}) ?? []
-        
     }
         
     enum MessageContent {
         case text(String), sticker(String)
+        
+        var content: String {
+            switch self {
+            case .text(let string):
+                return string
+            case .sticker(let string):
+                return string
+            }
+        }
     }
     
     var content: String {
@@ -49,12 +55,10 @@ struct Message: Identifiable {
             return "joined in room"
         case .leaving:
             return "leaving the room "
-        case .message:
+        case .message, .sticker:
             return text ?? ""
         case .hidden:
             return "Hidden message"
-        case .sticker:
-            return ""
         }
     }
     
@@ -67,28 +71,7 @@ struct Message: Identifiable {
 
         return counts.map { (reaction: $0.key, count: $0.value) }
     }
-    
-    mutating func addedReaction(from id: String, reaction: String) {
-        reactions.removeAll(where: {$0.from?.id == id})
-        reactions.append(.init(reaction: reaction, from: .init(id: id)))
-    }
-    
-    mutating func removeReaction(from id: String) {
-        reactions.removeAll(where: {$0.from?.id == id})
-    }
 }
-
-//extension Message {
-//
-//    struct MessageReaction: Codable {
-//        let from: RoomMember
-//        let reaction: String
-//    
-//        static let mockReaction = MessageReaction(from: .mock, reaction: "🥰")
-//        static let mockReaction2 = MessageReaction(from: .mock, reaction: "😡")
-//    }
-//}
-
 
 extension Message {
     

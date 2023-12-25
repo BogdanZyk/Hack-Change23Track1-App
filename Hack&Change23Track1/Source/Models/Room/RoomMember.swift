@@ -22,8 +22,8 @@ struct RoomMember: Codable, Identifiable {
     }
     
     init(user: UserAttrs) {
-        self.login = user.login
-        self.id = user.id
+        self.login = user.login ?? ""
+        self.id = user.id ?? ""
         self.avatar = user.avatar
     }
     

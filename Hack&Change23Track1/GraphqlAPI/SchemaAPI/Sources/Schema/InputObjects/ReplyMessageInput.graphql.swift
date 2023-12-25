@@ -11,20 +11,22 @@ public struct ReplyMessageInput: InputObject {
   }
 
   public init(
-    id: GraphQLNullable<String> = nil,
+    type: GraphQLNullable<GraphQLEnum<MessageType>> = nil,
     text: GraphQLNullable<String> = nil,
-    userName: GraphQLNullable<String> = nil
+    userName: GraphQLNullable<String> = nil,
+    id: GraphQLNullable<String> = nil
   ) {
     __data = InputDict([
-      "Id": id,
+      "Type": type,
       "Text": text,
-      "UserName": userName
+      "UserName": userName,
+      "Id": id
     ])
   }
 
-  public var id: GraphQLNullable<String> {
-    get { __data["Id"] }
-    set { __data["Id"] = newValue }
+  public var type: GraphQLNullable<GraphQLEnum<MessageType>> {
+    get { __data["Type"] }
+    set { __data["Type"] = newValue }
   }
 
   public var text: GraphQLNullable<String> {
@@ -35,5 +37,10 @@ public struct ReplyMessageInput: InputObject {
   public var userName: GraphQLNullable<String> {
     get { __data["UserName"] }
     set { __data["UserName"] = newValue }
+  }
+
+  public var id: GraphQLNullable<String> {
+    get { __data["Id"] }
+    set { __data["Id"] = newValue }
   }
 }

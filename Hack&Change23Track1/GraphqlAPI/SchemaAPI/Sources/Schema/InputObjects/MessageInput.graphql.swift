@@ -11,48 +11,15 @@ public struct MessageInput: InputObject {
   }
 
   public init(
-    replyMessage: GraphQLNullable<ReplyMessageInput> = nil,
-    reactions: GraphQLNullable<[ReactionMessageInput?]> = nil,
-    sticker: GraphQLNullable<Int> = nil,
-    id: GraphQLNullable<String> = nil,
-    from: GraphQLNullable<UserInput> = nil,
     type: GraphQLNullable<GraphQLEnum<MessageType>> = nil,
-    text: GraphQLNullable<String> = nil
+    text: GraphQLNullable<String> = nil,
+    replyMessage: GraphQLNullable<ReplyMessageInput> = nil
   ) {
     __data = InputDict([
-      "ReplyMessage": replyMessage,
-      "Reactions": reactions,
-      "Sticker": sticker,
-      "Id": id,
-      "From": from,
       "Type": type,
-      "Text": text
+      "Text": text,
+      "ReplyMessage": replyMessage
     ])
-  }
-
-  public var replyMessage: GraphQLNullable<ReplyMessageInput> {
-    get { __data["ReplyMessage"] }
-    set { __data["ReplyMessage"] = newValue }
-  }
-
-  public var reactions: GraphQLNullable<[ReactionMessageInput?]> {
-    get { __data["Reactions"] }
-    set { __data["Reactions"] = newValue }
-  }
-
-  public var sticker: GraphQLNullable<Int> {
-    get { __data["Sticker"] }
-    set { __data["Sticker"] = newValue }
-  }
-
-  public var id: GraphQLNullable<String> {
-    get { __data["Id"] }
-    set { __data["Id"] = newValue }
-  }
-
-  public var from: GraphQLNullable<UserInput> {
-    get { __data["From"] }
-    set { __data["From"] = newValue }
   }
 
   public var type: GraphQLNullable<GraphQLEnum<MessageType>> {
@@ -63,5 +30,10 @@ public struct MessageInput: InputObject {
   public var text: GraphQLNullable<String> {
     get { __data["Text"] }
     set { __data["Text"] = newValue }
+  }
+
+  public var replyMessage: GraphQLNullable<ReplyMessageInput> {
+    get { __data["ReplyMessage"] }
+    set { __data["ReplyMessage"] = newValue }
   }
 }

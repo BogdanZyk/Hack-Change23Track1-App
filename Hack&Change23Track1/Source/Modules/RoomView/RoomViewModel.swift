@@ -17,7 +17,7 @@ final class RoomViewModel: ObservableObject {
     @Published private(set) var room: RoomAttrs
     @Published private(set) var roomCountLikes: Int = 0
     @Published private(set) var members: [String: RoomMember] = [:]
-    @Published private(set) var state: RoomState = .connecting
+    @Published private(set) var state: RoomState = .connected
     
     weak var chatDelegate: ChatProviderDelegate?
     
@@ -40,13 +40,13 @@ final class RoomViewModel: ObservableObject {
     
     #warning("connect to websocket for room")
     func connectRoom() {
-        
-        Task {
-            state = .connecting
-            try await Task.sleep(seconds: 1)
-            
-            state = .connected
-        }
+        startRoomChatSubscription()
+//        Task {
+//            state = .connecting
+//            try await Task.sleep(seconds: 1)
+//            
+//            state = .connected
+//        }
     }
 
 
@@ -100,7 +100,12 @@ final class RoomViewModel: ObservableObject {
 extension RoomViewModel {
     
     private func handleChatData(_ subs: SubscribeChatSubscription.Data.SubscribeChat?) {
-        
+        updateLikes(subs?.roomReaction)
+        if let messageAttrs = subs?.message?.last??.fragments.messageAttrs {
+            let newMessage = Message(attrs: messageAttrs)
+            chatDelegate?.onReceivedMessage(newMessage)
+            updateMembersIfNeeded(newMessage.from, type: newMessage.type)
+        }
     }
     
     private func handleCombineCompletion(_ completion: Subscribers.Completion<Error>) {
@@ -164,17 +169,24 @@ extension RoomViewModel {
 
 extension RoomViewModel {
     
-    private func updateMembers(_ message: Message) {
+    private func updateMembersIfNeeded(_ member: RoomMember?, type: MessageType?) {
+        guard let member, let type else { return }
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            if message.type == .joined {
-                members[message.from.id] = message.from
-            } else if message.type == .leaving {
-                members.removeValue(forKey: message.from.id)
+            if type == .joined {
+                members[member.id] = member
+            } else if type == .leaving {
+                members.removeValue(forKey: member.id)
             }
         }
     }
     
+    private func updateLikes(_ likes: Int?) {
+        guard let likes else { return }
+        DispatchQueue.main.async { [weak self] in
+            self?.roomCountLikes = likes
+        }
+    }
 }
 
 enum RoomState: Int {

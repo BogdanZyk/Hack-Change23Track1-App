@@ -57,9 +57,9 @@ public class GetRoomPlaylistQuery: GraphQLQuery {
         .fragment(PlaylistRowAttrs.self),
       ] }
 
-      public var id: String { __data["Id"] }
-      public var index: Int { __data["Index"] }
-      public var source: Source { __data["Source"] }
+      public var id: String? { __data["Id"] }
+      public var index: Int? { __data["Index"] }
+      public var source: Source? { __data["Source"] }
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
@@ -69,9 +69,9 @@ public class GetRoomPlaylistQuery: GraphQLQuery {
       }
 
       public init(
-        id: String,
-        index: Int,
-        source: Source
+        id: String? = nil,
+        index: Int? = nil,
+        source: Source? = nil
       ) {
         self.init(_dataDict: DataDict(
           data: [
@@ -96,9 +96,10 @@ public class GetRoomPlaylistQuery: GraphQLQuery {
 
         public static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Source }
 
-        public var id: String { __data["Id"] }
-        public var cover: String { __data["Cover"] }
-        public var name: String { __data["Name"] }
+        public var id: String? { __data["Id"] }
+        public var cover: String? { __data["Cover"] }
+        public var name: String? { __data["Name"] }
+        public var url: String? { __data["Url"] }
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
@@ -108,9 +109,10 @@ public class GetRoomPlaylistQuery: GraphQLQuery {
         }
 
         public init(
-          id: String,
-          cover: String,
-          name: String
+          id: String? = nil,
+          cover: String? = nil,
+          name: String? = nil,
+          url: String? = nil
         ) {
           self.init(_dataDict: DataDict(
             data: [
@@ -118,6 +120,7 @@ public class GetRoomPlaylistQuery: GraphQLQuery {
               "Id": id,
               "Cover": cover,
               "Name": name,
+              "Url": url,
             ],
             fulfilledFragments: [
               ObjectIdentifier(GetRoomPlaylistQuery.Data.GetRoomPlaylist.Source.self),

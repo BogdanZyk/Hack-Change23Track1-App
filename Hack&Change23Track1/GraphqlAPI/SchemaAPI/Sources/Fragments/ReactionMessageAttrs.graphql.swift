@@ -47,13 +47,13 @@ public struct ReactionMessageAttrs: SchemaAPI.SelectionSet, Fragment {
     public static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.User }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("__typename", String.self),
-      .field("Id", String.self),
+      .field("Id", String?.self),
     ] }
 
-    public var id: String { __data["Id"] }
+    public var id: String? { __data["Id"] }
 
     public init(
-      id: String
+      id: String? = nil
     ) {
       self.init(_dataDict: DataDict(
         data: [

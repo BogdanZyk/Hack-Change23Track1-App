@@ -14,19 +14,19 @@ public struct MessageUserAttrs: SchemaAPI.SelectionSet, Fragment {
   public static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.User }
   public static var __selections: [ApolloAPI.Selection] { [
     .field("__typename", String.self),
-    .field("Avatar", String.self),
-    .field("Id", String.self),
-    .field("Login", String.self),
+    .field("Avatar", String?.self),
+    .field("Id", String?.self),
+    .field("Login", String?.self),
   ] }
 
-  public var avatar: String { __data["Avatar"] }
-  public var id: String { __data["Id"] }
-  public var login: String { __data["Login"] }
+  public var avatar: String? { __data["Avatar"] }
+  public var id: String? { __data["Id"] }
+  public var login: String? { __data["Login"] }
 
   public init(
-    avatar: String,
-    id: String,
-    login: String
+    avatar: String? = nil,
+    id: String? = nil,
+    login: String? = nil
   ) {
     self.init(_dataDict: DataDict(
       data: [

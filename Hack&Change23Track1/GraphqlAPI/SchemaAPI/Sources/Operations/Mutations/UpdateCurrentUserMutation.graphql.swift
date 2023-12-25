@@ -57,10 +57,10 @@ public class UpdateCurrentUserMutation: GraphQLMutation {
         .fragment(UserAttrs.self),
       ] }
 
-      public var id: String { __data["Id"] }
-      public var login: String { __data["Login"] }
-      public var avatar: String { __data["Avatar"] }
-      public var email: String { __data["Email"] }
+      public var id: String? { __data["Id"] }
+      public var login: String? { __data["Login"] }
+      public var avatar: String? { __data["Avatar"] }
+      public var email: String? { __data["Email"] }
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
@@ -70,10 +70,10 @@ public class UpdateCurrentUserMutation: GraphQLMutation {
       }
 
       public init(
-        id: String,
-        login: String,
-        avatar: String,
-        email: String
+        id: String? = nil,
+        login: String? = nil,
+        avatar: String? = nil,
+        email: String? = nil
       ) {
         self.init(_dataDict: DataDict(
           data: [

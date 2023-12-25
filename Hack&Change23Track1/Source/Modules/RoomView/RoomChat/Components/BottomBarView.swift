@@ -12,7 +12,7 @@ import SchemaAPI
 struct BottomBarView: View {
     @Binding var text: String
     var replyMessage: ReplyMessageAttrs?
-    let onSend: (Message.MessageContent) -> Void
+    let onSend: (MessageType, String) -> Void
     var body: some View {
         VStack(spacing: 4) {
             Divider()
@@ -42,7 +42,7 @@ struct BottomBarView: View {
 
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarView(text: .constant("123"), replyMessage: .init(id: "1", text: "test", userName: "nik"),  onSend: { _ in })
+        BottomBarView(text: .constant("123"), replyMessage: .init(id: "1", text: "test", userName: "nik"),  onSend: { _, _ in })
     }
 }
 
@@ -68,12 +68,12 @@ extension BottomBarView {
             .submitScope(text.isEmpty)
             .onSubmit {
                 if !text.isEmpty {
-                    onSend(.text(text))
+                    onSend(.message, text)
                 }
             }
             if !text.isEmpty {
                 Button {
-                    onSend(.text(text))
+                    onSend(.message, text)
                 } label: {
                     Image(systemName: "paperplane.fill")
                         .font(.title3)
@@ -88,7 +88,9 @@ extension BottomBarView {
     }
     
     private func makeStickersSheet() {
-        let vc = UIHostingController(rootView: StickersList(onSelected: {onSend(.sticker($0))}))
+        let vc = UIHostingController(rootView: StickersList(onSelected: {
+            onSend(.sticker, $0)
+        }))
         if let sheet = vc.sheetPresentationController {
             sheet.prefersEdgeAttachedInCompactHeight = true
             sheet.detents = [.medium(), .large()]

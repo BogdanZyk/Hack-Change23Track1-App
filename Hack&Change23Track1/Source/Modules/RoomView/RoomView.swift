@@ -224,6 +224,7 @@ extension RoomView {
             orientation.changeOrientation(to: .portrait)
             isFocused = false
             appRouter.popToRoot()
+            playerManager.stopManager()
         }
     }
 }

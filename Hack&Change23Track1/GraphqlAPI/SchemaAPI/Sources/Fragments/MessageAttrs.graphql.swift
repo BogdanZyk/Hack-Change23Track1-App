@@ -5,7 +5,7 @@
 
 public struct MessageAttrs: SchemaAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    #"fragment MessageAttrs on Message { __typename From { __typename ...MessageUserAttrs } Id Reactions { __typename ...ReactionMessageAttrs } ReplyMessage { __typename ...ReplyMessageAttrs } Sticker Text Type }"#
+    #"fragment MessageAttrs on Message { __typename From { __typename ...MessageUserAttrs } Id Reactions { __typename ...ReactionMessageAttrs } ReplyMessage { __typename ...ReplyMessageAttrs } Text Type }"#
   }
 
   public let __data: DataDict
@@ -18,7 +18,6 @@ public struct MessageAttrs: SchemaAPI.SelectionSet, Fragment {
     .field("Id", String?.self),
     .field("Reactions", [Reaction?]?.self),
     .field("ReplyMessage", ReplyMessage?.self),
-    .field("Sticker", String?.self),
     .field("Text", String?.self),
     .field("Type", GraphQLEnum<SchemaAPI.MessageType>?.self),
   ] }
@@ -27,7 +26,6 @@ public struct MessageAttrs: SchemaAPI.SelectionSet, Fragment {
   public var id: String? { __data["Id"] }
   public var reactions: [Reaction?]? { __data["Reactions"] }
   public var replyMessage: ReplyMessage? { __data["ReplyMessage"] }
-  public var sticker: String? { __data["Sticker"] }
   public var text: String? { __data["Text"] }
   public var type: GraphQLEnum<SchemaAPI.MessageType>? { __data["Type"] }
 
@@ -36,7 +34,6 @@ public struct MessageAttrs: SchemaAPI.SelectionSet, Fragment {
     id: String? = nil,
     reactions: [Reaction?]? = nil,
     replyMessage: ReplyMessage? = nil,
-    sticker: String? = nil,
     text: String? = nil,
     type: GraphQLEnum<SchemaAPI.MessageType>? = nil
   ) {
@@ -47,7 +44,6 @@ public struct MessageAttrs: SchemaAPI.SelectionSet, Fragment {
         "Id": id,
         "Reactions": reactions._fieldData,
         "ReplyMessage": replyMessage._fieldData,
-        "Sticker": sticker,
         "Text": text,
         "Type": type,
       ],
@@ -70,9 +66,9 @@ public struct MessageAttrs: SchemaAPI.SelectionSet, Fragment {
       .fragment(MessageUserAttrs.self),
     ] }
 
-    public var avatar: String { __data["Avatar"] }
-    public var id: String { __data["Id"] }
-    public var login: String { __data["Login"] }
+    public var avatar: String? { __data["Avatar"] }
+    public var id: String? { __data["Id"] }
+    public var login: String? { __data["Login"] }
 
     public struct Fragments: FragmentContainer {
       public let __data: DataDict
@@ -82,9 +78,9 @@ public struct MessageAttrs: SchemaAPI.SelectionSet, Fragment {
     }
 
     public init(
-      avatar: String,
-      id: String,
-      login: String
+      avatar: String? = nil,
+      id: String? = nil,
+      login: String? = nil
     ) {
       self.init(_dataDict: DataDict(
         data: [

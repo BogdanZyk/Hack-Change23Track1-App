@@ -66,10 +66,10 @@ extension RoomView {
         private func rowView(_ video: PlaylistRowAttrs) -> some View {
             let isPlay = video.id == playedId
             HStack {
-                LazyNukeImage(fullPath: video.source.cover)
+                LazyNukeImage(fullPath: video.source?.cover)
                     .frame(width: 60, height: 60)
                     .cornerRadius(8)
-                Text(video.source.name)
+                Text(video.source?.name ?? "")
                     .font(.headline.weight(.semibold))
                     .padding(.trailing)
                     .lineLimit(2)
@@ -85,12 +85,13 @@ extension RoomView {
             .background(isPlay ? Color.primaryGray.opacity(0.5) : Color.primaryBg)
             .contentShape(Rectangle())
             .onTapGesture {
-                onTap(video.id)
+                guard let id = video.id else {return}
+                onTap(id)
             }
             .contextMenu {
                 if !isPlay {
                     Button("Remove", role: .destructive) {
-                        onRemove(video.id)
+                        onRemove(video.id ?? "")
                         videos.removeAll(where: {$0.id == video.id})
                     }
                 }

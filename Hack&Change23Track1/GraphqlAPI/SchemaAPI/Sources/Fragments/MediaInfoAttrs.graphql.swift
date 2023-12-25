@@ -54,9 +54,10 @@ public struct MediaInfoAttrs: SchemaAPI.SelectionSet, Fragment {
       .fragment(SourceAttrs.self),
     ] }
 
-    public var id: String { __data["Id"] }
-    public var cover: String { __data["Cover"] }
-    public var name: String { __data["Name"] }
+    public var id: String? { __data["Id"] }
+    public var cover: String? { __data["Cover"] }
+    public var name: String? { __data["Name"] }
+    public var url: String? { __data["Url"] }
 
     public struct Fragments: FragmentContainer {
       public let __data: DataDict
@@ -66,9 +67,10 @@ public struct MediaInfoAttrs: SchemaAPI.SelectionSet, Fragment {
     }
 
     public init(
-      id: String,
-      cover: String,
-      name: String
+      id: String? = nil,
+      cover: String? = nil,
+      name: String? = nil,
+      url: String? = nil
     ) {
       self.init(_dataDict: DataDict(
         data: [
@@ -76,6 +78,7 @@ public struct MediaInfoAttrs: SchemaAPI.SelectionSet, Fragment {
           "Id": id,
           "Cover": cover,
           "Name": name,
+          "Url": url,
         ],
         fulfilledFragments: [
           ObjectIdentifier(MediaInfoAttrs.Source.self),

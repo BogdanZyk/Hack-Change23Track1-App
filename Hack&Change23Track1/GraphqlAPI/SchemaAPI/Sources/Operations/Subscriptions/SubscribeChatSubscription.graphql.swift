@@ -94,7 +94,6 @@ public class SubscribeChatSubscription: GraphQLSubscription {
         public var id: String? { __data["Id"] }
         public var reactions: [Reaction?]? { __data["Reactions"] }
         public var replyMessage: ReplyMessage? { __data["ReplyMessage"] }
-        public var sticker: String? { __data["Sticker"] }
         public var text: String? { __data["Text"] }
         public var type: GraphQLEnum<SchemaAPI.MessageType>? { __data["Type"] }
 
@@ -110,7 +109,6 @@ public class SubscribeChatSubscription: GraphQLSubscription {
           id: String? = nil,
           reactions: [Reaction?]? = nil,
           replyMessage: ReplyMessage? = nil,
-          sticker: String? = nil,
           text: String? = nil,
           type: GraphQLEnum<SchemaAPI.MessageType>? = nil
         ) {
@@ -121,7 +119,6 @@ public class SubscribeChatSubscription: GraphQLSubscription {
               "Id": id,
               "Reactions": reactions._fieldData,
               "ReplyMessage": replyMessage._fieldData,
-              "Sticker": sticker,
               "Text": text,
               "Type": type,
             ],
@@ -141,9 +138,9 @@ public class SubscribeChatSubscription: GraphQLSubscription {
 
           public static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.User }
 
-          public var avatar: String { __data["Avatar"] }
-          public var id: String { __data["Id"] }
-          public var login: String { __data["Login"] }
+          public var avatar: String? { __data["Avatar"] }
+          public var id: String? { __data["Id"] }
+          public var login: String? { __data["Login"] }
 
           public struct Fragments: FragmentContainer {
             public let __data: DataDict
@@ -153,9 +150,9 @@ public class SubscribeChatSubscription: GraphQLSubscription {
           }
 
           public init(
-            avatar: String,
-            id: String,
-            login: String
+            avatar: String? = nil,
+            id: String? = nil,
+            login: String? = nil
           ) {
             self.init(_dataDict: DataDict(
               data: [

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SchemaAPI
 
 struct RoomChatView: View {
     @FocusState var isFocused: Bool
@@ -41,6 +42,7 @@ struct RoomChatView: View {
         .overlayPreferenceValue(BoundsPreferece.self) {
             contextMenu($0)
         }
+        .appAlert($chatVM.appAlert)
     }
 }
 
@@ -64,9 +66,8 @@ extension RoomChatView {
     
     private var bottomBarSection: some View {
         BottomBarView(text: $message,
-                      replyMessage: chatVM.replyMessage) {
-            sendMessage($0)
-        }
+                      replyMessage: chatVM.replyMessage,
+                      onSend: sendMessage)
         .focused($isFocused)
     }
     
@@ -153,15 +154,15 @@ extension RoomChatView {
 
 extension RoomChatView {
     
-    private func sendMessage(_ content: Message.MessageContent) {
-//        guard let client = roomVM.webRTCClient else { return }
-//        message = ""
-//        chatVM.createAndSendMessage(content, webRTCClient: client, currentUser: roomVM.currentUser)
+    private func sendMessage(type: MessageType, content: String) {
+        guard let id = roomVM.room.id else { return }
+        message = ""
+        chatVM.sendMessage(for: id, type: type, content: content)
     }
     
     private func handleMessageContextAction(_ action: MessageContextAction) {
-//        guard let client = roomVM.webRTCClient else { return }
-//        chatVM.handleMessageContextAction(action, webRTCClient: client, currentUser: roomVM.currentUser)
+        guard let id = roomVM.room.id else { return }
+        chatVM.handleMessageContextAction(action, roomId: id)
     }
     
 }

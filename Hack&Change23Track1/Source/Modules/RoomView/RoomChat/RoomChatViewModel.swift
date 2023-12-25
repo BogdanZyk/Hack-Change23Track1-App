@@ -22,6 +22,10 @@ class RoomChatViewModel: ObservableObject, ChatProviderDelegate {
     @Published private(set) var selectedMessage: Message?
     @Published private(set) var lastMessageId: String = ""
     @Published private(set) var replyMessage: ReplyMessageAttrs?
+    @Published var appAlert: AppAlert?
+    
+    private let chatService = RoomChatDataService()
+    
     
     func selectMessage(_ message: Message?){
         withAnimation {
@@ -31,55 +35,40 @@ class RoomChatViewModel: ObservableObject, ChatProviderDelegate {
     
     func onReceivedMessage(_ message: Message) {
         DispatchQueue.main.async { [weak self] in
-           withAnimation {
-               self?.setOrUpdateMessage(message)
-           }
+            withAnimation {
+                self?.setOrUpdateMessage(message)
+            }
         }
     }
     
-    func createAndSendMessage(_ content: Message.MessageContent,
-                              currentUser: RoomMember) {
-        var message = Message(id: UUID().uuidString,
-                              from: currentUser,
-                              type: .message,
-                              text: "",
-                              replyMessage: replyMessage)
-        
-        switch content {
-        case .text(let text):
-            message.type = .message
-            message.text = text
-        case .sticker(let sticker):
-            message.type = .sticker
-            message.sticker = sticker
+    func sendMessage(for id: String,
+                     type: MessageType,
+                     content: String) {
+        Task {
+            do {
+                let messageInput = makeMassageInput(type: type, content: content, reply: replyMessage)
+                resetReply()
+                try await chatService.sendMessage(for: id, messageInput)
+            } catch {
+                appAlert = .errors(errors: [error])
+            }
         }
-        
-        resetReply()
-       // sendMessage(webRTCClient: webRTCClient, message)
     }
     
     func handleMessageContextAction(_ action: MessageContextAction,
-                                            currentUser: RoomMember) {
+                                    roomId: String) {
         switch action {
-        case .reaction(let oldMessage, let reaction):
-            var newMessage = oldMessage
-            newMessage.addedReaction(from: currentUser.id, reaction: reaction)
-            //sendMessage(webRTCClient: webRTCClient, newMessage)
+        case .reaction(let messageId, let reaction):
+            sendReaction(roomId: roomId, messageId: messageId, reaction: reaction)
         case .copy:
             copyMessage()
         case .reply:
             setReplayMessage()
         case .report:
-            guard var selectedMessage = selectedMessage else {return}
-            selectedMessage.type = .hidden
-           // sendMessage(webRTCClient: webRTCClient, selectedMessage)
+            guard var id = selectedMessage?.id else {return}
+            hideMessage(roomId: roomId, messageId: id)
         }
         selectMessage(nil)
-    }
-    
-    func sendMessage(_ message: Message) {
-//        guard let data = try? JSONHelper.encoder.encode(message) else { return }
-//        webRTCClient.sendData(data)
     }
     
     private func setOrUpdateMessage(_ message: Message) {
@@ -91,7 +80,7 @@ class RoomChatViewModel: ObservableObject, ChatProviderDelegate {
         }
     }
     
-   private func copyMessage() {
+    private func copyMessage() {
         guard let text = selectedMessage?.text else {return}
         UIPasteboard.general.string = text
     }
@@ -101,8 +90,40 @@ class RoomChatViewModel: ObservableObject, ChatProviderDelegate {
         replyMessage = .init(id: selectedMessage.id, text: selectedMessage.content, userName: selectedMessage.from.login)
     }
     
+    private func sendReaction(roomId: String, messageId: String, reaction: String) {
+        
+    }
+    
+    private func hideMessage(roomId: String, messageId: String) {
+        Task {
+            do {
+                try await chatService.hiddenMessage(roomId: roomId, messageId: messageId)
+            } catch {
+                appAlert = .errors(errors: [error])
+            }
+        }
+    }
+    
+    private func makeMassageInput(type: MessageType,
+                                  content: String,
+                                  reply: ReplyMessageAttrs?) -> MessageInput {
+        
+        var replyInput: ReplyMessageInput?
+        
+        if let reply, let id = reply.id {
+            replyInput = ReplyMessageInput(type: .some(.case(type)), text: .init(stringLiteral: reply.text ?? ""), userName: .init(stringLiteral: reply.userName ?? ""), id: .init(stringLiteral: id))
+        }
+        
+        return .init(type: .some(.case(type)),
+                     text: .init(stringLiteral: content),
+                     replyMessage: replyInput != nil ? .some(replyInput!) : .null)
+        
+    }
+    
     func resetReply() {
-        replyMessage = nil
+        DispatchQueue.main.async { [weak self] in
+            self?.replyMessage = nil
+        }
     }
     
 }

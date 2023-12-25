@@ -8,12 +8,6 @@
 import Foundation
 import SchemaAPI
 
-//protocol PlayerRemoteProvider: AnyObject {
-//    
-//    @MainActor
-//    func onChangePlayerState(_ state: RoomPlayerState)
-//}
-
 @MainActor
 class PlayerRemoteManager: ObservableObject {
     
@@ -34,6 +28,12 @@ class PlayerRemoteManager: ObservableObject {
         self.currentUser = currentUser
         fetchPlaylist()
         startRoomMediaSubscription()
+    }
+    
+    func stopManager() {
+        playList = []
+        currentVideo = nil
+        cancelBag.cancel()
     }
         
     func addNewVideoItemAndSetToPlay(_ sourceId: String) {
@@ -121,52 +121,48 @@ class PlayerRemoteManager: ObservableObject {
                 case .failure(let error):
                     self.appAlert = .errors(errors: [error])
                 }
-            } receiveValue: { mediaData in
-                print("changePlayerState")
+            } receiveValue: { [weak self] mediaData in
+                guard let self = self,
+                      let action = mediaData?.mediaAction?.value else { return }
+                print(mediaData)
+                self.onChangePlayerState(action, seconds: mediaData?.currentTimeSeconds ?? 0, source: mediaData?.source?.fragments.sourceAttrs)
             }
             .store(in: cancelBag)
 
     }
         
-    func onChangePlayerState(_ state: RoomPlayerState) {
-        print("changePlayerState", state.status, state.currentSeconds)
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else {return}
-            let seconds = state.currentSeconds
-            switch state.status {
-            case .play:
-                self.playerEvent = .play(seconds)
-            case .pause:
-                self.playerEvent = .pause(seconds)
-            case .move:
-                self.playerEvent = .seek(seconds)
-            case .changeSource:
-                setNewVideoIfNeeded(state)
-            }
+    private func onChangePlayerState(_ state: MediaAction, seconds: Double, source: SourceAttrs?) {
+        print("changePlayerState", state.rawValue, seconds)
+        switch state {
+        case .play:
+            self.playerEvent = .play(seconds)
+        case .pause:
+            self.playerEvent = .pause(seconds)
+        case .move:
+            self.playerEvent = .seek(seconds)
+        case .changeSource:
+            setNewVideoIfNeeded(source, seconds: seconds)
         }
     }
     
-    private func setNewVideoIfNeeded(_ state: RoomPlayerState) {
-        guard let source = state.source,
-              let url = state.wrappedUrl else { return }
+    private func setNewVideoIfNeeded(_ source: SourceAttrs?, seconds: Double) {
+        guard let source else { return }
         if currentVideo == nil {
             setVideoItem(source: source,
-                         seconds: state.currentSeconds,
-                         url: url,
+                         seconds: seconds,
                          withPlay: playerEvent.isPlay)
-        } else if currentVideo?.id != state.source?.id {
+        } else if currentVideo?.id != source.id {
             setVideoItem(source: source,
-                         seconds: state.currentSeconds,
-                         url: url,
+                         seconds: seconds,
                          withPlay: true)
         }
     }
     
-    private func setVideoItem(source: RoomPlayerState.Source,
+    private func setVideoItem(source: SourceAttrs,
                           seconds: Double,
-                          url: URL,
                           withPlay: Bool) {
-        let newVideo = VideoItem(id: source.id, url: url, name: source.name, cover: source.cover)
+        guard let urlStr = source.url, let url = URL(string: urlStr) else { return }
+        let newVideo = VideoItem(id: source.id ?? "", url: url, name: source.name, cover: source.cover ?? "")
         currentVideo = newVideo
         playerEvent = .set(newVideo, seconds, withPlay)
     }

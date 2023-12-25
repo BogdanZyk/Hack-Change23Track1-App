@@ -66,7 +66,7 @@ extension RoomChatView {
                         avatarView
                         VStack(alignment: .leading, spacing: 4) {
                             replyMessage
-                            LazyNukeImage(fullPath: message.sticker)
+                            LazyNukeImage(fullPath: message.content)
                                 .frame(width: 90, height: 90)
                             reactionSection
                         }

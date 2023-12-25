@@ -19,8 +19,8 @@ struct ProfileView: View {
                     .frame(width: 136, height: 136)
                     .clipShape(Circle())
                 Group {
-                    PrimaryTextField(text: .constant(user.login), label: "Name", title: "Name")
-                    PrimaryTextField(text: .constant(user.email), label: "", title: "Email")
+                    PrimaryTextField(text: .constant(user.login ?? ""), label: "Name", title: "Name")
+                    PrimaryTextField(text: .constant(user.email ?? ""), label: "", title: "Email")
                 }
                 .disabled(true)
             } else {

@@ -177,9 +177,10 @@ public class UpdateRoomMutation: GraphQLMutation {
 
           public static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.Source }
 
-          public var id: String { __data["Id"] }
-          public var cover: String { __data["Cover"] }
-          public var name: String { __data["Name"] }
+          public var id: String? { __data["Id"] }
+          public var cover: String? { __data["Cover"] }
+          public var name: String? { __data["Name"] }
+          public var url: String? { __data["Url"] }
 
           public struct Fragments: FragmentContainer {
             public let __data: DataDict
@@ -189,9 +190,10 @@ public class UpdateRoomMutation: GraphQLMutation {
           }
 
           public init(
-            id: String,
-            cover: String,
-            name: String
+            id: String? = nil,
+            cover: String? = nil,
+            name: String? = nil,
+            url: String? = nil
           ) {
             self.init(_dataDict: DataDict(
               data: [
@@ -199,6 +201,7 @@ public class UpdateRoomMutation: GraphQLMutation {
                 "Id": id,
                 "Cover": cover,
                 "Name": name,
+                "Url": url,
               ],
               fulfilledFragments: [
                 ObjectIdentifier(UpdateRoomMutation.Data.UpdateRoom.MediaInfo.Source.self),

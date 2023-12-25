@@ -7,7 +7,7 @@ public class SubscribeMediaInfoSubscription: GraphQLSubscription {
   public static let operationName: String = "SubscribeMediaInfo"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"subscription SubscribeMediaInfo($roomId: String) { SubscribeMediaInfo(RoomId: $roomId) { __typename CurrentTimeSeconds DurationSeconds Play Source { __typename ...SourceAttrs } } }"#,
+      #"subscription SubscribeMediaInfo($roomId: String) { SubscribeMediaInfo(RoomId: $roomId) { __typename CurrentTimeSeconds DurationSeconds MediaAction Source { __typename ...SourceAttrs } } }"#,
       fragments: [SourceAttrs.self]
     ))
 
@@ -56,19 +56,19 @@ public class SubscribeMediaInfoSubscription: GraphQLSubscription {
         .field("__typename", String.self),
         .field("CurrentTimeSeconds", Double?.self),
         .field("DurationSeconds", Double?.self),
-        .field("Play", Bool?.self),
+        .field("MediaAction", GraphQLEnum<SchemaAPI.MediaAction>?.self),
         .field("Source", Source?.self),
       ] }
 
       public var currentTimeSeconds: Double? { __data["CurrentTimeSeconds"] }
       public var durationSeconds: Double? { __data["DurationSeconds"] }
-      public var play: Bool? { __data["Play"] }
+      public var mediaAction: GraphQLEnum<SchemaAPI.MediaAction>? { __data["MediaAction"] }
       public var source: Source? { __data["Source"] }
 
       public init(
         currentTimeSeconds: Double? = nil,
         durationSeconds: Double? = nil,
-        play: Bool? = nil,
+        mediaAction: GraphQLEnum<SchemaAPI.MediaAction>? = nil,
         source: Source? = nil
       ) {
         self.init(_dataDict: DataDict(
@@ -76,7 +76,7 @@ public class SubscribeMediaInfoSubscription: GraphQLSubscription {
             "__typename": SchemaAPI.Objects.MediaInfo.typename,
             "CurrentTimeSeconds": currentTimeSeconds,
             "DurationSeconds": durationSeconds,
-            "Play": play,
+            "MediaAction": mediaAction,
             "Source": source._fieldData,
           ],
           fulfilledFragments: [
@@ -98,9 +98,10 @@ public class SubscribeMediaInfoSubscription: GraphQLSubscription {
           .fragment(SourceAttrs.self),
         ] }
 
-        public var id: String { __data["Id"] }
-        public var cover: String { __data["Cover"] }
-        public var name: String { __data["Name"] }
+        public var id: String? { __data["Id"] }
+        public var cover: String? { __data["Cover"] }
+        public var name: String? { __data["Name"] }
+        public var url: String? { __data["Url"] }
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
@@ -110,9 +111,10 @@ public class SubscribeMediaInfoSubscription: GraphQLSubscription {
         }
 
         public init(
-          id: String,
-          cover: String,
-          name: String
+          id: String? = nil,
+          cover: String? = nil,
+          name: String? = nil,
+          url: String? = nil
         ) {
           self.init(_dataDict: DataDict(
             data: [
@@ -120,6 +122,7 @@ public class SubscribeMediaInfoSubscription: GraphQLSubscription {
               "Id": id,
               "Cover": cover,
               "Name": name,
+              "Url": url,
             ],
             fulfilledFragments: [
               ObjectIdentifier(SubscribeMediaInfoSubscription.Data.SubscribeMediaInfo.Source.self),
