@@ -61,6 +61,7 @@ final class AuthManager: ObservableObject {
     private func saveJWT(_ token: String) {
         userDefaults.setValue(token, forKey: "JWT")
         checkIsSingIn()
+        Network.shared.createSplitClientIfNeeded()
     }
 }
 

@@ -18,6 +18,7 @@ struct RoomView: View {
     @State private var sheetItem: SheetItem?
     @State private var showChatForLandscape: Bool = false
     @FocusState private var isFocused: Bool
+    @State private var isPresentedLeaveAlert: Bool = false
     
     init(room: RoomAttrs, currentUser: RoomMember) {
         self._viewModel = StateObject(
@@ -67,7 +68,7 @@ struct RoomView: View {
             makeSheet($0)
         }
         .forceRotation(orientation: [.portrait, .landscape])
-        .alert("Leave the room?", isPresented: $viewModel.isPresentedLeaveAlert) { alertButton }
+        .alert("Leave the room?", isPresented: $isPresentedLeaveAlert) { alertButton }
     }
 }
 
@@ -90,7 +91,7 @@ extension RoomView {
                 .overlay {
                     HStack {
                         Button {
-                            viewModel.isPresentedLeaveAlert.toggle()
+                            isPresentedLeaveAlert.toggle()
                         } label: {
                             Image(systemName: "xmark")
                         }

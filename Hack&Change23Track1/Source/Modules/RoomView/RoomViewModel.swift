@@ -13,7 +13,6 @@ import SchemaAPI
 final class RoomViewModel: ObservableObject {
     
     @Published var appAlert: AppAlert?
-    @Published var isPresentedLeaveAlert: Bool = false
     @Published private(set) var room: RoomAttrs
     @Published private(set) var roomCountLikes: Int = 0
     @Published private(set) var members: [String: RoomMember] = [:]
@@ -31,7 +30,7 @@ final class RoomViewModel: ObservableObject {
         self.room = room
         self.roomCountLikes = room.likes ?? 0
         self.currentUser = currentUser
-        self.setMembers()
+        self.getMembers()
     }
     
     deinit {
@@ -129,7 +128,7 @@ extension RoomViewModel {
         }
     }
 
-    private func setMembers() {
+    private func getMembers() {
         #warning("TODO members")
 //        guard let members = room.members else { return }
 //        members.forEach {
