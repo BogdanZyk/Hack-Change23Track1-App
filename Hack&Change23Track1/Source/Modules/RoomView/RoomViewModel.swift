@@ -38,24 +38,16 @@ final class RoomViewModel: ObservableObject {
         cancelBag.cancel()
     }
     
-    #warning("connect to websocket for room")
     func connectRoom() {
         startRoomChatSubscription()
-//        Task {
-//            state = .connecting
-//            try await Task.sleep(seconds: 1)
-//            
-//            state = .connected
-//        }
     }
-
 
     func disconnectAll() {
         cancelBag.cancel()
         RemoteCommandHelper.shared.removeNowPlayingItem()
     }
     
-    func startRoomChatSubscription() {
+    private func startRoomChatSubscription() {
         guard let id = room.id else { return }
         roomChatService.subscribeToRoomChat(for: id)
             .sink { [weak self] completion in
@@ -67,39 +59,13 @@ final class RoomViewModel: ObservableObject {
             .store(in: cancelBag)
     }
     
-   
-    
-    func connectToWebsocket() {
-        // handle connect loader
-//        Network.shared.splitClient?.subscribePublisher(subscription: UpdateCurrentUserMutation(avatar: ""), queue: .global(qos: .userInteractive))
-//            .sink(receiveCompletion: { completion in
-//                switch completion {}
-//            }, receiveValue: { result in
-//                // hangel connect loader
-//            })
-//            .store(in: cancelBag)
-
-        
-//        let subs = Network.shared.splitClient?.subscribe(subscription: UpdateCurrentUserMutation(avatar: ""))
-//
-//        for await data in subs {
-//
-//        }
-        
-//        if let audioState = try? JSONHelper.decoder.decode(RoomPlayerState.self, from: data) {
-//            self.remotePlayerDelegate?.onChangePlayerState(audioState)
-//        } else if let message = try? JSONHelper.decoder.decode(Message.self, from: data) {
-//            self.updateMembers(message)
-//            self.chatDelegate?.onReceivedMessage(message)
-//        }
-    }
-
 }
 
 // MARK: - Chat handler
 extension RoomViewModel {
     
     private func handleChatData(_ subs: SubscribeChatSubscription.Data.SubscribeChat?) {
+        //changeConnection()
         updateLikes(subs?.roomReaction)
         if let messageAttrs = subs?.message?.last??.fragments.messageAttrs {
             let newMessage = Message(attrs: messageAttrs)
@@ -119,6 +85,13 @@ extension RoomViewModel {
         }
     }
     
+    private func changeConnection() {
+        if state != .connected {
+            DispatchQueue.main.async {
+                self.state = .connected
+            }
+        }
+    }
 }
 
 

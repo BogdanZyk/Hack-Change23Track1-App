@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		5A167C392B31DA6B00F26EA7 /* SchemaAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 5A167C382B31DA6B00F26EA7 /* SchemaAPI */; };
+		5A2012142B3AC65600E0137B /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 5A2012132B3AC65600E0137B /* Nuke */; };
+		5A2012182B3AC65600E0137B /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5A2012172B3AC65600E0137B /* NukeUI */; };
 		5A43F5AD2B35D59300BBD6E2 /* RoomChatDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A43F5AC2B35D59200BBD6E2 /* RoomChatDataService.swift */; };
 		5A54B56E2B2063BD0008824C /* WebViewRepresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A54B56C2B2063BD0008824C /* WebViewRepresenter.swift */; };
 		5A54B56F2B2063BD0008824C /* WebNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A54B56D2B2063BD0008824C /* WebNavigationView.swift */; };
 		5A54B5712B206E740008824C /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A54B5702B206E740008824C /* Playlist.swift */; };
 		5A58E7802B11217100D0723C /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 5A58E77F2B11217100D0723C /* Apollo */; };
-		5A58E7862B1121A200D0723C /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5A58E7852B1121A200D0723C /* NukeUI */; };
 		5A58E7882B1121ED00D0723C /* LazyNukeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E7872B1121ED00D0723C /* LazyNukeImage.swift */; };
 		5A58E78B2B1131BF00D0723C /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E78A2B1131BF00D0723C /* RoomView.swift */; };
 		5A58E78D2B11327200D0723C /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A58E78C2B11327200D0723C /* RoomViewModel.swift */; };
@@ -177,9 +178,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A167C392B31DA6B00F26EA7 /* SchemaAPI in Frameworks */,
-				5A58E7862B1121A200D0723C /* NukeUI in Frameworks */,
 				5A6231FC2B307EBA00E17DB5 /* ApolloWebSocket in Frameworks */,
 				5A58E7802B11217100D0723C /* Apollo in Frameworks */,
+				5A2012182B3AC65600E0137B /* NukeUI in Frameworks */,
+				5A2012142B3AC65600E0137B /* Nuke in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -577,9 +579,10 @@
 			name = "Hack&Change23Track1";
 			packageProductDependencies = (
 				5A58E77F2B11217100D0723C /* Apollo */,
-				5A58E7852B1121A200D0723C /* NukeUI */,
 				5A6231FB2B307EBA00E17DB5 /* ApolloWebSocket */,
 				5A167C382B31DA6B00F26EA7 /* SchemaAPI */,
+				5A2012132B3AC65600E0137B /* Nuke */,
+				5A2012172B3AC65600E0137B /* NukeUI */,
 			);
 			productName = "Hack&Change23Track1";
 			productReference = 5A81F3D22B1091AA00D9998F /* Hack&Change23Track1.app */;
@@ -611,7 +614,7 @@
 			mainGroup = 5A81F3C92B1091AA00D9998F;
 			packageReferences = (
 				5A58E77E2B11217100D0723C /* XCRemoteSwiftPackageReference "apollo-ios" */,
-				5A58E7842B1121A200D0723C /* XCRemoteSwiftPackageReference "NukeUI" */,
+				5A2012122B3AC65600E0137B /* XCRemoteSwiftPackageReference "Nuke" */,
 			);
 			productRefGroup = 5A81F3D32B1091AA00D9998F /* Products */;
 			projectDirPath = "";
@@ -920,20 +923,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5A2012122B3AC65600E0137B /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.2.0;
+			};
+		};
 		5A58E77E2B11217100D0723C /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
-			};
-		};
-		5A58E7842B1121A200D0723C /* XCRemoteSwiftPackageReference "NukeUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kean/NukeUI";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.8.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -943,15 +946,20 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = SchemaAPI;
 		};
+		5A2012132B3AC65600E0137B /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A2012122B3AC65600E0137B /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+		5A2012172B3AC65600E0137B /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A2012122B3AC65600E0137B /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeUI;
+		};
 		5A58E77F2B11217100D0723C /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5A58E77E2B11217100D0723C /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
-		};
-		5A58E7852B1121A200D0723C /* NukeUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5A58E7842B1121A200D0723C /* XCRemoteSwiftPackageReference "NukeUI" */;
-			productName = NukeUI;
 		};
 		5A6231FB2B307EBA00E17DB5 /* ApolloWebSocket */ = {
 			isa = XCSwiftPackageProductDependency;

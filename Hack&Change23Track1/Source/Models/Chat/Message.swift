@@ -34,20 +34,7 @@ struct Message: Identifiable {
         self.replyMessage = attrs.replyMessage?.fragments.replyMessageAttrs
         self.reactions = attrs.reactions?.compactMap({$0?.fragments.reactionMessageAttrs}) ?? []
     }
-        
-    enum MessageContent {
-        case text(String), sticker(String)
-        
-        var content: String {
-            switch self {
-            case .text(let string):
-                return string
-            case .sticker(let string):
-                return string
-            }
-        }
-    }
-    
+            
     var content: String {
         switch type {
             

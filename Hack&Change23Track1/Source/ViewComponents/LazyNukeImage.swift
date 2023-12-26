@@ -13,17 +13,26 @@ struct LazyNukeImage: View {
     
     private var url: URL?
     var resizeSize: CGSize
-    var contentMode: ImageProcessors.Resize.ContentMode
+    var contentMode: ImageProcessingOptions.ContentMode
     var loadPriority: ImageRequest.Priority = .normal
     var upscale: Bool
     var crop: Bool
     var loadColor: Color
     private let imagePipeline = ImagePipeline(configuration: .withDataCache)
     
+    
+    private var resizeProcessor: ImageProcessors.Resize {
+        ImageProcessors.Resize.resize(size: resizeSize,
+                                      unit: .points,
+                                      contentMode: contentMode,
+                                      crop: crop,
+                                      upscale: upscale)
+    }
+    
     init(path: String? = nil,
          fullPath: String? = nil,
          resizeSize: CGSize = .init(width: 200, height: 200),
-         contentMode: ImageProcessors.Resize.ContentMode = .aspectFill,
+         contentMode: ImageProcessingOptions.ContentMode = .aspectFill,
          loadPriority: ImageRequest.Priority = .normal,
          upscale: Bool = false,
          crop: Bool = true,
@@ -31,6 +40,7 @@ struct LazyNukeImage: View {
         self.resizeSize = resizeSize
         self.contentMode = contentMode
         self.loadPriority = loadPriority
+        
         if let path {
             self.url = URL(string: Config.baseURL + path)
         } else if let fullPath {
@@ -44,7 +54,7 @@ struct LazyNukeImage: View {
     var body: some View {
         Group {
             if let url = url {
-                LazyImage(source: url) { state in
+                LazyImage(url: url, transaction: .init(animation: .easeInOut)) { state in
                     if let image = state.image {
                         image
                             .aspectRatio(contentMode: contentMode == .aspectFill ? .fill : .fit)
@@ -53,11 +63,7 @@ struct LazyNukeImage: View {
                         loadColor
                     }
                 }
-                .processors([ImageProcessors.Resize.resize(size: resizeSize,
-                                                           unit: .points,
-                                                           contentMode: contentMode,
-                                                           crop: crop,
-                                                           upscale: upscale)])
+                .processors([resizeProcessor])
                 .priority(loadPriority)
                 .pipeline(imagePipeline)
             } else {
