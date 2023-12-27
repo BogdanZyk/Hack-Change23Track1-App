@@ -58,15 +58,21 @@ final class RoomViewModel: ObservableObject {
             .store(in: cancelBag)
     }
     
+    private func fetch() {
+        Task {
+            let data = try? await roomDataService.getMessages(for: room.id!)
+        }
+    }
 }
 
 // MARK: - Chat handler
 extension RoomViewModel {
     
     private func handleChatData(_ subs: SubscribeChatSubscription.Data.SubscribeChat?) {
-        //changeConnection()
+        //changeConnection(
+        print(subs)
         updateLikes(subs?.roomReaction)
-        if let messageAttrs = subs?.message?.last??.fragments.messageAttrs {
+        if let messageAttrs = subs?.message?.fragments.messageAttrs {
             let newMessage = Message(attrs: messageAttrs)
             chatDelegate?.onReceivedMessage(newMessage)
             updateMembersIfNeeded(newMessage.from, type: newMessage.type)
@@ -78,6 +84,7 @@ extension RoomViewModel {
         case .finished:
             break
         case .failure(let error):
+            print(error)
             DispatchQueue.main.async {
                 self.appAlert = .errors(errors: [error])
             }

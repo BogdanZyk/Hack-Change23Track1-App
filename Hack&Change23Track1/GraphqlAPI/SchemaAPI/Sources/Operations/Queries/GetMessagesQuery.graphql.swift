@@ -63,6 +63,8 @@ public class GetMessagesQuery: GraphQLQuery {
       public var replyMessage: ReplyMessage? { __data["ReplyMessage"] }
       public var text: String? { __data["Text"] }
       public var type: GraphQLEnum<SchemaAPI.MessageType>? { __data["Type"] }
+      public var insertedAt: SchemaAPI.DateTime? { __data["InsertedAt"] }
+      public var updatedAt: SchemaAPI.DateTime? { __data["UpdatedAt"] }
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
@@ -77,7 +79,9 @@ public class GetMessagesQuery: GraphQLQuery {
         reactions: [Reaction?]? = nil,
         replyMessage: ReplyMessage? = nil,
         text: String? = nil,
-        type: GraphQLEnum<SchemaAPI.MessageType>? = nil
+        type: GraphQLEnum<SchemaAPI.MessageType>? = nil,
+        insertedAt: SchemaAPI.DateTime? = nil,
+        updatedAt: SchemaAPI.DateTime? = nil
       ) {
         self.init(_dataDict: DataDict(
           data: [
@@ -88,6 +92,8 @@ public class GetMessagesQuery: GraphQLQuery {
             "ReplyMessage": replyMessage._fieldData,
             "Text": text,
             "Type": type,
+            "InsertedAt": insertedAt,
+            "UpdatedAt": updatedAt,
           ],
           fulfilledFragments: [
             ObjectIdentifier(GetMessagesQuery.Data.GetMessage.self),

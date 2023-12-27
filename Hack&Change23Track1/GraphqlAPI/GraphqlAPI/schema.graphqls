@@ -21,27 +21,18 @@ directive @defer(
 ) on FRAGMENT_SPREAD | INLINE_FRAGMENT
 
 """"""
-type ReplyMessage {
+type User {
   """"""
-  From: User
+  Avatar: String
+
+  """"""
+  Email: String
 
   """"""
   Id: String
 
   """"""
-  Text: String
-
-  """"""
-  Type: MessageType
-}
-
-""""""
-type InteractiveAction {
-  """"""
-  Message: [Message]
-
-  """"""
-  RoomReaction: Int
+  Login: String
 }
 
 """"""
@@ -69,21 +60,9 @@ type MediaInfo {
 }
 
 """"""
-input MessageInput {
-  """"""
-  Type: MessageType
-
-  """"""
-  Text: String
-
-  """"""
-  ReplyMessage: String
-}
-
-""""""
 type RootMutationType {
   """"""
-  AddPlaylistSource(RoomId: String!, Url: String!): [PlaylistRow]
+  AddPlaylistSource(Url: String!, RoomId: String!): [PlaylistRow]
 
   """"""
   CreateRoom(Name: String!, Image: String, Private: Boolean, Type: RoomType): Room
@@ -101,7 +80,7 @@ type RootMutationType {
   MovePlaylistSourcePosition(PlaylistRowId: String!, Position: Int!, RoomId: String!): [PlaylistRow]
 
   """"""
-  RoomAction(Arg: String, RoomId: String, Action: MediaAction): Boolean
+  RoomAction(Action: MediaAction, Arg: String, RoomId: String): Boolean
 
   """"""
   SendMessage(RoomId: String!, Message: MessageInput!): Boolean
@@ -113,7 +92,7 @@ type RootMutationType {
   SendRoomReaction(RoomId: String!): Int
 
   """"""
-  SignIn(Password: String!, Email: String!): Token
+  SignIn(Email: String!, Password: String!): Token
 
   """"""
   SignUp(Email: String!, Login: String!, Password: String!): Token
@@ -122,34 +101,49 @@ type RootMutationType {
   UpdateCurrentUser(Login: String, Avatar: String): User
 
   """"""
-  UpdateRoom(Type: RoomType, RoomId: String!, Name: String!, Image: String, Private: Boolean): Room
+  UpdateRoom(Private: Boolean, Type: RoomType, RoomId: String!, Name: String!, Image: String): Room
 }
 
 """"""
-enum MessageType {
+enum RoomType {
   """"""
-  leaving
+  NO_TYPE
 
   """"""
-  message
+  SINGLE
 
   """"""
-  sticker
-
-  """"""
-  hidden
-
-  """"""
-  joined
+  PLAYLIST
 }
 
 """"""
-type RootSubscriptionType {
+type InteractiveAction {
   """"""
-  SubscribeChat(RoomId: String!): InteractiveAction
+  Message: Message
 
   """"""
-  SubscribeMediaInfo(RoomId: String): MediaInfo
+  RoomReaction: Int
+}
+
+""""""
+type PaginatedRooms {
+  """"""
+  Entries: [Room]
+
+  """"""
+  Page: Int
+
+  """"""
+  PageCount: Int
+
+  """"""
+  PageSize: Int
+
+  """"""
+  TotalCount: Int
+
+  """"""
+  TotalPages: Int
 }
 
 """"""
@@ -159,6 +153,9 @@ type Message {
 
   """"""
   Id: String
+
+  """"""
+  InsertedAt: DateTime
 
   """"""
   Reactions: [ReactionMessage]
@@ -171,6 +168,9 @@ type Message {
 
   """"""
   Type: MessageType
+
+  """"""
+  UpdatedAt: DateTime
 }
 
 """"""
@@ -179,7 +179,46 @@ type ReactionMessage {
   From: User
 
   """"""
+  Id: String
+
+  """"""
   Reaction: String
+}
+
+""""""
+type Token {
+  """"""
+  Token: String!
+}
+
+""""""
+type RootQueryType {
+  """"""
+  CurrentUser: User
+
+  """"""
+  GetMediaInfo(RoomId: String): MediaInfo
+
+  """"""
+  GetMessages(RoomId: String!, MessageId: String): [Message]
+
+  """"""
+  GetOwnSources: [PlaylistRow]
+
+  """"""
+  GetPaginatedRooms(Page: Int = 1, PageSize: Int = 10): PaginatedRooms
+
+  """"""
+  GetPaginatedSources: [PlaylistRow]
+
+  """"""
+  GetRoom(RoomId: String!): Room
+
+  """"""
+  GetRoomByKey(Key: String!): Room
+
+  """"""
+  GetRoomPlaylist(RoomId: String!): [PlaylistRow]
 }
 
 """"""
@@ -228,76 +267,21 @@ enum MediaAction {
 }
 
 """"""
-type Token {
+input MessageInput {
   """"""
-  Token: String!
+  Text: String
+
+  """"""
+  ReplyMessage: String
+
+  """"""
+  Type: MessageType
 }
 
-""""""
-type User {
-  """"""
-  Avatar: String
-
-  """"""
-  Email: String
-
-  """"""
-  Id: String
-
-  """"""
-  Login: String
-}
-
-""""""
-type PlaylistRow {
-  """"""
-  Id: String
-
-  """"""
-  Index: Int
-
-  """"""
-  RoomId: String
-
-  """"""
-  Source: Source
-
-  """"""
-  SourceId: String
-}
-
-""""""
-type PaginatedRooms {
-  """"""
-  Entries: [Room]
-
-  """"""
-  Page: Int
-
-  """"""
-  PageCount: Int
-
-  """"""
-  PageSize: Int
-
-  """"""
-  TotalCount: Int
-
-  """"""
-  TotalPages: Int
-}
-
-""""""
-enum RoomType {
-  """"""
-  NO_TYPE
-
-  """"""
-  SINGLE
-
-  """"""
-  PLAYLIST
-}
+"""
+The `DateTime` scalar type represents a DateTime. The DateTime is serialized as an RFC 3339 quoted string
+"""
+scalar DateTime
 
 """"""
 type Source {
@@ -318,31 +302,61 @@ type Source {
 }
 
 """"""
-type RootQueryType {
+enum MessageType {
   """"""
-  CurrentUser: User
+  joined
 
   """"""
-  GetMediaInfo(RoomId: String): MediaInfo
+  leaving
 
   """"""
-  GetMessages(MessageId: String, RoomId: String!): [Message]
+  message
 
   """"""
-  GetOwnSources: [PlaylistRow]
+  sticker
 
   """"""
-  GetPaginatedRooms(PageSize: Int = 10, Page: Int = 1): PaginatedRooms
+  hidden
+}
+
+""""""
+type ReplyMessage {
+  """"""
+  From: User
 
   """"""
-  GetPaginatedSources: [PlaylistRow]
+  Id: String
 
   """"""
-  GetRoom(RoomId: String!): Room
+  Text: String
 
   """"""
-  GetRoomByKey(Key: String!): Room
+  Type: MessageType
+}
+
+""""""
+type RootSubscriptionType {
+  """"""
+  SubscribeChat(RoomId: String!): InteractiveAction
 
   """"""
-  GetRoomPlaylist(RoomId: String!): [PlaylistRow]
+  SubscribeMediaInfo(RoomId: String): MediaInfo
+}
+
+""""""
+type PlaylistRow {
+  """"""
+  Id: String
+
+  """"""
+  Index: Int
+
+  """"""
+  RoomId: String
+
+  """"""
+  Source: Source
+
+  """"""
+  SourceId: String
 }

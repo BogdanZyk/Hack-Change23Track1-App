@@ -175,6 +175,8 @@ fragment MessageAttrs on Message {
   }
   Text
   Type
+  InsertedAt
+  UpdatedAt
 }
 
 fragment ReactionMessageAttrs on ReactionMessage {

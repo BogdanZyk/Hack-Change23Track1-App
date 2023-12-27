@@ -54,15 +54,15 @@ public class SubscribeChatSubscription: GraphQLSubscription {
       public static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.InteractiveAction }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
-        .field("Message", [Message?]?.self),
+        .field("Message", Message?.self),
         .field("RoomReaction", Int?.self),
       ] }
 
-      public var message: [Message?]? { __data["Message"] }
+      public var message: Message? { __data["Message"] }
       public var roomReaction: Int? { __data["RoomReaction"] }
 
       public init(
-        message: [Message?]? = nil,
+        message: Message? = nil,
         roomReaction: Int? = nil
       ) {
         self.init(_dataDict: DataDict(
@@ -96,6 +96,8 @@ public class SubscribeChatSubscription: GraphQLSubscription {
         public var replyMessage: ReplyMessage? { __data["ReplyMessage"] }
         public var text: String? { __data["Text"] }
         public var type: GraphQLEnum<SchemaAPI.MessageType>? { __data["Type"] }
+        public var insertedAt: SchemaAPI.DateTime? { __data["InsertedAt"] }
+        public var updatedAt: SchemaAPI.DateTime? { __data["UpdatedAt"] }
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
@@ -110,7 +112,9 @@ public class SubscribeChatSubscription: GraphQLSubscription {
           reactions: [Reaction?]? = nil,
           replyMessage: ReplyMessage? = nil,
           text: String? = nil,
-          type: GraphQLEnum<SchemaAPI.MessageType>? = nil
+          type: GraphQLEnum<SchemaAPI.MessageType>? = nil,
+          insertedAt: SchemaAPI.DateTime? = nil,
+          updatedAt: SchemaAPI.DateTime? = nil
         ) {
           self.init(_dataDict: DataDict(
             data: [
@@ -121,6 +125,8 @@ public class SubscribeChatSubscription: GraphQLSubscription {
               "ReplyMessage": replyMessage._fieldData,
               "Text": text,
               "Type": type,
+              "InsertedAt": insertedAt,
+              "UpdatedAt": updatedAt,
             ],
             fulfilledFragments: [
               ObjectIdentifier(SubscribeChatSubscription.Data.SubscribeChat.Message.self),

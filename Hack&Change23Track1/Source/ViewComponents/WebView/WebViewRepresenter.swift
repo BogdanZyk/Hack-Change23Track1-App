@@ -52,6 +52,8 @@ struct WebView: UIViewRepresentable {
         if let url, let requestUrl = URL(string: url) {
             webView.load(URLRequest(url: requestUrl))
         }
+        webView.addObserver(context.coordinator, forKeyPath: "URL", options: .new, context: nil)
+        
         return webView
     
     }
@@ -80,7 +82,6 @@ struct WebView: UIViewRepresentable {
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             print("didFinish")
             self.parent.viewModel.isLoaderVisible = false
-            webView.addObserver(self, forKeyPath: "URL", options: .new, context: nil)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 webView.evaluateJavaScript(YouTubeJSHelper.hideBottomTabBar, in: nil, in: .defaultClient)
                 webView.evaluateJavaScript(YouTubeJSHelper.hideProfileButton, in: nil, in: .defaultClient)

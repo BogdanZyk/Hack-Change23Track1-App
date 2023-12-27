@@ -5,7 +5,7 @@
 
 public struct MessageAttrs: SchemaAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    #"fragment MessageAttrs on Message { __typename From { __typename ...MessageUserAttrs } Id Reactions { __typename ...ReactionMessageAttrs } ReplyMessage { __typename ...ReplyMessageAttrs } Text Type }"#
+    #"fragment MessageAttrs on Message { __typename From { __typename ...MessageUserAttrs } Id Reactions { __typename ...ReactionMessageAttrs } ReplyMessage { __typename ...ReplyMessageAttrs } Text Type InsertedAt UpdatedAt }"#
   }
 
   public let __data: DataDict
@@ -20,6 +20,8 @@ public struct MessageAttrs: SchemaAPI.SelectionSet, Fragment {
     .field("ReplyMessage", ReplyMessage?.self),
     .field("Text", String?.self),
     .field("Type", GraphQLEnum<SchemaAPI.MessageType>?.self),
+    .field("InsertedAt", SchemaAPI.DateTime?.self),
+    .field("UpdatedAt", SchemaAPI.DateTime?.self),
   ] }
 
   public var from: From? { __data["From"] }
@@ -28,6 +30,8 @@ public struct MessageAttrs: SchemaAPI.SelectionSet, Fragment {
   public var replyMessage: ReplyMessage? { __data["ReplyMessage"] }
   public var text: String? { __data["Text"] }
   public var type: GraphQLEnum<SchemaAPI.MessageType>? { __data["Type"] }
+  public var insertedAt: SchemaAPI.DateTime? { __data["InsertedAt"] }
+  public var updatedAt: SchemaAPI.DateTime? { __data["UpdatedAt"] }
 
   public init(
     from: From? = nil,
@@ -35,7 +39,9 @@ public struct MessageAttrs: SchemaAPI.SelectionSet, Fragment {
     reactions: [Reaction?]? = nil,
     replyMessage: ReplyMessage? = nil,
     text: String? = nil,
-    type: GraphQLEnum<SchemaAPI.MessageType>? = nil
+    type: GraphQLEnum<SchemaAPI.MessageType>? = nil,
+    insertedAt: SchemaAPI.DateTime? = nil,
+    updatedAt: SchemaAPI.DateTime? = nil
   ) {
     self.init(_dataDict: DataDict(
       data: [
@@ -46,6 +52,8 @@ public struct MessageAttrs: SchemaAPI.SelectionSet, Fragment {
         "ReplyMessage": replyMessage._fieldData,
         "Text": text,
         "Type": type,
+        "InsertedAt": insertedAt,
+        "UpdatedAt": updatedAt,
       ],
       fulfilledFragments: [
         ObjectIdentifier(MessageAttrs.self)

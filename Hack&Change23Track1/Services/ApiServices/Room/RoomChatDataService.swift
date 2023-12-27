@@ -50,7 +50,9 @@ final class RoomChatDataService {
         return result
     }
     
-    func subscribeToRoomChat(for roomId: String) -> AnyPublisher<SubscribeChatSubscription.Data.SubscribeChat?, Error> {
+    func subscribeToRoomChat(for roomId: String) ->
+    AnyPublisher<SubscribeChatSubscription.Data.SubscribeChat?, Error> {
+        print(roomId)
         guard let splitClient else {
             return Fail(error: AppError.network(type: .somethingWentWrong)).eraseToAnyPublisher()
         }
@@ -58,13 +60,23 @@ final class RoomChatDataService {
         return splitClient.subscribePublisher(subscription: subscription, queue: .global(qos: .userInitiated))
             .tryMap {
                 if let error = $0.errors?.first {
+                    print("subscribeToRoomChat", error)
                     throw error
                 }
                 if let data = $0.data?.subscribeChat {
+                    print(data)
                     return data
                 }
                 return nil
             }
             .eraseToAnyPublisher()
+    }
+    
+    func subscribeToRoomChat2(for roomId: String) throws -> AsyncThrowingStream<GraphQLResult<SubscribeChatSubscription.Data>, any Error> {
+        guard let splitClient else {
+            throw AppError.network(type: .somethingWentWrong)
+        }
+        let subscription = SubscribeChatSubscription(roomId: roomId)
+        return splitClient.subscribe(subscription: subscription)
     }
 }

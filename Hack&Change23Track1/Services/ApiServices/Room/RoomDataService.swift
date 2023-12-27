@@ -147,6 +147,14 @@ final class RoomDataService {
         []
     }
     
+    func getMessages(for id: String) async throws -> [MessageAttrs] {
+        let query = GetMessagesQuery(roomId: id)
+        
+        let data = try await api.fetch(query: query)
+
+        return data?.data?.getMessages?.compactMap({$0?.fragments.messageAttrs}) ?? []
+    }
+    
     func subscribeMediaInfo(for id: String) -> AnyPublisher<SubscribeMediaInfoSubscription.Data.SubscribeMediaInfo?, Error> {
         guard let splitClient = Network.shared.splitClient else {
             return Fail(error: AppError.network(type: .somethingWentWrong)).eraseToAnyPublisher()

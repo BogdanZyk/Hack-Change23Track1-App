@@ -115,9 +115,7 @@ class RoomChatViewModel: ObservableObject, ChatProviderDelegate {
             replyId = id
         }
         
-        return .init(type: .some(.case(type)),
-                     text: .init(stringLiteral: content),
-                     replyMessage: replyId != nil ? .init(stringLiteral: replyId!) : .null)
+        return .init(text: .init(stringLiteral: content), replyMessage: replyId != nil ? .init(stringLiteral: replyId!) : .null, type: .some(.case(type)))
         
     }
     

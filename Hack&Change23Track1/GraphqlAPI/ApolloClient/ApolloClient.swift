@@ -82,8 +82,8 @@ extension Network {
                 JSONResponseParsingInterceptor(),
                 AutomaticPersistedQueryInterceptor(),
                 CacheWriteInterceptor(store: self.store),
-//                RequestLoggingInterceptor(),
-//                ResponseLoggingInterceptor()
+                RequestLoggingInterceptor(),
+                ResponseLoggingInterceptor()
             ]
         }
     }

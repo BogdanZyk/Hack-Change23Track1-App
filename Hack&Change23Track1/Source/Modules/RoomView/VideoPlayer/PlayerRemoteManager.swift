@@ -76,7 +76,7 @@ class PlayerRemoteManager: ObservableObject {
         Task {
             itemLoader = .setSource
             do {
-                try await roomDataService.setRoomAction(for: roomId, action: .move, arg: id)
+                try await roomDataService.setRoomAction(for: roomId, action: .changeSource, arg: id)
                 itemLoader = .empty
             } catch {
                 handleError(error)
