@@ -28,7 +28,7 @@ final class RoomChatDataService {
     
     @discardableResult
     func sendReaction(roomId: String, messageId: String, reaction: String) async throws -> Bool {
-        let mutation = SendReactionMutation(roomId: roomId, reaction: reaction)
+        let mutation = SendReactionMutation(messageId: messageId, reaction: reaction, roomId: roomId)
         
         let result = try await splitClient?.mutation(mutation: mutation)
         

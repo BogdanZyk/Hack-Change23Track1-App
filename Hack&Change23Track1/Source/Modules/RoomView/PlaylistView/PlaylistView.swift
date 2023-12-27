@@ -66,7 +66,7 @@ extension RoomView {
         private func rowView(_ video: PlaylistRowAttrs) -> some View {
             let isPlay = video.id == playedId
             HStack {
-                LazyNukeImage(fullPath: video.source?.cover)
+                LazyNukeImage(fullPath: video.source?.cover, resizeSize: .init(width: 40, height: 40), contentMode: .aspectFit)
                     .frame(width: 60, height: 60)
                     .cornerRadius(8)
                 Text(video.source?.name ?? "")

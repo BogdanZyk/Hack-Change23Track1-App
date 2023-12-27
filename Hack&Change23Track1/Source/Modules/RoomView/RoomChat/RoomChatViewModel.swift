@@ -41,6 +41,7 @@ class RoomChatViewModel: ObservableObject, ChatProviderDelegate {
         }
     }
     
+    @MainActor
     func sendMessage(for id: String,
                      type: MessageType,
                      content: String) {
@@ -65,7 +66,7 @@ class RoomChatViewModel: ObservableObject, ChatProviderDelegate {
         case .reply:
             setReplayMessage()
         case .report:
-            guard var id = selectedMessage?.id else {return}
+            guard let id = selectedMessage?.id else {return}
             hideMessage(roomId: roomId, messageId: id)
         }
         selectMessage(nil)
@@ -87,7 +88,7 @@ class RoomChatViewModel: ObservableObject, ChatProviderDelegate {
     
     private func setReplayMessage() {
         guard let selectedMessage else { return }
-        replyMessage = .init(id: selectedMessage.id, text: selectedMessage.content, userName: selectedMessage.from.login)
+        replyMessage = selectedMessage.makeReplyFromSelf()
     }
     
     private func sendReaction(roomId: String, messageId: String, reaction: String) {
@@ -108,15 +109,15 @@ class RoomChatViewModel: ObservableObject, ChatProviderDelegate {
                                   content: String,
                                   reply: ReplyMessageAttrs?) -> MessageInput {
         
-        var replyInput: ReplyMessageInput?
+        var replyId: String?
         
         if let reply, let id = reply.id {
-            replyInput = ReplyMessageInput(type: .some(.case(type)), text: .init(stringLiteral: reply.text ?? ""), userName: .init(stringLiteral: reply.userName ?? ""), id: .init(stringLiteral: id))
+            replyId = id
         }
         
         return .init(type: .some(.case(type)),
                      text: .init(stringLiteral: content),
-                     replyMessage: replyInput != nil ? .some(replyInput!) : .null)
+                     replyMessage: replyId != nil ? .init(stringLiteral: replyId!) : .null)
         
     }
     

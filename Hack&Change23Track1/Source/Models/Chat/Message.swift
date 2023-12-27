@@ -58,11 +58,15 @@ struct Message: Identifiable {
 
         return counts.map { (reaction: $0.key, count: $0.value) }
     }
+    
+    func makeReplyFromSelf() -> ReplyMessageAttrs {
+        .init(from: .init(avatar: from.avatar, id: from.id, login: from.avatar), id: id, text: text, type: .case(type))
+    }
 }
 
 extension Message {
-    
-    static let mockReply = Message(id: UUID().uuidString, from: .mock, type: .message, text: "Message", replyMessage: .init(id: UUID().uuidString, text: "Message 2", userName: "Nik"))
+ 
+    static let mockReply = Message(id: UUID().uuidString, from: .mock, type: .message, text: "Message", replyMessage: .init(from: .init(login: "Nik"), id: "1", text: "Reply message", type: .case(.message)))
     
     static let mockMessage = Message(id: UUID().uuidString, from: .mock, type: .message, text: "Message", replyMessage: nil)
     

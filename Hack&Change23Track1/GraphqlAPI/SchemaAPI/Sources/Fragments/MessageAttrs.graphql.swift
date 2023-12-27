@@ -151,9 +151,10 @@ public struct MessageAttrs: SchemaAPI.SelectionSet, Fragment {
       .fragment(ReplyMessageAttrs.self),
     ] }
 
+    public var from: From? { __data["From"] }
     public var id: String? { __data["Id"] }
     public var text: String? { __data["Text"] }
-    public var userName: String? { __data["UserName"] }
+    public var type: GraphQLEnum<SchemaAPI.MessageType>? { __data["Type"] }
 
     public struct Fragments: FragmentContainer {
       public let __data: DataDict
@@ -163,22 +164,65 @@ public struct MessageAttrs: SchemaAPI.SelectionSet, Fragment {
     }
 
     public init(
+      from: From? = nil,
       id: String? = nil,
       text: String? = nil,
-      userName: String? = nil
+      type: GraphQLEnum<SchemaAPI.MessageType>? = nil
     ) {
       self.init(_dataDict: DataDict(
         data: [
           "__typename": SchemaAPI.Objects.ReplyMessage.typename,
+          "From": from._fieldData,
           "Id": id,
           "Text": text,
-          "UserName": userName,
+          "Type": type,
         ],
         fulfilledFragments: [
           ObjectIdentifier(MessageAttrs.ReplyMessage.self),
           ObjectIdentifier(ReplyMessageAttrs.self)
         ]
       ))
+    }
+
+    /// ReplyMessage.From
+    ///
+    /// Parent Type: `User`
+    public struct From: SchemaAPI.SelectionSet {
+      public let __data: DataDict
+      public init(_dataDict: DataDict) { __data = _dataDict }
+
+      public static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.User }
+
+      public var avatar: String? { __data["Avatar"] }
+      public var id: String? { __data["Id"] }
+      public var login: String? { __data["Login"] }
+
+      public struct Fragments: FragmentContainer {
+        public let __data: DataDict
+        public init(_dataDict: DataDict) { __data = _dataDict }
+
+        public var messageUserAttrs: MessageUserAttrs { _toFragment() }
+      }
+
+      public init(
+        avatar: String? = nil,
+        id: String? = nil,
+        login: String? = nil
+      ) {
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": SchemaAPI.Objects.User.typename,
+            "Avatar": avatar,
+            "Id": id,
+            "Login": login,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(MessageAttrs.ReplyMessage.From.self),
+            ObjectIdentifier(MessageUserAttrs.self),
+            ObjectIdentifier(ReplyMessageAttrs.From.self)
+          ]
+        ))
+      }
     }
   }
 }

@@ -7,23 +7,27 @@ public class SendReactionMutation: GraphQLMutation {
   public static let operationName: String = "SendReaction"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation SendReaction($roomId: String!, $reaction: String!) { SendReaction(RoomId: $roomId, Reaction: $reaction) }"#
+      #"mutation SendReaction($messageId: String!, $reaction: String!, $roomId: String!) { SendReaction(MessageId: $messageId, Reaction: $reaction, RoomId: $roomId) }"#
     ))
 
-  public var roomId: String
+  public var messageId: String
   public var reaction: String
+  public var roomId: String
 
   public init(
-    roomId: String,
-    reaction: String
+    messageId: String,
+    reaction: String,
+    roomId: String
   ) {
-    self.roomId = roomId
+    self.messageId = messageId
     self.reaction = reaction
+    self.roomId = roomId
   }
 
   public var __variables: Variables? { [
-    "roomId": roomId,
-    "reaction": reaction
+    "messageId": messageId,
+    "reaction": reaction,
+    "roomId": roomId
   ] }
 
   public struct Data: SchemaAPI.SelectionSet {
@@ -33,8 +37,9 @@ public class SendReactionMutation: GraphQLMutation {
     public static var __parentType: ApolloAPI.ParentType { SchemaAPI.Objects.RootMutationType }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("SendReaction", Bool?.self, arguments: [
-        "RoomId": .variable("roomId"),
-        "Reaction": .variable("reaction")
+        "MessageId": .variable("messageId"),
+        "Reaction": .variable("reaction"),
+        "RoomId": .variable("roomId")
       ]),
     ] }
 

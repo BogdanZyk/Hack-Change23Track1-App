@@ -112,7 +112,7 @@ extension RoomChatView {
         private var replyMessage: some View {
             if let reply = message.replyMessage {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(reply.userName ?? "")
+                    Text(reply.from?.login ?? "")
                         .fontWeight(.semibold)
                     Text(reply.text ?? "")
                 }

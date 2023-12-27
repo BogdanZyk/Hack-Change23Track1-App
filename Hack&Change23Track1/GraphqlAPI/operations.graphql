@@ -148,20 +148,17 @@ mutation HideMessage($roomId: String!, $messageId: String!) {
   HideMessage(RoomId: $roomId, MessageId: $messageId)
 }
 
-mutation SendReaction($roomId: String!, $reaction: String!) {
-  SendReaction(RoomId: $roomId, Reaction: $reaction)
+mutation SendReaction($messageId: String!, $reaction: String!, $roomId: String!) {
+  SendReaction(MessageId: $messageId, Reaction: $reaction, RoomId: $roomId)
 }
 
 mutation SendRoomReaction($roomId: String!) {
   SendRoomReaction(RoomId: $roomId)
 }
 
-query GetLastMessages($roomId: String!) {
-  GetLastMessages(RoomId: $roomId) {
-    Message {
-      ...MessageAttrs
-    }
-    RoomReaction
+query GetMessages($roomId: String!) {
+  GetMessages(RoomId: $roomId) {
+    ...MessageAttrs
   }
 }
 
@@ -171,10 +168,10 @@ fragment MessageAttrs on Message {
   }
   Id
   Reactions {
-   ...ReactionMessageAttrs
+    ...ReactionMessageAttrs
   }
   ReplyMessage {
-  ...ReplyMessageAttrs
+    ...ReplyMessageAttrs
   }
   Text
   Type
@@ -188,9 +185,12 @@ fragment ReactionMessageAttrs on ReactionMessage {
 }
 
 fragment ReplyMessageAttrs on ReplyMessage {
-    Id
-    Text
-    UserName
+  From {
+    ...MessageUserAttrs
+  }
+  Id
+  Text
+  Type
 }
 
 fragment MessageUserAttrs on User {

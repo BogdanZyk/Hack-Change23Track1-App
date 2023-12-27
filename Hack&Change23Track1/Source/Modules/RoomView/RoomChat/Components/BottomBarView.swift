@@ -22,7 +22,7 @@ struct BottomBarView: View {
                         Image(systemName: "arrowshape.turn.up.left.fill")
                             .font(.title3)
                         VStack(alignment: .leading, spacing: 1){
-                            Text(replyMessage.userName ?? "").bold()
+                            Text(replyMessage.from?.login ?? "").bold()
                             Text(replyMessage.text ?? "")
                         }
                     }
@@ -42,7 +42,7 @@ struct BottomBarView: View {
 
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarView(text: .constant("123"), replyMessage: .init(id: "1", text: "test", userName: "nik"),  onSend: { _, _ in })
+        BottomBarView(text: .constant("123"), replyMessage: .init(),  onSend: { _, _ in })
     }
 }
 

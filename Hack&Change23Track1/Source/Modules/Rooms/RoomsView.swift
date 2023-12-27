@@ -78,7 +78,6 @@ extension RoomsView {
         RoomRowView(room: room)
             .onTapGesture {
                 appRouter.setPath(to: .room(room))
-//                screen = .room(room)
             }
             .contextMenu {
                 Button("Remove", role: .destructive) {
